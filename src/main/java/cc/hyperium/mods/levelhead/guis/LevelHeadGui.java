@@ -43,8 +43,11 @@ import net.minecraftforge.fml.client.config.GuiSlider;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.input.Keyboard;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,9 +108,6 @@ public class LevelHeadGui extends GuiScreen {
             config.setShowSelf(!config.isShowSelf());
             button.displayString = "Show self: " + (config.isShowSelf() ? ChatColor.GREEN + "On" : ChatColor.RED + "Off");
         });
-        //RGB -> Chroma
-        //Chroma -> Classic
-        //Classic -> RGB
         reg(new GuiButton(2, this.width / 2 - 155, calculateHeight(4), 150, 20, "Header Mode: " + getMode(true)), button -> {
             if (config.isHeaderRgb()) {
                 config.setHeaderRgb(false);
@@ -181,7 +181,6 @@ public class LevelHeadGui extends GuiScreen {
             Hyperium.INSTANCE.getModIntegration().getLevelhead().levelCache.clear();
         });
 
-        //public GuiSlider(int id, int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, ISlider par)
         regSlider(new GuiSlider(6, this.width / 2 - 155, calculateHeight(5), 150, 20, "Header Red: ", "", 0, 255, config.getHeaderRed(), false, true, slider -> {
             config.setHeaderRed(slider.getValueInt());
             updatePeopleToValues();
@@ -218,10 +217,14 @@ public class LevelHeadGui extends GuiScreen {
     private void updateCustom() {
         lock.lock();
         reg(new GuiButton(13, this.width / 2 - 155, this.height - 44, 310, 20, (isCustom ? ChatColor.YELLOW + "Click to change custom Levelhead." : ChatColor.YELLOW + "Click to purchase a custom Levelhead message")), button -> {
-            if (isCustom) {
-                Hyperium.getJailbreak().getBrowseUtil().BrowseURI("https://sk1er.club/user");
-            } else {
-                Hyperium.getJailbreak().getBrowseUtil().BrowseURI("https://sk1er.club/customlevelhead");
+            try {
+	            if (isCustom) {
+	                Desktop.getDesktop().browse(new URI("https://sk1er.club/user"));
+	            } else {
+	                Desktop.getDesktop().browse(new URI("https://sk1er.club/customlevelhead"));
+	            }
+	        } catch (IOException | URISyntaxException e) {
+	            e.printStackTrace();
             }
         });
         if (isCustom) {
