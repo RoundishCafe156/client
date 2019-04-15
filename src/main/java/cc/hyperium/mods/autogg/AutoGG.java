@@ -9,21 +9,13 @@ import cc.hyperium.mods.autogg.config.AutoGGConfig;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.utils.ChatColor;
 import org.apache.commons.io.IOUtils;
-
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * The AutoGG mod by 2pi
- *
- * @author 2Pi, Amplifiable, boomboompower
- */
 public class AutoGG extends AbstractMod {
-
-    // Static woo
     private static List<String> triggers;
     private final Metadata meta;
     private AutoGGConfig config;
@@ -32,9 +24,7 @@ public class AutoGG extends AbstractMod {
     public AutoGG() {
         Metadata metadata = new Metadata(this, "AutoGG", "2.0", "2Pi");
         metadata.setDisplayName(ChatColor.GOLD + "AutoGG");
-
         this.meta = metadata;
-
         this.running = false;
     }
 
@@ -53,7 +43,6 @@ public class AutoGG extends AbstractMod {
                     new URL("https://raw.githubusercontent.com/HyperiumClient/Hyperium-Repo/master/files/triggers.txt"),
                     Charset.forName("UTF-8")
                 );
-
                 triggers = new ArrayList<>(Arrays.asList(rawTriggers.split("\n")));
             } catch (Exception e) {
                 e.printStackTrace();
