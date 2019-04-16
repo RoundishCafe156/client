@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiInventory.class)
 public class MixinGuiInventory {
-
     @Inject(method = "actionPerformed", at = @At("HEAD"))
     public void actionPerformed(GuiButton button, CallbackInfo info) {
         EventBus.INSTANCE.post(new ActionPerformedEvent((GuiScreen) (Object) this, button));
