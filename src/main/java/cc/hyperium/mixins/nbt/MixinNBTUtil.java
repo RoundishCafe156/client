@@ -8,16 +8,10 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.StringUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-
 import java.util.UUID;
 
 @Mixin(NBTUtil.class)
 public class MixinNBTUtil {
-
-    /**
-     * @author Sk1er
-     * @reason Not proper null checks
-     */
     @Overwrite
     public static GameProfile readGameProfileFromNBT(NBTTagCompound compound) {
         String s = null;
@@ -35,11 +29,11 @@ public class MixinNBTUtil {
             return null;
         } else {
             UUID uuid = null;
-            if (s1 != null)
+            if (s1 != null) {
                 try {
                     uuid = UUID.fromString(s1);
-                } catch (Throwable ignored) {
-                }
+                } catch (Throwable ignored) {}
+            }
 
             GameProfile gameprofile = new GameProfile(uuid, s);
 
@@ -61,7 +55,6 @@ public class MixinNBTUtil {
                     }
                 }
             }
-
             return gameprofile;
         }
     }
