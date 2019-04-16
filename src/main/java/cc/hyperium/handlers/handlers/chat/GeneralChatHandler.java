@@ -23,7 +23,6 @@ import cc.hyperium.event.TickEvent;
 import cc.hyperium.utils.ChatColor;
 import cc.hyperium.utils.JsonHolder;
 import cc.hyperium.config.Settings;
-import cc.hyperium.config.ConfigOpt;
 import com.google.gson.JsonParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -48,23 +47,11 @@ public class GeneralChatHandler {
         instance = this;
     }
 
-    /**
-     * Queues a {@link IChatComponent} to send to the client. If the component is null,
-     * an empty message will be queued instead.
-     *
-     * @param component the component to send.
-     */
     public void sendMessage(IChatComponent component) {
         if (component == null) component = new ChatComponentText("");
         this.messages.add(component);
     }
 
-    /**
-     * Queues a message to be sent to the client. If the message is null, this will be ignored.
-     *
-     * @param message   the message to send to the client (can never be null)
-     * @param addHeader if true, the message will show a Hyperium prefix before it
-     */
     public void sendMessage(String message, boolean addHeader) {
         if (message == null) return;
 
@@ -78,12 +65,6 @@ public class GeneralChatHandler {
         sendMessage(new ChatComponentText(message));
     }
 
-    /**
-     * Queues a message to send to the client, this message will contain a Hyperium prefix.
-     * If the message is null, nothing will be queued.
-     *
-     * @param message the message to send to the client
-     */
     public void sendMessage(String message) {
         sendMessage(message, true);
     }
@@ -144,21 +125,10 @@ public class GeneralChatHandler {
         }
     }
 
-    /**
-     * Returns a completely stripped message from a {@link IChatComponent}
-     *
-     * @param component the component to strip
-     * @return a message completely stripped of all color codes
-     */
     public static String strip(IChatComponent component) {
         return ChatColor.stripColor(component.getUnformattedText());
     }
 
-    /**
-     * Returns this Chat Handlers instance, can be used anywhere.
-     *
-     * @return the classes instance
-     */
     public static GeneralChatHandler instance() {
         return instance;
     }
