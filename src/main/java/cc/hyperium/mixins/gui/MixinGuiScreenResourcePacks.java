@@ -13,16 +13,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author KodingKing
- */
 @Mixin(GuiScreenResourcePacks.class)
 public class MixinGuiScreenResourcePacks extends GuiScreen {
-
     @Shadow
     private GuiResourcePackAvailable availableResourcePacksList;
 
@@ -39,10 +34,6 @@ public class MixinGuiScreenResourcePacks extends GuiScreen {
 
     private GuiTextField searchField;
 
-    /**
-     * @reason Change buttons size
-     * @author SiroQ
-     */
     @Inject(method = "initGui", at = @At("RETURN"))
     public void initGui(CallbackInfo callbackInfo) {
         hyperiumGuiResourcePack.initGui(this.buttonList);
@@ -55,11 +46,7 @@ public class MixinGuiScreenResourcePacks extends GuiScreen {
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
-
-        if (this.searchField != null) {
-            this.searchField.textboxKeyTyped(typedChar, keyCode);
-        }
-
+        if (this.searchField != null) this.searchField.textboxKeyTyped(typedChar, keyCode);
         updateList();
     }
 
@@ -71,10 +58,6 @@ public class MixinGuiScreenResourcePacks extends GuiScreen {
         updateList();
     }
 
-    /**
-     * @reason Change text location
-     * @author SiroQ
-     */
     @Overwrite
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         hyperiumGuiResourcePack.drawScreen(availableResourcePacksList, selectedResourcePacksList, mouseX, mouseY, partialTicks, fontRendererObj, searchField, width);
