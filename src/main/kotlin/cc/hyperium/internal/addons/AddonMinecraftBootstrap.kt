@@ -4,15 +4,7 @@ import cc.hyperium.Hyperium
 import cc.hyperium.internal.addons.misc.AddonLoadException
 import java.util.concurrent.ConcurrentHashMap
 
-/**
- * Instance created on the classloader {@link net.minecraft.launchwrapper.LaunchClassLoader}
- *
- * @since 1.0
- * @author Kevin Brewster
- */
 object AddonMinecraftBootstrap {
-
-
     @JvmStatic
     val LOADED_ADDONS = ArrayList<IAddon>()
         @JvmName("getLoadedAddons") get
@@ -28,14 +20,6 @@ object AddonMinecraftBootstrap {
     val DEPENDENCIES_LOOP_MAP = ConcurrentHashMap<AddonManifest, ArrayList<AddonManifest>>()
         @JvmName("getDependenciesLoopMap") get
 
-    /**
-     * The <i>init</i> phase of the bootstrap where the
-     * instances are created and loaded to {@link me.kbrewster.blazeapi.BlazeAPI#LOADED_ADDONS}
-     * and then sets the phase to {@link Phase#DEFAULT}.
-     *
-     * This should be called when <i>Minecraft</i> is starting
-     * In this case we use the start of {@link net.minecraft.client.Minecraft#init}
-     */
     @JvmStatic
     fun init() {
         try {
@@ -177,8 +161,6 @@ object AddonMinecraftBootstrap {
             LOADED_ADDONS.addAll(loaded)
             LOADED_ADDONS.forEach(IAddon::onLoad)
             AddonBootstrap.phase = AddonBootstrap.Phase.DEFAULT
-        } catch (e: Exception) {
-        }
+        } catch (ignored: Exception) {}
     }
-
 }
