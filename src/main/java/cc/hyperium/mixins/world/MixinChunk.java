@@ -36,13 +36,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import java.util.List;
 import java.util.Map;
 
 @Mixin(Chunk.class)
 public class MixinChunk {
-
     @Shadow
     @Final
     private static Logger logger;
@@ -75,34 +73,16 @@ public class MixinChunk {
 
     private HyperiumChunk hyperiumChunk = new HyperiumChunk();
 
-    /**
-     * Used in fullbright module
-     *
-     * @param ci
-     * @param type
-     * @param pos
-     */
     @Inject(method = "getLightFor", at = @At("HEAD"), cancellable = true)
     private void getLightFor(EnumSkyBlock type, BlockPos pos, CallbackInfoReturnable<Integer> ci) {
         hyperiumChunk.getLightFor(type, pos, ci);
     }
 
-
-    /**
-     * Used in fullbright module
-     *
-     * @param pos
-     * @param amount
-     */
     @Inject(method = "getLightSubtracted", at = @At("HEAD"), cancellable = true)
     private void getLightSubtracted(BlockPos pos, int amount, CallbackInfoReturnable<Integer> ci) {
         hyperiumChunk.getLightSubtracted(pos, amount, ci);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     public void onChunkLoad() {
         this.isChunkLoaded = true;
@@ -119,10 +99,6 @@ public class MixinChunk {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     public void onChunkUnload() {
         synchronized (entityLists) {
@@ -138,10 +114,6 @@ public class MixinChunk {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     public void addEntity(Entity entityIn) {
         synchronized (entityLists) {
@@ -172,10 +144,6 @@ public class MixinChunk {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     public void removeEntityAtIndex(Entity entityIn, int p_76608_2_) {
         synchronized (entityLists) {
@@ -191,10 +159,6 @@ public class MixinChunk {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, com.google.common.base.Predicate<? super Entity> p_177414_4_) {
         synchronized (entityLists) {
@@ -229,10 +193,6 @@ public class MixinChunk {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     public <T extends Entity> void getEntitiesOfTypeWithinAAAB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> p_177430_4_) {
         synchronized (entityLists) {
