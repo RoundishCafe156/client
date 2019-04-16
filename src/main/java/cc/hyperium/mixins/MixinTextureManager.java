@@ -52,73 +52,41 @@ public abstract class MixinTextureManager {
     @Final
     private List<ITickable> listTickables;
 
-    /**
-     * @author Sk1er
-     * @reason Broken dynamic textures
-     */
     @Overwrite
     public boolean loadTexture(ResourceLocation textureLocation, ITextureObject textureObj) {
         return hyperiumTextureManager.loadTexture(textureLocation, textureObj, theResourceManager, logger);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Fix purple screen
-     */
     @Overwrite
     public boolean loadTickableTexture(ResourceLocation textureLocation, ITickableTextureObject textureObj) {
         return hyperiumTextureManager.loadTickableTexture(textureLocation, textureObj, listTickables);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Broken dynamic textures
-     */
     @Overwrite
     public ResourceLocation getDynamicTextureLocation(String name, DynamicTexture texture) {
         return hyperiumTextureManager.getDynamicTextureLocation(name, texture, mapTextureCounters);
     }
 
-    /**
-     * @author Sk1er and Mojang
-     * @reason Add lock on cape loading to prevent concurrent modification exception in texture manager
-     */
     @Overwrite
     public void onResourceManagerReload(IResourceManager resourceManager) {
         hyperiumTextureManager.onResourceManagerReload(resourceManager);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Conciliate texture hashmap to 1 object.
-     */
     @Overwrite
     public void bindTexture(ResourceLocation resource) {
         hyperiumTextureManager.bindTexture(resource);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Conciliate texture hashmap to 1 object.
-     */
     @Overwrite
     public ITextureObject getTexture(ResourceLocation textureLocation) {
         return hyperiumTextureManager.getTexture(textureLocation);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Conciliate texture hashmap to 1 object.
-     */
     @Overwrite
     public void tick() {
         hyperiumTextureManager.tick(listTickables);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Conciliate texture hashmap to 1 object.
-     */
     @Overwrite
     public void deleteTexture(ResourceLocation textureLocation) {
         hyperiumTextureManager.deleteTexture(textureLocation);
