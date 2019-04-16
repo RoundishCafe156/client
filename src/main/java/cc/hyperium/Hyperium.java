@@ -72,9 +72,7 @@ import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.lang.SuppressWarnings;
 
-@SuppressWarnings("unused")
 public class Hyperium {
     public static final Hyperium INSTANCE = new Hyperium();
     public static final Logger LOGGER = LogManager.getLogger(Metadata.getModid());

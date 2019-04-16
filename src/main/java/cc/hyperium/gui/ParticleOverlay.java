@@ -251,13 +251,11 @@ public class ParticleOverlay {
                 int potentialMax = Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu ? 255 : 150;
                 for (Particle particle1 : particles) {
                     double v = particle.distSqTo(particle1);
-                    //Threshold for line
                     if (v < 0.02) {
                         double lineStrength = Math.min(10000.0D, 1.0D / v) / 100D;
                         float x2 = ((float) ResolutionUtil.current().getScaledWidth_double()) * particle1.x;
                         float y2 = ((float) ResolutionUtil.current().getScaledHeight_double()) * particle1.y;
                         double alpha = 100 + ((0.02 / 155) * v);
-//
                         boolean flag = false;
                         if (((v1 >= guiLeft && v1 <= guiRight) || (x2 >= guiLeft && x2 <= guiRight))
                             && ((v2 >= guiTop && v2 <= guiBottom) || (y2 >= guiTop && y2 <= guiBottom))) {
@@ -333,10 +331,10 @@ public class ParticleOverlay {
     }
 
     class Particle {
-        float x;
-        float y;
-        float xVec;
-        float yVec;
+        private float x;
+        private float y;
+        private float xVec;
+        private float yVec;
 
         public Particle() {
             x = (float) ThreadLocalRandom.current().nextDouble(0, 1);
@@ -347,7 +345,6 @@ public class ParticleOverlay {
         public void regenerateVector() {
             xVec = (float) ThreadLocalRandom.current().nextDouble(-.003, .003);
             yVec = (float) ThreadLocalRandom.current().nextDouble(-.003, .003);
-
         }
 
         public void update() {
@@ -364,7 +361,7 @@ public class ParticleOverlay {
 
         }
 
-        public double distSqTo(Particle other) {
+        private double distSqTo(Particle other) {
             return Math.pow(other.x - this.x, 2) + Math.pow(other.y - this.y, 2);
         }
 
