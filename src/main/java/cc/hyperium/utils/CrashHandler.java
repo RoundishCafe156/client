@@ -2,7 +2,6 @@ package cc.hyperium.utils;
 
 import cc.hyperium.installer.components.HScrollBarUI;
 import cc.hyperium.installer.components.VScrollBarUI;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +9,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-/*
- * Created by Cubxity on 19/07/2018
- */
 @SuppressWarnings("unused")
 public class CrashHandler {
     // DON'T TOUCH THIS
@@ -81,9 +77,5 @@ public class CrashHandler {
         UIManager.put("ScrollBar.width", 5);
 
         dialog.repaint();
-    }
-
-    public static void main(String[] args) {
-        handle(new Exception("ESSKEETIT")); // TEST
     }
 }
