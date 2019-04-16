@@ -51,21 +51,11 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
         super(worldIn, playerProfile);
     }
 
-    /**
-     * Uses server-side hit registration, instead of on the client
-     *
-     * @author boomboompower
-     * @reason fixes a client-side particle issue
-     */
     @Overwrite
     public void onEnchantmentCritical(Entity entityHit) {
         hyperiumEntityPlayerSP.onEnchantmentCritical(entityHit, this.mc);
     }
 
-    /**
-     * @author False Honesty & Sk1er
-     * @reason Post SendChatMessageEvent & NickHider
-     */
     @Overwrite
     public void sendChatMessage(String message) {
         NickHider instance = NickHider.INSTANCE;
@@ -80,21 +70,11 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
-    /**
-     * Uses server-side hit registration, instead of on the client
-     *
-     * @author boomboompower
-     * @reason fixes a client-side particle issue
-     */
     @Overwrite
     public void onCriticalHit(Entity entityHit) {
         hyperiumEntityPlayerSP.onCriticalHit(entityHit, mc);
     }
 
-    /**
-     * @reason Fix MC-7519
-     * @author SiroQ
-     */
     @Override
     public void removePotionEffectClient(int potionId) {
         if (potionId == Potion.confusion.id) {

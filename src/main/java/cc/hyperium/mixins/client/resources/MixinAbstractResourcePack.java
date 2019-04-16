@@ -40,10 +40,6 @@ public abstract class MixinAbstractResourcePack implements IResourcePack {
 
     private HyperiumAbstractResourcePack hyperiumAbstractResourcePack = new HyperiumAbstractResourcePack((AbstractResourcePack) (Object) this);
 
-    /**
-     * @author prplz
-     * @reason Scale the pack image down to reduce memory usage
-     */
     @Overwrite
     public BufferedImage getPackImage() throws IOException {
         return hyperiumAbstractResourcePack.getPackImage(IconSize);

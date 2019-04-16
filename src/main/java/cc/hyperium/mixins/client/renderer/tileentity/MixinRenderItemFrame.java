@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RenderItemFrame.class)
 public class MixinRenderItemFrame {
-
     private HyperiumRenderItemFrame hyperiumRenderItemFrame = new HyperiumRenderItemFrame();
 
     @Inject(method = "doRender", at = @At("HEAD"), cancellable = true)

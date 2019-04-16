@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(NetworkPlayerInfo.class)
 public abstract class MixinNetworkPlayerInfo {
-
     @Shadow
     @Final
     private GameProfile gameProfile;
@@ -40,20 +39,11 @@ public abstract class MixinNetworkPlayerInfo {
 
     private HyperiumNetworkPlayerInfo hyperiumNetworkPlayerInfo = new HyperiumNetworkPlayerInfo((NetworkPlayerInfo) (Object) this);
 
-    /**
-     * @author - boomboompower
-     * @reason - Allow for better cape customization
-     */
     @Overwrite
     public ResourceLocation getLocationCape() {
         return hyperiumNetworkPlayerInfo.getLocationCape(this.gameProfile, this.locationCape);
     }
 
-    /**
-     *
-     * @author - boomboompower
-     * @reason - Allow for better skin customization
-     */
     @Overwrite
     public ResourceLocation getLocationSkin() {
         return hyperiumNetworkPlayerInfo.getLocationSkin(gameProfile, locationSkin);

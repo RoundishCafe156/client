@@ -66,10 +66,6 @@ public abstract class MixinEntityRenderer {
         HyperiumEntityRenderer.INSTANCE.isUsingShader = this.shaderIndex != shaderCount;
     }
 
-    /**
-     * @author CoalOres
-     * @reason 360 Perspective
-     */
     @Overwrite
     private void orientCamera(float partialTicks) {
         hyperiumEntityRenderer.orientCamera(partialTicks, this.thirdPersonDistanceTemp, this.thirdPersonDistance, this.cloudFog, this.mc);
@@ -90,10 +86,6 @@ public abstract class MixinEntityRenderer {
         hyperiumEntityRenderer.updatePerspectiveCamera();
     }
 
-    /**
-     * @author Sk1er
-     * @reason ReachDisplay
-     */
     @Overwrite
     public void getMouseOver(float partialTicks) {
         Entity entity = this.mc.getRenderViewEntity();

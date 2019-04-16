@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RenderFish.class)
 public class MixinRenderFish {
-
     private HyperiumRenderFish hyperiumRenderFish = new HyperiumRenderFish((RenderFish) (Object) this);
 
     @Inject(method = "doRender", at = @At("HEAD"))

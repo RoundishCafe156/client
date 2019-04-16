@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RenderLightningBolt.class)
 public class MixinRenderLightningBolt {
-
     private HyperiumRenderLightningBolt hyperiumRenderLightningBolt = new HyperiumRenderLightningBolt();
 
     @Inject(method = "doRender", at = @At("HEAD"), cancellable = true)

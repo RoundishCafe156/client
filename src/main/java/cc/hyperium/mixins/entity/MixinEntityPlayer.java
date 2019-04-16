@@ -71,19 +71,11 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IMix
         hyperiumEntityPlayer.attackTargetEntityWithCurrentItem(targetEntity);
     }
 
-    /**
-     * @author CoalOres
-     * @reason 1.7 Sneaking Animation
-     */
     @Overwrite
     public float getEyeHeight() {
         return hyperiumEntityPlayer.getEyeHeight();
     }
 
-    /**
-     * @author Sk1er
-     * @reason Get the users username
-     */
     @Overwrite
     public IChatComponent getDisplayName() {
         return hyperiumEntityPlayer.getDisplayName();

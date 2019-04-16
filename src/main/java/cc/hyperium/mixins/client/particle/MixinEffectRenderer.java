@@ -40,9 +40,6 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * Created by mitchellkatz on 6/24/18. Designed for production use on Sk1er.club
- */
 @Mixin(EffectRenderer.class)
 public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
 
@@ -53,7 +50,7 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
     protected World worldObj;
     @Shadow
     private Map<Integer, IParticleFactory> particleTypes;
-    //its not happy about this but we can't do better because Minecraft
+    // its not happy about this but we can't do better because Minecraft
     private ConcurrentLinkedQueue<EntityFX>[][] modifiedFxLayer = new ConcurrentLinkedQueue[4][];
     private ConcurrentLinkedQueue<EntityParticleEmitter> modifiedParticlEmmiters = new ConcurrentLinkedQueue<>();
     @Shadow
@@ -73,24 +70,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Improved Particle Handler
-     */
-    @Overwrite
-    private void moveToLayer(EntityFX effect, int p_178924_2_, int p_178924_3_) {
-        for (int i = 0; i < 4; ++i) {
-            if (this.modifiedFxLayer[i][p_178924_2_].contains(effect)) {
-                this.modifiedFxLayer[i][p_178924_2_].remove(effect);
-                this.modifiedFxLayer[i][p_178924_3_].add(effect);
-            }
-        }
-    }
-
-    /**
-     * @author Sk1er
-     * @reason Fix NPE
-     */
     @Overwrite
     private void tickParticle(EntityFX p_178923_1_) {
         if (p_178923_1_ == null)
@@ -109,10 +88,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason add concurrency
-     */
     @Overwrite
     private void updateEffectLayer(int p_178922_1_) {
         for (int i = 0; i < 2; ++i) {
@@ -166,28 +141,15 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
                     latch.countDown();
                 });
             }
-//            try {
-//                latch.await();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
         } else queue.forEach(this::tickParticle);
         queue.removeIf(entityFX -> entityFX.isDead);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Concurrency
-     */
     @Overwrite
     public void emitParticleAtEntity(Entity entityIn, EnumParticleTypes particleTypes) {
         this.modifiedParticlEmmiters.add(new EntityParticleEmitter(this.worldObj, entityIn, particleTypes));
     }
 
-    /**
-     * @author Sk1er
-     * @reason Concurrency
-     */
     @Overwrite
     public void addEffect(EntityFX effect) {
         int i = effect.getFXLayer();
@@ -200,10 +162,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         this.modifiedFxLayer[i][j].add(effect);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Support concurrent
-     */
     @Overwrite
     public void renderLitParticles(Entity entityIn, float p_78872_2_) {
         float f = 0.017453292F;
@@ -226,10 +184,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Concurrency
-     */
     @Overwrite
     public void clearEffects(World worldIn) {
         this.worldObj = worldIn;
@@ -243,10 +197,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         this.modifiedParticlEmmiters.clear();
     }
 
-    /**
-     * @author Sk1er
-     * @reason Concurrency
-     */
     @Overwrite
     public String getStatistics() {
         int i = 0;
@@ -256,14 +206,9 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
                 i += this.modifiedFxLayer[j][k].size();
             }
         }
-
         return "" + i;
     }
 
-    /**
-     * @author Sk1er
-     * @reason add concurrency
-     */
     @Overwrite
     public void updateEffects() {
         Settings.IMPROVE_PARTICLE_RUN = Settings.IMPROVE_PARTICLES;
@@ -286,11 +231,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         modifiedParticlEmmiters.removeIf(entityParticleEmitter -> entityParticleEmitter.isDead);
     }
 
-
-    /**
-     * @author Sk1er
-     * @reason fix NPE
-     */
     @Overwrite
     public void renderParticles(Entity entityIn, float partialTicks) {
         float f = ActiveRenderInfo.getRotationX();

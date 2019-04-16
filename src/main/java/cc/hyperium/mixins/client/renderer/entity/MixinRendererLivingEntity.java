@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RendererLivingEntity.class)
 public abstract class MixinRendererLivingEntity<T extends EntityLivingBase> extends Render<T> {
-
     private HyperiumRendererLivingEntity<T> hyperiumRendererLivingEntity = new HyperiumRendererLivingEntity<>(renderManager);
 
     protected MixinRendererLivingEntity(RenderManager renderManager) {

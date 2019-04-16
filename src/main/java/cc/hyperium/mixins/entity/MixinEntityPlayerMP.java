@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerMP.class)
 public class MixinEntityPlayerMP {
-
     private HyperiumEntityPlayerMP hyperiumEntityPlayerMP = new HyperiumEntityPlayerMP((EntityPlayerMP) (Object) this);
 
     @Inject(method = "onDeath", at = @At("HEAD"))
