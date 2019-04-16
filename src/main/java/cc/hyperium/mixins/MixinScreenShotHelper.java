@@ -24,27 +24,19 @@ import net.minecraft.util.ScreenShotHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-
 import java.io.File;
 import java.nio.IntBuffer;
 
 @Mixin(ScreenShotHelper.class)
 class MixinScreenShotHelper {
-
     @Shadow
     private static IntBuffer pixelBuffer;
 
     @Shadow
     private static int[] pixelValues;
 
-    /**
-     * @author Kevin Brewster, Orange Marhsall, Mojang
-     * @reason Saves a screenshot in the game directory with the given file name (or null to generate a time-stamped name).
-     * Fixes MC-113208 and MC-117793
-     */
     @Overwrite
     public static IChatComponent saveScreenshot(File gameDirectory, String screenshotName, int width, int height, Framebuffer buffer) {
         return HyperiumScreenshotHelper.saveScreenshot(gameDirectory, screenshotName, width, height, buffer, pixelBuffer, pixelValues);
     }
-
 }
