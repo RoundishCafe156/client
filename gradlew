@@ -97,7 +97,7 @@ if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
 fi
 
 # For osx add options to specify how the application appears in the dock
-if [ $darwin == true]; then
+if [ $darwin == true ]; then
     GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=Gradle\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
 fi
 

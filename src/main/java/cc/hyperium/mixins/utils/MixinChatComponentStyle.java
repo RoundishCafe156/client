@@ -23,7 +23,6 @@ public abstract class MixinChatComponentStyle implements IChatComponent {
         hyperiumChatComponentStyle.invalidateCache();
     }
 
-
     @Inject(method = "getFormattedText", at = @At("HEAD"), cancellable = true)
     public void getFormatedTextHeader(CallbackInfoReturnable<String> string) {
         hyperiumChatComponentStyle.getFormatedTextHeader(string);
@@ -33,5 +32,4 @@ public abstract class MixinChatComponentStyle implements IChatComponent {
     public void getFormatedTextReturn(CallbackInfoReturnable<String> string) {
         hyperiumChatComponentStyle.getFormatedTextReturn(string);
     }
-
 }

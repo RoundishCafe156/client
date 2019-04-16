@@ -21,25 +21,11 @@ import org.apache.commons.lang3.StringUtils;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * A simple interface which allows a built-in mod
- * to be turned on and off by the user
- */
 public abstract class AbstractMod {
-    /**
-     * The init method where all events and commands should
-     * be registered. Use this to load configs as well
-     *
-     * @return the {@link AbstractMod} instance of the mod
-     */
     public abstract AbstractMod init();
 
     public abstract Metadata getModMetadata();
 
-    /**
-     * The Metadata implementation, created to identify built-in
-     * addons and their other information. For upcoming features
-     */
     public class Metadata {
 
         private final AbstractMod mod;
@@ -57,14 +43,6 @@ public abstract class AbstractMod {
             this(mod, name, version, "");
         }
 
-        /**
-         * The best constructor for the Metadata, contains all the useful data
-         *
-         * @param mod     the mod instance
-         * @param name    the mod identifier
-         * @param version the mod version
-         * @param author  the mod author
-         */
         public Metadata(AbstractMod mod, String name, String version, String author) {
             checkNotNull(mod, "Mod instance cannot be null");
             checkArgument(!StringUtils.isEmpty(name), "Name cannot be null or empty (" + name + ")");
@@ -78,56 +56,26 @@ public abstract class AbstractMod {
             this.displayName = name;
         }
 
-        /**
-         * Get the mod instance
-         *
-         * @return the mod instance
-         */
         public AbstractMod getMod() {
             return this.mod;
         }
 
-        /**
-         * Get the identifier of the mod
-         *
-         * @return the identifier for the mod
-         */
         public String getName() {
             return this.name != null ? this.name : "";
         }
 
-        /**
-         * Get the version of the mod
-         *
-         * @return the mod version
-         */
         public String getVersion() {
             return this.version;
         }
 
-        /**
-         * Get the author of the mod
-         *
-         * @return the author of the mod
-         */
         public String getAuthor() {
             return this.author != null ? this.author : "";
         }
 
-        /**
-         * Get the mods display name
-         *
-         * @return the display name
-         */
         public String getDisplayName() {
             return this.displayName != null ? this.displayName : getName();
         }
 
-        /**
-         * Set the mods display name for the configuration menu
-         *
-         * @param name the display name to be set
-         */
         public void setDisplayName(String name) {
             this.displayName = name;
         }

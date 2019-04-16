@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -38,10 +37,6 @@ public abstract class MixinClassInheritanceMultiMap<T> extends AbstractSet<T> {
         }
     }
 
-    /**
-     * @author Sk1er
-     * @reason Add concurrent
-     */
     @Overwrite
     protected void createLookup(Class<?> clazz) {
         field_181158_a1.add(clazz);

@@ -53,14 +53,6 @@ public abstract class MixinRenderPlayer extends RendererLivingEntity<AbstractCli
     @Shadow
     public abstract ModelPlayer getMainModel();
 
-    /**
-     * Not using the normal armor layer, but a slightly modified one. This is done
-     * to prevent weird rendering bugs because of armor being on different layers in
-     * the textures. These bugs were caused because the armor needs to be slit up in
-     * two for the knees and elbows
-     *
-     * @author 9Y0
-     */
     @SuppressWarnings("unchecked")
     @ModifyArg(method = "<init>(Lnet/minecraft/client/renderer/entity/RenderManager;Z)V", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/client/renderer/entity/RenderPlayer;addLayer(Lnet/minecraft/client/renderer/entity/layers/LayerRenderer;)Z"))
     private <V extends EntityLivingBase, U extends LayerRenderer<V>> U injectTwoPartLayerBipedArmor(U original) {
@@ -74,27 +66,16 @@ public abstract class MixinRenderPlayer extends RendererLivingEntity<AbstractCli
         hyperiumRenderPlayer.doRender(entity, x, y, z, entityYaw, partialTicks, ci, renderManager);
     }
 
-    /**
-     * Fixes bug MC-1349
-     *
-     * @param clientPlayer - User
-     * @param ci           - Callback
-     */
     @Inject(method = "renderRightArm", at = @At(value = "FIELD", ordinal = 3))
     private void onUpdateTimer(AbstractClientPlayer clientPlayer, CallbackInfo ci) {
         hyperiumRenderPlayer.onUpdateTimer(clientPlayer, ci);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Cancel nametag render event when score is renderer
-     */
     @Overwrite
     protected void renderOffsetLivingLabel(AbstractClientPlayer entityIn, double x, double y, double z, String str, float p_177069_9_, double p_177069_10_) {
         if (p_177069_10_ < 100.0D) {
             Scoreboard scoreboard = entityIn.getWorldScoreboard();
             ScoreObjective scoreobjective = scoreboard.getObjectiveInDisplaySlot(2);
-
             if (scoreobjective != null) {
                 Score score = scoreboard.getValueFromObjective(entityIn.getName(), scoreobjective);
                 RenderNameTagEvent.CANCEL = true;
@@ -107,7 +88,6 @@ public abstract class MixinRenderPlayer extends RendererLivingEntity<AbstractCli
 
             }
         }
-
         super.renderOffsetLivingLabel(entityIn, x, y, z, str, p_177069_9_, p_177069_10_);
     }
 }

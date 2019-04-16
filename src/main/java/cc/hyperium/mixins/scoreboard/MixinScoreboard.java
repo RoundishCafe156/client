@@ -38,10 +38,6 @@ public abstract class MixinScoreboard {
 
     private HyperiumScoreboard hyperiumScoreboard = new HyperiumScoreboard((Scoreboard) (Object) this);
 
-    /**
-     * @author boomboompower
-     * @reason Fix NPE's
-     */
     @Overwrite
     public void removeTeam(ScorePlayerTeam team) {
         hyperiumScoreboard.removeTeam(team, teams, teamMemberships);

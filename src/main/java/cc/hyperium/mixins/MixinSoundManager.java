@@ -30,16 +30,8 @@ public class MixinSoundManager {
 
     private HyperiumSoundManager hyperiumSoundManager = new HyperiumSoundManager((SoundManager) (Object) this);
 
-    /**
-     * Sound will not play unless the window is active while the out of
-     * focus sounds option is disabled
-     *
-     * @param sound the sound
-     * @param ci callback
-     */
-    @Inject(
-        method = "playSound",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/SoundHandler;getSound(Lnet/minecraft/util/ResourceLocation;)Lnet/minecraft/client/audio/SoundEventAccessorComposite;"),
+    @Inject(method = "playSound",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/SoundHandler;getSound(Lnet/minecraft/util/ResourceLocation;)Lnet/minecraft/client/audio/SoundEventAccessorComposite;"),
         cancellable = true
     )
     private void playSound(ISound sound, CallbackInfo ci) {

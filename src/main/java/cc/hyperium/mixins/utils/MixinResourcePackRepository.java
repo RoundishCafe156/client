@@ -25,20 +25,15 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.io.File;
 
 @Mixin(ResourcePackRepository.class)
 public class MixinResourcePackRepository {
-
     @Final
     @Shadow
     private final File dirServerResourcepacks = null;
     private HyperiumResourcePackRepository hyperiumResourcePackRepository = new HyperiumResourcePackRepository();
 
-    /**
-     * @author Cubxity
-     */
     @Inject(method = "func_183028_i", at = @At("HEAD"), cancellable = true)
     private void func_183028_i(CallbackInfo callbackInfo) {
         hyperiumResourcePackRepository.func_183028_i(callbackInfo, dirServerResourcepacks);

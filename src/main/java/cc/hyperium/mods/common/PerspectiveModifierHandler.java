@@ -21,9 +21,6 @@ import cc.hyperium.config.Settings;
 import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import net.minecraft.client.Minecraft;
 
-/**
- * The perspective mod handler
- */
 public class PerspectiveModifierHandler {
 
     /**

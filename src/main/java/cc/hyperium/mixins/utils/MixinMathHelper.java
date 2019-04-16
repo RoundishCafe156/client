@@ -29,22 +29,13 @@ class MixinMathHelper {
     @Final
     private static float[] SIN_TABLE;
 
-    /**
-     * @author Cubxity and Mojang
-     * @reason In case if we want to change sin and cos (no code changed from Vanilla)
-     */
     @Overwrite
     public static float sin(float p_76126_0_) {
         return SIN_TABLE[(int) (p_76126_0_ * 10430.378F) & 65535];
     }
 
-    /**
-     * @author Cubxity and Mojang
-     * @reason In case if we want to change sin and cos (no code changed from Vanilla)
-     */
     @Overwrite
     public static float cos(float value) {
         return SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & 65535];
     }
-
 }

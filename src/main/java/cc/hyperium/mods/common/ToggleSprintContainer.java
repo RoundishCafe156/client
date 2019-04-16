@@ -24,7 +24,6 @@ import cc.hyperium.mixins.MixinKeyBinding;
 import net.minecraft.client.Minecraft;
 
 public class ToggleSprintContainer {
-
     @ConfigOpt
     public static boolean toggleSprintActive = false;
 
