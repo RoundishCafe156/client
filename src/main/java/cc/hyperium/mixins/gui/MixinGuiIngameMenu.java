@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiIngameMenu.class)
 public class MixinGuiIngameMenu extends GuiScreen {
-
     @Inject(method = "initGui", at = @At("RETURN"))
     public void initGui(CallbackInfo ci) {
         mc.displayGuiScreen(new GuiHyperiumScreenIngameMenu());
@@ -23,5 +22,4 @@ public class MixinGuiIngameMenu extends GuiScreen {
     public void quit(GuiButton button, CallbackInfo info) {
         EventBus.INSTANCE.post(new ServerLeaveEvent());
     }
-
 }

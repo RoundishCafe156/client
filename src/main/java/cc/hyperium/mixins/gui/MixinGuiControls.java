@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiControls.class)
 public class MixinGuiControls extends GuiScreen {
-
     private HyperiumGuiControls hyperiumGuiControls = new HyperiumGuiControls();
 
     @Inject(method = "initGui", at = @At("RETURN"))
@@ -23,5 +22,4 @@ public class MixinGuiControls extends GuiScreen {
     private void actionPerformed(GuiButton button, CallbackInfo ci) {
         hyperiumGuiControls.actionPerformed(button);
     }
-
 }

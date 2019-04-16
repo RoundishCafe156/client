@@ -35,10 +35,6 @@ public abstract class MixinGuiOverlayDebug {
     @Shadow
     protected abstract void renderLagometer();
 
-    /**
-     * @reason Add 1.7 debug
-     * @author SiroQ
-     */
     @Overwrite
     public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
         this.mc.mcProfiler.startSection("debug");
@@ -105,5 +101,4 @@ public abstract class MixinGuiOverlayDebug {
         memoryStr = "Allocated memory: " + totalMemory * 100L / maxMemory + "% (" + totalMemory / 1024L / 1024L + "MB)";
         fontRendererObj.drawStringWithShadow(memoryStr, scaledWidth - fontRendererObj.getStringWidth(memoryStr) - 2, 12, 14737632);
     }
-
 }

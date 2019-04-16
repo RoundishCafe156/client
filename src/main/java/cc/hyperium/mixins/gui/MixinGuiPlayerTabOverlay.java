@@ -37,7 +37,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiPlayerTabOverlay.class)
 public abstract class MixinGuiPlayerTabOverlay extends Gui {
-
     @Shadow
     @Final
     private static Ordering<NetworkPlayerInfo> field_175252_a;
@@ -54,19 +53,11 @@ public abstract class MixinGuiPlayerTabOverlay extends Gui {
 
     private HyperiumGuiPlayerTabOverlay hyperiumGuiPlayerTabOverlay = new HyperiumGuiPlayerTabOverlay((GuiPlayerTabOverlay) (Object) this);
 
-    /**
-     * @author boomboompower
-     * @reason Numbered ping in tab
-     */
     @Overwrite
     protected void drawPing(int p_175245_1_, int p_175245_2_, int yIn, NetworkPlayerInfo networkPlayerInfoIn) {
         hyperiumGuiPlayerTabOverlay.drawPing(p_175245_1_, p_175245_2_, yIn, networkPlayerInfoIn, this.zLevel, this.mc);
     }
 
-    /**
-     * @author Sk1er
-     * @reason Friends first in tab
-     */
     @Overwrite
     public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
         hyperiumGuiPlayerTabOverlay.renderPlayerlist(width, scoreboardIn, scoreObjectiveIn, field_175252_a, this.header, this.footer, this.mc);

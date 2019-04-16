@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(GuiMultiplayer.class)
 public abstract class MixinGuiMultiplayer implements IMixinGuiMultiplayer {
-
     @Shadow
     private boolean directConnect;
     @Shadow
@@ -23,5 +22,4 @@ public abstract class MixinGuiMultiplayer implements IMixinGuiMultiplayer {
     public void setIp(ServerData ip) {
         this.selectedServer = ip;
     }
-
 }

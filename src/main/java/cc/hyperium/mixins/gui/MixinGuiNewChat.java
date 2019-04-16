@@ -35,7 +35,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiNewChat.class)
 public abstract class MixinGuiNewChat {
-
     @Shadow
     @Final
     private List<ChatLine> chatLines;
@@ -56,33 +55,16 @@ public abstract class MixinGuiNewChat {
 
     private HyperiumGuiNewChat hyperiumGuiNewChat = new HyperiumGuiNewChat((GuiNewChat) (Object) this);
 
-    /**
-     * Invoked once a message is printed to the players chat
-     *
-     * @param chatComponent the message
-     * @param ci            {@see org.spongepowered.asm.mixin.injection.callback.CallbackInfo}
-     */
     @Inject(method = "printChatMessage", at = @At("HEAD"), cancellable = true)
     private void printChatMessage(IChatComponent chatComponent, CallbackInfo ci) {
         hyperiumGuiNewChat.printChatMessage(chatComponent, ci);
     }
 
-    /**
-     *
-     * @author Mojang
-     * @reason Draws minecraft chat
-     */
     @Overwrite
     public void drawChat(int p_146230_1_) {
         hyperiumGuiNewChat.drawChat(p_146230_1_, this.field_146253_i, this.scrollPos, this.isScrolled, this.mc);
     }
 
-
-    /**
-     *
-     * @author Mojang
-     * @reason Change chat limit of 100 to 300
-     */
     @Overwrite
     private void setChatLine(IChatComponent chatComponent, int chatLineId, int p_146237_3_, boolean p_146237_4_) {
         hyperiumGuiNewChat.setChatLine(chatComponent, chatLineId, p_146237_3_, p_146237_4_, this.scrollPos, this.isScrolled, this.field_146253_i, this.chatLines, this.mc);

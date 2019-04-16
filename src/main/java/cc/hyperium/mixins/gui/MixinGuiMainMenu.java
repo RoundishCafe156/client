@@ -26,25 +26,13 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(GuiMainMenu.class)
 public abstract class MixinGuiMainMenu extends GuiScreen implements GuiYesNoCallback {
-
     private HyperiumGuiMainMenu hyperiumGuiMainMenu = new HyperiumGuiMainMenu((GuiMainMenu) (Object) this);
 
-    /**
-     *
-     * @author Cubxity
-     * @reason Override initGui
-     */
     @Overwrite
     public void initGui() {
         hyperiumGuiMainMenu.initGui();
     }
 
-
-    /**
-     *
-     * @author Sk1er and Kevin
-     * @reason TOS Rendering
-     */
     @Overwrite
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);

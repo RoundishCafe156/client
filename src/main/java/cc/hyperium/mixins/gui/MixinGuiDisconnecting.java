@@ -28,22 +28,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiDisconnected.class)
 public class MixinGuiDisconnecting {
-
     private HyperiumGuiDisconnecting hyperiumGuiDisconnecting = new HyperiumGuiDisconnecting();
 
-    /**
-     * Invoked once the player is discconecting from a server
-     *
-     * @param screen
-     * @param reasonLocalizationKey
-     * @param chatComp
-     * @param ci                    {@see org.spongepowered.asm.mixin.injection.callback.CallbackInfo}
-     */
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void init(GuiScreen screen,
-                      String reasonLocalizationKey,
-                      IChatComponent chatComp,
-                      CallbackInfo ci) {
+    private void init(GuiScreen screen, String reasonLocalizationKey, IChatComponent chatComp, CallbackInfo ci) {
         hyperiumGuiDisconnecting.init();
     }
 }

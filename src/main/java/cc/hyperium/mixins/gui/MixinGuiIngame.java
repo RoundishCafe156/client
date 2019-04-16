@@ -47,7 +47,6 @@ import java.util.Random;
 
 @Mixin(GuiIngame.class)
 public abstract class MixinGuiIngame extends Gui {
-
     @Shadow
     @Final
     private Minecraft mc;
@@ -85,10 +84,6 @@ public abstract class MixinGuiIngame extends Gui {
         hyperiumGuiIngame.renderSelectedItem(p_181551_1_);
     }
 
-    /**
-     * @author SiroQ
-     * @reason Add 1.7 health
-     */
     @Overwrite
     private void renderPlayerStats(ScaledResolution p_180477_1_) {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
@@ -294,38 +289,21 @@ public abstract class MixinGuiIngame extends Gui {
         }
     }
 
-
-    /**
-     * @author ?
-     * @reason For extra scoreboards
-     */
     @Overwrite
     private void renderScoreboard(ScoreObjective objective, ScaledResolution resolution) {
         hyperiumGuiIngame.renderScoreboard(objective, resolution);
     }
 
-    /**
-     *
-     * @author - boomboompower
-     * @reason - Add toggle for boss bar texture
-     */
     @Overwrite
     private void renderBossHealth() {
         hyperiumGuiIngame.renderBossHealth();
     }
 
-    /**
-     * Disables the normal crosshair if custom crosshair is active.
-     */
     @Inject(method = "showCrosshair", at = @At("HEAD"), cancellable = true)
     protected void showCrosshair(CallbackInfoReturnable<Boolean> ci) {
         hyperiumGuiIngame.showCrosshair(ci);
     }
 
-    /**
-     * @author asbyth
-     * @reason Option to disable Titles & Subtitles (will be replacing the Clear Titles keybind)
-     */
     @Inject(method = "displayTitle", at = @At("HEAD"), cancellable = true)
     private void displayTitle(String title, String subTitle, int timeFadeIn, int displayTime, int timeFadeOut, CallbackInfo ci) {
         if (Settings.HIDE_TITLES) {

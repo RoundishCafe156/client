@@ -52,9 +52,6 @@ public class MixinGuiChat {
         return EnumChatFormatting.getTextWithoutFormattingCodes(commonPrefix);
     }
 
-    /*
-     * IntelliJ gives an error but it works and there are no errors in game, so don't question it
-     */
     @ModifyArg(method = {"autocompletePlayerNames", "onAutocompleteResponse"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiTextField;writeText(Ljava/lang/String;)V"))
     private String removeChatFormattingOfCompletion(String completion) {
         return EnumChatFormatting.getTextWithoutFormattingCodes(completion);
