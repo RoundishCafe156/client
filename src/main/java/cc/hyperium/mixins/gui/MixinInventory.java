@@ -26,20 +26,14 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(InventoryEffectRenderer.class)
 public abstract class MixinInventory extends GuiContainer {
-
     private HyperiumInventory hyperiumInventory = new HyperiumInventory((InventoryEffectRenderer) (Object) this);
 
     public MixinInventory(Container inventorySlotsIn) {
         super(inventorySlotsIn);
     }
 
-    /**
-     * @author Kevin
-     * @reason Removes the inventory going to the left once potion effects have worn out
-     */
     @Overwrite
     protected void updateActivePotionEffects() {
         hyperiumInventory.updateActivePotionEffects(this.xSize);
     }
-
 }

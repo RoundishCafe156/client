@@ -33,10 +33,6 @@ public class PurchaseSettings {
         return wingsScale;
     }
 
-    public String getWingsType() {
-        return wingsType;
-    }
-
     public boolean isWingsDisabled() {
         return wingsDisabled;
     }

@@ -47,7 +47,7 @@ import java.util.function.Consumer;
 
 public class PurchaseApi {
 
-    public final static String url = "https://api.hyperium.cc/purchases/";
+    public static final String url = "https://api.hyperium.cc/purchases/";
     private static final PurchaseApi instance = new PurchaseApi();
     private final Map<UUID, HyperiumPurchase> purchasePlayers = new ConcurrentHashMap<>();
     private final Map<EnumPurchaseType, Class<? extends AbstractHyperiumPurchase>> purchaseClasses = new HashMap<>();
@@ -60,7 +60,6 @@ public class PurchaseApi {
         for (EnumPurchaseType enumPurchaseType : EnumPurchaseType.values()) {
             purchaseClasses.putIfAbsent(enumPurchaseType, DefaultCosmetic.class);
         }
-        getPackageAsync(UUIDUtil.getClientUUID(), hyperiumPurchase -> System.out.println("[Packages] Loaded self packages: " + hyperiumPurchase.getResponse()));
         Multithreading.runAsync(() -> capeAtlas = get("https://api.hyperium.cc/capeAtlas"));
         getSelf();
     }
@@ -89,22 +88,6 @@ public class PurchaseApi {
                 nameToUuid.clear();
             }
         });
-    }
-
-    public UUID nameToUUID(String name) {
-        UUID uuid = nameToUuid.get(name.toLowerCase());
-        if (uuid != null)
-            return uuid;
-        WorldClient theWorld = Minecraft.getMinecraft().theWorld;
-        if (theWorld == null)
-            return null;
-        for (EntityPlayer playerEntity : theWorld.playerEntities) {
-            if (playerEntity.getName().equalsIgnoreCase(name) || EnumChatFormatting.getTextWithoutFormattingCodes(playerEntity.getName()).equalsIgnoreCase(name)) {
-                nameToUuid.put(name.toLowerCase(), playerEntity.getUniqueID());
-                return playerEntity.getUniqueID();
-            }
-        }
-        return null;
     }
 
     public HyperiumPurchase getPackageSync(UUID uuid) {
@@ -143,10 +126,6 @@ public class PurchaseApi {
         return getPackageIfReady(UUIDUtil.getClientUUID());
     }
 
-    public void ensureLoaded(UUID uuid) {
-        Multithreading.runAsync(() -> getPackageSync(uuid));
-    }
-
     public void register(EnumPurchaseType type, Class<? extends AbstractHyperiumPurchase> ex) {
         purchaseClasses.put(type, ex);
     }
@@ -181,8 +160,7 @@ public class PurchaseApi {
             connection.setDoOutput(true);
             InputStream is = connection.getInputStream();
             return new JsonHolder(IOUtils.toString(is, Charset.forName("UTF-8")));
-        } catch (Exception e) {
-        }
+        } catch (Exception ignored) {}
         JsonObject object = new JsonObject();
         object.addProperty("success", false);
         object.addProperty("cause", "Exception");
@@ -202,5 +180,4 @@ public class PurchaseApi {
         purchasePlayers.put(uuid, value);
         Hyperium.INSTANCE.getHandlers().getCapeHandler().deleteCape(uuid);
     }
-
 }

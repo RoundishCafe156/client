@@ -51,9 +51,7 @@ public class HyperiumPurchase {
                         .optJSONObject(parse.name().toLowerCase()));
                     if (parse1 != null)
                         this.purchases.add(parse1);
-                } catch (Exception wtf) {
-//                    wtf.printStackTrace();
-                }
+                } catch (Exception ignored) {}
         }
         if (everything) {
             for (EnumPurchaseType enumPurchaseType : EnumPurchaseType.values()) {
@@ -93,11 +91,9 @@ public class HyperiumPurchase {
 
     public boolean hasPurchased(String key) {
 
-        if (isEverything())
-            return true;
+        if (isEverything()) return true;
         for (JsonElement element : response.optJSONArray("hyperium")) {
-            if (element instanceof JsonPrimitive && element.getAsString().equalsIgnoreCase(key))
-                return true;
+            if (element instanceof JsonPrimitive && element.getAsString().equalsIgnoreCase(key)) return true;
         }
         return false;
     }
@@ -124,9 +120,7 @@ public class HyperiumPurchase {
 
     public AbstractHyperiumPurchase getPurchase(EnumPurchaseType type) {
         for (AbstractHyperiumPurchase purchase : purchases) {
-            if (purchase.getType() == type) {
-                return purchase;
-            }
+            if (purchase.getType() == type) return purchase;
         }
         return null;
     }
