@@ -13,5 +13,4 @@ public class MixinModelRenderer implements IMixinModelRenderer {
     public void reset() {
         compiled = false;
     }
-
 }

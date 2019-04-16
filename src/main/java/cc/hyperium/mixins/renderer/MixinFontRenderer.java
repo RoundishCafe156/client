@@ -258,9 +258,6 @@ public abstract class MixinFontRenderer {
         return NickHider.INSTANCE.apply(in);
     }
 
-    /**
-     * @author Sk1er
-     */
     @Overwrite
     public int getStringWidth(String text) {
         if (text == null) {

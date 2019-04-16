@@ -29,7 +29,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LayerDeadmau5Head.class)
 class MixinLayerDeadmau5Head {
-
     @Shadow
     private RenderPlayer playerRenderer;
 
@@ -37,9 +36,6 @@ class MixinLayerDeadmau5Head {
         this.playerRenderer = playerRenderer;
     }
 
-    /**
-     * @author Cubxity
-     */
     @Inject(method = "doRenderLayer", at = @At("HEAD"))
     private void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_,
                                float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale, CallbackInfo ci) {

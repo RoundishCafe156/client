@@ -26,14 +26,9 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(S14PacketEntity.class)
 public class MixinS14PacketEntity {
-
     @Shadow
     private int entityId;
 
-    /**
-     * @author boomboompower
-     * @reason Fixes NPE in internal code because of null worlds
-     */
     @Overwrite
     public Entity getEntity(World worldIn) {
         return worldIn != null ? worldIn.getEntityByID(this.entityId) : null;

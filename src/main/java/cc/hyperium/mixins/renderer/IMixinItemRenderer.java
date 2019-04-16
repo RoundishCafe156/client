@@ -40,5 +40,4 @@ public interface IMixinItemRenderer {
 
     @Invoker
     void callFunc_178095_a(AbstractClientPlayer clientPlayer, float p_178095_2_, float p_178095_3_);
-
 }

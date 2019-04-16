@@ -141,10 +141,6 @@ public class MixinModelPlayer extends MixinModelBiped implements IMixinModelPlay
         );
     }
 
-    /**
-     * @author 9Y0, Mojang
-     * @reason body parts
-     */
     @Overwrite
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         super.render(entityIn, p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale);
@@ -235,7 +231,6 @@ public class MixinModelPlayer extends MixinModelBiped implements IMixinModelPlay
         this.bipedRightLowerLegwear.showModel = invisble;
     }
 
-    /* Right leg wrappers */
     @Override
     public ModelRenderer getBipedRightUpperLegwear() {
         return this.bipedRightLegwear;
@@ -246,7 +241,6 @@ public class MixinModelPlayer extends MixinModelBiped implements IMixinModelPlay
         return this.bipedRightLowerLegwear;
     }
 
-    /* Left leg wrappers */
     @Override
     public ModelRenderer getBipedLeftUpperLegwear() {
         return this.bipedLeftLegwear;
@@ -257,7 +251,6 @@ public class MixinModelPlayer extends MixinModelBiped implements IMixinModelPlay
         return this.bipedLeftLowerLegwear;
     }
 
-    /* Right arm wrappers */
     @Override
     public ModelRenderer getBipedRightUpperArmwear() {
         return this.bipedRightArmwear;
@@ -268,7 +261,6 @@ public class MixinModelPlayer extends MixinModelBiped implements IMixinModelPlay
         return this.bipedRightForeArmwear;
     }
 
-    /* Left arm wrappers */
     @Override
     public ModelRenderer getBipedLeftUpperArmwear() {
         return this.bipedLeftArmwear;
@@ -279,7 +271,6 @@ public class MixinModelPlayer extends MixinModelBiped implements IMixinModelPlay
         return this.bipedLeftForeArmwear;
     }
 
-    /* Body wrappers */
     @Override
     public ModelRenderer getBipedBodywear() {
         return this.bipedBodyWear;

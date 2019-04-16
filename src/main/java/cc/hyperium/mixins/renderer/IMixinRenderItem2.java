@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(RenderItem.class)
 public interface IMixinRenderItem2 {
-
     @Invoker
     void callRenderModel(IBakedModel model2, ItemStack e1);
 }

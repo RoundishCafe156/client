@@ -10,12 +10,10 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
-
 import java.util.List;
 
 @Mixin(RenderItem.class)
 public interface IMixinRenderItem {
-
     @Accessor
     TextureManager getTextureManager();
 
@@ -30,6 +28,4 @@ public interface IMixinRenderItem {
 
     @Invoker
     void callRenderQuads(WorldRenderer renderer, List<BakedQuad> quads, int color, ItemStack stack);
-
-
 }
