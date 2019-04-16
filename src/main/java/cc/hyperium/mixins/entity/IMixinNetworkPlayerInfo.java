@@ -19,5 +19,4 @@ public interface IMixinNetworkPlayerInfo {
 
     @Accessor
     void setPlayerTexturesLoaded(boolean loaded);
-
 }

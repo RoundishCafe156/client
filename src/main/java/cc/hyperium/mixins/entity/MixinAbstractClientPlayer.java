@@ -34,7 +34,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractClientPlayer.class)
 public abstract class MixinAbstractClientPlayer extends EntityPlayer {
-
     private HyperiumAbstractClientPlayer hyperiumAbstractClientPlayer = new HyperiumAbstractClientPlayer((AbstractClientPlayer) (Object) this);
 
     public MixinAbstractClientPlayer(World worldIn, GameProfile gameProfileIn) {
@@ -48,10 +47,6 @@ public abstract class MixinAbstractClientPlayer extends EntityPlayer {
         hyperiumAbstractClientPlayer.init();
     }
 
-    /**
-     * @author Kevin & Sk1er
-     * @reason Custom Capes
-     */
     @Overwrite
     public ResourceLocation getLocationCape() {
         return hyperiumAbstractClientPlayer.getLocationCape();

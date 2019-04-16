@@ -26,16 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiConnecting.class)
 public class MixinGuiConnecting {
-
     private HyperiumGuiConnecting hyperiumGuiConnecting = new HyperiumGuiConnecting();
 
-    /**
-     * Invoked once the player is connecting to a server
-     *
-     * @param ip   the address they are connecting to
-     * @param port the port they are connecting to
-     * @param ci   {@see org.spongepowered.asm.mixin.injection.callback.CallbackInfo}
-     */
     @Inject(method = "connect", at = @At("HEAD"))
     private void connect(String ip, int port, CallbackInfo ci) {
         hyperiumGuiConnecting.connect(ip, port);
