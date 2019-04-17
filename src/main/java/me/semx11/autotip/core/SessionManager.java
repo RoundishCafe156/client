@@ -56,10 +56,6 @@ public class SessionManager {
         return sessionKey;
     }
 
-    public boolean hasKey() {
-        return sessionKey != null;
-    }
-
     public boolean isOnHypixel() {
         return onHypixel;
     }
@@ -206,5 +202,4 @@ public class SessionManager {
             return HttpStatus.SC_BAD_REQUEST;
         }
     }
-
 }

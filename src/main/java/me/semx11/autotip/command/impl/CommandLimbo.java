@@ -1,13 +1,9 @@
 package me.semx11.autotip.command.impl;
 
-import java.util.Collections;
-import java.util.List;
-
 import cc.hyperium.commands.CommandException;
 import me.semx11.autotip.Autotip;
 import me.semx11.autotip.chat.MessageUtil;
 import me.semx11.autotip.command.CommandAbstract;
-import net.minecraft.command.ICommandSender;
 
 public class CommandLimbo extends CommandAbstract {
 
@@ -24,10 +20,6 @@ public class CommandLimbo extends CommandAbstract {
     public void setExecuted(boolean executed) {
         this.executed = executed;
     }
-
-
-
-
 
     @Override
     public String getName() {

@@ -18,11 +18,9 @@ import me.semx11.autotip.util.FileUtil;
 import org.apache.commons.io.FileUtils;
 
 public class StatsManager {
-
     private final Autotip autotip;
     private final FileUtil fileUtil;
     private final Map<LocalDate, StatsDaily> cache = new ConcurrentHashMap<>();
-
     private LocalDate lastDate;
     private AtomicInteger ticks;
 
@@ -33,22 +31,10 @@ public class StatsManager {
         this.ticks = new AtomicInteger(-1);
     }
 
-    /**
-     * Get the {@link StatsDaily} for today, based on {@link LocalDate#now()}. Same as {@link
-     * #getToday(boolean)}, except that readOnly defaults to false.
-     *
-     * @return {@link StatsDaily} of today
-     */
     public synchronized StatsDaily getToday() {
         return this.getToday(false);
     }
 
-    /**
-     * Get the {@link StatsDaily} for today, based on {@link LocalDate#now()}.
-     *
-     * @param readOnly Set to true to prevent the auto-save
-     * @return {@link StatsDaily} of today
-     */
     private synchronized StatsDaily getToday(boolean readOnly) {
         LocalDate now = LocalDate.now();
         if (!lastDate.isEqual(now)) {
@@ -62,24 +48,10 @@ public class StatsManager {
         return this.get(lastDate);
     }
 
-    /**
-     * Get the {@link StatsDaily} for the current date without triggering the auto-save. This method
-     * is similar to using {@link #get(LocalDate)} with the {@link LocalDate} being today.
-     *
-     * @return {@link StatsDaily} of today
-     * @see #get(LocalDate)
-     */
     public StatsDaily get() {
         return this.getToday(true);
     }
 
-    /**
-     * Get the {@link StatsDaily} for the specified date. This method uses a cache to reduce the
-     * amount of read/write cycles.
-     *
-     * @param date The {@link LocalDate} of the StatsDaily you want to get
-     * @return {@link StatsDaily} for the specified date
-     */
     public StatsDaily get(LocalDate date) {
         if (cache.containsKey(date)) {
             return cache.get(date);
@@ -89,14 +61,6 @@ public class StatsManager {
         return stats;
     }
 
-    /**
-     * Get the {@link StatsRange} for the specified date range. This method uses {@link
-     * #get(LocalDate)} to get all the {@link StatsDaily} that are contained within this range.
-     *
-     * @param start The starting {@link LocalDate}
-     * @param end The ending {@link LocalDate}
-     * @return {@link StatsRange} for the specified date range
-     */
     public StatsRange getRange(LocalDate start, LocalDate end) {
         if (start.isBefore(fileUtil.getFirstDate())) {
             start = fileUtil.getFirstDate();
@@ -113,22 +77,10 @@ public class StatsManager {
         return range;
     }
 
-    /**
-     * Get the {@link StatsRange} for all the {@link StatsDaily} files in the current user
-     * directory. This method uses {@link FileUtil} to get the starting date, and then calls {@link
-     * #getRange(LocalDate, LocalDate) to get the specified StatsRange.
-     *
-     * @return {@link StatsRange} for the lifetime statistics from the current user directory
-     */
     public StatsRange getAll() {
         return this.getRange(fileUtil.getFirstDate(), LocalDate.now());
     }
 
-    /**
-     * Save a {@link StatsDaily} to the current user directory.
-     *
-     * @param stats The {@link StatsDaily} that you want to save
-     */
     public void save(StatsDaily stats) {
         cache.put(stats.getDate(), stats);
         File file = stats.getFile();
@@ -141,12 +93,6 @@ public class StatsManager {
         }
     }
 
-    /**
-     * Load a {@link StatsDaily} from the current user directory.
-     *
-     * @param stats The {@link StatsDaily} that you want to load
-     * @return {@link StatsDaily} that contains the loaded stats, unchanged if there were errors
-     */
     private StatsDaily load(StatsDaily stats) {
         File file = stats.getFile();
         try {
@@ -164,9 +110,6 @@ public class StatsManager {
         return stats;
     }
 
-    /**
-     * Method that is called each game-tick to trigger an auto-save for today's stats file.
-     */
     public void saveCycle() {
         if (ticks.get() > 0) {
             ticks.decrementAndGet();
@@ -177,5 +120,4 @@ public class StatsManager {
             ticks.decrementAndGet();
         }
     }
-
 }
