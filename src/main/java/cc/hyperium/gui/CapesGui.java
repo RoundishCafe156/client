@@ -17,7 +17,6 @@ import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -33,7 +32,6 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
-
     private int purchaseIds;
     private Map<String, DynamicTexture> textures = new ConcurrentHashMap<>();
     private Map<String, BufferedImage> texturesImage = new ConcurrentHashMap<>();
@@ -69,19 +67,14 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
                         connection.setConnectTimeout(15000);
                         connection.setDoOutput(true);
                         InputStream is = connection.getInputStream();
-
-
                         BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(is));
                         texturesImage.put(s, img);
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
-
             }
         });
-
     }
 
     @Override
@@ -89,9 +82,7 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
         super.confirmClicked(result, id);
         if (result) {
             Runnable runnable = ids.get(id);
-            if (runnable != null) {
-                runnable.run();
-            }
+            if (runnable != null) runnable.run();
         }
         Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(this);
     }
@@ -100,23 +91,17 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
     protected void pack() {
         reg("RESET", new GuiButton(nextId(), 1, 1, "Disable Hyperium Cape"), guiButton -> {
             NettyClient client = NettyClient.getClient();
-            if (client != null) {
-                client.write(ServerCrossDataPacket.build(new JsonHolder().put("internal", true).put("set_cape", true).put("value", "default")));
-            }
+            if (client != null) client.write(ServerCrossDataPacket.build(new JsonHolder().put("internal", true).put("set_cape", true).put("value", "default")));
             HyperiumPurchase self = PurchaseApi.getInstance().getSelf();
             if (self == null) {
                 GeneralChatHandler.instance().sendMessage("Unable to reset your cape: Your profile is not loaded");
                 return;
             }
             JsonHolder purchaseSettings = self.getPurchaseSettings();
-            if (!purchaseSettings.has("cape")) {
-                purchaseSettings.put("cape", new JsonHolder());
-            }
+            if (!purchaseSettings.has("cape")) purchaseSettings.put("cape", new JsonHolder());
             purchaseSettings.optJSONObject("cape").put("type", "default");
             Hyperium.INSTANCE.getHandlers().getCapeHandler().deleteCape(UUIDUtil.getClientUUID());
-        }, guiButton -> {
-
-        });
+        }, guiButton -> {});
         reg("CUSTOM", new GuiButton(nextId(), 1, 22, "Custom Cape"), guiButton -> {
             Desktop desktop = Desktop.getDesktop();
             if (desktop != null) {
@@ -126,21 +111,15 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
                     e.printStackTrace();
                 }
             }
-        }, guiButton -> {
-
-        });
-
+        }, guiButton -> {});
     }
 
-    //22x17
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
         try {
             if (!texturesImage.isEmpty()) {
                 for (String s : texturesImage.keySet()) {
-                    if (!textures.containsKey(s))
-                        textures.put(s, new DynamicTexture(texturesImage.get(s)));
+                    if (!textures.containsKey(s)) textures.put(s, new DynamicTexture(texturesImage.get(s)));
                 }
             }
 
@@ -209,7 +188,6 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
                     pos = 1;
                     row++;
                 }
-//                int thisBlocksCenter = pos == 1 ? scaledWidth / 2 - 8 - blockWidth / 2 : scaledWidth / 2 + 8 + blockWidth / 2;
                 int thisBlocksCenter = (int) (scaledWidth / 2 - ((blocksPerLine / 2) - pos + .5) * (blockWidth + 16));
                 int thisTopY = printY + row * (16 + blockHeight);
                 RenderUtils.drawSmoothRect(thisBlocksCenter - blockWidth / 2, thisTopY,
@@ -291,7 +269,6 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
                         fontRendererObj.drawString(string, left, i, new Color(249, 76, 238).getRGB(), true);
                         GuiBlock block = new GuiBlock(left, left + stringWidth, i, i + 10);
                         actions.put(block, () -> {
-                            System.out.println("Attempting to purchase " + s);
                             purchasing = true;
                             Integer integer = intMap.computeIfAbsent(s, s3 -> ++purchaseIds);
                             GuiYesNo gui = new GuiYesNo(this, "Purchase " + s, "", integer);
@@ -299,9 +276,7 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
                             ids.put(integer, () -> {
                                 GeneralChatHandler.instance().sendMessage("Attempting to purchase " + s);
                                 NettyClient client = NettyClient.getClient();
-                                if (client != null) {
-                                    client.write(ServerCrossDataPacket.build(new JsonHolder().put("internal", true).put("cosmetic_purchase", true).put("value", s)));
-                                }
+                                if (client != null) client.write(ServerCrossDataPacket.build(new JsonHolder().put("internal", true).put("cosmetic_purchase", true).put("value", s)));
                             });
                         });
                     } else {
@@ -310,7 +285,6 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
                         int left = thisBlocksCenter - stringWidth / 2;
                         int i = thisTopY - 8 + blockHeight / 2 + 64 + 48;
                         fontRendererObj.drawString(string, left, i, new Color(249, 9, 0).getRGB(), true);
-
                     }
                 }
                 pos++;
@@ -319,14 +293,12 @@ public class CapesGui extends HyperiumGui implements GuiYesNoCallback {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void updatePurchases() {
         Multithreading.runAsync(() -> {
             cosmeticCallback = PurchaseApi.getInstance().get(
-                "https://api.hyperium.cc/cosmetics/" + Objects.requireNonNull(UUIDUtil.getClientUUID()).toString()
-                    .replace("-", ""));
+                "https://api.hyperium.cc/cosmetics/" + Objects.requireNonNull(UUIDUtil.getClientUUID()).toString().replace("-", ""));
             purchasing = false;
         });
     }
