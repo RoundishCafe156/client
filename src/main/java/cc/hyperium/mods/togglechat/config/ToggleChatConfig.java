@@ -20,7 +20,6 @@ package cc.hyperium.mods.togglechat.config;
 import cc.hyperium.mods.togglechat.ToggleChatMod;
 import cc.hyperium.mods.togglechat.toggles.ToggleBase;
 import cc.hyperium.utils.BetterJsonObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,19 +29,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ToggleChatConfig {
-
     private final ToggleChatMod theMod;
     private final File toggleFile;
     private BetterJsonObject toggleJson = new BetterJsonObject();
 
     public ToggleChatConfig(ToggleChatMod theMod, File directory) {
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        if (!directory.exists()) directory.mkdirs();
 
         this.theMod = theMod;
         this.toggleFile = new File(directory, "togglechat.json");
-
     }
 
     public void loadToggles() {
@@ -58,18 +53,12 @@ public class ToggleChatConfig {
                 }
                 this.toggleJson = new BetterJsonObject(builder.toString());
             } catch (Exception ex) {
-                log("Could not read toggles properly, saving.");
                 saveToggles();
             }
 
-            for (ToggleBase base : this.
-                theMod.
-                getToggleHandler()
-                .getToggles()
-                .values()) {
+            for (ToggleBase base : this.theMod.getToggleHandler().getToggles().values()) {
                 base.setEnabled(this.toggleJson.has("show" + base.getName().replace(" ", "_")) && this.toggleJson.get("show" + base.getName().replace(" ", "_")).getAsBoolean());
             }
-
         } else {
             saveToggles();
         }
@@ -77,9 +66,7 @@ public class ToggleChatConfig {
 
     public void saveToggles() {
         try {
-            if (!this.toggleFile.getParentFile().exists()) {
-                this.toggleFile.getParentFile().mkdirs();
-            }
+            if (!this.toggleFile.getParentFile().exists()) this.toggleFile.getParentFile().mkdirs();
 
             this.toggleFile.createNewFile();
             FileWriter writer = new FileWriter(this.toggleFile);
@@ -91,16 +78,11 @@ public class ToggleChatConfig {
 
             this.toggleJson.writeToFile(this.toggleFile);
         } catch (Exception ex) {
-            log("Could not save toggles.");
             ex.printStackTrace();
         }
     }
 
     private boolean exists(File file) {
         return Files.exists(Paths.get(file.getPath()));
-    }
-
-    private void log(String message, Object... replace) {
-        System.out.println(String.format("[ToggleChatLite] " + message, replace));
     }
 }
