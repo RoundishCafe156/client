@@ -4,20 +4,14 @@ import cc.hyperium.gui.HyperiumGui;
 import cc.hyperium.mixinsimp.client.GlStateModifier;
 import cc.hyperium.utils.HyperiumFontRenderer;
 import cc.hyperium.utils.RenderUtils;
-
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 
-/*
- * Created by Sk1er on today (It will be right for a little bit)
- */
 public class ToggleComponent extends AbstractTabComponent {
-
     private final String label;
     private List<String> lines = new ArrayList<>();
     private Field field;
@@ -26,8 +20,7 @@ public class ToggleComponent extends AbstractTabComponent {
     private double animation = 0.5;
     private long lastDeltaTime = System.currentTimeMillis();
 
-    public ToggleComponent(AbstractTab tab, List<String> tags, String label, Field field,
-                           Object parentObj) {
+    public ToggleComponent(AbstractTab tab, List<String> tags, String label, Field field, Object parentObj) {
         super(tab, tags);
         tag(label);
         this.label = label;
@@ -37,9 +30,6 @@ public class ToggleComponent extends AbstractTabComponent {
     }
 
     private boolean getStateFromField() {
-        if (field == null) {
-            System.out.println(this.label);
-        }
         try {
             return field.getBoolean(parentObj);
         } catch (IllegalAccessException e) {
@@ -73,8 +63,7 @@ public class ToggleComponent extends AbstractTabComponent {
 
         int line1 = 0;
         for (String line : lines) {
-            font.drawString(line.replaceAll("_", " ").toUpperCase(), x + 3, y + 5 + 17 * line1,
-                0xffffff);
+            font.drawString(line.replaceAll("_", " ").toUpperCase(), x + 3, y + 5 + 17 * line1, 0xffffff);
             line1++;
         }
 
@@ -85,38 +74,23 @@ public class ToggleComponent extends AbstractTabComponent {
         GlStateModifier.INSTANCE.reset();
         double animationInc = (System.currentTimeMillis() - lastDeltaTime) / 400f;
 
-        animation = HyperiumGui.clamp(
-            HyperiumGui.easeOut(
-                (float) this.animation,
-                this.state ? 1.0f : 0.0f,
-                (float) animationInc,
-                5
-            ),
-            0.0f,
-            1.0f
-        );
+        animation = HyperiumGui.clamp(HyperiumGui.easeOut((float) this.animation, this.state ? 1.0f : 0.0f, (float) animationInc, 5), 0.0f, 1.0f);
 
         Color FAR = new Color(76, 175, 80);
         Color CLOSE = new Color(200, 200, 200);
 
         int red = (int) Math.abs((animation * FAR.getRed()) + ((1 - animation) * CLOSE.getRed()));
-        int green = (int) Math
-            .abs((animation * FAR.getGreen()) + ((1 - animation) * CLOSE.getGreen()));
-        int blue = (int) Math
-            .abs((animation * FAR.getBlue()) + ((1 - animation) * CLOSE.getBlue()));
+        int green = (int) Math.abs((animation * FAR.getGreen()) + ((1 - animation) * CLOSE.getGreen()));
+        int blue = (int) Math.abs((animation * FAR.getBlue()) + ((1 - animation) * CLOSE.getBlue()));
 
-        RenderUtils.drawSmoothRect((int) statX, y + 7, (int) (statX + 20), y + 10, 1,
-            Color.WHITE.getRGB());
-        RenderUtils.drawFilledCircle((int) ((int) statX + 20D * animation), y + 8, 5,
-            new Color(red, green, blue).getRGB());
-//        Gui.drawScaledCustomSizeModalRect((int) statX, y + 3, 0, 0, 121, 54, toggleW, 13, 121, 54);
+        RenderUtils.drawSmoothRect((int) statX, y + 7, (int) (statX + 20), y + 10, 1, Color.WHITE.getRGB());
+        RenderUtils.drawFilledCircle((int) ((int) statX + 20D * animation), y + 8, 5, new Color(red, green, blue).getRGB());
         lastDeltaTime = System.currentTimeMillis();
     }
 
     @Override
     public int getHeight() {
         return 18 * lines.size();
-
     }
 
 
@@ -124,11 +98,9 @@ public class ToggleComponent extends AbstractTabComponent {
     public void onClick(int x, int y) {
         if (y < 18 * lines.size()) {
             setState(!state);
-            this.state = getStateFromField(); //Call from reflection to ensure they never desync. Better have it fail and stay off than the user think its a diff tate
+            this.state = getStateFromField();
             stateChange(this.state);
         }
-
-
     }
 
     public String getLabel() {
