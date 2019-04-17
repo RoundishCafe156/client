@@ -187,10 +187,8 @@ public class CrashReportGUI extends JDialog {
                 AddonBootstrap.INSTANCE.getAddonManifests().forEach(m -> addons.getAndUpdate(a -> a + m.getName() + " " + m.getVersion() + ", "));
             } catch (Exception ex) {
                 ex.printStackTrace();
-                // Addons bootstrap might not be initialized
             }
-            if (addons.get().isEmpty())
-                addons.set("none");
+            if (addons.get().isEmpty()) addons.set("none");
             String hurl = null;
 
             if (report != null) {
@@ -206,7 +204,6 @@ public class CrashReportGUI extends JDialog {
                 for (String s : rep) {
                     String l = DeobfStack.deobfLine(s, mapping);
                     sb.append(l).append("\n");
-                    System.out.println(l);
                 }
                 hurl = haste(sb.toString());
             }
@@ -217,10 +214,7 @@ public class CrashReportGUI extends JDialog {
             NettyClient client = NettyClient.getClient();
             if (client != null)
                 client.write(ServerCrossDataPacket.build(new JsonHolder().put("crash_report", true).put("internal", true).put("crash",
-                    new JsonHolder()
-                        .put("crash-full", report == null ? "unavailable" : hurl)
-                        .put("hyperium", Metadata.getVersion() + " - " + Metadata.getVersionID())
-                        .put("addons", addons.toString())
+                    new JsonHolder().put("crash-full", report == null ? "unavailable" : hurl).put("hyperium", Metadata.getVersion() + " - " + Metadata.getVersionID()).put("addons", addons.toString())
                 )));
             return true;
         } catch (Exception ex) {
