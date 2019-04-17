@@ -17,13 +17,11 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class NetworkHandler implements INetty, PostConfigHandler, PreSaveHandler {
-
     @ConfigOpt
     public boolean log = false;
     private boolean post = false;
@@ -54,9 +52,7 @@ public class NetworkHandler implements INetty, PostConfigHandler, PreSaveHandler
 
     @Override
     public void handleChat(String s) {
-        if (s.toLowerCase().contains("reconnecting hyperium connection"))
-            return;
-        System.out.println("Chat: " + s);
+        if (s.toLowerCase().contains("reconnecting hyperium connection")) return;
         s = s.replace("&", C.COLOR_CODE_SYMBOL);
         IChatComponent chatComponent = new ChatComponentText("");
         for (String s1 : s.split(" ")) {
@@ -114,7 +110,6 @@ public class NetworkHandler implements INetty, PostConfigHandler, PreSaveHandler
                 Minecraft.getMinecraft().displayGuiScreen(null);
         } else if (type.equalsIgnoreCase("cache_update")) {
             PurchaseApi.getInstance().reload(UUID.fromString(jsonHolder.optString("uuid")));
-
         }
     }
 
