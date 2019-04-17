@@ -35,7 +35,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -43,11 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-/**
- * @author Sk1er
- */
 public class DisplayElementConfig extends GuiScreen {
-
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
     private final Map<GuiButton, Consumer<GuiButton>> updates = new HashMap<>();
     private final Map<String, GuiButton> nameMap = new HashMap<>();
@@ -64,11 +59,8 @@ public class DisplayElementConfig extends GuiScreen {
     private int lastHeight = 0;
     private boolean mouseLock;
 
-
     public DisplayElementConfig(DisplayElement element, ChromaHUD mod) {
-        if (element == null) {
-            throw new NullPointerException("Display element is null!");
-        }
+        if (element == null) throw new NullPointerException("Display element is null!");
         this.mod = mod;
         this.element = element;
         regenImage();
@@ -93,16 +85,11 @@ public class DisplayElementConfig extends GuiScreen {
 
             }
             texture2 = new DynamicTexture(image1);
-
-
         }
-
-
     }
 
     private void reg(String name, GuiButton button, Consumer<GuiButton> consumer) {
-        reg(name, button, consumer, button1 -> {
-        });
+        reg(name, button, consumer, button1 -> {});
     }
 
     private void reg(String name, GuiButton button, Consumer<GuiButton> consumer, Consumer<GuiButton> tick) {
@@ -119,8 +106,6 @@ public class DisplayElementConfig extends GuiScreen {
     @Override
     public void initGui() {
         super.initGui();
-
-
     }
 
     private void repack() {
@@ -134,46 +119,29 @@ public class DisplayElementConfig extends GuiScreen {
         reg("pos", new GuiButton(nextId(), posX, start_y, "Change Position"), button -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new MoveElementGui(mod, element)));
         reg("items", new GuiButton(nextId(), posX, start_y + 22, "Change Items"), button -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod)));
 
-        //Highlighted
         reg("Highlight", new GuiButton(nextId(), posX, start_y + 22 * 2, "-"), button -> {
-            //On click
             element.setHighlighted(!element.isHighlighted());
         }, button -> {
-            //On Gui Update
             button.displayString = ChatColor.YELLOW.toString() + "Highlighted: " + (element.isHighlighted() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No");
         });
 
-
-        //Shadow
         reg("shadow", new GuiButton(nextId(), posX, start_y + 22 * 3, "-"), button -> {
-            //On click
             element.setShadow(!element.isShadow());
         }, button -> {
-            //On Gui Update
             button.displayString = ChatColor.YELLOW.toString() + "Shadow: " + (element.isShadow() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No");
         });
         reg("Toggle Right", new GuiButton(nextId(), posX, start_y + 22 * 4, "-"), button -> {
-            //On click
             element.setRightSided(!element.isRightSided());
         }, button -> {
-            //On Gui Update
             button.displayString = ChatColor.YELLOW.toString() + "Right side: " + (element.isRightSided() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No");
         });
-        //*4
 
-        reg("Scale Slider", new GuiSlider(nextId(), 5, 5, 200, 20, "Scale: ", "", 50, 200, element.getScale() * 100D, false, true), button -> {
-            //clicked
-            //Toggle between chroma types.
-
-        }, button -> {
-            //on tick
+        reg("Scale Slider", new GuiSlider(nextId(), 5, 5, 200, 20, "Scale: ", "", 50, 200, element.getScale() * 100D, false, true), button -> {}, button -> {
             element.setScale(((GuiSlider) button).getValue() / 100D);
             button.displayString = EnumChatFormatting.YELLOW + "Scale: " + ((GuiSlider) button).getValueInt() + "%";
         });
 
         reg("color", new GuiButton(nextId(), posX, start_y + 22 * 5, "-"), button -> {
-            //clicked
-            //Chroma -> RGB -> Color Pallet -> Chroma
             if (element.isChroma()) {
                 element.setChroma(false);
                 element.setRgb(true);
@@ -185,7 +153,6 @@ public class DisplayElementConfig extends GuiScreen {
                 element.setChroma(true);
             }
         }, button -> {
-            //on tick
             String type = "Error";
 
             if (element.isRGB())
@@ -198,11 +165,8 @@ public class DisplayElementConfig extends GuiScreen {
         });
 
         reg("chromaMode", new GuiButton(nextId(), posX, start_y + 22 * 6, "-"), button -> {
-            //clicked
-            //Toggle between chroma types.
             element.setStaticChroma(!element.isStaticChroma());
         }, button -> {
-            //on tick
             if (!element.isChroma()) {
                 button.enabled = false;
                 button.visible = false;
@@ -212,16 +176,7 @@ public class DisplayElementConfig extends GuiScreen {
                 button.displayString = ChatColor.YELLOW + "Chroma mode: " + (element.isStaticChroma() ? ChatColor.GREEN + "Static" : ChatColor.GREEN + "Wave");
             }
         });
-        //TODO kevin needs to make sliders
-//    public GuiSlider(int id, int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr)
-
-        //    public GuiSlider(int id, int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr)
-        reg("redSlider", new GuiSlider(nextId(), posX, start_y + 22 * 6, 200, 20, "Red: ", "", 0, 255, element.getData().optInt("red"), false, true), button -> {
-            //clicked
-            //Toggle between chroma types.
-
-        }, button -> {
-            //on tick
+        reg("redSlider", new GuiSlider(nextId(), posX, start_y + 22 * 6, 200, 20, "Red: ", "", 0, 255, element.getData().optInt("red"), false, true), button -> {}, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -233,13 +188,7 @@ public class DisplayElementConfig extends GuiScreen {
             }
         });
 
-
-        reg("blueSlider", new GuiSlider(nextId(), posX, start_y + 22 * 8, 200, 20, "Blue: ", "", 0, 255, element.getData().optInt("blue"), false, true), button -> {
-            //clicked
-            //Toggle between chroma types.
-
-        }, button -> {
-            //on tick
+        reg("blueSlider", new GuiSlider(nextId(), posX, start_y + 22 * 8, 200, 20, "Blue: ", "", 0, 255, element.getData().optInt("blue"), false, true), button -> {}, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -251,11 +200,7 @@ public class DisplayElementConfig extends GuiScreen {
             }
         });
         reg("greenSlider", new GuiSlider(nextId(), posX, start_y + 22 * 7, 200, 20, "Green: ", "", 0, 255, element.getData().optInt("green"), false, true), button -> {
-            //clicked
-            //Toggle between chroma types.
-
         }, button -> {
-            //on tick
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -266,25 +211,17 @@ public class DisplayElementConfig extends GuiScreen {
                 button.displayString = EnumChatFormatting.YELLOW + "Green: " + (element.getData().optInt("green"));
             }
         });
-        reg("Back", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GeneralConfigGui(mod)), (guiButton) -> {
-        });
+        reg("Back", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GeneralConfigGui(mod)), (guiButton) -> {});
         reg("Delete", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22 * 2, 100, 20, "Delete"), (guiButton) -> {
-
             Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GeneralConfigGui(mod));
             ChromaHUDApi.getInstance().getElements().remove(element);
-        }, (guiButton) -> {
-        });
-
-
+        }, (guiButton) -> {});
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         Consumer<GuiButton> guiButtonConsumer = clicks.get(button);
-        if (guiButtonConsumer != null) {
-            guiButtonConsumer.accept(button);
-        }
-
+        if (guiButtonConsumer != null) guiButtonConsumer.accept(button);
     }
 
     @Override
@@ -345,16 +282,11 @@ public class DisplayElementConfig extends GuiScreen {
                         lastX = mouseX;
                         lastY = mouseY;
                     } else if (x > 256 + 15 && x < 256 + 15 + 15) {
-                        System.out.println(y);
                         this.brightness = (int) y;
                         regenImage();
                     }
             }
         }
-
-        //Coords within the box they clicked adjusted for scale
-
-
     }
 
     @Override
@@ -369,9 +301,7 @@ public class DisplayElementConfig extends GuiScreen {
         Gui.drawRect(x - 2, y - 3, x + 2, y - 12, Color.BLACK.getRGB());
         Gui.drawRect(x + 12, y - 2, x + 3, y + 2, Color.BLACK.getRGB());
         Gui.drawRect(x - 12, y - 2, x - 3, y + 2, Color.BLACK.getRGB());
-        Gui.drawRect(posX(2) + 5,
-
-            (int) (startY() + (brightness - 2) * scale()),
+        Gui.drawRect(posX(2) + 5, (int) (startY() + (brightness - 2) * scale()),
             posX(2) + 15, (int) (startY() + (brightness + 2) * scale()), Color.BLACK.getRGB());
         element.setColor(Color.HSBtoRGB(hue / 255F, saturation / 255F, 1.0F - brightness / 255F));
     }
@@ -393,20 +323,16 @@ public class DisplayElementConfig extends GuiScreen {
         int bottom = posY(3);
         if (element.isRGB()) {
             int start_y = Math.max((int) (current.getScaledHeight_double() * .1) - 20, 5) + 22 * 8 + 25;
-
             int left1 = current.getScaledWidth() / 2 - 100;
             int right1 = current.getScaledWidth() / 2 + 100;
             Gui.drawRect(left1,
                 start_y, right1, right1 - left1 + 200, element.getColor());
         }
-        if (!element.isColorPallet())
-            return;
+        if (!element.isColorPallet()) return;
 
         apply(mouseX, mouseY);
-//
         GlStateManager.bindTexture(texture.getGlTextureId());
         GlStateManager.enableTexture2D();
-//        //    public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height)
         GL11.glPushMatrix();
         GL11.glTranslatef(left, top, 0);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);//
@@ -420,16 +346,10 @@ public class DisplayElementConfig extends GuiScreen {
             drawTexturedModalRect(0, 0, 0, 0, 15, 256);
         }
         GlStateManager.scale(285F / size, 285F / size, 0);
-//
         GL11.glPopMatrix();
         if (lastX != 0 && lastY != 0)
             drawCircle(lastX, lastY);
-//
-
     }
-
-
-    //Method vars to make things nice and easy
     public int availableSpace() {
         ScaledResolution current = ResolutionUtil.current();
         int yMin = current.getScaledHeight() - 15 - startY();
@@ -444,12 +364,6 @@ public class DisplayElementConfig extends GuiScreen {
         return (int) (Math.max((current.getScaledHeight_double() * .1) - 20, 5) + 22 * 6);
     }
 
-    /*
-      1: top left
-      2: top right
-      3: bottom left
-      4: bottom right
-       */
     private int posX(int vertex) {
         int i = availableSpace();
         ScaledResolution current = ResolutionUtil.current();
