@@ -14,7 +14,6 @@ import me.semx11.autotip.config.GlobalSettings.GameGroup;
 import me.semx11.autotip.gson.exclusion.Exclude;
 
 public abstract class Stats {
-
     static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DecimalFormat FORMAT = (DecimalFormat) NumberFormat.getInstance(Locale.US);
 
@@ -23,10 +22,10 @@ public abstract class Stats {
     @Exclude
     protected final GlobalSettings settings;
 
-    protected int tipsSent = 0;
-    protected int tipsReceived = 0;
-    protected int xpSent = 0;
-    protected int xpReceived = 0;
+    public int tipsSent = 0;
+    public int tipsReceived = 0;
+    public int xpSent = 0;
+    public int xpReceived = 0;
 
     Map<String, Coins> gameStatistics = new ConcurrentHashMap<>();
 
@@ -35,7 +34,7 @@ public abstract class Stats {
         this.settings = autotip.getGlobalSettings();
     }
 
-    public String getTipsTotal() {
+    private String getTipsTotal() {
         return FORMAT.format(this.getTipsTotalInt());
     }
 
@@ -47,7 +46,7 @@ public abstract class Stats {
         return FORMAT.format(this.getTipsSentInt());
     }
 
-    public int getTipsSentInt() {
+    private int getTipsSentInt() {
         return tipsSent;
     }
 
@@ -64,7 +63,7 @@ public abstract class Stats {
         return FORMAT.format(this.getTipsReceivedInt());
     }
 
-    public int getTipsReceivedInt() {
+    private int getTipsReceivedInt() {
         return tipsReceived;
     }
 
@@ -77,19 +76,19 @@ public abstract class Stats {
         this.addTipsReceived(xp / settings.getXpPerTipReceived());
     }
 
-    public String getXpTotal() {
+    private String getXpTotal() {
         return FORMAT.format(this.getXpTotalInt());
     }
 
-    public int getXpTotalInt() {
+    private int getXpTotalInt() {
         return xpSent + xpReceived;
     }
 
-    public String getXpSent() {
+    private String getXpSent() {
         return FORMAT.format(this.getXpSentInt());
     }
 
-    public int getXpSentInt() {
+    private int getXpSentInt() {
         return xpSent;
     }
 
@@ -97,20 +96,16 @@ public abstract class Stats {
         this.xpSent += xp;
     }
 
-    public String getXpReceived() {
+    private String getXpReceived() {
         return FORMAT.format(this.getXpReceivedInt());
     }
 
-    public int getXpReceivedInt() {
+    private int getXpReceivedInt() {
         return xpReceived;
     }
 
     public void addXpReceived(int xp) {
         this.xpReceived += xp;
-    }
-
-    public Map<String, Coins> getGameStatistics() {
-        return gameStatistics;
     }
 
     public void addCoinsSent(String game, int coins) {
@@ -125,7 +120,7 @@ public abstract class Stats {
         this.addCoins(game, new Coins(coinsSent, coinsReceived));
     }
 
-    protected void addCoins(String game, Coins coins) {
+    public void addCoins(String game, Coins coins) {
         coins = new Coins(coins);
         for (GameGroup group : settings.getGameGroups()) {
             if (game.equals(group.getName())) {
@@ -161,35 +156,18 @@ public abstract class Stats {
         MessageUtil messageUtil = autotip.getMessageUtil();
         messageUtil.separator();
         gameStatistics.entrySet().stream()
-                .sorted(Map.Entry.<String, Coins>comparingByValue().reversed())
-                .forEach(entry -> {
+                .sorted(Map.Entry.<String, Coins>comparingByValue().reversed()).forEach(entry -> {
                     String game = entry.getKey();
                     Coins coins = entry.getValue();
-                    messageUtil.getKeyHelper("command.stats").withKey("coins", context -> {
-                        context.getBuilder(game, coins.getTotal())
-                                .setHover(context.getKey("coinsHover"), game, coins.getSent(),
-                                        coins.getReceived())
-                                .send();
-                    });
+                    messageUtil.getKeyHelper("command.stats").withKey("coins", context -> context.getBuilder(game, coins.getTotal()).setHover(context.getKey("coinsHover"), game, coins.getSent(), coins.getReceived()).send());
                 });
-        messageUtil.getKeyHelper("command.stats").withKey("tips", context -> {
-            context.getBuilder(this.getTipsTotal())
-                    .setHover(context.getKey("tipsHover"), this.getTipsSent(),
-                            this.getTipsReceived())
-                    .send();
-        }).withKey("xp", context -> {
-            context.getBuilder(this.getXpTotal())
-                    .setHover(context.getKey("xpHover"), this.getXpSent(), this.getXpReceived())
-                    .send();
-        });
+        messageUtil.getKeyHelper("command.stats").withKey("tips", context -> context.getBuilder(this.getTipsTotal()).setHover(context.getKey("tipsHover"), this.getTipsSent(), this.getTipsReceived()).send()).withKey("xp", context -> context.getBuilder(this.getXpTotal()).setHover(context.getKey("xpHover"), this.getXpSent(), this.getXpReceived()).send());
         if (this instanceof StatsDaily) {
             messageUtil.sendKey("command.stats.date", ((StatsDaily) this).getDateString());
         } else if (this instanceof StatsRange) {
             StatsRange range = (StatsRange) this;
-            messageUtil.sendKey("command.stats.dateRange", range.getStartString(),
-                    range.getEndString());
+            messageUtil.sendKey("command.stats.dateRange", range.getStartString(), range.getEndString());
         }
         messageUtil.separator();
     }
-
 }

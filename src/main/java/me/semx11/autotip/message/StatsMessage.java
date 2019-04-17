@@ -53,5 +53,4 @@ public class StatsMessage extends Message {
             }
         }
     }
-
 }

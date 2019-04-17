@@ -57,11 +57,6 @@ public class StatsDaily extends Stats {
         return this;
     }
 
-    /**
-     * Wrapped version of {@link me.semx11.autotip.core.StatsManager#save(StatsDaily)}.
-     *
-     * @see me.semx11.autotip.core.StatsManager#save(StatsDaily)
-     */
     public void save() {
         autotip.getStatsManager().save(this);
     }
@@ -140,13 +135,10 @@ public class StatsDaily extends Stats {
 
             // Deletes old file to complete migration.
             fileUtil.delete(file);
-
-            Autotip.LOGGER.info("Migrated legacy stats file " + file.getName());
             this.save();
         } catch (IOException e) {
             Autotip.LOGGER.error("Could not read file " + file.getName(), e);
             this.save();
         }
     }
-
 }

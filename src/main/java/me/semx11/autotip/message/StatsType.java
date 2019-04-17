@@ -4,9 +4,7 @@ import java.util.function.BiConsumer;
 import me.semx11.autotip.stats.StatsDaily;
 
 public enum StatsType {
-    NONE((stats, matcher) -> {
-        // What did you expect?
-    }),
+    NONE((stats, matcher) -> {}),
     ONE_TIP_SENT((stats, matcher) -> {
         stats.addTipsSent(1);
     }),
@@ -44,5 +42,4 @@ public enum StatsType {
     public BiConsumer<StatsDaily, MessageMatcher> getConsumer() {
         return consumer;
     }
-
 }

@@ -7,16 +7,13 @@ import me.semx11.autotip.chat.MessageOption;
 import me.semx11.autotip.gson.exclusion.Exclude;
 
 public class Message {
-
     @Exclude
     private final Map<String, MessageMatcher> messageCache = new ConcurrentHashMap<>();
 
     protected Pattern pattern;
     private MessageOption hideFor;
 
-    public Message() {
-
-    }
+    public Message() {}
 
     public Message(Pattern pattern) {
         this(pattern, MessageOption.HIDDEN);
@@ -43,5 +40,4 @@ public class Message {
     public boolean shouldHide(MessageOption option) {
         return hideFor.compareTo(option) <= 0;
     }
-
 }
