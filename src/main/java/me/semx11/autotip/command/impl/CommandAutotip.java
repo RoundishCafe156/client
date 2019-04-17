@@ -29,7 +29,6 @@ import me.semx11.autotip.util.MinecraftVersion;
 import static net.minecraft.command.CommandBase.getListOfStringsMatchingLastWord;
 
 public class CommandAutotip extends CommandAbstract {
-
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     private static final DateTimeFormatter SESSION_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static final DateTimeFormatter WAVE_FORMAT = DateTimeFormatter.ofPattern("mm:ss");
@@ -267,7 +266,7 @@ public class CommandAutotip extends CommandAbstract {
         switch (args.length) {
             case 1:
                 return getListOfStringsMatchingLastWord(args, "stats", "info", "messages", "toggle",
-                        "wave", "changelog");
+                        "wave");
             case 2:
                 switch (args[0].toLowerCase()) {
                     case "s":
