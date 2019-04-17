@@ -42,8 +42,6 @@ import java.util.List;
 public class Autotip {
     public static final Logger LOGGER = Hyperium.LOGGER;
 
-    private static final String MOD_ID = "autotip";
-    private static final String NAME = "Autotip";
     private static final String VERSION = "3.0";
     public static IChatComponent tabHeader;
     private final List<Event> events = new ArrayList<>();

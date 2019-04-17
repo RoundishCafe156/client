@@ -34,10 +34,6 @@ public class FileUtil {
         }
     }
 
-    public Path getUserDir() {
-        return userDir;
-    }
-
     public Path getStatsDir() {
         return statsDir;
     }
@@ -118,5 +114,4 @@ public class FileUtil {
     private String separator(String s) {
         return s.replaceAll("///", File.separator);
     }
-
 }

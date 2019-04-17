@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class WebsiteUtils {
-
     public static final List<String> blitz_kits = new ArrayList<>();
     private static final TreeMap<Integer, String> numerals = new TreeMap<>();
 
@@ -53,7 +52,6 @@ public class WebsiteUtils {
         blitz_kits.add("Wolftamer");
         blitz_kits.add("Hype Train");
         blitz_kits.add("Jockey");
-
     }
 
     public static String numeral(int amount) {
@@ -155,20 +153,6 @@ public class WebsiteUtils {
             return 0;
         } catch (Exception e) {
             return 0;
-        }
-    }
-
-    public static void main(String[] args) {
-        String in = " handler.write(strongBr(\"Bedwars level: \", getUtils().getBedwarsLevel(bedwars.optInt(\"Experience\") + bedwars.optInt(\"Experience_new\"))));\n" +
-                "        handler.write(strongBr(\"Beds Broken: \", bedwars.optInt(\"beds_broken_bedwars\")));\n" +
-                "        handler.writeLine(1);\n" +
-                "        handler.write(strongBr(\"Final Kills: \", bedwars.optInt(\"final_kills_bedwars\")));\n" +
-                "        handler.write(strongBr(\"Final Deaths: \", bedwars.optInt(\"final_deaths_bedwars\")));\n" +
-                "        handler.write(strongBr(\"Final K/D: \", getUtils().buildRatio(bedwars.optInt(\"final_kills_bedwars\"), bedwars.optInt(\"final_deaths_bedwars\"))));\n" +
-                "        handler.write(strongBr(\"Final Kill / Normal deaths: \", getUtils().buildRatio(bedwars.optInt(\"final_kills_bedwars\"), bedwars.optInt(\"deaths_bedwars\"))));\n";
-        for (String s : in.split("\n")) {
-            s = s.replace("handler.write(", "items.add(new DisplayLine(").replace(";", ");").replace("strongBr", "bold").replace("<br>", "");
-            System.out.println(s);
         }
     }
 

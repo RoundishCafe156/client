@@ -16,7 +16,6 @@ import me.semx11.autotip.util.FileUtil;
 import org.apache.commons.io.FileUtils;
 
 public class Config {
-
     @Exclude
     private final Autotip autotip;
     @Exclude
@@ -135,5 +134,4 @@ public class Config {
         this.messageOption = that.messageOption == null ? this.messageOption : that.messageOption;
         return this;
     }
-
 }

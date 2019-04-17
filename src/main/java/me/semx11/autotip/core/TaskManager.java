@@ -1,7 +1,6 @@
 package me.semx11.autotip.core;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -17,7 +16,6 @@ import java.util.concurrent.ThreadFactory;
 import me.semx11.autotip.util.ErrorReport;
 
 public class TaskManager {
-
     private final ExecutorService executor;
     private final ScheduledExecutorService scheduler;
 
@@ -31,14 +29,6 @@ public class TaskManager {
 
     public ExecutorService getExecutor() {
         return executor;
-    }
-
-    public void schedule(Runnable runnable, long delay) {
-        try {
-            scheduler.schedule(runnable, delay, SECONDS).get();
-        } catch (InterruptedException | ExecutionException e) {
-            ErrorReport.reportException(e);
-        }
     }
 
     public <T> T scheduleAndAwait(Callable<T> callable, long delay) {
@@ -99,5 +89,4 @@ public class TaskManager {
     public enum TaskType {
         LOGIN, KEEP_ALIVE, TIP_WAVE, TIP_CYCLE, LOGOUT
     }
-
 }

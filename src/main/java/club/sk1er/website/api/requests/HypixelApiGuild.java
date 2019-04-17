@@ -144,7 +144,6 @@ public class HypixelApiGuild implements HypixelApiObject {
             this.name = name;
             this.priority = priority;
         }
-
         public String getName() {
             return name;
         }

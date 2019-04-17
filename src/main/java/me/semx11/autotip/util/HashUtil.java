@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class HashUtil {
-
     private static final SecureRandom RANDOM = new SecureRandom();
 
     public static String getNextSalt() {
@@ -28,5 +27,4 @@ public class HashUtil {
         byte[] strBytes = str.getBytes(StandardCharsets.UTF_8);
         return md.digest(strBytes);
     }
-
 }

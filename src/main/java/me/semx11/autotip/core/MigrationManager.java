@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 public class MigrationManager {
-
     private static final DateTimeFormatter OLD_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final Autotip autotip;
@@ -92,5 +91,4 @@ public class MigrationManager {
     public enum LegacyState {
         BEFORE, BACKTRACK, AFTER
     }
-
 }

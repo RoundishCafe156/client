@@ -1,7 +1,6 @@
 package me.semx11.autotip.util;
 
 public class Version implements Comparable<Version> {
-
     private String version;
 
     public Version(String version) {

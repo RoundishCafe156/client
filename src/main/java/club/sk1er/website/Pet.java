@@ -111,7 +111,7 @@ public class Pet {
 
     public String name = "";
     public int level;
-    public int xp;
+    private int xp;
 
     public Pet(JsonHolder tmp) {
         this.xp = tmp.optInt("experience");
@@ -130,6 +130,5 @@ public class Pet {
                 xp = xp - petLevels.get(t);
             }
         }
-
     }
 }

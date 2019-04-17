@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
-
     private static final Pattern FORMAT_PATTERN = Pattern.compile("(?im)&([0-9A-FK-OR])");
     private static final Pattern PARAM_PATTERN = Pattern.compile("\\{}");
 
@@ -31,5 +30,4 @@ public class StringUtil {
     public static String format(String msg) {
         return msg.contains("&") ? FORMAT_PATTERN.matcher(msg).replaceAll("\u00a7$1") : msg;
     }
-
 }
