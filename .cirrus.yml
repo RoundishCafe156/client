@@ -18,7 +18,7 @@ task:
       path: ./build/libs/**
   - name: API Clases Job
     script: gradle apiClasses
-  - name: testClasses
+  - name: Test Classes Job
     script: gradle testClasses
   always:
     cleanup_before_cache_script: |
