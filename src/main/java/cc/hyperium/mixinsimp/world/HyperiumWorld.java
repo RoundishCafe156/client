@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 
 public class HyperiumWorld {
-
     private World parent;
 
     public HyperiumWorld(World parent) {
@@ -41,46 +40,32 @@ public class HyperiumWorld {
     }
 
     public void checkLightFor(EnumSkyBlock lightType, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
-        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) {
-            ci.setReturnValue(false);
-        }
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) ci.setReturnValue(false);
     }
 
     public void getLightFromNeighborsFor(EnumSkyBlock type, BlockPos pos, CallbackInfoReturnable<Integer> ci) {
-        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) {
-            ci.setReturnValue(15);
-        }
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) ci.setReturnValue(15);
     }
 
     public double getHorizon(WorldInfo worldInfo) {
-        if (Settings.VOID_FLICKER_FIX) {
-            return 0.0;
-        }
+        if (Settings.VOID_FLICKER_FIX) return 0.0;
         return worldInfo.getTerrainType() == WorldType.FLAT ? 0.0D : 63.0D;
     }
 
     public void getLightFromNeighbor(BlockPos pos, CallbackInfoReturnable<Integer> ci) {
-        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) {
-            ci.setReturnValue(15);
-        }
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) ci.setReturnValue(15);
     }
 
     public void getRawLight(BlockPos pos, EnumSkyBlock lightType, CallbackInfoReturnable<Integer> ci) {
-        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) {
-            ci.setReturnValue(15);
-        }
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) ci.setReturnValue(15);
     }
 
     public void getLight(BlockPos pos, CallbackInfoReturnable<Integer> ci) {
-        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) {
-            ci.setReturnValue(15);
-        }
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) ci.setReturnValue(15);
     }
 
     public void getLight(BlockPos pos, boolean checkNeighbors, CallbackInfoReturnable<Integer> ci) {
-        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) {
-            ci.setReturnValue(15);
-        }
+        if (!Minecraft.getMinecraft().isIntegratedServerRunning() && Settings.FULLBRIGHT) ci.setReturnValue(15);
     }
 
     public void updateEntities(Profiler theProfiler, List<Entity> weatherEffects, List<Entity> loadedEntityList, List<Entity> unloadedEntityList, List<TileEntity> tickableTileEntities, WorldBorder worldBorder, List<TileEntity> loadedTileEntityList, List<TileEntity> tileEntitiesToBeRemoved, List<TileEntity> addedTileEntityList) {
@@ -96,15 +81,11 @@ public class HyperiumWorld {
             } catch (Throwable throwable2) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable2, "Ticking entity");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being ticked");
-
                 entity.addEntityCrashInfo(crashreportcategory);
-
                 throw new ReportedException(crashreport);
             }
 
-            if (entity.isDead) {
-                weatherEffects.remove(i--);
-            }
+            if (entity.isDead) weatherEffects.remove(i--);
         }
 
         theProfiler.endStartSection("remove");
@@ -115,15 +96,12 @@ public class HyperiumWorld {
             int j = entity1.chunkCoordX;
             int l1 = entity1.chunkCoordZ;
 
-            if (entity1.addedToChunk && ((IMixinWorld) parent).callIsChunkLoaded(j, l1, true)) {
-                parent.getChunkFromChunkCoords(j, l1).removeEntity(entity1);
-            }
+            if (entity1.addedToChunk && ((IMixinWorld) parent).callIsChunkLoaded(j, l1, true)) parent.getChunkFromChunkCoords(j, l1).removeEntity(entity1);
         }
 
         for (int l = 0; l < unloadedEntityList.size(); ++l) {
             ((IMixinWorld) parent).callOnEntityRemoved(unloadedEntityList.get(l));
         }
-
 
         unloadedEntityList.clear();
         updateDefaultEntities(theProfiler, loadedEntityList);
@@ -174,18 +152,13 @@ public class HyperiumWorld {
                 TileEntity tileentity1 = addedTileEntityList.get(j1);
 
                 if (!tileentity1.isInvalid()) {
-                    if (!loadedTileEntityList.contains(tileentity1)) {
-                        parent.addTileEntity(tileentity1);
-                    }
+                    if (!loadedTileEntityList.contains(tileentity1)) parent.addTileEntity(tileentity1);
 
-                    if (parent.isBlockLoaded(tileentity1.getPos())) {
-                        parent.getChunkFromBlockCoords(tileentity1.getPos()).addTileEntity(tileentity1.getPos(), tileentity1);
-                    }
+                    if (parent.isBlockLoaded(tileentity1.getPos())) parent.getChunkFromBlockCoords(tileentity1.getPos()).addTileEntity(tileentity1.getPos(), tileentity1);
 
                     parent.markBlockForUpdate(tileentity1.getPos());
                 }
             }
-
             addedTileEntityList.clear();
         }
 
@@ -228,7 +201,6 @@ public class HyperiumWorld {
                     try {
                         for (Entity entity : entityFXES) {
                             if (entity == null) {
-                                System.out.println("Entity was null");
                                 continue;
                             }
                             try {
@@ -254,7 +226,6 @@ public class HyperiumWorld {
                         t.printStackTrace();
                     }
                     latch.countDown();
-
                 });
             }
 
@@ -265,7 +236,6 @@ public class HyperiumWorld {
             }
             for (Entity entity : toRemove) {
                 if (entity == null) {
-                    System.out.println("Entity null");
                     continue;
                 }
                 int k1 = entity.chunkCoordX;
@@ -288,15 +258,12 @@ public class HyperiumWorld {
 
             if (entity2.ridingEntity != null) {
                 if (!entity2.ridingEntity.isDead && entity2.ridingEntity.riddenByEntity == entity2) continue;
-
                 entity2.ridingEntity.riddenByEntity = null;
                 entity2.ridingEntity = null;
             }
 
             theProfiler.startSection("tick");
-
             updateEntity(entity2);
-
             theProfiler.endSection();
             theProfiler.startSection("remove");
 
@@ -315,8 +282,6 @@ public class HyperiumWorld {
             theProfiler.endSection();
         }
         theProfiler.endSection();
-
-
     }
 
     private void updateEntity(Entity entity) {
