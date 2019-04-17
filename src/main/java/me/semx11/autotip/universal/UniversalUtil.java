@@ -14,7 +14,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 public class UniversalUtil {
-
     private static Autotip autotip;
 
     public static void setAutotip(Autotip autotip) {
@@ -22,7 +21,6 @@ public class UniversalUtil {
     }
 
     public static MinecraftVersion getMinecraftVersion() {
-
         return MinecraftVersion.V1_8_9;
     }
 
