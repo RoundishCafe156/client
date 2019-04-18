@@ -26,18 +26,13 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/*
- * Created by Cubxity on 30/08/2018
- */
 public class SettingsTab extends AbstractTab {
-
     public SettingsTab(HyperiumMainGui gui) {
         super(gui, "tab.settings.name");
 
         //TODO add other settings objects
 
         //TODO maybe read separate thing for mods
-        //TODO enabled / disabled status
         HashMap<Category, CollapsibleTabComponent> items = new HashMap<>();
         for (Object o : gui.getSettingsObjects()) {
             for (Field f : o.getClass().getDeclaredFields()) {
@@ -74,7 +69,6 @@ public class SettingsTab extends AbstractTab {
 
         // Link to capes GUI.
         apply(new LinkComponent(this, Collections.emptyList(), "Youtuber Capes", new CapesGui()), false, Category.COSMETICS, items);
-
 
         for (RGBFieldSet rgbFieldSet : gui.getRgbFields()) {
             apply(new RGBComponent(this, rgbFieldSet), rgbFieldSet.isMods(), rgbFieldSet.getCategory(), items);

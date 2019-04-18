@@ -67,9 +67,7 @@ import net.minecraft.server.integrated.IntegratedServer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A class containing most of Hyperium's internal handlers
- */
+@SuppressWarnings("unused")
 public class HyperiumHandlers {
     private LocationHandler locationHandler;
     private HypixelDetector hypixelDetector;
@@ -140,7 +138,6 @@ public class HyperiumHandlers {
         register(broadcastEvents = new BroadcastEvents());
         commandQueue = new CommandQueue();
         dataHandler = new HypixelAPI();
-        // Chat Handlers
         registerChatHandler(new RankedRatingChatHandler());
         registerChatHandler(new DMChatHandler());
         registerChatHandler(questTracking = new QuestTrackingChatHandler());
@@ -163,16 +160,8 @@ public class HyperiumHandlers {
         return hypixelValueTracking;
     }
 
-    public HypixelGuiAugmenter getHypixelGuiAugmenter() {
-        return hypixelGuiAugmenter;
-    }
-
     public StatsHandler getStatsHandler() {
         return statsHandler;
-    }
-
-    public List<HyperiumChatHandler> getChatHandlers() {
-        return chatHandlers;
     }
 
     public HyperiumCommandHandler getCommandHandler() {
@@ -187,10 +176,6 @@ public class HyperiumHandlers {
         return particleAuraHandler;
     }
 
-    public VanillaEnhancementsHud getVanillaEnhancementsHud() {
-        return vanillaEnhancementsHud;
-    }
-
     public FlipHandler getFlipHandler() {
         return flipHandler;
     }
@@ -201,10 +186,6 @@ public class HyperiumHandlers {
 
     public TwerkDance getTwerkDance() {
         return twerkDance;
-    }
-
-    public BroadcastEvents getBroadcastEvents() {
-        return broadcastEvents;
     }
 
     public SettingsHandler getSettingsHandler() {
@@ -255,20 +236,12 @@ public class HyperiumHandlers {
         return dataHandler;
     }
 
-    public ResolutionUtil getResolutionUtil() {
-        return resolutionUtil;
-    }
-
     public GuiDisplayHandler getGuiDisplayHandler() {
         return guiDisplayHandler;
     }
 
     public KeyBindHandler getKeybindHandler() {
         return keybindHandler;
-    }
-
-    public TPoseHandler gettPoseHandler() {
-        return tPoseHandler;
     }
 
     public FortniteDefaultDance getFortniteDefaultDance() {
@@ -287,10 +260,6 @@ public class HyperiumHandlers {
         return configOptions;
     }
 
-    public QuestTrackingChatHandler getQuestTracking() {
-        return questTracking;
-    }
-
     public DabHandler getDabHandler() {
         return dabHandler;
     }
@@ -305,10 +274,6 @@ public class HyperiumHandlers {
 
     public StatusHandler getStatusHandler() {
         return statusHandler;
-    }
-
-    public ReachDisplay getReachDisplay() {
-        return reachDisplay;
     }
 
     public PerspectiveModifierHandler getPerspectiveHandler() {

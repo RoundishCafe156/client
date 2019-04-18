@@ -46,7 +46,6 @@ public class ScoreboardDisplay extends DisplayItem {
         super(raw, ordinal);
     }
 
-
     @Override
     public void draw(int starX, double startY, boolean config) {
         if (p_180475_1_ != null) {

@@ -161,61 +161,6 @@ public class HyperiumTextureManager {
         }
     }
 
-    @InvokeEvent
-    public void worldSwitch(WorldChangeEvent event) {
-        // Experimental feature.
-        if (Settings.OPTIMIZED_TEXTURE_LOADING) {
-            try {
-                WorldClient theWorld = Minecraft.getMinecraft().theWorld;
-                if (theWorld != null) {
-                    for (EntityPlayer playerEntity : theWorld.playerEntities) {
-                        if (playerEntity.equals(Minecraft.getMinecraft().thePlayer))
-                            continue;
-                        NetworkPlayerInfo networkPlayerInfo = ((IMixinAbstractClientPlayer) playerEntity).callGetPlayerInfo();
-                        if (networkPlayerInfo == null)
-                            continue;
-                        ((IMixinNetworkPlayerInfo) networkPlayerInfo).setPlayerTexturesLoaded(false);
-                        ((IMixinNetworkPlayerInfo) networkPlayerInfo).setLocationCape(null);
-                        ((IMixinNetworkPlayerInfo) networkPlayerInfo).setLocationSkin(null);
-                        ResourceLocation locationSkin = ((AbstractClientPlayer) playerEntity).getLocationSkin();
-                        if (locationSkin != null) {
-                            deleteTexture(locationSkin);
-                        }
-                        ResourceLocation locationCape = ((AbstractClientPlayer) playerEntity).getLocationCape();
-                        if (locationCape != null) {
-                            CapeHandler capeHandler = Hyperium.INSTANCE.getHandlers().getCapeHandler();
-                            ResourceLocation cape = capeHandler.getCape(((AbstractClientPlayer) playerEntity));
-                            if (cape != null && cape.equals(locationCape))
-                                continue;
-                            deleteTexture(locationCape);
-                        }
-                    }
-                }
-                //Clear out all skins + capes not relating to the player
-                for (String s : textures.keySet()) {
-                    if (s.contains(":")) {
-                        String[] split = s.split(":");
-                        if (split.length < 2) continue;
-                        ResourceLocation textureLocation = new ResourceLocation(split[0], split[1]);
-                        if (split[1].startsWith("skins/")) {
-                            ResourceLocation locationCape = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.getLocationCape() : null;
-                            ResourceLocation locationSkin = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer.getLocationSkin() : null;
-                            if (s.equalsIgnoreCase(locationSkin == null ? "null" : locationSkin.toString()) || s.equalsIgnoreCase(locationCape == null ? "null" : locationCape.toString())) {
-                                continue;
-                            }
-                            deleteTexture(textureLocation);
-                        }
-
-                        if (split[1].startsWith("capeof/")) deleteTexture(textureLocation);
-                    }
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void deleteTexture(ResourceLocation textureLocation) {
         ITextureObject itextureobject = this.getTexture(textureLocation);
         if (itextureobject != null) TextureUtil.deleteTexture(itextureobject.getGlTextureId());

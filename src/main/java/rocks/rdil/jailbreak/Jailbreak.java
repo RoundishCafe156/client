@@ -6,7 +6,7 @@ import rocks.rdil.jailbreak.util.Browse;
 public class Jailbreak {
     public Jailbreak() {}
 
-    private static Browse browseUtilInstance = new Browse();
+    private static Browse browse = new Browse();
 
     public void debug() {
         Hyperium.LOGGER.debug("----------------");
@@ -18,6 +18,6 @@ public class Jailbreak {
     }
 
     public static Browse getBrowseUtil() {
-        return browseUtilInstance;
+        return browse;
     }
 }

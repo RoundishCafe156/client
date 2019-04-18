@@ -22,16 +22,16 @@ import net.minecraft.client.renderer.GlStateManager;
 
 public class GuiSlider extends GuiButtonExt {
     public double sliderValue = 1.0F;
-    public String dispString = "";
+    public String dispString;
     public boolean dragging = false;
     public boolean showDecimal = true;
     public double minValue = 0.0D;
     public double maxValue = 5.0D;
     public int precision = 1;
 
-    public ISlider parent = null;
+    public ISlider parent;
 
-    public String suffix = "";
+    public String suffix;
 
     public boolean drawString = true;
 
@@ -61,9 +61,7 @@ public class GuiSlider extends GuiButtonExt {
         displayString = dispString + val + suffix;
 
         drawString = drawStr;
-        if (!drawString) {
-            displayString = "";
-        }
+        if (!drawString) displayString = "";
     }
 
     public GuiSlider(int id, int xPos, int yPos, String displayStr, double minVal, double maxVal, double currentVal, ISlider par) {

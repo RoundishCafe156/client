@@ -60,7 +60,6 @@ public class HypixelFriendsGui extends HyperiumGui {
     private GuiTextField textField;
     private GuiBoxItem<HypixelApiFriendObject> selectedItem = null;
     private int columnWidth;
-    private int partyCooldown = 0;
     private int removeTicks = 0;
 
     public HypixelFriendsGui() {
@@ -72,7 +71,6 @@ public class HypixelFriendsGui extends HyperiumGui {
     public void initGui() {
         columnWidth = fontRendererObj.getStringWidth("[YOUTUBER] Zyphalopagus1245");
         super.initGui();
-        //TODO remove direct address to MC font renderer
     }
 
     protected void pack() {
@@ -145,7 +143,6 @@ public class HypixelFriendsGui extends HyperiumGui {
                 double remaining = totalTick - removeTicks;
                 guiButton.displayString = ChatColor.RED + "Removing in: " + NumberUtil.round(remaining / 20, 1);
 
-
             } else {
                 removeTicks = 0;
                 guiButton.displayString = "Remove (Hold down)";
@@ -195,7 +192,6 @@ public class HypixelFriendsGui extends HyperiumGui {
 
     @Override
     public void updateScreen() {
-
         super.updateScreen();
         tick++;
         if (tick % 20 == 0) {
@@ -222,8 +218,6 @@ public class HypixelFriendsGui extends HyperiumGui {
 
         textField.drawTextBox();
 
-
-        //Some long name
         final int bottomRenderBound = ResolutionUtil.current().getScaledHeight() / 9 * 8;
 
         if (selectedItem != null) {
@@ -307,7 +301,6 @@ public class HypixelFriendsGui extends HyperiumGui {
     }
 
     enum FriendSortType implements Comparator<HypixelApiFriendObject> {
-
         ALPHABETICAL("Alphabetical") {
             @Override
             public int compare(HypixelApiFriendObject o1, HypixelApiFriendObject o2) {
@@ -346,7 +339,6 @@ public class HypixelFriendsGui extends HyperiumGui {
 
         FriendSortType(String name) {
             this.name = name;
-
         }
 
         public String getName() {
@@ -366,7 +358,6 @@ public class HypixelFriendsGui extends HyperiumGui {
                 all.add(new HypixelApiFriendObject(jsonHolder));
             }
             reset();
-
         }
 
         public void sort(FriendSortType type) {

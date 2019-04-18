@@ -106,7 +106,6 @@ public class Pet {
         petLevels.put(98, 28810);
         petLevels.put(99, 29400);
         petLevels.put(100, 30000);
-
     }
 
     public String name = "";
