@@ -34,10 +34,4 @@ public class HypixelApiFriends implements HypixelApiObject {
     public JsonArray getFriends() {
         return master.optJSONArray("records");
     }
-
-    public List<JsonHolder> getFriendsAsList() {
-        List<JsonHolder> friends = new ArrayList<>();
-        for (JsonElement tmp1 : getFriends()) friends.add(new JsonHolder(tmp1.getAsJsonObject()));
-        return friends;
-    }
 }
