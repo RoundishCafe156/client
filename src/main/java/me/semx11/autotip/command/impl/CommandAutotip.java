@@ -9,7 +9,6 @@ import me.semx11.autotip.chat.MessageOption;
 import me.semx11.autotip.chat.MessageUtil;
 import me.semx11.autotip.command.CommandAbstract;
 import me.semx11.autotip.config.Config;
-import me.semx11.autotip.config.GlobalSettings;
 import me.semx11.autotip.core.SessionManager;
 import me.semx11.autotip.core.TaskManager;
 import me.semx11.autotip.core.TaskManager.TaskType;

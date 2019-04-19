@@ -16,7 +16,6 @@ import me.semx11.autotip.command.CommandAbstract;
 import me.semx11.autotip.command.impl.CommandAutotip;
 import me.semx11.autotip.command.impl.CommandLimbo;
 import me.semx11.autotip.config.Config;
-import me.semx11.autotip.config.GlobalSettings;
 import me.semx11.autotip.core.MigrationManager;
 import me.semx11.autotip.core.SessionManager;
 import me.semx11.autotip.core.TaskManager;
