@@ -39,7 +39,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -156,13 +155,9 @@ public class PlayerStatsGui extends HyperiumGui {
                     e.printStackTrace();
                 }
             }
-        }, button -> {
+        }, button -> {});
 
-        });
-
-        reg("VIEW_GUILD", new GuiButton(nextId(), 1, 22, "View Guild"), button -> {
-            new GuildStatsGui(player.getGuild()).show();
-        }, button -> button.visible = player.getGuild().isLoaded() && player.getGuild().isValid());
+        reg("VIEW_GUILD", new GuiButton(nextId(), 1, 22, "View Guild"), button -> new GuildStatsGui(player.getGuild()).show(), button -> button.visible = player.getGuild().isLoaded() && player.getGuild().isValid());
         reg("VIEW_FRIENDS", new GuiButton(nextId(), 1, 22 + 21, "View Friends"), button -> {}, button -> { });
     }
 
@@ -291,8 +286,5 @@ public class PlayerStatsGui extends HyperiumGui {
 
             PlayerQuestsGui.print(current, deepStats, printY);
         }
-
     }
-
-
 }

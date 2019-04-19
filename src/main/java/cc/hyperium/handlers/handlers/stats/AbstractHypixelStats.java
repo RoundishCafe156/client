@@ -92,7 +92,6 @@ public abstract class AbstractHypixelStats {
             JsonHolder quest = new JsonHolder(jsonElement.getAsJsonObject());
             String quest_backend = quest.optString("id");
             StringBuilder tmp = new StringBuilder(HypixelAPI.INSTANCE.getFrontendNameOfQuest(quest_backend));
-            //TODO get quest names
             JsonHolder playerQuestData = player.getQuests().optJSONObject(HypixelAPI.INSTANCE.getFrontendNameOfQuest(quest_backend));
             long last_completed = playerQuestData.optLong("last_completed");
             tmp.append(": ");

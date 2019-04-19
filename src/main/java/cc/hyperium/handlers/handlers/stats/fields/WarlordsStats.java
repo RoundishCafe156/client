@@ -12,11 +12,7 @@ import java.util.List;
 
 import net.hypixel.api.GameType;
 
-/**
- * @author KodingKing
- */
 public class WarlordsStats extends AbstractHypixelStats {
-
     @Override
     public String getImage() {
         return "Warlords-64";

@@ -72,7 +72,6 @@ public class GuildStatsGui extends HyperiumGui {
             fontRendererObj.drawString(HypixelApiPlayer.DMYHHMMSS.format(guildPlayer.getJoinLong()), memberX + memberWidth / 3 * 2, memberStart, Color.WHITE.getRGB(), true);
 
             memberStart += 10;
-
         }
     }
 }

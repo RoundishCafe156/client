@@ -70,7 +70,7 @@ public class HypixelValueTracking {
 
     private File getFileOnDay(long day) {
         Date time = new Date(day);
-        File year_file = new File(Hyperium.folder,/* "stats" + File.pathSeparator + UUIDUtil.getClientUUID() + File.pathSeparator + */Integer.toString(time.getYear()));
+        File year_file = new File(Hyperium.folder, Integer.toString(time.getYear()));
         if (!year_file.exists()) {
             year_file.mkdirs();
         }
