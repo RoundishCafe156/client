@@ -45,7 +45,6 @@ public class CommandAutotip extends CommandAbstract {
         MessageUtil messageUtil = autotip.getMessageUtil();
         TaskManager taskManager = autotip.getTaskManager();
         SessionManager manager = autotip.getSessionManager();
-        GlobalSettings settings = autotip.getGlobalSettings();
 
         if (args.length <= 0) {
             messageUtil.sendKey("command.usage");
@@ -62,7 +61,7 @@ public class CommandAutotip extends CommandAbstract {
                     } else {
                         config.nextMessageOption().save();
                     }
-                    messageUtil.sendKey("command.messages.next", config.getMessageOption());
+                    //messageUtil.sendKey("command.messages.next", config.getMessageOption());
                 } catch (IllegalArgumentException e) {
                     messageUtil.sendKey("command.messages.error", args.length > 1 ? args[1] : null);
                 }
