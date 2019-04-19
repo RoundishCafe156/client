@@ -27,7 +27,7 @@ val MODID
 
 val VERSION
     @JvmName("getVersion")
-    get() = "2.1"
+    get() = "2.3"
 
 val VERSION_ID
     @JvmName("getVersionID")

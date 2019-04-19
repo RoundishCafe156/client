@@ -11,13 +11,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
-
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 public class HypixelGuiAugmenter {
-
     private final HashMap<GuiButton, Consumer<GuiButton>> lobbyAdds = new HashMap<>();
 
     public HypixelGuiAugmenter() {
@@ -29,7 +27,6 @@ public class HypixelGuiAugmenter {
             }
         });
         lobbyAdds.put(new GuiButton(500002, 1, 22, 100, 20, "View Friends"), button -> new HypixelFriendsGui().show());
-
     }
 
     @InvokeEvent
@@ -44,7 +41,6 @@ public class HypixelGuiAugmenter {
                 }
             }
         }
-//        modifyLobbyGui(gui);
     }
 
     private boolean shouldDoTheThing() {
@@ -67,7 +63,6 @@ public class HypixelGuiAugmenter {
             guiButton.visible = true;
         }
     }
-
 
     @InvokeEvent
     public void actionPerformed(ActionPerformedEvent event) {
