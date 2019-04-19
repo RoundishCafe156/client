@@ -1,5 +1,6 @@
 package me.semx11.autotip.command.impl;
 
+import cc.hyperium.config.Settings;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -61,40 +62,14 @@ public class CommandAutotip extends CommandAbstract {
                     } else {
                         config.nextMessageOption().save();
                     }
-                    //messageUtil.sendKey("command.messages.next", config.getMessageOption());
+                    messageUtil.sendKey("command.messages.next", config.getMessageOption());
                 } catch (IllegalArgumentException e) {
                     messageUtil.sendKey("command.messages.error", args.length > 1 ? args[1] : null);
                 }
                 break;
-            case "t":
-            case "toggle":
-                if (!manager.isOnHypixel()) {
-                    config.toggleEnabled().save();
-                    messageUtil.getKeyHelper("command.toggle")
-                            .sendKey(config.isEnabled() ? "enabled" : "disabled");
-                    return;
-                }
-                if (!config.isEnabled()) {
-                    if (!manager.isLoggedIn()) {
-                        taskManager.executeTask(TaskType.LOGIN, manager::login);
-                        config.setEnabled(true).save();
-                        messageUtil.sendKey("command.toggle.enabled");
-                    } else {
-                        messageUtil.sendKey("command.toggle.error");
-                    }
-                } else {
-                    if (manager.isLoggedIn()) {
-                        taskManager.executeTask(TaskType.LOGOUT, manager::logout);
-                        config.setEnabled(false).save();
-                        messageUtil.sendKey("command.toggle.disabled");
-                    } else {
-                        messageUtil.sendKey("command.toggle.error");
-                    }
-                }
-                break;
             case "w":
             case "wave":
-                if (!config.isEnabled()) {
+                if (!Settings.autotip) {
                     messageUtil.sendKey("error.disabled");
                     return;
                 }
@@ -126,15 +101,6 @@ public class CommandAutotip extends CommandAbstract {
                         .sendKey("header." + (header == null ? "none" : "present"),
                                 UniversalUtil.getUnformattedText(header)).separator();
                 break;
-            case "reload":
-                try {
-                    autotip.reloadGlobalSettings();
-                    autotip.reloadLocale();
-                    messageUtil.sendKey("command.reload.success");
-                } catch (IllegalStateException e) {
-                    messageUtil.sendKey("command.reload.error");
-                }
-                break;
             default:
                 messageUtil.send(getUsage());
                 break;
@@ -143,6 +109,6 @@ public class CommandAutotip extends CommandAbstract {
 
     @Override
     public List<String> onTabComplete(String[] args) {
-        return getListOfStringsMatchingLastWord(args, "messages", "toggle", "wave");
+        return getListOfStringsMatchingLastWord(args, "messages", "wave");
     }
 }
