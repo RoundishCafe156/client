@@ -7,9 +7,5 @@ public class FontRendererData {
     public static final FontRendererData INSTANCE = new FontRendererData();
     public final Map<String, Integer> stringWidthCache = new HashMap<>();
 
-    private FontRendererData() {
-
-    }
-
-
+    private FontRendererData() {}
 }

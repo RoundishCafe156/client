@@ -77,7 +77,7 @@ public class HypixelDetector {
                     final ServerData serverData = Minecraft.getMinecraft().getCurrentServerData();
 
                     if (serverData != null && serverData.serverMOTD != null) {
-                        if (serverData.serverMOTD.toLowerCase().contains("hypixel network")) { // Check MOTD for Hypixel
+                        if (serverData.serverMOTD.toLowerCase().contains("hypixel network")) {
                             this.hypixel = true;
                             EventBus.INSTANCE.post(new JoinHypixelEvent(ServerVerificationMethod.MOTD));
                         }
@@ -91,7 +91,7 @@ public class HypixelDetector {
     public void join(JoinHypixelEvent event) {
         if (Settings.HYPIXEL_ZOO) {
             Hyperium.INSTANCE.getNotification().display("Welcome to the Hypixel Zoo.", "Click to visit https://hypixel.net/",
-                5f, null, () -> { Jailbreak.getBrowseUtil().BrowseURI("https://hypixel.net"); },
+                5f, null, () -> Jailbreak.getBrowseUtil().BrowseURI("https://hypixel.net"),
                 new Color(200, 150, 50));
 
             SoundHandler soundHandler = Minecraft.getMinecraft().getSoundHandler();

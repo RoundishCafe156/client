@@ -7,17 +7,11 @@ import cc.hyperium.handlers.handlers.stats.display.StatsDisplayItem;
 import cc.hyperium.utils.JsonHolder;
 import club.sk1er.website.api.requests.HypixelApiPlayer;
 import club.sk1er.website.utils.WebsiteUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.hypixel.api.GameType;
 
-/**
- * @author KodingKing
- */
 public class MurderMysteryStats extends AbstractHypixelStats {
-
     @Override
     public String getImage() {
         return "MurderMystery-64";

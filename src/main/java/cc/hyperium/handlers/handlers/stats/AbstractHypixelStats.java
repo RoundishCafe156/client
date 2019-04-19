@@ -12,7 +12,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import net.hypixel.api.GameType;
 import net.minecraft.util.EnumChatFormatting;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,8 +21,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractHypixelStats {
-
-
     private int totalWeekly;
     private int totalDaily;
     private int completedDaily;
@@ -90,7 +87,7 @@ public abstract class AbstractHypixelStats {
         return statsDisplayItems;
     }
 
-    public void process(HypixelApiPlayer player, ArrayList<StatsDisplayItem> statsDisplayItems, JsonArray ob) {
+    private void process(HypixelApiPlayer player, ArrayList<StatsDisplayItem> statsDisplayItems, JsonArray ob) {
         for (JsonElement jsonElement : ob) {
             JsonHolder quest = new JsonHolder(jsonElement.getAsJsonObject());
             String quest_backend = quest.optString("id");
@@ -123,7 +120,6 @@ public abstract class AbstractHypixelStats {
                     statsDisplayItems.add(new DisplayLine("  - " + line));
             }
         }
-
     }
 
     public List<StatsDisplayItem> getPreview(HypixelApiPlayer player) {
@@ -155,6 +151,4 @@ public abstract class AbstractHypixelStats {
     public List<StatsDisplayItem> getDeepStats(HypixelApiPlayer player) {
         return new ArrayList<>();
     }
-
-
 }

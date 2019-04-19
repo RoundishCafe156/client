@@ -35,12 +35,10 @@ import cc.hyperium.netty.packet.packets.serverbound.ServerCrossDataPacket;
 import cc.hyperium.netty.packet.packets.serverbound.UpdateLocationPacket;
 import cc.hyperium.utils.ChatColor;
 import cc.hyperium.utils.JsonHolder;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LocationHandler {
-
     private final Pattern whereami = Pattern.compile("You are currently connected to server (?<server>.+)");
     private String location = "";
     private boolean sendingWhereAmI = false;
@@ -82,7 +80,6 @@ public class LocationHandler {
                 sendingWhereAmI = false;
                 event.setCancelled(true);
             }
-
             return;
         }
         if (!whereAmIMatcher.matches()) {

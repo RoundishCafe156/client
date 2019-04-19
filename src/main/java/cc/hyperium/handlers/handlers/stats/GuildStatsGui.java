@@ -8,7 +8,6 @@ import club.sk1er.website.api.requests.HypixelApiPlayer;
 import club.sk1er.website.utils.WebsiteUtils;
 import net.hypixel.api.GameType;
 import net.minecraft.client.gui.ScaledResolution;
-
 import java.awt.Color;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +20,7 @@ public class GuildStatsGui extends HyperiumGui {
     }
 
     @Override
-    protected void pack() {
-
-    }
+    protected void pack() {}
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -77,7 +74,5 @@ public class GuildStatsGui extends HyperiumGui {
             memberStart += 10;
 
         }
-
     }
-
 }

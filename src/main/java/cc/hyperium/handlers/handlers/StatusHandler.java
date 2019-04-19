@@ -11,18 +11,14 @@ public class StatusHandler {
     private ConcurrentHashMap<UUID, Boolean> status = new ConcurrentHashMap<>();
 
     @InvokeEvent
-    public void world(WorldChangeEvent event) {
+    public void world(WorldChangeEvent e) {
         status.clear();
     }
 
     public boolean isOnline(UUID uuid) {
         if (!status.containsKey(uuid)) {
             status.put(uuid, false);
-            Multithreading.runAsync(() -> status.put(
-                uuid, PurchaseApi.getInstance().get(
-                    "https://api.hyperium.cc/online/" + uuid
-                ).optBoolean("status")
-            ));
+            Multithreading.runAsync(() -> status.put(uuid, PurchaseApi.getInstance().get("https://api.hyperium.cc/online/" + uuid).optBoolean("status")));
             return false;
         }
         return status.getOrDefault(uuid, false);

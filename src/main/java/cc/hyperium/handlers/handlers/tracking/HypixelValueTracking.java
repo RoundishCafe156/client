@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class HypixelValueTracking {
-
     private final Gson GSON = new GsonBuilder().create();
     private List<ValueTrackingItem> currentCache = new ArrayList<>();
 
@@ -36,7 +35,6 @@ public class HypixelValueTracking {
             File current = getCurrent();
             JsonHolder jsonHolder = readFile(current);
             if (!jsonHolder.has("data")) {
-                //idk for some reason the method in Json holder for this is private
                 jsonHolder.getObject().add("data", new JsonArray());
             }
             JsonArray data = jsonHolder.optJSONArray("data");
@@ -131,6 +129,4 @@ public class HypixelValueTracking {
     public void post(ValueTrackingType item, int value, long time) {
         currentCache.add(new ValueTrackingItem(item, value, time));
     }
-
-
 }

@@ -56,7 +56,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerStatsGui extends HyperiumGui {
-
     private HypixelApiPlayer player;
     private AbstractHypixelStats hovered;
     private AbstractHypixelStats focused;
@@ -163,14 +162,8 @@ public class PlayerStatsGui extends HyperiumGui {
 
         reg("VIEW_GUILD", new GuiButton(nextId(), 1, 22, "View Guild"), button -> {
             new GuildStatsGui(player.getGuild()).show();
-        }, button -> {
-            button.visible = player.getGuild().isLoaded() && player.getGuild().isValid();
-        });
-        reg("VIEW_FRIENDS", new GuiButton(nextId(), 1, 22 + 21, "View Friends"), button -> {
-//TODO
-//   new FriendsGui(player.getFriends()).show();
-        }, button -> {
-        });
+        }, button -> button.visible = player.getGuild().isLoaded() && player.getGuild().isValid());
+        reg("VIEW_FRIENDS", new GuiButton(nextId(), 1, 22 + 21, "View Friends"), button -> {}, button -> { });
     }
 
     @Override

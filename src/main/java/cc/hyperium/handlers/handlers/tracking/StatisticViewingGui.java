@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
-
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,10 +19,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class StatisticViewingGui extends HyperiumGui {
-
     private static ValueTrackingType currentType = ValueTrackingType.COINS;
     private final int DATA_POINTS = 200;
-    int timeFac = 0;
+    private int timeFac = 0;
     private long masterTimeOne = System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1);
     private long masterTimeTwo = System.currentTimeMillis();
     private List<ValueTrackingItem> masterDataSet;
@@ -40,11 +38,8 @@ public class StatisticViewingGui extends HyperiumGui {
     }
 
     private void refreshData() {
-        //Guaranteed to be in ascending order
-
         masterDataSet = Hyperium.INSTANCE.getHandlers().getHypixelValueTracking().getItemsBetween(masterTimeOne, masterTimeTwo);
 
-        //Put data into different slots based on time
         ArrayList<ValueTrackingItem> tmp = new ArrayList<>(masterDataSet);
         masterDataSet.clear();
         long delta = (masterTimeTwo - masterTimeOne) / DATA_POINTS;
@@ -161,9 +156,7 @@ public class StatisticViewingGui extends HyperiumGui {
             if (i > types.size() - 1)
                 i = 0;
             currentType = types.get(i);
-        }, button -> {
-
-        });
+        }, button -> {});
         reg("Time", new GuiButton(nextId(), 1, 22, "Change Time"), button -> {
             timeFac++;
             if (timeFac > 3)
@@ -284,8 +277,6 @@ public class StatisticViewingGui extends HyperiumGui {
                 closest = valueTrackingItem;
             }
             GL11.glVertex2d(xPos, yg * 5 - yPos);
-//            GL11.glVertex2d(xPos, yg * 5 + 5);
-//            GL11.glVertex2d(x2, yg * 5 + 5);
             GL11.glVertex2d(x2, yg * 5 - y2);
 
             GL11.glEnd();
@@ -293,7 +284,6 @@ public class StatisticViewingGui extends HyperiumGui {
             GL11.glDisable(3042);
             GL11.glDisable(2848);
             GlStateManager.popMatrix();
-
         }
 
         if (closest != null) {
@@ -319,7 +309,6 @@ public class StatisticViewingGui extends HyperiumGui {
                 fontRendererObj.drawString(line, xPos - maxWidth / 2, yPos - 10 * lines.size() / 2 + (l * 10), Color.WHITE.getRGB(), true);
                 l++;
             }
-
         }
         GlStateManager.popMatrix();
     }
@@ -328,12 +317,9 @@ public class StatisticViewingGui extends HyperiumGui {
         MAX,
         SUM,
     }
-
     enum MissingDataHandling {
         ZERO,
         AVERAGE
     }
-
-
 }
 

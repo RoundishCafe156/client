@@ -8,7 +8,6 @@ import cc.hyperium.utils.JsonHolder;
 import club.sk1er.website.api.requests.HypixelApiPlayer;
 import club.sk1er.website.utils.WebsiteUtils;
 import net.hypixel.api.GameType;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class BlitzStats extends AbstractHypixelStats {
         lines.add(new String[]{"Kit", "Level"});
         JsonHolder blitz = player.getStats(GameType.SURVIVAL_GAMES);
         for (String st : WebsiteUtils.blitz_kits) {
-            String tmp1 = null;
+            String tmp1;
             if (!st.contains("Hype")) {
                 tmp1 = st.replace(" ", "").toLowerCase();
             } else {

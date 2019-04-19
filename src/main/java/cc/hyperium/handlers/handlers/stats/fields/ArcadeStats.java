@@ -6,7 +6,6 @@ import cc.hyperium.handlers.handlers.stats.display.StatsDisplayItem;
 import cc.hyperium.utils.JsonHolder;
 import club.sk1er.website.api.requests.HypixelApiPlayer;
 import net.hypixel.api.GameType;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;

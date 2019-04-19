@@ -8,7 +8,6 @@ import cc.hyperium.utils.JsonHolder;
 import club.sk1er.website.api.requests.HypixelApiPlayer;
 import club.sk1er.website.utils.WebsiteUtils;
 import net.hypixel.api.GameType;
-
 import java.util.ArrayList;
 import java.util.List;
 

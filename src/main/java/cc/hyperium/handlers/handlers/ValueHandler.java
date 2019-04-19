@@ -21,9 +21,6 @@ import cc.hyperium.config.ConfigOpt;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.RankedRatingChangeEvent;
 
-/**
- * @author Sk1er
- */
 public class ValueHandler {
     @ConfigOpt
     private int rankedRating;
@@ -43,5 +40,4 @@ public class ValueHandler {
     public int getRankedRating() {
         return rankedRating;
     }
-
 }

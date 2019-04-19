@@ -7,7 +7,6 @@ import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.gui.integrations.HypixelFriendsGui;
 import cc.hyperium.handlers.handlers.quests.PlayerQuestsGui;
 import cc.hyperium.mixins.gui.IMixinGuiScreen;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -35,24 +34,11 @@ public class HypixelGuiAugmenter {
         if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) {
             String location = Hyperium.INSTANCE.getHandlers().getLocationHandler().getLocation();
             if (location.toLowerCase().contains("lobby")) {
-                //in a lobby
                 if (gui instanceof GuiContainer) {
                     modifyLobbyGui(gui);
                 }
             }
         }
-    }
-
-    private boolean shouldDoTheThing() {
-        GuiScreen gui = Minecraft.getMinecraft().currentScreen;
-        if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) {
-            String location = Hyperium.INSTANCE.getHandlers().getLocationHandler().getLocation();
-            if (location.toLowerCase().contains("lobby")) {
-                //in a lobby
-                return gui instanceof GuiContainer;
-            }
-        }
-        return false;
     }
 
     public void modifyLobbyGui(GuiScreen screen) {

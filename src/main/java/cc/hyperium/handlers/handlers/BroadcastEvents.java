@@ -9,15 +9,12 @@ import cc.hyperium.event.LevelupEvent;
 import cc.hyperium.event.ServerChatEvent;
 import me.lpk.util.StringUtils;
 import net.minecraft.util.EnumChatFormatting;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BroadcastEvents {
-
-
     private final Pattern LEVEL_UP_REGEX = Pattern.compile("You are now Hypixel Level (?<level>\\d*)!");
     private final Pattern ACHIEVEMENT_PATTERN = Pattern.compile("a>> {3}Achievement Unlocked: (?<achievement>.+) {3}<<a");
 
@@ -35,7 +32,6 @@ public class BroadcastEvents {
         }
     }
 
-    //Raw: "a>>   Achievement Unlocked: Rambo   <<a"
     @InvokeEvent
     public void checkForEvents(ServerChatEvent event) {
         String raw = EnumChatFormatting.getTextWithoutFormattingCodes(event.getChat().getUnformattedText());

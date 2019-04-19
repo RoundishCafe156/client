@@ -11,7 +11,6 @@ public class StatsHandler {
     public void initStatsViewer(String player) {
         Multithreading.runAsync(() -> {
             GeneralChatHandler.instance().sendMessage("Loading stats for: " + player);
-
             try {
                 HypixelApiPlayer apiPlayer = HypixelAPI.INSTANCE.getPlayer(player).get();
 

@@ -20,18 +20,13 @@ package cc.hyperium.handlers.handlers;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Sk1er
- */
 public class CommandQueue {
-
     private final Queue<String> commands = new ConcurrentLinkedQueue<>();
     private final Map<String, Runnable> asyncCallbacks = new ConcurrentHashMap<>();
 

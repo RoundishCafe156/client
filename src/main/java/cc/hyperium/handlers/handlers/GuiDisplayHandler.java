@@ -23,7 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
 public class GuiDisplayHandler {
-
     private GuiScreen displayNextTick;
 
     public void setDisplayNextTick(GuiScreen displayNextTick) {
@@ -38,4 +37,3 @@ public class GuiDisplayHandler {
         }
     }
 }
-
