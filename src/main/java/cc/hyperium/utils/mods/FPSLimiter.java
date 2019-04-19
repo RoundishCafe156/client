@@ -39,10 +39,6 @@ public class FPSLimiter {
         return getInstance().limit();
     }
 
-    public boolean isLimbo() {
-        return limbo;
-    }
-
     public boolean limit() {
         long secondsWait = 5;
         return (!Display.isActive() || limbo) && Settings.FPS_LIMITER && time * 20 >= secondsWait;
@@ -50,9 +46,7 @@ public class FPSLimiter {
 
     @InvokeEvent(priority = Priority.LOW)
     public void onChat(ChatEvent event) {
-        if (event.getChat().getUnformattedText().trim().equals("You were spawned in Limbo.") || event.getChat().getUnformattedText().trim().equals("You are AFK. Move around to return from AFK.")) {
-            limbo = true;
-        }
+        if (event.getChat().getUnformattedText().trim().equals("You were spawned in Limbo.") || event.getChat().getUnformattedText().trim().equals("You are AFK. Move around to return from AFK.")) limbo = true;
     }
 
     @InvokeEvent

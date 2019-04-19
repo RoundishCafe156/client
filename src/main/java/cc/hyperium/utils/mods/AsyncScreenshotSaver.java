@@ -30,26 +30,19 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Lagless screenshots
- *
- * @author OrangeMarshall
- */
 public class AsyncScreenshotSaver implements Runnable {
     private final int width;
     private final int height;
     private final int[] pixelValues;
     private final Framebuffer frameBuffer;
     private final File screenshotDir;
-    private final boolean upload;
 
-    public AsyncScreenshotSaver(final int width, final int height, final int[] pixelValues, final Framebuffer frameBuffer, final File screenshotDir, final boolean upload) {
+    public AsyncScreenshotSaver(final int width, final int height, final int[] pixelValues, final Framebuffer frameBuffer, final File screenshotDir) {
         this.width = width;
         this.height = height;
         this.pixelValues = pixelValues;
         this.frameBuffer = frameBuffer;
         this.screenshotDir = screenshotDir;
-        this.upload = upload;
     }
 
     private static File getTimestampedPNGFileForDirectory(final File gameDirectory) {
@@ -58,9 +51,7 @@ public class AsyncScreenshotSaver implements Runnable {
         File file1;
         while (true) {
             file1 = new File(gameDirectory, s + ((i == 1) ? "" : ("_" + i)) + ".png");
-            if (!file1.exists()) {
-                break;
-            }
+            if (!file1.exists()) break;
             ++i;
         }
         return file1;
@@ -78,7 +69,7 @@ public class AsyncScreenshotSaver implements Runnable {
     @Override
     public void run() {
         processPixelValues(this.pixelValues, this.width, this.height);
-        BufferedImage bufferedimage = null;
+        BufferedImage bufferedimage;
         final File file2 = getTimestampedPNGFileForDirectory(this.screenshotDir);
 
         try {
@@ -95,15 +86,11 @@ public class AsyncScreenshotSaver implements Runnable {
                 bufferedimage.setRGB(0, 0, this.width, this.height, this.pixelValues, 0, this.width);
             }
             ImageIO.write(bufferedimage, "png", file2);
-            if (!upload) {
-                IChatComponent ichatcomponent = new ChatComponentText(
-                    ChatColor.WHITE + "Captured to " + ChatColor.UNDERLINE + file2.getName()
-                );
-                ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getCanonicalPath()));
-                Minecraft.getMinecraft().thePlayer.addChatMessage(ichatcomponent);
-            } else {
-                new ImgurUploader("649f2fb48e59767", file2).run();
-            }
+            IChatComponent ichatcomponent = new ChatComponentText(
+                ChatColor.WHITE + "Captured to " + ChatColor.UNDERLINE + file2.getName()
+            );
+            ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getCanonicalPath()));
+            Minecraft.getMinecraft().thePlayer.addChatMessage(ichatcomponent);
         } catch (Exception exception) {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("screenshot.failure", exception.getMessage()));
         }

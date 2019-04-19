@@ -31,9 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DefaultConfig {
-
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final JsonParser parser = new JsonParser();
     private final List<Object> configObjects = new ArrayList<>();
     private final File file;
     private JsonObject config = new JsonObject();
@@ -68,8 +66,7 @@ public class DefaultConfig {
             bw.write(gson.toJson(config));
             bw.close();
             fw.close();
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
     }
 
     public void save() {
@@ -79,7 +76,6 @@ public class DefaultConfig {
     }
 
     public Object register(Object object) {
-        //Don't register stuff to config if they don't have any config opt fields
         if (Arrays.stream(object.getClass().getDeclaredFields()).noneMatch(f -> f.isAnnotationPresent(ConfigOpt.class))) {
             return object;
         }

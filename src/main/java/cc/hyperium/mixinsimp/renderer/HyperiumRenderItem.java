@@ -33,20 +33,9 @@ public class HyperiumRenderItem {
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
     private RenderItem parent;
-    private final int MAX = 5000;
-
-    private Cache<ItemHash, Integer> itemCache = Caffeine.newBuilder()
-        .maximumSize(MAX)
-        .writer(new RemovalListener())
-        .executor(Multithreading.POOL)
-        .build();
 
     public HyperiumRenderItem(RenderItem parent) {
         this.parent = parent;
-    }
-
-    public void renderItem(ItemStack stack, IBakedModel model) {
-        renderItem(stack, model, false);
     }
 
     public void renderItemIntoGUI(ItemStack stack, int x, int y) {
@@ -118,9 +107,6 @@ public class HyperiumRenderItem {
         }
     }
 
-    /**
-     * Basically the same as the above method, but does not include the depth code
-     */
     public void renderPot(IBakedModel model) {
         GlStateManager.depthMask(false);
         GlStateManager.disableLighting();
@@ -183,22 +169,6 @@ public class HyperiumRenderItem {
     }
 
     public void renderModel(IBakedModel model, int color, ItemStack stack) {
-        int i = 0;
-        ItemHash itemHash = null;
-        if (Settings.OPTIMIZED_ITEM_RENDERER) {
-            itemHash = new ItemHash(model, color, stack != null ? stack.getUnlocalizedName() : "", stack != null ? stack.getItemDamage() : 0, stack != null ? stack.getMetadata() : 0, stack != null ? stack.getTagCompound() : null);
-
-            Integer integer = itemCache.getIfPresent(itemHash);
-
-            if (integer != null) {
-                GlStateManager.callList(integer);
-                GlStateModifier.INSTANCE.resetColor();
-                return;
-            }
-
-            i = GLAllocation.generateDisplayLists(1);
-            GL11.glNewList(i, GL11.GL_COMPILE_AND_EXECUTE);
-        }
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.ITEM);
@@ -209,16 +179,5 @@ public class HyperiumRenderItem {
 
         ((IMixinRenderItem) parent).callRenderQuads(worldrenderer, model.getGeneralQuads(), color, stack);
         tessellator.draw();
-    }
-
-    private class RemovalListener implements CacheWriter<ItemHash, Integer> {
-        @Override
-        public void write(@Nonnull ItemHash key, @Nonnull Integer value) {}
-
-        @Override
-        public void delete(@Nonnull ItemHash key, @Nullable Integer value, @Nonnull RemovalCause cause) {
-            if (value == null) return;
-            FontFixValues.INSTANCE.getGlRemoval().add(value);
-        }
     }
 }

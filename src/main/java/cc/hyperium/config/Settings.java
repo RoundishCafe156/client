@@ -109,9 +109,6 @@ public class Settings {
     @ToggleSetting(name = "gui.settings.holdperspectivekey")
     public static boolean PERSPECTIVE_HOLD = false;
 
-    public static boolean OPTIMIZED_ITEM_RENDERER = false;
-    public static boolean OPTIMIZED_TEXTURE_LOADING = false;
-
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;windowedFullScreen")
     @ToggleSetting(name = "gui.settings.windowedfullscreen", category = IMPROVEMENTS)
     public static boolean WINDOWED_FULLSCREEN = false;
@@ -251,8 +248,7 @@ public class Settings {
     public static boolean FAST_CONTAINER = false;
 
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.BackgroundSettings;particlesModeString")
-    @SelectorSetting(name = "gui.settings.particlesmode", items =
-        {
+    @SelectorSetting(name = "gui.settings.particlesmode", items = {
             "OFF",
             "PLAIN 1",
             "PLAIN 2",
@@ -497,17 +493,6 @@ public class Settings {
     @ConfigOpt
     @ToggleSetting(name = "gui.settings.victoryroyale", category = VICTORYROYALE, mods = true)
     public static boolean VICTORY_ROYALE = false;
-
-    @ConfigOpt
-    @SelectorSetting(name = "gui.settings.mainmenuserver", category = GENERAL, items = {
-        "HYPIXEL",
-        "HIVE",
-        "MINEPLEX",
-        "CUBECRAFT",
-        "MINESAGA",
-        "SKYCADE"
-    })
-    public static String MAIN_MENU_SERVER = "HYPIXEL";
 
     @ConfigOpt
     @ToggleSetting(name = "gui.settings.betterf1", category = VANILLA_ENHANCEMENTS, mods = true)

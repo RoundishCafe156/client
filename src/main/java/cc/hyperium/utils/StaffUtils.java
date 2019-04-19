@@ -15,7 +15,7 @@ public class StaffUtils {
     }
 
     public static DotColour getColor(UUID uuid) {
-        return STAFF_CACHE.get(uuid).getDotColour();
+        return STAFF_CACHE.get(uuid).getColour();
     }
 
     private static HashMap<UUID, StaffSettings> getStaff() throws IOException {

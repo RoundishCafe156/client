@@ -66,10 +66,7 @@ public class ConfirmationPopup {
             currentConfirmation = confirmations.poll();
             return;
         }
-
-        if (currentConfirmation.render()) {
-            currentConfirmation = confirmations.poll();
-        }
+        if (currentConfirmation.render()) currentConfirmation = confirmations.poll();
     }
 
     @InvokeEvent
@@ -83,7 +80,6 @@ public class ConfirmationPopup {
     }
 
     public Confirmation displayConfirmation(String text, Consumer<Boolean> callback, int seconds) {
-
         Confirmation c = new Confirmation(seconds * 60, seconds * 60, text, callback);
         if (Settings.SHOW_INGAME_CONFIRMATION_POPUP)
             confirmations.add(c);

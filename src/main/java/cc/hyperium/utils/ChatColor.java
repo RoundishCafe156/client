@@ -89,8 +89,4 @@ public enum ChatColor {
     public boolean isColor() {
         return !isFormat && this != RESET;
     }
-
-    public static String stripFormatting(String text) {
-        return text == null ? null : P.matcher(text).replaceAll("");
-    }
 }

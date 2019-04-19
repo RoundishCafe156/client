@@ -4,17 +4,16 @@ import cc.hyperium.utils.ChatColor;
 import cc.hyperium.utils.StaffUtils;
 
 public class StaffSettings {
+    private StaffUtils.DotColour color;
 
-    private StaffUtils.DotColour dotColour;
-
-    public StaffSettings(StaffUtils.DotColour dotColour) {
-        if (dotColour != null)
-            this.dotColour = dotColour;
+    public StaffSettings(StaffUtils.DotColour colour) {
+        if (colour != null)
+            this.color = colour;
         else
-            this.dotColour = new StaffUtils.DotColour(false, ChatColor.GREEN);
+            this.color = new StaffUtils.DotColour(false, ChatColor.GREEN);
     }
 
-    public StaffUtils.DotColour getDotColour() {
-        return dotColour;
+    public StaffUtils.DotColour getColour() {
+        return color;
     }
 }

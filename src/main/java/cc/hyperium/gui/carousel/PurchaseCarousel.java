@@ -17,7 +17,6 @@ public class PurchaseCarousel {
     private final HyperiumFontRenderer fr = new HyperiumFontRenderer("Arial", Font.PLAIN, 60);
     private int index;
     private CarouselItem[] items;
-    private SimpleAnimValue anim = new SimpleAnimValue((long) 1, 0, 1);
     private SimpleAnimValue larrow = new SimpleAnimValue(0L, 0.5f, 0.5f);
     private SimpleAnimValue rarrow = new SimpleAnimValue(0L, 0.5f, 0.5f);
     private boolean lhover = false;
@@ -31,7 +30,6 @@ public class PurchaseCarousel {
 
         ScaledResolution current = ResolutionUtil.current();
         int totalWidth = current.getScaledWidth() / 3;
-        int panel = totalWidth / 5;
     }
 
     public static PurchaseCarousel create(int index, CarouselItem... items) {
