@@ -10,10 +10,6 @@ public class SettingsReply extends Reply {
         super(success);
     }
 
-    public GlobalSettings getSettings() {
-        return settings;
-    }
-
     @Override
     public RequestType getRequestType() {
         return RequestType.SETTINGS;
