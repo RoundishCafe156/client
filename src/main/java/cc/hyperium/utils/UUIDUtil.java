@@ -3,14 +3,9 @@ package cc.hyperium.utils;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-
 import java.util.UUID;
 
-/**
- * Created by mitchellkatz on 5/2/18. Designed for production use on Sk1er.club
- */
 public class UUIDUtil {
-
     public static String getUUIDWithoutDashes() {
         return getClientUUID().toString().toLowerCase().replace("-", "");
     }

@@ -7,9 +7,6 @@ import java.net.URLClassLoader;
 import net.minecraft.client.Minecraft;
 import rocks.rdil.jailbreak.util.OS;
 
-/**
- * @author KodingKing
- */
 public class LaunchUtil {
     public static void launch() {
         String cs = "";

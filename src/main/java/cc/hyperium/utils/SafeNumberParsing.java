@@ -17,9 +17,6 @@
 
 package cc.hyperium.utils;
 
-/**
- * @author Sk1er
- */
 public final class SafeNumberParsing {
 
     public static int safeParseInt(String input, int fallback) {
@@ -29,9 +26,4 @@ public final class SafeNumberParsing {
             return fallback;
         }
     }
-
-    public static int safeParseInt(String input) {
-        return safeParseInt(input, 0);
-    }
-
 }

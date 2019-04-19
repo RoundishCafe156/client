@@ -28,10 +28,7 @@ import cc.hyperium.event.ServerLeaveEvent;
 import cc.hyperium.event.SingleplayerJoinEvent;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.util.ResourceLocation;
 import java.awt.Color;
 import rocks.rdil.jailbreak.Jailbreak;
 import java.util.regex.Pattern;
@@ -71,7 +68,6 @@ public class HypixelDetector {
 
             if (hypixel) { // If player is online recognized Hypixel IP
                 EventBus.INSTANCE.post(new JoinHypixelEvent(ServerVerificationMethod.IP));
-
             } else { // Double check the player isn't online Hypixel
                 if (Minecraft.getMinecraft() != null && Minecraft.getMinecraft().getCurrentServerData() != null) {
                     final ServerData serverData = Minecraft.getMinecraft().getCurrentServerData();
@@ -93,10 +89,6 @@ public class HypixelDetector {
             Hyperium.INSTANCE.getNotification().display("Welcome to the Hypixel Zoo.", "Click to visit https://hypixel.net/",
                 5f, null, () -> Jailbreak.getBrowseUtil().BrowseURI("https://hypixel.net"),
                 new Color(200, 150, 50));
-
-            SoundHandler soundHandler = Minecraft.getMinecraft().getSoundHandler();
-            if (soundHandler == null || Minecraft.getMinecraft().theWorld == null) return;
-            soundHandler.playSound(PositionedSoundRecord.create(new ResourceLocation("zoo"), (float) Minecraft.getMinecraft().thePlayer.posX, (float) Minecraft.getMinecraft().thePlayer.posY, (float) Minecraft.getMinecraft().thePlayer.posZ));
         }
     }
 

@@ -202,28 +202,6 @@ public class HyperiumFontRenderer {
         drawString(text, x - (int) getWidth(text) / 2, y, color);
     }
 
-    /**
-     * Draw Centered Text Scaled
-     *
-     * @param text       - Given Text String
-     * @param givenX     - Given X Position
-     * @param givenY     - Given Y Position
-     * @param color      - Given Color (HEX)
-     * @param givenScale - Given Scale
-     */
-    public void drawCenteredTextScaled(String text, int givenX, int givenY, int color, double givenScale) {
-        GL11.glPushMatrix();
-        GL11.glTranslated(givenX, givenY, 0);
-        GL11.glScaled(givenScale, givenScale, givenScale);
-        drawCenteredString(text, 0, 0, color);
-        GL11.glPopMatrix();
-    }
-
-    public void drawCenteredStringWithShadow(String text, float x, float y, int color) {
-        drawCenteredString(StringUtils.stripControlCodes(text), x + 0.5F, y + 0.5F, color);
-        drawCenteredString(text, x, y, color);
-    }
-
     public float getWidth(String s) {
         if (cachedStringWidth.size() > 1000) cachedStringWidth.clear();
         return cachedStringWidth.computeIfAbsent(s, e -> {
@@ -272,58 +250,12 @@ public class HyperiumFontRenderer {
         }
     }
 
-    public float getCharWidth(char c) {
-        return unicodeFont.getWidth(String.valueOf(c));
-    }
-
     public float getHeight(String s) {
         return unicodeFont.getHeight(s) / 2.0F;
     }
 
     public UnicodeFont getFont() {
         return this.unicodeFont;
-    }
-
-    public String trimStringToWidth(String par1Str, int par2) {
-        StringBuilder var4 = new StringBuilder();
-        float var5 = 0.0F;
-        int var6 = 0;
-        int var7 = 1;
-        boolean var8 = false;
-        boolean var9 = false;
-
-        for (int var10 = var6; var10 >= 0 && var10 < par1Str.length() && var5 < (float) par2; var10 += var7) {
-            char var11 = par1Str.charAt(var10);
-            float var12 = this.getCharWidth(var11);
-
-            if (var8) {
-                var8 = false;
-
-                if (var11 != 108 && var11 != 76) {
-                    if (var11 == 114 || var11 == 82) var9 = false;
-                } else {
-                    var9 = true;
-                }
-            } else if (var12 < 0.0F) {
-                var8 = true;
-            } else {
-                var5 += var12;
-
-                if (var9) ++var5;
-            }
-
-            if (var5 > (float) par2) {
-                break;
-            } else {
-                var4.append(var11);
-            }
-        }
-
-        return var4.toString();
-    }
-
-    public void drawSplitString(ArrayList<String> lines, int x, int y, int color) {
-        drawString(String.join("\n\r", lines), x, y, color);
     }
 
     public List<String> splitString(String text, int wrapWidth) {

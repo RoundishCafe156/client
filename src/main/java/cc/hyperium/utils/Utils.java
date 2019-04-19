@@ -55,8 +55,7 @@ public class Utils {
             }
             buffer.flip();
             Mouse.setNativeCursor(new Cursor(w, h, 0, h - 1, 1, buffer.asIntBuffer(), null));
-        } catch (Exception e) {}
-
+        } catch (Exception ignored) {}
     }
 
     public <T extends Entity> float calculateDeadmauEarsOffset(T entity) {

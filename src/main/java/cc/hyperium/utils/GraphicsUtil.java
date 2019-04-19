@@ -21,25 +21,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-/**
- * @author Sk1er
- */
 public class GraphicsUtil {
     public static GraphicsUtil INSTANCE = new GraphicsUtil();
     private GraphicsUtil() {}
 
-    private void createGraphics() {
-        BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
-        Graphics persistantGraphics = image.getGraphics();
-    }
-
     public Color transitionOfHueRange(double percentage, int startHue, int endHue, float saturation, float lightness) {
         double hue = ((percentage * (endHue - startHue)) + startHue) / 360;
         return hslColorToRgb(hue, saturation, lightness);
-    }
-
-    public Color transitionOfHueRange(double percentage, int startHue, int endHue) {
-        return transitionOfHueRange(percentage, startHue, endHue, 1.0F, 0.5F);
     }
 
     private Color hslColorToRgb(double hue, double saturation, double lightness) {
