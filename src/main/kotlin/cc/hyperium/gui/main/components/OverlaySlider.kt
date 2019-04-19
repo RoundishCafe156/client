@@ -25,8 +25,7 @@ class OverlaySlider @JvmOverloads constructor(label: String, private val minVal:
     }
 
     override fun render(mouseX: Int, mouseY: Int, overlayX: Int, overlayY: Int, w: Int, h: Int, overlayH: Int): Boolean {
-        if (!super.render(mouseX, mouseY, overlayX, overlayY, w, h, overlayH))
-            return false
+        if (!super.render(mouseX, mouseY, overlayX, overlayY, w, h, overlayH)) return false
         val left = (overlayX + w - 105).toFloat()
 
         val fr =fr
@@ -43,8 +42,7 @@ class OverlaySlider @JvmOverloads constructor(label: String, private val minVal:
         fr.drawString(s, left - 5 - fr.getWidth(s), toFloat - 5, color)
         val rightSide = (overlayX + w - 5).toFloat()
         RenderUtils.drawLine(left, toFloat, rightSide, (overlayY + h / 2).toFloat(), 2f, color)
-        var d = (value - minVal) / (maxVal - minVal) * 100
-        var toInt = (left + d).toInt()
+        var toInt = (left + (value - minVal) / (maxVal - minVal) * 100).toInt()
         RenderUtils.drawFilledCircle(toInt, overlayY + h / 2, 5f, color)
         return true
     }

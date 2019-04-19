@@ -11,9 +11,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Created by Sk1er on today (It will be right for a little bit)
- */
 public class SliderComponent extends AbstractTabComponent {
     private final String label;
     private List<String> lines = new ArrayList<>();
@@ -24,7 +21,6 @@ public class SliderComponent extends AbstractTabComponent {
     private boolean isInteger;
     private boolean round;
     private double currentValue;
-    private SliderComponent sliderComponent;
     private int width;
     private int x;
     private int y;
@@ -46,15 +42,6 @@ public class SliderComponent extends AbstractTabComponent {
 
     public String getLabel() {
         return label;
-    }
-
-    private double getDouble() {
-        try {
-            return field.getDouble(parentObj);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return minVal;
     }
 
     public void setDouble(double val) {
@@ -129,9 +116,7 @@ public class SliderComponent extends AbstractTabComponent {
     }
 
     @Override
-    public void onClick(int x, int y) {
-        //we don't care about clicks. Its all about those drags
-    }
+    public void onClick(int x, int y) {}
 
     @Override
     public void mouseEvent(int mouseX, int mouseY) {
@@ -152,6 +137,5 @@ public class SliderComponent extends AbstractTabComponent {
                 setInt((int) currentValue);
             } else setDouble(currentValue);
         }
-
     }
 }

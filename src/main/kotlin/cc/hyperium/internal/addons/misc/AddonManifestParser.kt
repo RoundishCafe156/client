@@ -1,7 +1,6 @@
 package cc.hyperium.internal.addons.misc
 
 import cc.hyperium.internal.addons.AddonManifest
-import cc.hyperium.internal.addons.OverlayChecker
 import com.google.common.io.Files
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -10,22 +9,10 @@ import java.io.*
 import java.nio.charset.Charset
 import java.util.jar.JarFile
 
-/**
- * Parses addon.json into a instance of {@link cc.hyperium.internal.addons.AddonManifest}
- *
- * @since 1.0
- * @author Kevin Brewster
- */
 class AddonManifestParser {
     private var json: JsonObject? = null
     private val gson = Gson()
 
-    /**
-     * Used when parsing the addon.json inside of a
-     * jarfile
-     *
-     * @param jar jarfile which the manifest should be read from
-     */
     constructor(jar: JarFile) {
 
         var jarInputStream: InputStream? = null
@@ -45,34 +32,24 @@ class AddonManifestParser {
             val json = parser.parse(contents).asJsonObject
 
             if (!json.has("version") && !json.has("name") && !json.has("mainClass")) {
-                throw AddonLoadException("Invalid addon manifest ( Must include name, verson and mainClass)")
+                throw AddonLoadException("Invalid addon manifest (Needs name, version and mainClass)")
             }
             this.json = json
         } catch (e: Exception) {
             e.printStackTrace()
             throw AddonLoadException("Exception reading manifest")
         } finally {
-            if (jarInputStream != null) {
-                jarInputStream.close()
-            }
+            if (jarInputStream != null) jarInputStream.close()
             jar.close()
         }
     }
 
-    /**
-     * Used when parsing an addon.jsons string
-     *
-     * @param contents The addon.json
-     */
     constructor(contents: String) {
         val parser = JsonParser()
         val json = parser.parse(contents).asJsonObject
 
         if (!json.has("version") && !json.has("name") && !json.has("mainClass")) {
             throw AddonLoadException("Invalid addon manifest (Must include name, version and mainClass)")
-        }
-        if (json.has("overlay")) {
-            OverlayChecker.checkOverlayField(json.get("overlay").asString)
         }
         this.json = json
     }
@@ -81,11 +58,6 @@ class AddonManifestParser {
         return gson.fromJson(json, AddonManifest::class.java)
     }
 
-    /**
-     * The String of the json
-     *
-     * @return addon manifest json in string
-     */
     override fun toString(): String {
         return json!!.toString()
     }

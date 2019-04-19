@@ -127,17 +127,6 @@ object AddonMinecraftBootstrap {
 
             val dontLoad: ArrayList<AddonManifest> = ArrayList()
 
-            for (addon in toLoad) {
-                try {
-                    if (addon.overlay != null) {
-                        OverlayChecker.checkOverlayField(addon.overlay)
-                    }
-                } catch (e: Throwable) {
-                    dontLoad.add(addon)
-                    e.printStackTrace()
-                    ADDON_ERRORS.add(e)
-                }
-            }
 
             for (addon in dontLoad) {
                 toLoad.remove(addon)

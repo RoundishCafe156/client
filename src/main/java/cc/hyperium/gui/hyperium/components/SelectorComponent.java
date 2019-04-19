@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-/*
- * Created by Sk1er on today (It will be right for a little bit)
- */
 public class SelectorComponent extends AbstractTabComponent {
     private final String label;
     private List<String> lines = new ArrayList<>();
@@ -29,8 +26,7 @@ public class SelectorComponent extends AbstractTabComponent {
         this.values = values;
     }
 
-    public String getCurrentValue() {
-
+    private String getCurrentValue() {
         try {
             String s = (String) field.get(parentObj);
             String[] strings = values.get();
@@ -50,7 +46,7 @@ public class SelectorComponent extends AbstractTabComponent {
         return "Error 1";
     }
 
-    public int getCurrentIndex() {
+    private int getCurrentIndex() {
         String[] strings = values.get();
         for (int i = 0; i < strings.length; i++) {
             if (strings[i].equalsIgnoreCase(getCurrentValue())) {
@@ -65,14 +61,11 @@ public class SelectorComponent extends AbstractTabComponent {
     public void render(int x, int y, int width, int mouseX, int mouseY) {
         HyperiumFontRenderer font = tab.gui.getFont();
 
-        //The lines for the label
         lines.clear();
-
         lines = font.splitString(label, (int) (width - font.getWidth(getCurrentValue()))); //16 for icon, 3 for render offset and then some more
 
         GlStateManager.pushMatrix();
-        if (hover)
-            Gui.drawRect(x, y, x + width, y + 18 * lines.size(), 0xa0000000);
+        if (hover) Gui.drawRect(x, y, x + width, y + 18 * lines.size(), 0xa0000000);
         GlStateManager.popMatrix();
 
         int line1 = 0;
@@ -91,7 +84,6 @@ public class SelectorComponent extends AbstractTabComponent {
     @Override
     public int getHeight() {
         return 18 * lines.size();
-
     }
 
     public void setValue(String newvalue) {
@@ -118,8 +110,6 @@ public class SelectorComponent extends AbstractTabComponent {
             if (!getCurrentValue().equalsIgnoreCase(currentValue))
                 stateChange(string);
         }
-
-
     }
 
     public String getLabel() {

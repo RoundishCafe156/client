@@ -6,7 +6,6 @@ import cc.hyperium.utils.HyperiumFontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +14,12 @@ public class LinkComponent extends AbstractTabComponent {
     private List<String> lines = new ArrayList<>();
     private GuiScreen linkedGuiScreen;
 
-
     public LinkComponent(AbstractTab tab, List<String> tags, String label, GuiScreen linkedGuiScreen) {
         super(tab, tags);
         tag(label);
         this.label = label;
         this.linkedGuiScreen = linkedGuiScreen;
     }
-
 
     @Override
     public void render(int x, int y, int width, int mouseX, int mouseY) {
@@ -51,17 +48,12 @@ public class LinkComponent extends AbstractTabComponent {
     @Override
     public int getHeight() {
         return 18 * lines.size();
-
     }
 
 
     @Override
     public void onClick(int x, int y) {
-        if (y < 18 * lines.size()) {
-            Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(linkedGuiScreen);
-        }
-
-
+        if (y < 18 * lines.size()) Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(linkedGuiScreen);
     }
 
     public String getLabel() {

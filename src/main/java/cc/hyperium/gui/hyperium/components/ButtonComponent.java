@@ -8,9 +8,6 @@ import java.util.List;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 
-/*
- * Created by Sk1er on today (It will be right for a little bit)
- */
 public class ButtonComponent extends AbstractTabComponent {
     private String label;
     private List<String> lines = new ArrayList<>();
@@ -47,7 +44,6 @@ public class ButtonComponent extends AbstractTabComponent {
     public int getHeight() {
         return 18 * lines.size();
     }
-
 
     @Override
     public void onClick(int x, int y) {

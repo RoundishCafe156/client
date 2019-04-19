@@ -11,11 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
- * Created by Cubxity on 27/08/2018
- */
 public class CollapsibleTabComponent extends AbstractTabComponent {
-
     private List<AbstractTabComponent> children = new ArrayList<>();
     private boolean collapsed = true;
     private String label;
@@ -68,22 +64,18 @@ public class CollapsibleTabComponent extends AbstractTabComponent {
 
         Gui.drawScaledCustomSizeModalRect(x + width - 20, y, 0, 0, 144, 144, 20, 20, 144, 144);
 
-        if (collapsed) {
-            return;
-        }
+        if (collapsed) return;
 
         y += 18;
         x += 10;
         width -= 10;
 
-        boolean right = false; // left right column stuff
+        boolean right = false;
         int prevH = 0;
 
         for (AbstractTabComponent comp : tmpf == null ? children : children.stream().filter(c -> c.filter(tmpf)).collect(Collectors.toList())) {
 
-            if (parent != null) {
-                right = false;
-            }
+            if (parent != null) right = false;
 
             comp.render(right ? x + width / 2 : x, y, parent != null ? width : width / 2, mouseX, mouseY);
 
@@ -105,13 +97,9 @@ public class CollapsibleTabComponent extends AbstractTabComponent {
             }
 
             boolean b = right || parent != null;
-            if (b) {
-                y += Math.max(comp.getHeight(), prevH);
-                prevH = 0;
-            }
+            if (b) y += Math.max(comp.getHeight(), prevH);
             right = !right;
 
-//            if (b)
             prevH = comp.getHeight();
         }
     }

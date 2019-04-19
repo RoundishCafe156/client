@@ -9,7 +9,6 @@ import cc.hyperium.internal.addons.strategy.WorkspaceAddonLoader
 import cc.hyperium.internal.addons.translate.InstanceTranslator
 import cc.hyperium.internal.addons.translate.MixinTranslator
 import cc.hyperium.internal.addons.translate.TransformerTranslator
-import com.google.common.base.Stopwatch
 import net.minecraft.launchwrapper.Launch
 import org.apache.commons.io.FileUtils
 import java.io.File
@@ -63,7 +62,6 @@ object AddonBootstrap {
 
         with(addonManifests) {
             val workspaceAddon = loadWorkspaceAddon()
-            //TODO: ADD DEV ENVIRONMENT CHECK
             if (workspaceAddon != null) {
                 add(workspaceAddon)
             }
@@ -94,7 +92,7 @@ object AddonBootstrap {
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
-        val benchmark = Stopwatch.createStarted()
+
         LOGGER.info("Starting to load external jars...")
         for (jar in jars) {
             try {
@@ -117,7 +115,6 @@ object AddonBootstrap {
                 e.printStackTrace()
             }
         }
-        LOGGER.debug("Finished loading all jars in {}.", benchmark)
         return addons
     }
 

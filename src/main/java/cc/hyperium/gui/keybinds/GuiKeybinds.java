@@ -24,7 +24,6 @@ public class GuiKeybinds extends HyperiumGui {
     private HyperiumMainGui prevGui;
 
     private int scrollOffset;
-    private int buttonWidth = 70;
     private int buttonHeight = 20;
     private int numColumns = 2;
 
@@ -57,7 +56,7 @@ public class GuiKeybinds extends HyperiumGui {
         // Measurements of the GUI.
         int fixedWidth = 485;
         int fixedHeight = 300;
-
+        int buttonWidth = 70;
 
         // Measurements of the screen on which the GUI was intended to be drawn.
         int intendedWidth = 640;
@@ -72,10 +71,7 @@ public class GuiKeybinds extends HyperiumGui {
         fixedHeight *= heightScaleFactor;
         fixedWidth *= widthScaleFactor;
 
-
-        if (fixedWidth < 2 * (150 + buttonWidth)) {
-            numColumns = 1;
-        }
+        if (fixedWidth < 2 * (150 + buttonWidth)) numColumns = 1;
 
         int difference = width - fixedWidth;
         int calculatedGap = difference / 2;
@@ -235,7 +231,7 @@ public class GuiKeybinds extends HyperiumGui {
     }
 
 
-    public void resetAll() {
+    private void resetAll() {
         for (KeybindEntry entry : keybindEntries) {
             KeybindButton keybindButton = entry.getKeybindButton();
             keybindButton.resetBind();
@@ -256,7 +252,7 @@ public class GuiKeybinds extends HyperiumGui {
         openPreviousGui();
     }
 
-    public void detectAllConflicts() {
+    private void detectAllConflicts() {
         for (KeybindEntry entry : keybindEntries) {
             KeybindButton keybindButton = entry.getKeybindButton();
             keybindButton.detectConflicts();

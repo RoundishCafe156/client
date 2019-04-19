@@ -74,9 +74,6 @@ public class KeybindButton extends GuiButton {
         setBindKey(defaultKey);
     }
 
-    /*
-     * Minecraft method modified to accommodate scrolling offset.
-     */
     public void drawDynamicButton(Minecraft mc, int mouseX, int mouseY, int x, int y) {
         this.xPosition = x;
         this.yPosition = y;

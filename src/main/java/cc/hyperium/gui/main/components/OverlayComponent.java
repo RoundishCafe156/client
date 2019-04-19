@@ -5,9 +5,6 @@ import net.minecraft.client.gui.Gui;
 import java.awt.Color;
 import java.awt.Font;
 
-/*
- * Created by Cubxity on 01/06/2018
- */
 public abstract class OverlayComponent {
     private static final HyperiumFontRenderer fr = new HyperiumFontRenderer("Arial", Font.PLAIN, 20);
 
@@ -18,18 +15,6 @@ public abstract class OverlayComponent {
         this.enabled = enabled;
     }
 
-    /**
-     * Renders this component
-     *
-     * @param mouseX   the current X position of the mouse
-     * @param mouseY   the current Y position of the mouse
-     * @param overlayX the current X of the overlay
-     * @param overlayY the current Y of the overlay
-     * @param w        the width of this item
-     * @param h        the height of this item
-     * @param overlayH the height of the overlay
-     * @return if the item got rendered
-     */
     public boolean render(int mouseX, int mouseY, int overlayX, int overlayY, int w, int h, int overlayH) {
         int textY = (overlayY + (h - fr.FONT_HEIGHT) / 2);
         if (textY < (overlayH / 4)) {

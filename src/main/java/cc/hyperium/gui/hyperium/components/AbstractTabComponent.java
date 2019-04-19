@@ -2,18 +2,13 @@ package cc.hyperium.gui.hyperium.components;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-/*
- * Created by Cubxity on 27/08/2018
- */
 public abstract class AbstractTabComponent {
-
     public boolean hover;
     protected List<String> tags = new ArrayList<>();
     protected AbstractTab tab;
@@ -22,10 +17,6 @@ public abstract class AbstractTabComponent {
     private List<Consumer<Object>> stateChanges = new ArrayList<>();
     private boolean enabled = true;
 
-    /**
-     * @param tab  the tab that this component will be added on
-     * @param tags tags that are used for search function
-     */
     public AbstractTabComponent(AbstractTab tab, List<String> tags) {
         this.tab = tab;
         tag(tags); // prevent unsupported operation on AbstractList
@@ -49,9 +40,7 @@ public abstract class AbstractTabComponent {
         return a;
     }
 
-    public void onClick(int x, int y) {
-
-    }
+    public void onClick(int x, int y) {}
 
     public boolean isEnabled() {
         return enabled;
@@ -69,9 +58,7 @@ public abstract class AbstractTabComponent {
         stateChanges.forEach(tmp -> tmp.accept(o));
     }
 
-    public void mouseEvent(int x, int y) {
-
-    }
+    public void mouseEvent(int x, int y) {}
 
     public AbstractTabComponent tag(String... ts) {
         tags.addAll(Arrays.stream(ts).map(String::toLowerCase).collect(Collectors.toList()));

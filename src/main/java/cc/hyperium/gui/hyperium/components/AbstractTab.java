@@ -14,11 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/*
- * Created by Cubxity on 27/08/2018
- */
 public abstract class AbstractTab {
-
     protected List<AbstractTabComponent> components = new ArrayList<>();
     protected Map<AbstractTabComponent, Boolean> clickStates = new HashMap<>();
     protected HyperiumMainGui gui;
@@ -27,31 +23,15 @@ public abstract class AbstractTab {
     private int scroll = 0;
     private String filter;
 
-    /**
-     * Default Constructor
-     *
-     * @param gui   - Given parent GUI
-     * @param title - Given tab title
-     */
     public AbstractTab(HyperiumMainGui gui, String title) {
         this.gui = gui;
         this.title = title;
     }
 
-    /**
-     * Render - Renders the Tab
-     *
-     * @param x      - Given X Position
-     * @param y      - Given Y Position
-     * @param width  - Given Width
-     * @param height - Given Height
-     */
     public void render(int x, int y, int width, int height) {
-
         ScaledResolution sr = ResolutionUtil.current();
         int sw = sr.getScaledWidth();
         int sh = sr.getScaledHeight();
-        int yg = height / 7;  // Y grid
         int xg = width / 9;   // X grid
 
         /* Begin new scissor state */
@@ -89,27 +69,14 @@ public abstract class AbstractTab {
         ScissorState.endScissor();
     }
 
-    /**
-     * Get Title - Get the Title of the tab
-     *
-     * @return - Given Title
-     */
     public String getTitle() {
         return this.title;
     }
 
-    /**
-     * Get Filter - Get the tab filter value
-     *
-     * @return - Given tab filter
-     */
     public String getFilter() {
         return this.filter;
     }
 
-    /**
-     * Handle Mouse Input - Handle mouse events/inputs
-     */
     public void handleMouseInput() {
         if (Mouse.getEventDWheel() > 0)
             scroll++;
@@ -120,20 +87,6 @@ public abstract class AbstractTab {
 
     }
 
-    /**
-     * Set Title - Set the Title of the tab
-     *
-     * @param givenTitle - Given Title Value
-     */
-    public void setTitle(String givenTitle) {
-        this.title = givenTitle;
-    }
-
-    /**
-     * Set Filter - Set the tab filter
-     *
-     * @param filter - Given Filter Value
-     */
     public void setFilter(String filter) {
         this.filter = filter;
     }

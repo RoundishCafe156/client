@@ -8,9 +8,6 @@ import org.lwjgl.opengl.GL11;
 import java.awt.Color;
 import java.util.function.Consumer;
 
-/*
- * Created by Cubxity on 01/06/2018
- */
 public class OverlayToggle extends OverlayComponent {
     private boolean toggle;
     private Consumer<Boolean> callback;
@@ -58,20 +55,15 @@ public class OverlayToggle extends OverlayComponent {
                 new Color(30, 30, 30).getRGB());
         }
 
-        if (step > 0f)
-            step -= 0.1f;
-        if (toggle && colorStep < 1f)
-            colorStep += 0.2f;
-        if (!toggle && colorStep > 0f)
-            colorStep -= 0.2f;
+        if (step > 0f) step -= 0.1f;
+        if (toggle && colorStep < 1f) colorStep += 0.2f;
+        if (!toggle && colorStep > 0f) colorStep -= 0.2f;
         return true;
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int overlayX, int overlayY, int w, int h) {
-        if (!enabled) {
-            return;
-        }
+        if (!enabled) return;
         if (mouseX >= overlayX + w - 30 && mouseX <= overlayX + w - 5 && mouseY >= overlayY + 5 && mouseY <= overlayY + h - 5) {
             toggle = !toggle;
             if (callback != null)
@@ -85,9 +77,6 @@ public class OverlayToggle extends OverlayComponent {
         colorStep = 0.5f;
     }
 
-    /**
-     * @author ConorTheDev
-     */
     private int getHue(int red, int green, int blue) {
 
         float min = Math.min(Math.min(red, green), blue);
@@ -100,10 +89,8 @@ public class OverlayToggle extends OverlayComponent {
         float hue = 0f;
         if (max == red) {
             hue = (green - blue) / (max - min);
-
         } else if (max == green) {
             hue = 2f + (blue - red) / (max - min);
-
         } else {
             hue = 4f + (red - green) / (max - min);
         }

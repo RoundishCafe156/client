@@ -12,17 +12,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkProvider;
-
 import static net.minecraft.client.Minecraft.getMinecraft;
 import static net.minecraft.client.renderer.GlStateManager.*;
 
-/**
- * @author ScottehBoeh
- * @author diesieben07
- * @author TechnicianLP
- */
 public class FakePlayerRendering {
-
     private final Renderer normalArms;
     private final Renderer smallArms;
     private final AbstractClientPlayer player;
@@ -31,17 +24,13 @@ public class FakePlayerRendering {
         RenderManager renderManager = getMinecraft().getRenderManager();
         normalArms = new Renderer(renderManager, false);
         smallArms = new Renderer(renderManager, true);
-
         boolean isSessionProfile = getMinecraft().getSession().getProfile() == profile;
-        if (!isSessionProfile) {
-            profile = getMinecraft().getSessionService().fillProfileProperties(profile, true);
-        }
+        if (!isSessionProfile) profile = getMinecraft().getSessionService().fillProfileProperties(profile, true);
         player = new FakePlayer(profile);
     }
 
     public void renderPlayerModel(int posX, int posY, float scale, float rotation) {
         Minecraft mc = getMinecraft();
-
         mc.getRenderManager().pointedEntity = player;
         mc.getRenderManager().renderEngine = mc.getTextureManager();
 
@@ -61,7 +50,6 @@ public class FakePlayerRendering {
         player.rotationYawHead = player.rotationYaw + rotation;
 
         translate(0.0F, player.getYOffset(), 0.0F);
-
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 
         Renderer renderer = player.getSkinType().equals("slim") ? smallArms : normalArms;
@@ -70,13 +58,10 @@ public class FakePlayerRendering {
         disableDepth();
         disableAlpha();
         RenderHelper.disableStandardItemLighting();
-
         popMatrix();
-
     }
 
     private static final class Renderer extends RenderPlayer {
-
         public Renderer(RenderManager renderManager, boolean useSmallArms) {
             super(renderManager, useSmallArms);
         }
@@ -88,7 +73,6 @@ public class FakePlayerRendering {
     }
 
     private static final class FakePlayer extends AbstractClientPlayer {
-
         private final NetworkPlayerInfo playerInfo;
 
         FakePlayer(GameProfile profile) {
@@ -114,7 +98,6 @@ public class FakePlayerRendering {
     }
 
     private static final class FakeWorld extends World {
-
         FakeWorld() {
             super(null, null, new FakeWorldProvider(), null, true);
         }
@@ -142,9 +125,7 @@ public class FakePlayerRendering {
 
     private static final class FakeWorldProvider extends WorldProvider {
 
-        FakeWorldProvider() {
-        }
-
+        FakeWorldProvider() {}
         @Override
         public String getDimensionName() {
             return "Overworld";
@@ -154,7 +135,5 @@ public class FakePlayerRendering {
         public String getInternalNameSuffix() {
             return "";
         }
-
     }
-
 }

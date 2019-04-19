@@ -5,15 +5,12 @@ import net.minecraft.client.gui.Gui
 import java.awt.Color
 import java.awt.Font
 
-
 open class OverlayLabel(label: String, enabled: Boolean, var click: Runnable) : OverlayComponent(enabled) {
     private val fr = HyperiumFontRenderer("Arial", Font.PLAIN, 20)
 
     init {
         this.label = label
     }
-
-    constructor(label: String) : this(label, true, click = Runnable { })
 
     override fun mouseClicked(mouseX: Int, mouseY: Int, overlayX: Int, overlayY: Int, w: Int, h: Int) {
         if (mouseX >= overlayX && mouseX <= overlayX + w && mouseY >= overlayY && mouseY <= overlayY + h) {
@@ -26,7 +23,6 @@ open class OverlayLabel(label: String, enabled: Boolean, var click: Runnable) : 
         val cls = OverlayLabel::class.java
 
         if (this.javaClass.equals(cls)) {
-            // Check if the box exceeds boundaries.
             val textY = overlayY + (h - fr.FONT_HEIGHT) / 2
             if (textY < overlayH / 4) {
                 return false

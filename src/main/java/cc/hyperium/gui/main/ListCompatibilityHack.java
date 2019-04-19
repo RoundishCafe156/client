@@ -1,14 +1,12 @@
 package cc.hyperium.gui.main;
 
 import cc.hyperium.gui.main.components.OverlayComponent;
-
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeSet;
-
 import org.jetbrains.annotations.NotNull;
 
 class ListCompatibilityHack extends AbstractList<OverlayComponent> {
@@ -92,21 +90,11 @@ class ListCompatibilityHack extends AbstractList<OverlayComponent> {
     }
 
     class OverlayComparator implements Comparator<OverlayComponent> {
-
         @Override
         public int compare(OverlayComponent first, OverlayComponent second) {
-            if (first == null && second == null) {
-                return 0;
-            }
-
-            if (first == null) {
-                return 1;
-            }
-
-            if (second == null) {
-                return -1;
-            }
-
+            if (first == null && second == null) return 0;
+            if (first == null) return 1;
+            if (second == null) return -1;
             return first.getLabel().compareTo(second.getLabel());
         }
     }

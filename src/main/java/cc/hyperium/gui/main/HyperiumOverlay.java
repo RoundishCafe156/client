@@ -3,20 +3,15 @@ package cc.hyperium.gui.main;
 import cc.hyperium.gui.main.components.OverlayComponent;
 import cc.hyperium.gui.main.components.OverlayToggle;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
-
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Consumer;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
 
-/*
- * Created by Cubxity on 01/06/2018
- */
 public class HyperiumOverlay {
     private List<OverlayComponent> components;
     private int offsetY = 0;
@@ -24,10 +19,6 @@ public class HyperiumOverlay {
 
     public HyperiumOverlay(String name) {
         this(name, true);
-    }
-
-    public HyperiumOverlay() {
-        this("");
     }
 
     public HyperiumOverlay(String name, boolean alphabetic) {
@@ -41,11 +32,8 @@ public class HyperiumOverlay {
     }
 
     public void render(int mouseX, int mouseY, int w, int h) {
-        // HyperiumGui.drawChromaBox(0, 0, w, h, 0.2F); // bg
         Gui.drawRect(w / 6 * 2, h / 4, w / 6 * 4, h / 4 * 3, new Color(30, 30, 30).getRGB());
-
         final Integer[] counter = new Integer[]{0};
-
         for (OverlayComponent c : components) {
             c.render(mouseX, mouseY, w / 6 * 2, h / 4 + 20 * counter[0]++ + offsetY, w / 6 * 2, 20, h);
         }
@@ -85,22 +73,10 @@ public class HyperiumOverlay {
         return components;
     }
 
-    public void addToggle(String label, Field f, Consumer<Object> objectConsumer) {
-        addToggle(label, f, objectConsumer, true);
-    }
-
-    public void addToggle(String label, Field f, Consumer<Object> objectConsumer, boolean enabled) {
-        addToggle(label, f, objectConsumer, enabled, null);
-    }
-
     public void addToggle(String label, Field f, Consumer<Object> objectConsumer, boolean enabled, Object object) {
         try {
             Object o = f.get(object);
-
-            if (o == null) {
-                return;
-            }
-
+            if (o == null) return;
             if (o instanceof Boolean) {
                 components.add(new OverlayToggle(label, (boolean) o, b -> {
                     if (objectConsumer != null)
@@ -119,8 +95,7 @@ public class HyperiumOverlay {
 
     public void reset() {
         components.forEach(c -> {
-            if (c instanceof OverlayToggle)
-                ((OverlayToggle) c).resetStep();
+            if (c instanceof OverlayToggle) ((OverlayToggle) c).resetStep();
         });
     }
 }

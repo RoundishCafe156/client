@@ -3,14 +3,10 @@ package cc.hyperium.gui.hyperium.components;
 import cc.hyperium.gui.hyperium.RGBFieldSet;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
-
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.Collections;
 
-/*
- * Created by Sk1er on today (It will be right for a little bit)
- */
 public class RGBComponent extends AbstractTabComponent {
     private RGBFieldSet fieldSet;
 
@@ -44,7 +40,5 @@ public class RGBComponent extends AbstractTabComponent {
 
 
     @Override
-    public void onClick(int x, int y) {
-
-    }
+    public void onClick(int x, int y) {}
 }

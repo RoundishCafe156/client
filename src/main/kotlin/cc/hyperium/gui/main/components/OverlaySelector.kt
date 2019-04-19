@@ -10,22 +10,19 @@ class OverlaySelector<T> @JvmOverloads constructor(label: String, var selected: 
     private val fr = HyperiumFontRenderer("Arial", Font.PLAIN, 20)
 
     override fun render(mouseX: Int, mouseY: Int, overlayX: Int, overlayY: Int, w: Int, h: Int, overlayH: Int): Boolean {
-        if (!super.render(mouseX, mouseY, overlayX, overlayY, w, h, overlayH))
-            return false
+        if (!super.render(mouseX, mouseY, overlayX, overlayY, w, h, overlayH)) return false
 
         val textY = overlayY + (h -fr.FONT_HEIGHT) / 2
         if(super.enabled) {
            fr.drawString(selected.toString(), overlayX + w -fr.getWidth(selected.toString()) - 5, textY.toFloat(), 0xffffff)
-        } else{
+        }else{
            fr.drawString(selected.toString(), overlayX + w -fr.getWidth(selected.toString()) - 5, textY.toFloat(), Color(169, 169, 169).rgb)
         }
         return true
     }
 
     override fun mouseClicked(mouseX: Int, mouseY: Int, overlayX: Int, overlayY: Int, w: Int, h: Int) {
-        if (!super.enabled) {
-            return
-        }
+        if (!super.enabled) return
 
         if (mouseX >= overlayX + w -fr.getWidth(selected.toString()) - 5 && mouseX <= overlayX + w - 5 && mouseY >= overlayY + 5 && mouseY <= overlayY + h - 5) {
             val tmp = items.get()
