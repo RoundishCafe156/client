@@ -6,12 +6,8 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.realms.RealmsBridge;
-
-import java.io.IOException;
 
 public class GuiConfirmDisconnect extends GuiScreen {
-
     private int i = -16;
 
     @Override
@@ -29,7 +25,7 @@ public class GuiConfirmDisconnect extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 0:
                 boolean integratedServerRunning = this.mc.isIntegratedServerRunning();

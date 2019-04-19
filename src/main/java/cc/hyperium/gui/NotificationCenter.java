@@ -35,7 +35,7 @@ public class NotificationCenter extends Gui {
     }
 
     @InvokeEvent
-    private void onRenderTick(RenderHUDEvent event) {
+    private void onRenderTick(RenderHUDEvent e) {
         if (currentNotification != null) currentNotification.render();
     }
 
@@ -54,28 +54,10 @@ public class NotificationCenter extends Gui {
         }
     }
 
-    /**
-     * Create a notification queued to be displayed
-     *
-     * @param title       Title of the notification
-     * @param description Description of the notification
-     * @param seconds     Seconds the notification should be displayed for
-     * @return The new notification
-     */
     public Notification display(String title, String description, float seconds) {
         return this.display(title, description, seconds, null, null, null);
     }
 
-    /**
-     * Create a notification queued to be displayed
-     *
-     * @param title       Title of the notification
-     * @param description Description of the notification
-     * @param seconds     Seconds the notification should be displayed for
-     * @param img         Image to be displayed with the notification
-     * @param callback    Callback to be ran when the user clicks on the notification
-     * @return The new notification
-     */
     public Notification display(String title, String description, float seconds, @Nullable BufferedImage img, @Nullable Runnable callback, @Nullable Color highlightColor) {
         final Notification notif = new Notification(title, description, (int) (seconds * 20), img, callback, highlightColor);
 
@@ -94,114 +76,28 @@ public class NotificationCenter extends Gui {
     }
 
     public class Notification {
-        /**
-         * Width of this notification
-         */
         final int width = 175;
-        /**
-         * Margins between the bottom of the notification and the bottom of the screen
-         */
         final int bottomMargins = 15;
-        /**
-         * Margins between text or images (whichever is applicable) from the right of the screen
-         */
         final int rightMargins = 5;
-        /**
-         * Padding between the top of the notification and title text
-         */
         final int topPadding = 5;
-        /**
-         * Size of every image. Should always be 256.
-         */
         private final int imgSize = 256;
-        /**
-         * Maximum number of lines descriptions can span. After this, they will be trimmed
-         *
-         * @see HyperiumGui#trimString(String, int, FontRenderer, boolean)
-         */
         private final int maxDescriptionLines = 4;
-        /**
-         * Width of the highlight bar
-         */
         private final int highlightBarWidth = 5;
-        /**
-         * Margins between the highlight bar and the text next to it
-         */
         private final int highlightBarMargins = 5;
-        /**
-         * Spacing in pixels between each line
-         */
         private final int lineSpacing = 1;
-        /**
-         * Margins between the top of the image and the title
-         */
-        private final int imgTopMargins = 5;
-        /**
-         * Height of this notification
-         */
         int height = 40;
-        /**
-         * Title text displayed for this notification
-         * Max lines is always 1
-         */
         private String title;
-        /**
-         * Description text for this notification
-         *
-         * @see #maxDescriptionLines
-         */
         private String description;
-        /**
-         * Ticks left until this notification goes bye-bye
-         */
         private int ticksLeft;
-        /**
-         * Percentage complete of this notifications lifecycle
-         */
         private float percentComplete;
-        /**
-         * Upper threshold used for easeout of the notification
-         */
         private int topThreshold;
-        /**
-         * Lower threshold used for easeout of the notification
-         */
         private int lowerThreshold;
-        /**
-         * Ran when the user clicks on this notification, if applicable
-         */
         private Runnable clickedCallback = null;
-        /**
-         * Image rendered with this notification, if applicable
-         */
         private DynamicTexture img = null;
-        /**
-         * What to scale the image to
-         * Should be around <code>height / imgSize</code>
-         */
         private double imgScale = 0.125;
-        /**
-         * Color of the highlight next to the notification
-         */
         private Color highlightColor = new Color(149, 201, 144);
-        /**
-         * Color of the description text
-         */
         private Color descriptionColor = new Color(80, 80, 80);
 
-        /**
-         * Create a new notification
-         * Use {@link NotificationCenter#display} if you wish to create a notification.
-         *
-         * @param title           Title of the notification
-         * @param description     Description of the notification
-         * @param ticks           Ticks to display this notification for
-         * @param img             Image to display on this notification
-         * @param clickedCallback Callback to run when the notification is clicked
-         * @throws IllegalArgumentException Title is null
-         * @throws IllegalArgumentException description is null
-         * @throws IllegalArgumentException Ticks is less than or equal to 0
-         */
         Notification(String title, String description, int ticks, BufferedImage img, Runnable clickedCallback, Color highlightColor) {
             if (title == null) throw new IllegalArgumentException("Title cannot be null!");
             if (description == null) throw new IllegalArgumentException("Description cannot be null!");
@@ -221,12 +117,6 @@ public class NotificationCenter extends Gui {
                 .setImage(img);
         }
 
-        /**
-         * Set the display image for this notification
-         *
-         * @param img Img to display
-         * @return This
-         */
         Notification setImage(BufferedImage img) {
             Minecraft.getMinecraft().addScheduledTask(() -> {
                 this.img = img != null ? new DynamicTexture(img) : null;
@@ -234,55 +124,27 @@ public class NotificationCenter extends Gui {
             return this;
         }
 
-        /**
-         * Set the callback to be ran when this notification is clicked
-         *
-         * @param runnable Runnable to run when clicked
-         * @return This
-         */
         Notification setClickedCallback(Runnable runnable) {
             this.clickedCallback = runnable;
             return this;
         }
 
-        /**
-         * Set the title of this notification
-         *
-         * @param title Title
-         * @return This
-         */
         Notification setTitle(String title) {
             this.title = title;
             return this;
         }
 
-        /**
-         * Set the highlight color for this notification
-         *
-         * @param highlightColor New color
-         * @return This
-         */
         Notification setHighlightColor(Color highlightColor) {
             this.highlightColor = (highlightColor != null ? highlightColor : new Color(149, 201, 144));
             return this;
         }
 
-        /**
-         * Set the description text for this notification
-         * Also readjusts the height of notifications
-         *
-         * @param description Description text
-         * @return This
-         */
         Notification setDescriptionText(String description) {
             this.description = description;
             adjustHeight();
             return this;
         }
 
-        /**
-         * Adjusts the height of the notification to fit all text/images/etc
-         */
         void adjustHeight() {
             setDefaultFontRenderer();
             final int lineCount = fontRenderer.listFormattedStringToWidth(description, getWrapWidth()).size();
@@ -290,33 +152,18 @@ public class NotificationCenter extends Gui {
             if (totalHeight > height) height = totalHeight;
         }
 
-        /**
-         * Get the width at which point description text needs to wrap
-         *
-         * @return The width at which description text should wrap
-         */
         private int getWrapWidth() {
             final int descRightMargins = (img == null ? rightMargins : rightMargins * 2); // Double right margins if image is there
             // Width that text is permitted to stretch across before wrapping/stopping
             return (int) (width - descRightMargins - imgSize * imgScale - highlightBarMargins - highlightBarWidth);
         }
 
-        /**
-         * Tick down this notification
-         *
-         * @return Whether this notification is complete
-         */
         boolean tick() {
             this.ticksLeft--;
 
             return ticksLeft <= 0;
         }
 
-        /**
-         * Update percentage completed on the notification
-         *
-         * @return New percentage completed
-         */
         float updatePercentage() {
             return this.percentComplete = clamp(
                 easeOut(
@@ -330,25 +177,16 @@ public class NotificationCenter extends Gui {
             );
         }
 
-        /**
-         * Get the X location of the top left corner of the notification
-         *
-         * @return X location
-         */
         int getX(ScaledResolution sr) {
             return (int) (sr.getScaledWidth() - (width * updatePercentage()));
         }
 
-        /**
-         * Get the Y location of the top left corner of the notification
-         *
-         * @return Y Location
-         */
         int getY(ScaledResolution sr) {
             return sr.getScaledHeight() - height - bottomMargins;
         }
 
         void render() {
+            int imgTopMargins = 5;
             if (ticksLeft <= 0)
                 return;
             if (!Settings.SHOW_INGAME_NOTIFICATION_CENTER)

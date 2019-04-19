@@ -50,8 +50,6 @@ public class GuiButtonIcon extends GuiButton {
             int height = 52;
             mc.getTextureManager().bindTexture(icon);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            boolean flag = mouseX >= xPosition && mouseY >= yPosition && mouseX < xPosition + width && mouseY < yPosition + height;
-            // todo if flag glcolour
             GL11.glPushMatrix();
             GL11.glScalef(scale, scale, scale);
             GlStateManager.enableBlend();
@@ -64,7 +62,6 @@ public class GuiButtonIcon extends GuiButton {
             GlStateManager.scale(1.0F / mag, 1.0F / mag, 1.0F / mag);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             drawTexturedModalRect(-width / 2, -height / 2, 52 * sprite, 0, width, height);
-
             GlStateManager.disableBlend();
             GL11.glPopMatrix();
         }

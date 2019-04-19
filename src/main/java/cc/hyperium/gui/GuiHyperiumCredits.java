@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiHyperiumCredits extends HyperiumGui {
     private GuiScreen prevGui;
@@ -23,8 +22,6 @@ public class GuiHyperiumCredits extends HyperiumGui {
         GlStateManager.scale(2f, 2f, 2f);
         drawCenteredString(fr, "Maintained by jumbo", width / 4, 20 + offY / 2, 0xFFFFFF);
         GlStateManager.scale(0.5f, 0.5f, 0.5f);
-        int x = width / 2 - 100;
-        AtomicInteger y = new AtomicInteger(70 + offY);
     }
 
     @Override

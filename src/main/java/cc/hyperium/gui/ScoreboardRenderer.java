@@ -17,11 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Sk1er
- */
 public class ScoreboardRenderer {
-
     @ConfigOpt
     private double xLocation = 1.0D;
     @ConfigOpt
@@ -80,16 +76,8 @@ public class ScoreboardRenderer {
         return xLocation;
     }
 
-    public void setxLocation(double xLocation) {
-        this.xLocation = xLocation;
-    }
-
     public double getyLocation() {
         return yLocation;
-    }
-
-    public void setyLocation(double yLocation) {
-        this.yLocation = yLocation;
     }
 
     private FontRenderer getFontRenderer() {

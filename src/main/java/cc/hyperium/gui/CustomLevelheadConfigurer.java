@@ -54,8 +54,7 @@ public class CustomLevelheadConfigurer extends HyperiumGui {
         reg("RESET", new GuiButton(nextId(), 5, 55, i / 2, 20, "Reset to default"), button -> {
             if (client1 != null)
                 client1.write(ServerCrossDataPacket.build(new JsonHolder().put("levelhead_propose", true).put("reset", true).put("internal", true)));
-        }, button -> {
-        });
+        }, button -> {});
         reg("PROPOSE", new GuiButton(nextId(), ResolutionUtil.current().getScaledWidth() / 2 + 5, 55, i / 2, 20, "Send for review"), button -> {
             ServerCrossDataPacket build = ServerCrossDataPacket.build(new JsonHolder().put("levelhead_propose", true).put("internal", true).put("propose", true).put("header", header.getText()).put("level", level.getText()));
             if (client1 != null)

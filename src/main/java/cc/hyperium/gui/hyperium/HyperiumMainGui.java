@@ -113,10 +113,6 @@ public class HyperiumMainGui extends HyperiumGui {
         return settingsObjects;
     }
 
-    public Queue<Alert> getAlerts() {
-        return alerts;
-    }
-
     @Override
     protected void pack() {
         show = false;
@@ -300,17 +296,9 @@ public class HyperiumMainGui extends HyperiumGui {
         return font;
     }
 
-    public HyperiumFontRenderer getTitle() {
-        return title;
-    }
-
     public void setTab(int i) {
         tabIndex = i;
         currentTab = tabs.get(i);
-    }
-
-    public boolean isLatestVersion() {
-        return Hyperium.INSTANCE.isLatestVersion;
     }
 
     @Override

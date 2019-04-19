@@ -4,9 +4,6 @@ import cc.hyperium.utils.HyperiumFontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ChatAllowedCharacters;
 
-/*
- * Created by Cubxity on 01/10/2018
- */
 public class MaterialTextField {
     private int x, y, width, height;
     private HyperiumFontRenderer fr;
@@ -14,14 +11,6 @@ public class MaterialTextField {
     private boolean focused;
     private int blink;
 
-    /**
-     * @param x      top left x position
-     * @param y      top left y position
-     * @param width  width of text field
-     * @param height height of text field
-     * @param hint   hint to display when the text is empty
-     * @param fr     font renderer
-     */
     public MaterialTextField(int x, int y, int width, int height, String hint, HyperiumFontRenderer fr) {
         this.x = x;
         this.y = y;
@@ -31,12 +20,6 @@ public class MaterialTextField {
         this.fr = fr;
     }
 
-    /**
-     * call this method to render the text field
-     *
-     * @param mx mouse x position
-     * @param my mouse y position
-     */
     public void render(int mx, int my) {
         boolean hover = mx > this.x && my > this.y && mx < this.x + width && my < this.y + height;
         Gui.drawRect(x, y + height - 1, x + width, y + height, hover || focused ? 0xffffffff : 0xff969696);
@@ -50,22 +33,12 @@ public class MaterialTextField {
         }
     }
 
-    /**
-     * Called on tick
-     */
     public void update() {
         blink++;
         if (blink >= 20)
             blink = -1;
     }
 
-    /**
-     * call this method when user clicked anywhere on the screen
-     *
-     * @param x  mouse x position
-     * @param y  mouse y position
-     * @param mb mouse button
-     */
     public void onClick(int x, int y, int mb) {
         if (mb == 0)
             focused = x > this.x && y > this.y && x < this.x + width && y < this.y + height;
@@ -88,13 +61,5 @@ public class MaterialTextField {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void setFocused(boolean focused) {
-        this.focused = focused;
-    }
-
-    public boolean isFocused() {
-        return focused;
     }
 }

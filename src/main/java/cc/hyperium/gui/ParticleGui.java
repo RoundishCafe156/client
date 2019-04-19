@@ -34,9 +34,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
-/**
- * Created by mitchellkatz on 6/25/18. Designed for production use on Sk1er.club
- */
 public class ParticleGui extends HyperiumGui implements GuiYesNoCallback {
     private HashMap<Integer, Runnable> ids = new HashMap<>();
     private int purchaseIds = 0;
@@ -109,7 +106,6 @@ public class ParticleGui extends HyperiumGui implements GuiYesNoCallback {
                 } else {
                     GeneralChatHandler.instance().sendMessage(I18n.format("message.alreadypurchased", value.getName()));
                 }
-
             }, carouselItem -> {
                 if (!flag) return;
                 overlay = new HyperiumOverlay("Particles");

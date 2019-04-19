@@ -2,14 +2,12 @@ package cc.hyperium.gui;
 
 import cc.hyperium.Hyperium;
 import cc.hyperium.config.Settings;
-import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.handlers.handlers.animation.AbstractAnimationHandler;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
 import cc.hyperium.netty.NettyClient;
 import cc.hyperium.netty.packet.packets.serverbound.ServerCrossDataPacket;
 import cc.hyperium.utils.JsonHolder;
-import cc.hyperium.utils.SimpleAnimValue;
 import cc.hyperium.utils.UUIDUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -18,22 +16,18 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
-
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class GuiDances extends HyperiumGui {
-
-    String foc = null;
+    private String foc = null;
     private HashMap<String, Consumer<Boolean>> handlers = new HashMap<>();
     private HashMap<String, Runnable> cancel = new HashMap<>();
     private String lastFoc = null;
-    private SimpleAnimValue simpleAnimValue;
 
     public GuiDances() {
-        HyperiumHandlers handlers = Hyperium.INSTANCE.getHandlers();
         int seconds = 5;
         long delay = seconds * 1000L;
         this.handlers.put("Floss", (netty) -> {
@@ -60,9 +54,7 @@ public class GuiDances extends HyperiumGui {
                 client.write(ServerCrossDataPacket.build(new JsonHolder().put("type", "yeet").put("yeeting", true)));
             }
         });
-        this.cancel.put("Yeet", () -> {
-
-        });
+        this.cancel.put("Yeet", () -> {});
         this.cancel.put("Floss", () -> {
             AbstractAnimationHandler abstractAnimationHandler = Hyperium.INSTANCE.getHandlers().getFlossDanceHandler();
             abstractAnimationHandler.get(Minecraft.getMinecraft().thePlayer.getUniqueID()).stopAnimation();
@@ -113,9 +105,6 @@ public class GuiDances extends HyperiumGui {
         this.cancel.put("Fortnite Default Dance", () -> {
             AbstractAnimationHandler abstractAnimationHandler = Hyperium.INSTANCE.getHandlers().getFortniteDefaultDance();
             abstractAnimationHandler.get(Minecraft.getMinecraft().thePlayer.getUniqueID()).stopAnimation();
-
-//            Hyperium.INSTANCE.getHandlers().getFortniteDefaultDance().getStates().put(UUIDUtil.getClientUUID(), System.currentTimeMillis() * 2);
-
         });
 
         this.handlers.put("T-Pose", (netty) -> {
@@ -131,7 +120,6 @@ public class GuiDances extends HyperiumGui {
                         e.printStackTrace();
                     }
                     client.write(ServerCrossDataPacket.build(new JsonHolder().put("type", "tpose_update").put("posing", false)));
-
                 });
             }
         });
@@ -159,23 +147,15 @@ public class GuiDances extends HyperiumGui {
                         client.write(ServerCrossDataPacket.build(new JsonHolder().put("type", "flip_update").put("flip_state", 0)));
                     }
                     Hyperium.INSTANCE.getHandlers().getFlipHandler().state(UUIDUtil.getClientUUID(), 0);
-
-
                 });
                 Hyperium.INSTANCE.getHandlers().getFlipHandler().resetTick();
             });
-            this.cancel.put("Flip", () -> {
-                Hyperium.INSTANCE.getHandlers().getFlipHandler().state(UUIDUtil.getClientUUID(), 0);
-
-            });
+            this.cancel.put("Flip", () -> Hyperium.INSTANCE.getHandlers().getFlipHandler().state(UUIDUtil.getClientUUID(), 0));
         }
-
     }
 
     @Override
-    protected void pack() {
-
-    }
+    protected void pack() {}
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
@@ -184,7 +164,6 @@ public class GuiDances extends HyperiumGui {
             mc.displayGuiScreen(null);
             handlers.get(foc).accept(true);
         }
-
     }
 
     @Override
@@ -229,7 +208,6 @@ public class GuiDances extends HyperiumGui {
             Color tmp = new Color(97, 132, 249, hovered ? 255 : 200);
             GlStateManager.color(tmp.getRed() / 255F, tmp.getGreen() / 255F, tmp.getBlue() / 255F, tmp.getAlpha() / 255F);
 
-            //Center
             GL11.glVertex3d(centerX, centerY, 0);
 
             for (float j = 0; j <= 50; j++) {

@@ -1,7 +1,6 @@
 package cc.hyperium.gui.hyperium;
 
 import cc.hyperium.config.Category;
-
 import java.lang.reflect.Field;
 
 public class RGBFieldSet {
@@ -23,7 +22,6 @@ public class RGBFieldSet {
         this.category = category;
         this.mods = mods;
         this.parentObj = parentObj;
-
     }
 
     public boolean isMods() {
@@ -45,6 +43,4 @@ public class RGBFieldSet {
     public Field getBlue() {
         return blue;
     }
-
-
 }

@@ -225,10 +225,6 @@ public abstract class HyperiumGui extends GuiScreen {
         }
     }
 
-    public void setDrawAlpha(boolean drawAlpha) {
-        this.drawAlpha = drawAlpha;
-    }
-
     public void setAlpha(int alpha) {
         this.alpha = alpha;
     }
@@ -253,45 +249,7 @@ public abstract class HyperiumGui extends GuiScreen {
         this.nameMap.put(name, button);
     }
 
-    protected GuiButton getButtonByName(String name) {
-        return nameMap.get(name);
-    }
-
     protected abstract void pack();
-
-    protected void drawBackground() {
-        if (this.mc != null && this.mc.theWorld == null) renderHyperiumBackground(ResolutionUtil.current());
-
-        if (drawAlpha) Gui.drawRect(0, 0, ResolutionUtil.current().getScaledWidth() * ResolutionUtil.current().getScaleFactor(), ResolutionUtil.current().getScaledHeight() * ResolutionUtil.current().getScaleFactor(), new Color(0, 0, 0, alpha).getRGB());
-    }
-
-    private void renderHyperiumBackground(ScaledResolution sr) {
-        GlStateManager.disableDepth();
-        GlStateManager.depthMask(false);
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.disableAlpha();
-
-        if (customImage.exists() && bgDynamicTexture != null && customBackground) {
-            Minecraft.getMinecraft().getTextureManager().bindTexture(bgDynamicTexture);
-        } else {
-            Minecraft.getMinecraft().getTextureManager().bindTexture(background);
-        }
-
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(0.0D, (double) sr.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-        worldrenderer.pos((double) sr.getScaledWidth(), (double) sr.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-        worldrenderer.pos((double) sr.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
-        tessellator.draw();
-
-        GlStateManager.depthMask(true);
-        GlStateManager.enableDepth();
-        GlStateManager.enableAlpha();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-    }
 
     private void loadCustomBackground() {
         customBackground = Settings.BACKGROUND.equalsIgnoreCase("CUSTOM");

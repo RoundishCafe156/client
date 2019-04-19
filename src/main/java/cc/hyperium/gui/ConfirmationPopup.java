@@ -75,7 +75,6 @@ public class ConfirmationPopup {
     @InvokeEvent
     public void onKeypress(KeypressEvent e) {
         if (currentConfirmation == null || Minecraft.getMinecraft().currentScreen != null) return;
-
         if (e.getKey() == Keyboard.KEY_Y) {
             currentConfirmation.callback.accept(true);
         } else if (e.getKey() == Keyboard.KEY_N) {

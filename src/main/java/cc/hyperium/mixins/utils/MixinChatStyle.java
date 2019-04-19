@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChatStyle.class)
 public abstract class MixinChatStyle {
-
     @Shadow
     private ChatStyle parentStyle;
 

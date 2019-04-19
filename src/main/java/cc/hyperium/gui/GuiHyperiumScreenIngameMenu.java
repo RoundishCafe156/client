@@ -44,7 +44,6 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
             (this.buttonList.get(0)).displayString = I18n.format("menu.disconnect");
         }
 
-        /* Add initial buttons */
         this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + i, I18n.format("menu.returnToGame")));
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + i, 98, 20, I18n.format("menu.options")));
 
@@ -67,7 +66,6 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
             GuiButton newButton = new GuiButton(10, oldButton.xPosition, oldButton.yPosition, oldButton.getButtonWidth(), 20, I18n.format("button.ingame.serverlist"));
             buttonList.add(newButton);
         }
-
     }
 
     @Override
@@ -201,23 +199,18 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         GlStateManager.translate(0.0F, 0.0F, z);
         i = (e - Math.abs(90 - baseAngle)) / e;
 
-        if (i > 0) {
-            drawCenteredString(fontRendererObj, I18n.format("gui.ingamemenu.playercount.alltime", ChatFormatting.GREEN + formatter.format(data.optInt("all")) + ChatFormatting.RESET), 0, 0, 0xFFFFFF);
-        }
+        if (i > 0) drawCenteredString(fontRendererObj, I18n.format("gui.ingamemenu.playercount.alltime", ChatFormatting.GREEN + formatter.format(data.optInt("all")) + ChatFormatting.RESET), 0, 0, 0xFFFFFF);
 
         GlStateManager.popMatrix();
-
     }
 
     private synchronized void refreshData() {
-
         lastUpdate = System.currentTimeMillis() * 2;
 
         Multithreading.runAsync(() -> {
             data = PurchaseApi.getInstance().get("https://api.hyperium.cc/users");
             lastUpdate = System.currentTimeMillis();
         });
-
     }
 
     @Override

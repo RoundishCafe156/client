@@ -9,7 +9,6 @@ import cc.hyperium.mods.glintcolorizer.Colors;
 import java.lang.reflect.Field;
 
 public class ColourOptions extends HyperiumOverlay {
-
     @ConfigOpt
     public static int accent_r = 136;
     @ConfigOpt
@@ -24,9 +23,6 @@ public class ColourOptions extends HyperiumOverlay {
         reload();
     }
 
-    /*
-     * TAKEN FROM GLINTCOLORIZERSETTINGS CLASS as OverlaySlider didn't work (and i wasnt bothered to do all of that code)
-     */
     private void addSlider(String label, Field f, int max, int min, boolean updateColor) {
         f.setAccessible(true);
         try {
@@ -44,8 +40,7 @@ public class ColourOptions extends HyperiumOverlay {
     }
 
     private void addLabel(String text) {
-        this.getComponents().add(new OverlayLabel(text, true, () -> {
-        }));
+        this.getComponents().add(new OverlayLabel(text, true, () -> {}));
     }
 
     private void reload() {

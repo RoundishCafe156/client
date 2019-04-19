@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiKeybinds extends HyperiumGui {
-
     private List<HyperiumBind> binds = new ArrayList<>();
     private List<KeybindEntry> keybindEntries = new ArrayList<>();
     private HyperiumFontRenderer sfr = new HyperiumFontRenderer("Arial", Font.PLAIN, 12);
@@ -181,7 +179,7 @@ public class GuiKeybinds extends HyperiumGui {
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (mouseX > 10 && mouseY < height - 10) {
             if (resetButton.mousePressed(mc, mouseX, mouseY)) {
                 resetAll();
