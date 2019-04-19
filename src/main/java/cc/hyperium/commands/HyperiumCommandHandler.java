@@ -124,14 +124,6 @@ public class HyperiumCommandHandler {
         }
     }
 
-    public void removeCommand(BaseCommand command) {
-        for (Entry<String, BaseCommand> entry : this.commands.entrySet()) {
-            if (entry.getValue().equals(command)) {
-                this.commands.remove(entry.getKey());
-            }
-        }
-    }
-
     public boolean isCommandDisabled(String input) {
         if (input == null || input.isEmpty() || input.trim().isEmpty() ||
             input.equalsIgnoreCase("disablecommand") || input.equalsIgnoreCase("hyperium")) {

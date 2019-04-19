@@ -27,5 +27,4 @@ public class CommandQuests implements BaseCommand {
         }
         new PlayerQuestsGui(player).show();
     }
-
 }

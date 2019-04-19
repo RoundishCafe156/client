@@ -47,7 +47,7 @@ public class CommandMessage implements BaseCommand {
         return true;
     }
 
-    static void addTabHypixel(List<String> tabUsernames) {
+    private static void addTabHypixel(List<String> tabUsernames) {
         if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) {
             try {
                 for (String s : Hyperium.INSTANCE.getHandlers().getDataHandler().getFriendsForCurrentUser().get().getData().getKeys()) {

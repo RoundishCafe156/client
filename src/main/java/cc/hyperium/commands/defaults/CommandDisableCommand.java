@@ -6,7 +6,6 @@ import cc.hyperium.commands.HyperiumCommandHandler;
 import cc.hyperium.utils.ChatColor;
 
 public class CommandDisableCommand implements BaseCommand {
-
     private HyperiumCommandHandler handler = Hyperium.INSTANCE.getHandlers().getHyperiumCommandHandler();
 
     @Override

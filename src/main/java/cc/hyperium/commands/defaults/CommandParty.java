@@ -54,5 +54,4 @@ public class CommandParty implements BaseCommand {
         tabUsernames.remove(Minecraft.getMinecraft().getSession().getUsername());
         return TabCompletionUtil.getListOfStringsMatchingLastWord(args, complete);
     }
-
 }

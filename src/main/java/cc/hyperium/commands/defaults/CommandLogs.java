@@ -30,7 +30,7 @@ public class CommandLogs implements BaseCommand {
         try {
             FileReader in = new FileReader(new File(Minecraft.getMinecraft().mcDataDir, "logs" + File.separator + "latest.log"));
             BufferedReader reader = new BufferedReader(in);
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 message.append(line).append("\n");
             }
