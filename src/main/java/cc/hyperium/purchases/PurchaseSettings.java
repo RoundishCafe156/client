@@ -7,7 +7,6 @@ public class PurchaseSettings {
     private JsonHolder source;
 
     private boolean wingsDisabled;
-    private String wingsType;
     private double wingsScale;
     private boolean dragonHeadDisabled;
     private EnumPurchaseType currentHatType;
@@ -17,9 +16,7 @@ public class PurchaseSettings {
         this.source = source;
 
         this.wingsDisabled = source.optJSONObject("wings").optBoolean("disabled");
-        this.wingsType = source.optJSONObject("wings").optString("type");
-        this.wingsScale = source.optJSONObject("wings")
-            .optDouble("scale", Settings.WINGS_SCALE);
+        this.wingsScale = source.optJSONObject("wings").optDouble("scale", Settings.WINGS_SCALE);
         dragonHeadDisabled = source.optJSONObject("dragon").optBoolean("disabled");
         this.currentHatType = EnumPurchaseType.parse(source.optJSONObject("hat").optString("current_type"));
         this.companion = EnumPurchaseType.parse(source.optJSONObject("companion").optString("type"));

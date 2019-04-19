@@ -124,7 +124,7 @@ public class HyperiumCommandHandler {
         }
     }
 
-    public boolean isCommandDisabled(String input) {
+    private boolean isCommandDisabled(String input) {
         if (input == null || input.isEmpty() || input.trim().isEmpty() ||
             input.equalsIgnoreCase("disablecommand") || input.equalsIgnoreCase("hyperium")) {
             return false;

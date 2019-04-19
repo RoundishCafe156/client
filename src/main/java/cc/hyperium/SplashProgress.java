@@ -30,11 +30,9 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class SplashProgress {
-    public static final int DEFAULT_MAX = 13;
-    public static int MAX = DEFAULT_MAX;
-    public static int PROGRESS = 0;
-    public static String CURRENT = "";
-    public static boolean CANCEL_IF_MAX = true;
+    private static final int DEFAULT_MAX = 13;
+    private static int PROGRESS = 0;
+    private static String CURRENT = "";
     private static ResourceLocation splash;
     private static TextureManager ctm;
     private static HyperiumFontRenderer sfr;
@@ -83,6 +81,7 @@ public class SplashProgress {
     }
 
     private static void drawProgress() {
+        int MAX = DEFAULT_MAX;
         if (Minecraft.getMinecraft().gameSettings == null || Minecraft.getMinecraft().getTextureManager() == null) return;
         if (sfr == null) sfr = new HyperiumFontRenderer("Arial", Font.PLAIN, 20);
 

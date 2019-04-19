@@ -16,9 +16,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by mitchellkatz on 5/2/18. Designed for production use on Sk1er.club
- */
 public class CustomLevelheadConfigurer extends HyperiumGui {
     private int cooldown = 0;
     private GuiTextField header;
@@ -81,10 +78,7 @@ public class CustomLevelheadConfigurer extends HyperiumGui {
             header.setText(jsonHolder.optString("header"));
             level.setText(jsonHolder.optString("true_footer"));
         });
-        Multithreading.runAsync(() -> {
-            levelhead_propose = PurchaseApi.getInstance().get("https://api.hyperium.cc/levelhead_propose/" + UUIDUtil.getUUIDWithoutDashes());
-
-        });
+        Multithreading.runAsync(() -> levelhead_propose = PurchaseApi.getInstance().get("https://api.hyperium.cc/levelhead_propose/" + UUIDUtil.getUUIDWithoutDashes()));
     }
 
     @Override

@@ -27,12 +27,7 @@ import cc.hyperium.purchases.packages.EarsCosmetic;
 import cc.hyperium.utils.JsonHolder;
 import cc.hyperium.utils.UUIDUtil;
 import com.google.gson.JsonObject;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
 import org.apache.commons.io.IOUtils;
-
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -46,7 +41,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 public class PurchaseApi {
-
     public static final String url = "https://api.hyperium.cc/purchases/";
     private static final PurchaseApi instance = new PurchaseApi();
     private final Map<UUID, HyperiumPurchase> purchasePlayers = new ConcurrentHashMap<>();

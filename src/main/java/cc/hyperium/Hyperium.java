@@ -68,10 +68,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 public class Hyperium {
     public static final Hyperium INSTANCE = new Hyperium();
@@ -79,7 +75,6 @@ public class Hyperium {
     public static final File folder = new File("hyperium");
     public static final DefaultConfig CONFIG = new DefaultConfig(new File(folder, "CONFIG.json"));
     public static int BUILD_ID = -1;
-    private static final boolean IS_BETA = false;
     private static boolean updateQueue = false;
     private final GeneralStatisticsTracking statTrack = new GeneralStatisticsTracking();
     private final DiscordPresence richPresenceManager = new DiscordPresence();
@@ -270,74 +265,9 @@ public class Hyperium {
         // Tell the modules the game is shutting down
         EventBus.INSTANCE.post(new GameShutDownEvent());
 
-        LOGGER.info("Shutting down Hyperium..");
+        LOGGER.info("Shutting down..");
 
         if (updateQueue) { LaunchUtil.launch(); }
-    }
-
-    public void acceptTos() {
-        try {
-            new File(folder.getAbsolutePath() + "/accounts/" + Minecraft.getMinecraft().getSession()
-                .getPlayerID() + ".lck").createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getLaunchCommand(boolean copyNatives) {
-        StringBuilder cmd = new StringBuilder();
-        String[] command = System.getProperty("sun.java.command").split(" ");
-        String javaPath = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
-        cmd.append(quoteSpaces(javaPath) + " ");
-
-        ManagementFactory.getRuntimeMXBean().getInputArguments().forEach(s -> {
-            if (s.contains("library.path")) {
-                String nativePath = s.split("=")[1];
-                File hyperiumNativeFolder = new File(Hyperium.folder.getPath() + File.separator + "natives");
-                if (copyNatives) {
-                    copyNatives(nativePath, hyperiumNativeFolder);
-                }
-                cmd.append(quoteSpaces("-Djava.library.path=" + hyperiumNativeFolder.getAbsolutePath())).append(" ");
-            } else if (!s.contains("agent")) {
-                cmd.append(quoteSpaces(s)).append(" ");
-            }
-        });
-
-        if (command[0].endsWith(".jar")) {
-            cmd.append("-jar ").append(quoteSpaces(new File(command[0]).getPath())).append(" ");
-        } else {
-            cmd.append("-cp ").append(quoteSpaces(System.getProperty("java.class.path"))).append(" ").append(command[0]).append(" ");
-        }
-        for (int i = 1; i < command.length; i++) {
-            cmd.append(quoteSpaces(command[i])).append(" ");
-        }
-
-        return cmd.toString();
-    }
-
-    public void copyNatives(String nativePath, File newFolder) {
-        if (!newFolder.exists()) {
-            newFolder.mkdir();
-        }
-
-        File tempNatives = new File(nativePath);
-        if (tempNatives.exists()) {
-            try {
-                for (File fileEntry : tempNatives.listFiles()) {
-                    Files.copy(fileEntry.toPath(), Paths.get(newFolder.getPath() + File.separator + fileEntry.getName()), StandardCopyOption.REPLACE_EXISTING);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String quoteSpaces(String argument) {
-        if (argument.contains(" ")) {
-            return "\"" + argument + "\"";
-        } else {
-            return argument;
-        }
     }
 
     public ConfirmationPopup getConfirmation() {

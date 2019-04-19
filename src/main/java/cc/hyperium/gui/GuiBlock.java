@@ -18,30 +18,17 @@
 package cc.hyperium.gui;
 
 import net.minecraft.client.gui.FontRenderer;
-
 import java.util.List;
 
-/**
- * @author Sk1er
- */
-
 public class GuiBlock {
-    /*
-            0       1
-
-
-            2       3
-         */
     private int left;
     private int right;
     private int top;
     private int bottom;
     private boolean expandRight;
-    private boolean printRight;
 
     public GuiBlock(int left, int right, int top, int bottom) {
         this.expandRight = true;
-        this.printRight = false;
         this.left = left;
         this.right = right;
         this.top = top;
@@ -59,26 +46,6 @@ public class GuiBlock {
 
     public int getHeight() {
         return this.bottom - this.top;
-    }
-
-    public void ensureWidth(int width, boolean scaleRight) {
-        if (this.getWidth() < width) {
-            if (scaleRight) {
-                this.right = this.left + width;
-            } else {
-                this.left = this.right - width;
-            }
-        }
-    }
-
-    public void ensureHeight(int height, boolean scaleBottom) {
-        if (this.getHeight() < height) {
-            if (scaleBottom) {
-                this.bottom = this.top + height;
-            } else {
-                this.top = this.bottom - height;
-            }
-        }
     }
 
     public int getLeft() {
@@ -130,13 +97,6 @@ public class GuiBlock {
         this.right += x;
         this.top += y;
         this.bottom += y;
-    }
-
-    public void scalePosition(float amount) {
-        this.left *= amount;
-        this.right *= amount;
-        this.top *= amount;
-        this.bottom *= amount;
     }
 
     public boolean drawString(String string, FontRenderer fontRenderer, boolean shadow, boolean center, int xOffset, int yOffset, boolean scaleToFitX, boolean scaleToFixY, int color, boolean sideLeft) {
@@ -197,22 +157,6 @@ public class GuiBlock {
 
         fontRenderer.drawString(string, (float) x, (float) y, color, shadow);
         return true;
-    }
-
-    public boolean isExpandRight() {
-        return expandRight;
-    }
-
-    public void setExpandRight(boolean expandRight) {
-        this.expandRight = expandRight;
-    }
-
-    public boolean isPrintRight() {
-        return printRight;
-    }
-
-    public void setPrintRight(boolean printRight) {
-        this.printRight = printRight;
     }
 
     public GuiBlock multiply(double scale) {

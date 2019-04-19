@@ -18,7 +18,6 @@
 package cc.hyperium.event.minigames;
 
 public enum Minigame {
-
     QUAKECRAFT("Quakecraft", "Quake", 2),
     WALLS("Walls", "Walls", 3),
     PAINTBALL("Paintball", "Paintball", 2),
@@ -57,10 +56,6 @@ public enum Minigame {
 
     public String getScoreName() {
         return scoreName;
-    }
-
-    public String getDbName() {
-        return dbName;
     }
 
     public int getId() {
