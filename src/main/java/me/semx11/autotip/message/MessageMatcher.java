@@ -13,16 +13,4 @@ public class MessageMatcher {
     public boolean matches() {
         return matcher.matches();
     }
-
-    public int getInt(String group) {
-        try {
-            return Integer.parseInt(this.getString(group));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Group " + group + " is not of type int.");
-        }
-    }
-
-    public String getString(String group) {
-        return matcher.group(group);
-    }
 }
