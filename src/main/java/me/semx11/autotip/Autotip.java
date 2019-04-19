@@ -7,9 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.mojang.authlib.GameProfile;
 import me.semx11.autotip.api.RequestHandler;
 import me.semx11.autotip.api.reply.impl.LocaleReply;
-import me.semx11.autotip.api.reply.impl.SettingsReply;
 import me.semx11.autotip.api.request.impl.LocaleRequest;
-import me.semx11.autotip.api.request.impl.SettingsRequest;
 import me.semx11.autotip.chat.LocaleHolder;
 import me.semx11.autotip.chat.MessageUtil;
 import me.semx11.autotip.command.CommandAbstract;
@@ -49,7 +47,6 @@ public class Autotip {
     private FileUtil fileUtil;
     private MessageUtil messageUtil;
     private Config config;
-    private GlobalSettings globalSettings;
     private LocaleHolder localeHolder;
     private TaskManager taskManager;
     private SessionManager sessionManager;
@@ -86,10 +83,6 @@ public class Autotip {
         return config;
     }
 
-    public GlobalSettings getGlobalSettings() {
-        return globalSettings;
-    }
-
     public LocaleHolder getLocaleHolder() {
         return localeHolder;
     }
@@ -119,7 +112,6 @@ public class Autotip {
                     .setPrettyPrinting().create();
 
             this.config = new Config(this);
-            this.reloadGlobalSettings();
             this.reloadLocale();
 
             this.taskManager = new TaskManager();
@@ -143,12 +135,6 @@ public class Autotip {
         } catch (IllegalStateException | IOException e) {
             messageUtil.send("Autotip is disabled because of an error.");
         }
-    }
-
-    public void reloadGlobalSettings() {
-        SettingsReply reply = SettingsRequest.of(this).execute();
-        if (!reply.isSuccess()) throw new IllegalStateException("Connection error while fetching global settings");
-        this.globalSettings = reply.getSettings();
     }
 
     public void reloadLocale() {

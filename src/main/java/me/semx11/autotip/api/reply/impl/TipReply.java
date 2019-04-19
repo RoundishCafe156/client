@@ -9,13 +9,6 @@ public class TipReply extends Reply {
 
     private List<Tip> tips;
 
-    public TipReply() {
-    }
-
-    public TipReply(boolean success) {
-        super(success);
-    }
-
     private TipReply(List<Tip> tips) {
         this.tips = tips;
     }
@@ -38,20 +31,9 @@ public class TipReply extends Reply {
         private String gamemode;
         private String username;
 
-        private Tip() {
-        }
-
         private Tip(String gamemode, String username) {
             this.gamemode = gamemode;
             this.username = username;
-        }
-
-        public String getGamemode() {
-            return gamemode;
-        }
-
-        public String getUsername() {
-            return username != null ? username : "";
         }
 
         public String getAsCommand() {
@@ -64,5 +46,4 @@ public class TipReply extends Reply {
         }
 
     }
-
 }

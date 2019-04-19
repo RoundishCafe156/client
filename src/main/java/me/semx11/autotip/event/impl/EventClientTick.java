@@ -15,8 +15,5 @@ public class EventClientTick implements Event {
     @InvokeEvent
     public void onClientTick(TickEvent event) {
         autotip.getMessageUtil().flushQueues();
-        if (autotip.isInitialized()) {
-            autotip.getStatsManager().saveCycle();
-        }
     }
 }

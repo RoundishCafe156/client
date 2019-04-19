@@ -1,5 +1,6 @@
 package me.semx11.autotip.event.impl;
 
+import cc.hyperium.Hyperium;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.ServerJoinEvent;
 import cc.hyperium.event.ServerLeaveEvent;
@@ -14,14 +15,12 @@ import net.minecraft.util.IChatComponent;
 
 public class EventClientConnection implements Event {
     private final Autotip autotip;
-    private final String hypixelHeader;
 
     private String serverIp;
     private long lastLogin;
 
     public EventClientConnection(Autotip autotip) {
         this.autotip = autotip;
-        this.hypixelHeader = autotip.getGlobalSettings().getHypixelHeader();
     }
 
     public String getServerIp() {
@@ -65,11 +64,9 @@ public class EventClientConnection implements Event {
                 attempts++;
             }
 
-            if (UniversalUtil.getUnformattedText(header).equals(hypixelHeader)) {
+            if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) {
                 manager.setOnHypixel(true);
-                if (autotip.getConfig().isEnabled()) {
-                    taskManager.executeTask(TaskType.LOGIN, manager::login);
-                }
+                if (autotip.getConfig().isEnabled())taskManager.executeTask(TaskType.LOGIN, manager::login);
             } else {
                 manager.setOnHypixel(false);
             }
