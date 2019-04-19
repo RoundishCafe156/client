@@ -36,7 +36,6 @@ import cc.hyperium.handlers.handlers.keybinds.keybinds.TPoseKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.TogglePerspectiveKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.ToggleSprintKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.TwerkDanceKeybind;
-import cc.hyperium.handlers.handlers.keybinds.keybinds.UploadScreenshotKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.ViewStatsKeybind;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
@@ -47,16 +46,11 @@ public class KeyBindHandler {
     private static final Map<Integer, Integer> mouseBinds = new HashMap<>();
     public final HyperiumBind debug = new HyperiumBind("DEBUG", Keyboard.KEY_J) {
         @Override
-        public void onPress() {
-
-        }
-
+        public void onPress() {}
         @Override
-        public void onRelease() {
-        }
+        public void onRelease() {}
     };
     private final KeyBindConfig keyBindConfig;
-    // Case insensitive treemap
     private final Map<String, HyperiumBind> keybinds = new HashMap<>();
     private ToggleSprintKeybind toggleSprintKeybind;
 
@@ -77,7 +71,6 @@ public class KeyBindHandler {
         registerKeyBinding(new TwerkDanceKeybind());
         registerKeyBinding(new TPoseKeybind());
         registerKeyBinding(new GuiDanceKeybind());
-        registerKeyBinding(new UploadScreenshotKeybind());
         registerKeyBinding(new RearCamKeybind());
 
         // Populate mouse bind list in accordance with Minecraft's values.
@@ -92,9 +85,7 @@ public class KeyBindHandler {
     public void onKeyPress(KeypressEvent event) {
         if (Minecraft.getMinecraft().inGameHasFocus && Minecraft.getMinecraft().currentScreen == null) {
             for (HyperiumBind bind : this.keybinds.values()) {
-                if (bind.isConflicted()) {
-                    continue;
-                }
+                if (bind.isConflicted()) continue;
                 if (event.getKey() == bind.getKeyCode()) {
                     bind.onPress();
                     bind.setWasPressed(true);
@@ -107,9 +98,7 @@ public class KeyBindHandler {
     public void onKeyRelease(KeyreleaseEvent event) {
         if (Minecraft.getMinecraft().inGameHasFocus && Minecraft.getMinecraft().currentScreen == null) {
             for (HyperiumBind bind : this.keybinds.values()) {
-                if (bind.isConflicted()) {
-                    continue;
-                }
+                if (bind.isConflicted()) continue;
                 if (event.getKey() == bind.getKeyCode()) {
                     bind.onRelease();
                     bind.setWasPressed(false);
@@ -148,64 +137,16 @@ public class KeyBindHandler {
         this.keyBindConfig.save();
     }
 
-    /**
-     * Grabs a binding from the registered keybindings list, this is case-insensitive and
-     * any key/name may be provided without fear of causing issues
-     *
-     * @param name the name or id of the keybinding
-     * @return a keybinding instance or null if nothing was found
-     */
-    public HyperiumBind getBinding(String name) {
-        return this.keybinds.getOrDefault(name, null);
-    }
-
-    /**
-     * Registers a Hyperium KeyBinding here & in the game code so it shows up in the
-     * controls menu, allowing the user to modify the keybind
-     *
-     * @param bind the hyperium key we wish to register
-     */
     public void registerKeyBinding(HyperiumBind bind) {
         this.keybinds.put(bind.getRealDescription(), bind);
 
         this.keyBindConfig.attemptKeyBindLoad(bind);
     }
 
-    /**
-     * Removes a keybind from the registry. Unbinds this key and removes it
-     *
-     * @param bind the hyperium key we want to remove
-     */
-    public void unregisterKeyBinding(HyperiumBind bind) {
-        if (bind.wasPressed()) {
-            bind.onRelease();
-            bind.setWasPressed(false);
-        }
-
-        // If bind is being held.
-        if (bind.wasPressed()) {
-            bind.onRelease();
-            return;
-        }
-
-        this.keybinds.remove(bind.getRealDescription());
-    }
-
-    /**
-     * Getter for the amazing KeyBind config
-     *
-     * @return the keybind config
-     */
     public KeyBindConfig getKeyBindConfig() {
         return this.keyBindConfig;
     }
 
-    /**
-     * Getter for the all the registered key bindings, this is package
-     * private to allow for saving and loading
-     *
-     * @return the keybinds
-     */
     public Map<String, HyperiumBind> getKeybinds() {
         return this.keybinds;
     }

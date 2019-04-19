@@ -14,8 +14,7 @@ public class UUIDUtil {
         GameProfile profile = Minecraft.getMinecraft().getSession().getProfile();
         if (profile != null) {
             UUID id = profile.getId();
-            if (id != null)
-                return id;
+            if (id != null) return id;
         }
         EntityPlayerSP thePlayer = Minecraft.getMinecraft().thePlayer;
         if (thePlayer != null)

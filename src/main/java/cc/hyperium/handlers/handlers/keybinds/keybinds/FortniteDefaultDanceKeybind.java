@@ -18,8 +18,6 @@ public class FortniteDefaultDanceKeybind extends HyperiumBind {
         Hyperium.INSTANCE.getHandlers().getFortniteDefaultDance().getStates().put(UUIDUtil.getClientUUID(), System.currentTimeMillis());
         Hyperium.INSTANCE.getHandlers().getFortniteDefaultDance().startAnimation(UUIDUtil.getClientUUID());
         NettyClient client = NettyClient.getClient();
-        if (client != null)
-            client.write(ServerCrossDataPacket.build(new JsonHolder().put("type", "fortnite_default_dance")));
-
+        if (client != null) client.write(ServerCrossDataPacket.build(new JsonHolder().put("type", "fortnite_default_dance")));
     }
 }

@@ -67,9 +67,7 @@ public class Utils {
                     AbstractHyperiumPurchase purchase = packageIfReady.getPurchase(EnumPurchaseType.DEADMAU5_COSMETIC);
                     if (purchase != null) {
                         if (entity.getUniqueID() != Minecraft.getMinecraft().thePlayer.getUniqueID()) {
-                            if (purchase instanceof EarsCosmetic && ((EarsCosmetic) purchase).isEnabled()) {
-                                return 0.24F;
-                            }
+                            if (purchase instanceof EarsCosmetic && ((EarsCosmetic) purchase).isEnabled()) return 0.24F;
                         } else if (Settings.EARS_STATE.equalsIgnoreCase("on"))
                             return 0.24F;
                     }

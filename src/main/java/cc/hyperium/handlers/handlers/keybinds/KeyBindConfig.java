@@ -27,11 +27,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/**
- * KeyBinding config, basically just a modified ToggleChat config
- *
- * @author boomboompower
- */
 @SuppressWarnings("ResultOfMethodCallIgnored") // Suppress because we don't care
 public class KeyBindConfig {
 
@@ -66,7 +61,7 @@ public class KeyBindConfig {
 
             this.keyBindJson.writeToFile(this.keybindFile);
         } catch (IOException ex) {
-            Hyperium.LOGGER.warn("An error occured while saving the Hyperium KeyBlinds, this is not good.");
+            Hyperium.LOGGER.error("An error occured while saving the Hyperium Keybinds, this is not good.");
         }
     }
 
@@ -83,7 +78,7 @@ public class KeyBindConfig {
                 }
                 this.keyBindJson = new BetterJsonObject(builder.toString());
             } catch (Exception ex) {
-                // Error occured while loading
+                // Error while loading
                 save();
                 return;
             }
@@ -92,7 +87,7 @@ public class KeyBindConfig {
                 bind.setKeyCode(this.keyBindJson.optInt(bind.getRealDescription(), bind.getDefaultKeyCode()));
             }
         } else {
-            // Config file doesn't exist, yay!
+            // Config file doesn't exist
             save();
         }
     }

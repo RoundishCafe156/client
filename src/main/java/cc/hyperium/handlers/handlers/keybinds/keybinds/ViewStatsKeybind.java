@@ -25,7 +25,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
 public class ViewStatsKeybind extends HyperiumBind {
-
     public ViewStatsKeybind() {
         super("View Hypixel Stats", Keyboard.KEY_RBRACKET);
     }
@@ -38,8 +37,6 @@ public class ViewStatsKeybind extends HyperiumBind {
         }
     }
 
-
     @Override
-    public void onRelease() {
-    }
+    public void onRelease() {}
 }

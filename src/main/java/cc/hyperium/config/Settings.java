@@ -124,10 +124,6 @@ public class Settings {
     @ConfigOpt
     public static int SETTINGS_ALPHA = 100;
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;uploadScreenshotsByDefault")
-    @ToggleSetting(name = "gui.settings.uploadscreenshots")
-    public static boolean DEFAULT_UPLOAD_SS = false;
-
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;blurGuiBackgroundsEnabled")
     @ToggleSetting(name = "gui.settings.blurredguibackground")
     public static boolean BLUR_GUI = false;
