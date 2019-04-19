@@ -11,7 +11,6 @@ import me.semx11.autotip.gson.exclusion.Exclude;
 import me.semx11.autotip.stats.StatsDaily;
 
 public class StatsMessage extends Message {
-
     @Exclude
     private final Map<String, StatsMessageMatcher> statsMessageCache = new ConcurrentHashMap<>();
 
@@ -40,9 +39,7 @@ public class StatsMessage extends Message {
         if (input == null || hoverMessages == null) {
             return;
         }
-        List<String> lines = Arrays.stream(input.split("\n"))
-                .map(String::trim)
-                .collect(Collectors.toList());
+        List<String> lines = Arrays.stream(input.split("\n")).map(String::trim).collect(Collectors.toList());
         for (String line : lines) {
             for (HoverMessage message : hoverMessages) {
                 HoverMessageMatcher matcher = message.getMatcherFor(line);

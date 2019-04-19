@@ -58,13 +58,10 @@ public class EventClientConnection implements Event {
             Object header;
             int attempts = 0;
             while ((header = this.getHeader()) == null) {
-                if (attempts > 15) {
-                    return;
-                }
+                if (attempts > 15) return;
                 try {
                     Thread.sleep(500);
-                } catch (InterruptedException ignored) {
-                }
+                } catch (InterruptedException ignored) {}
                 attempts++;
             }
 
@@ -87,5 +84,4 @@ public class EventClientConnection implements Event {
         taskManager.executeTask(TaskType.LOGOUT, manager::logout);
         this.resetHeader();
     }
-
 }
