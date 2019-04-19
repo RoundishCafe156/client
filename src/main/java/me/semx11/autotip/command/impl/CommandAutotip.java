@@ -11,11 +11,9 @@ import me.semx11.autotip.command.CommandAbstract;
 import me.semx11.autotip.config.Config;
 import me.semx11.autotip.config.GlobalSettings;
 import me.semx11.autotip.core.SessionManager;
-import me.semx11.autotip.core.StatsManager;
 import me.semx11.autotip.core.TaskManager;
 import me.semx11.autotip.core.TaskManager.TaskType;
 import me.semx11.autotip.event.impl.EventClientConnection;
-import me.semx11.autotip.stats.StatsDaily;
 import me.semx11.autotip.universal.UniversalUtil;
 import static net.minecraft.command.CommandBase.getListOfStringsMatchingLastWord;
 
@@ -48,7 +46,6 @@ public class CommandAutotip extends CommandAbstract {
         MessageUtil messageUtil = autotip.getMessageUtil();
         TaskManager taskManager = autotip.getTaskManager();
         SessionManager manager = autotip.getSessionManager();
-        StatsManager stats = autotip.getStatsManager();
         GlobalSettings settings = autotip.getGlobalSettings();
 
         if (args.length <= 0) {
@@ -57,20 +54,6 @@ public class CommandAutotip extends CommandAbstract {
         }
 
         switch (args[0].toLowerCase()) {
-            case "?":
-            case "info":
-                StatsDaily today = stats.get();
-                messageUtil.getKeyHelper("command.info").separator()
-                        .sendKey("version", autotip.getVersion())
-                        .withKey("credits", context -> context.getBuilder()
-                                .setHover(context.getKey("creditsHover"))
-                                .send())
-                        .sendKey("status." + (config.isEnabled() ? "enabled" : "disabled"))
-                        .sendKey("messages", config.getMessageOption())
-                        .sendKey("tipsSent", today.getTipsSent())
-                        .sendKey("tipsReceived", today.getTipsReceived())
-                        .sendKey("statsCommand").separator();
-                break;
             case "m":
             case "messages":
                 try {
@@ -162,11 +145,6 @@ public class CommandAutotip extends CommandAbstract {
 
     @Override
     public List<String> onTabComplete(String[] args) {
-        switch (args.length) {
-            case 1:
-                return getListOfStringsMatchingLastWord(args, "info", "messages", "toggle", "wave");
-            default:
-                return Collections.emptyList();
-        }
+        return getListOfStringsMatchingLastWord(args, "messages", "toggle", "wave");
     }
 }

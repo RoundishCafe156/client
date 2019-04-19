@@ -21,11 +21,6 @@ public class StatsMessage extends Message {
         super();
     }
 
-    public StatsMessage(Pattern pattern, MessageOption hideFor, StatsType statsType) {
-        super(pattern, hideFor);
-        this.statsType = statsType;
-    }
-
     public StatsMessageMatcher getMatcherFor(String input) {
         if (statsMessageCache.containsKey(input)) {
             return statsMessageCache.get(input);

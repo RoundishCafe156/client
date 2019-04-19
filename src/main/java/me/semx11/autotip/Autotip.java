@@ -19,16 +19,13 @@ import me.semx11.autotip.config.Config;
 import me.semx11.autotip.config.GlobalSettings;
 import me.semx11.autotip.core.MigrationManager;
 import me.semx11.autotip.core.SessionManager;
-import me.semx11.autotip.core.StatsManager;
 import me.semx11.autotip.core.TaskManager;
 import me.semx11.autotip.event.Event;
 import me.semx11.autotip.event.impl.EventChatReceived;
 import me.semx11.autotip.event.impl.EventClientConnection;
 import me.semx11.autotip.event.impl.EventClientTick;
 import me.semx11.autotip.gson.creator.ConfigCreator;
-import me.semx11.autotip.gson.creator.StatsDailyCreator;
 import me.semx11.autotip.gson.exclusion.AnnotationExclusionStrategy;
-import me.semx11.autotip.stats.StatsDaily;
 import me.semx11.autotip.universal.UniversalUtil;
 import me.semx11.autotip.util.FileUtil;
 import me.semx11.autotip.util.MinecraftVersion;
@@ -58,7 +55,6 @@ public class Autotip {
     private TaskManager taskManager;
     private SessionManager sessionManager;
     private MigrationManager migrationManager;
-    private StatsManager statsManager;
 
     public boolean isInitialized() {
         return initialized;
@@ -107,14 +103,6 @@ public class Autotip {
         return sessionManager;
     }
 
-    public MigrationManager getMigrationManager() {
-        return migrationManager;
-    }
-
-    public StatsManager getStatsManager() {
-        return statsManager;
-    }
-
     public void init() {
         RequestHandler.setAutotip(this);
         UniversalUtil.setAutotip(this);
@@ -128,10 +116,8 @@ public class Autotip {
             this.fileUtil = new FileUtil(this);
             this.gson = new GsonBuilder()
                     .registerTypeAdapter(Config.class, new ConfigCreator(this))
-                    .registerTypeAdapter(StatsDaily.class, new StatsDailyCreator(this))
                     .setExclusionStrategies(new AnnotationExclusionStrategy())
-                    .setPrettyPrinting()
-                    .create();
+                    .setPrettyPrinting().create();
 
             this.config = new Config(this);
             this.reloadGlobalSettings();
@@ -139,7 +125,6 @@ public class Autotip {
 
             this.taskManager = new TaskManager();
             this.sessionManager = new SessionManager(this);
-            this.statsManager = new StatsManager(this);
             this.migrationManager = new MigrationManager(this);
 
             this.fileUtil.createDirectories();
@@ -177,16 +162,14 @@ public class Autotip {
     public <T extends Event> T getEvent(Class<T> clazz) {
         return (T) events.stream()
                 .filter(event -> event.getClass().equals(clazz))
-                .findFirst()
-                .orElse(null);
+                .findFirst().orElse(null);
     }
 
     @SuppressWarnings("unchecked")
     public <T extends CommandAbstract> T getCommand(Class<T> clazz) {
         return (T) commands.stream()
                 .filter(command -> command.getClass().equals(clazz))
-                .findFirst()
-                .orElse(null);
+                .findFirst().orElse(null);
     }
 
     private void registerEvents(Event... events) {

@@ -10,9 +10,6 @@ import me.semx11.autotip.config.GlobalSettings;
 import me.semx11.autotip.event.Event;
 import me.semx11.autotip.message.Message;
 import me.semx11.autotip.message.MessageMatcher;
-import me.semx11.autotip.message.StatsMessage;
-import me.semx11.autotip.message.StatsMessageMatcher;
-import me.semx11.autotip.stats.StatsDaily;
 import me.semx11.autotip.universal.UniversalUtil;
 
 public class EventChatReceived implements Event {
@@ -52,22 +49,5 @@ public class EventChatReceived implements Event {
                 return;
             }
         }
-
-        String hover = UniversalUtil.getHoverText(event);
-        for (StatsMessage message : settings.getStatsMessages()) {
-            StatsMessageMatcher matcher = message.getMatcherFor(msg);
-            if (!matcher.matches()) {
-                continue;
-            }
-
-            StatsDaily stats = this.getStats();
-            matcher.applyStats(stats);
-            message.applyHoverStats(hover, stats);
-            event.setCancelled(message.shouldHide(option));
-        }
-    }
-
-    private StatsDaily getStats() {
-        return this.autotip.getStatsManager().getToday();
     }
 }
