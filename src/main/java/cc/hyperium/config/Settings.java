@@ -25,7 +25,10 @@ import static cc.hyperium.config.Category.*;
 public class Settings {
     public static final Settings INSTANCE = new Settings();
 
-    @ConfigOpt(alt="cc.hyperium.gui.settings.items.GeneralSetting;at")
+    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;atmsg")
+    public String autotipMessageStatus;
+
+    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;at")
     @ToggleSetting(name = "at", category = INTEGRATIONS)
     public static boolean autotip = true;
 
