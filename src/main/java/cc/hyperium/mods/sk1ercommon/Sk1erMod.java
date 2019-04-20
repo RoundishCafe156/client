@@ -28,7 +28,6 @@ public class Sk1erMod {
     private static Sk1erMod instance;
     private String modid;
     private String version;
-    private boolean enabled = true;
     private JsonHolder en = new JsonHolder();
 
     public Sk1erMod(String modid, String version) {
@@ -49,15 +48,10 @@ public class Sk1erMod {
         return en;
     }
 
-    public boolean isEnabled() {
-        return true;
-    }
-
     public String rawWithAgent(String url) {
         url = url.replace(" ", "%20");
         try {
-            URL u = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) u.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestMethod("GET");
             connection.setUseCaches(true);
             connection.addRequestProperty("User-Agent", "Mozilla/4.76 (" + modid + " V" + version + ") via Hyperium ");
