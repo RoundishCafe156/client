@@ -10,13 +10,10 @@ import cc.hyperium.mixinsimp.renderer.model.IMixinModelPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelRenderer;
-
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractAnimationHandler {
-
-
     public static boolean reset = false;
     private final ConcurrentHashMap<UUID, AnimationState> animationStates = new ConcurrentHashMap<>();
 
@@ -27,11 +24,8 @@ public abstract class AbstractAnimationHandler {
 
     @InvokeEvent
     public void onRender(RenderEvent e) {
-
         long systemTime = Minecraft.getSystemTime();
-        animationStates.values().forEach(animationState -> {
-            animationState.update(systemTime);
-        });
+        animationStates.values().forEach(animationState -> animationState.update(systemTime));
 
         onRender();
 
@@ -54,12 +48,9 @@ public abstract class AbstractAnimationHandler {
         }
     }
 
+    public void onRender() {}
 
-    public void onRender() {
-    }
-
-    public void onStartOfState() {
-    }
+    public void onStartOfState() {}
 
     public abstract float modifyState();
 
@@ -214,10 +205,6 @@ public abstract class AbstractAnimationHandler {
         public AnimationState() {
             this.systemTime = Minecraft.getSystemTime();
             this.toggled = false;
-        }
-
-        public boolean isToggled() {
-            return toggled;
         }
 
         public void setToggled(boolean toggled) {

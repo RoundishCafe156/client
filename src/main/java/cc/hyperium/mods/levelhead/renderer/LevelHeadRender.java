@@ -37,16 +37,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
 import org.lwjgl.opengl.GL11;
-
 import java.awt.Color;
 
-/**
- * Created by mitchellkatz
- * <p>
- * Modified by boomboompower on 16/6/2017
- */
 public class LevelHeadRender {
-
     private final Levelhead levelHead;
 
     public LevelHeadRender(Levelhead levelHead) {
@@ -87,20 +80,16 @@ public class LevelHeadRender {
 
                     }
                 }
-                renderName(event, (this.levelHead.getLevelString(player.getUniqueID())), player, offset);
+                renderName(event, (this.levelHead.getLevelString(player.getUniqueID())), offset);
             }
         }
     }
 
-    public void renderName(RenderNameTagEvent event, LevelheadTag tag, EntityPlayer entityIn, double offset) {
+    private void renderName(RenderNameTagEvent event, LevelheadTag tag, double offset) {
         FontRenderer fontrenderer = event.getRenderManager().getFontRenderer();
-        float f = 1.6F;
-        float f1 = 0.016666668F * f;
         GlStateManager.translate(0, -10 - offset, 0);
         GL11.glNormal3f(0.0F, 1.0F, 0.0F);
 
-
-//        GlStateManager.scale(-f1, -f1, f1);
         GlStateManager.disableLighting();
         GlStateManager.depthMask(false);
         GlStateManager.disableDepth();
@@ -127,17 +116,11 @@ public class LevelHeadRender {
     }
 
     private void renderString(FontRenderer renderer, LevelheadTag tag) {
-
-        int y = 0;
-
         int x = -renderer.getStringWidth(tag.getString()) / 2;
-        //Render header
         LevelheadComponent header = tag.getHeader();
         render(renderer, header, x);
         x += renderer.getStringWidth(header.getValue());
-        //render footer
         render(renderer, tag.getFooter(), x);
-
     }
 
     private void render(FontRenderer renderer, LevelheadComponent header, int x) {
@@ -147,7 +130,6 @@ public class LevelHeadRender {
         GlStateManager.depthMask(false);
         int y = 0;
         if (header.isRgb()) {
-//            GlStateManager.color(header.getRed()/2, header.getBlue()/2, header.getGreen()/2);
             renderer.drawString(header.getValue(), x, y, new Color((float) header.getRed() / 255F, (float) header.getGreen() / 255F, (float) header.getBlue() / 255F, .2F).getRGB());
         } else if (header.isChroma()) {
             renderer.drawString(header.getValue(), x, y, levelHead.getRGBDarkColor());
@@ -170,7 +152,5 @@ public class LevelHeadRender {
             String text = header.getColor() + header.getValue();
             renderer.drawString(text, x, y, Color.WHITE.darker().getRGB());
         }
-
-
     }
 }
