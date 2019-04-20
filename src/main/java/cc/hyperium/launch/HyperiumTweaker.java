@@ -15,7 +15,6 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package cc.hyperium.launch;
-import cc.hyperium.Hyperium;
 import cc.hyperium.internal.addons.AddonBootstrap;
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.Launch;
@@ -27,15 +26,12 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class HyperiumTweaker implements ITweaker {
     public static HyperiumTweaker INSTANCE;
     private ArrayList<String> args = new ArrayList<>();
-    private boolean isRunningForge = Launch.classLoader.getTransformers().stream()
-        .anyMatch(p -> p.getClass().getName().contains("fml"));
-    private boolean isRunningOptifine = Launch.classLoader.getTransformers().stream()
-        .anyMatch(p -> p.getClass().getName().contains("optifine"));
+    private boolean isRunningForge = Launch.classLoader.getTransformers().stream().anyMatch(p -> p.getClass().getName().contains("fml"));
+    private boolean isRunningOptifine = Launch.classLoader.getTransformers().stream().anyMatch(p -> p.getClass().getName().contains("optifine"));
     private boolean FORGE = false;
     private boolean OPTIFINE = false;
     public HyperiumTweaker() {
@@ -57,13 +53,9 @@ public class HyperiumTweaker implements ITweaker {
 
     @Override
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
-        Hyperium.LOGGER.info("Initialising Bootstraps...");
         MixinBootstrap.init();
         AddonBootstrap.INSTANCE.init();
-        Hyperium.LOGGER.info("Applying transformers...");
-        //classLoader.registerTransformer("cc.hyperium.mods.memoryfix.ClassTransformer")
 
-        // Excludes packages from classloader
         MixinEnvironment environment = MixinEnvironment.getDefaultEnvironment();
         Mixins.addConfiguration("mixins.hyperium.json");
         this.OPTIFINE = this.isRunningOptifine;
@@ -82,9 +74,6 @@ public class HyperiumTweaker implements ITweaker {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        Hyperium.LOGGER.info("Forge {}!", FORGE ? "found" : "not found");
-
         environment.setSide(MixinEnvironment.Side.CLIENT);
     }
 
@@ -115,15 +104,5 @@ public class HyperiumTweaker implements ITweaker {
     private void addArg(String args, File file) {
         if (file == null) return;
         addArg(args, file.getAbsolutePath());
-    }
-
-    private void addArgs(Map<String, ?> args) {
-        args.forEach((label, value) -> {
-            if (value instanceof String) {
-                addArg(label, (String) value);
-            } else if (value instanceof File) {
-                addArg(label, (File) value);
-            }
-        });
     }
 }
