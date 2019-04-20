@@ -66,7 +66,6 @@ public class CommandDebug implements BaseCommand {
             builder.append("Count: ").append(Hyperium.INSTANCE.getModIntegration().getLevelhead().count).append("\n");
             builder.append("Wait: ").append(Hyperium.INSTANCE.getModIntegration().getLevelhead().wait).append("\n");
             builder.append("Hypixel: ").append(HypixelDetector.getInstance().isHypixel()).append("\n");
-            builder.append("Remote Status: ").append(Sk1erMod.getInstance().isEnabled()).append("\n");
             builder.append("Local Stats: ").append(HypixelDetector.getInstance().isHypixel()).append("\n");
             builder.append("Header State: ").append(Hyperium.INSTANCE.getModIntegration().getLevelhead().getHeaderConfig()).append("\n");
             builder.append("Footer State: ").append(Hyperium.INSTANCE.getModIntegration().getLevelhead().getFooterConfig()).append("\n");
