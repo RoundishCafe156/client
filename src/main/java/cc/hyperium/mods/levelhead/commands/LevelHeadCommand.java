@@ -25,11 +25,7 @@ import cc.hyperium.mods.levelhead.guis.LevelHeadGui;
 import cc.hyperium.mods.sk1ercommon.Sk1erMod;
 import cc.hyperium.utils.ChatColor;
 
-/**
- * Created by Mitchell Katz on 5/8/2017.
- */
 public class LevelHeadCommand implements BaseCommand {
-
     private final Levelhead mod;
 
     public LevelHeadCommand(Levelhead mod) {
@@ -53,7 +49,6 @@ public class LevelHeadCommand implements BaseCommand {
                 GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Count: " + this.mod.count);
                 GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Wait: " + this.mod.wait);
                 GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Hypixel: " + HypixelDetector.getInstance().isHypixel());
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Remote Status: " + Sk1erMod.getInstance().isEnabled());
                 GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Local Stats: " + HypixelDetector.getInstance().isHypixel());
                 GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Header State: " + this.mod.getHeaderConfig());
                 GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Footer State: " + this.mod.getFooterConfig());
@@ -61,16 +56,12 @@ public class LevelHeadCommand implements BaseCommand {
                 return;
             } else if (args[0].equalsIgnoreCase("dumpcache")) {
                 int prevCache = this.mod.levelCache.size();
-
                 this.mod.levelCache.clear();
-
                 GeneralChatHandler.instance().sendMessage("Stringcache entries: " + prevCache + " -> " + this.mod.levelCache.size());
                 return;
             } else if (args[0].equalsIgnoreCase("toggle")) {
                 this.mod.getConfig().setEnabled(!this.mod.getConfig().isEnabled());
-
-                GeneralChatHandler.instance().sendMessage("LevelHead is now " + (this.mod.getConfig().isEnabled() ? ChatColor.GREEN + "glintColorizer" : ChatColor.RED + "disabled"));
-
+                GeneralChatHandler.instance().sendMessage("Levelhead is now " + (this.mod.getConfig().isEnabled() ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
                 return;
             }
         }
