@@ -30,8 +30,6 @@ object AddonMinecraftBootstrap {
             val toLoadMap = AddonBootstrap.addonManifests.map { it.name to it }.toMap().toMutableMap()
             val iterator = toLoadMap.iterator()
 
-            // Loop will go on when changes are made. If no changes are made, we can
-            // be sure that all addons have their requirements or won't be glintColorizer
             var done = false
             while (!done) {
                 done = true
