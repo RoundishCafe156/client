@@ -18,7 +18,6 @@ import me.semx11.autotip.util.ErrorReport;
 public class TaskManager {
     private final ExecutorService executor;
     private final ScheduledExecutorService scheduler;
-
     private final Map<TaskType, Future> tasks;
 
     public TaskManager() {
@@ -69,21 +68,15 @@ public class TaskManager {
         this.executor.execute(() -> {
             try {
                 future.get();
-            } catch (CancellationException ignored) {
-                // Manual cancellation of a repeating task.
-            } catch (InterruptedException | ExecutionException e) {
-                ErrorReport.reportException(e);
-            } finally {
+            } catch (InterruptedException | ExecutionException | CancellationException ignored) {} finally {
                 tasks.remove(type);
             }
         });
     }
 
     private ThreadFactory getFactory(String name) {
-        return new ThreadFactoryBuilder()
-                .setNameFormat(name)
-                .setUncaughtExceptionHandler((t, e) -> ErrorReport.reportException(e))
-                .build();
+        return new ThreadFactoryBuilder().setNameFormat(name)
+                .setUncaughtExceptionHandler((t, e) -> ErrorReport.reportException(e)).build();
     }
 
     public enum TaskType {

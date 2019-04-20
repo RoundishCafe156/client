@@ -30,9 +30,6 @@ public class SettingsTab extends AbstractTab {
     public SettingsTab(HyperiumMainGui gui) {
         super(gui, "tab.settings.name");
 
-        //TODO add other settings objects
-
-        //TODO maybe read separate thing for mods
         HashMap<Category, CollapsibleTabComponent> items = new HashMap<>();
         for (Object o : gui.getSettingsObjects()) {
             for (Field f : o.getClass().getDeclaredFields()) {

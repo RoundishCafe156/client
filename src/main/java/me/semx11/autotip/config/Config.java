@@ -40,12 +40,6 @@ public class Config {
         return this;
     }
 
-    @CheckReturnValue
-    public Config toggleEnabled() {
-        this.enabled = !this.enabled;
-        return this;
-    }
-
     public Locale getLocale() {
         return locale;
     }

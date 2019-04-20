@@ -1,18 +1,8 @@
 package cc.hyperium.mixinsimp;
 
-import cc.hyperium.Hyperium;
-import cc.hyperium.config.Settings;
 import cc.hyperium.event.EventBus;
-import cc.hyperium.event.InvokeEvent;
-import cc.hyperium.event.WorldChangeEvent;
 import cc.hyperium.handlers.handlers.animation.cape.CapeHandler;
-import cc.hyperium.mixins.entity.IMixinAbstractClientPlayer;
-import cc.hyperium.mixins.entity.IMixinNetworkPlayerInfo;
 import cc.hyperium.utils.Utils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -25,7 +15,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Logger;
@@ -154,7 +143,6 @@ public class HyperiumTextureManager {
         return textures.get(textureLocation.toString());
     }
 
-    //TODO make this a process them async
     public void tick(List<ITickable> listTickables) {
         for (ITickable itickable : listTickables) {
             itickable.tick();
