@@ -1,7 +1,6 @@
 package cc.hyperium.internal.addons.strategy
 
 import cc.hyperium.internal.addons.AddonManifest
-
 import java.io.File
 
 abstract class AddonLoaderStrategy {
