@@ -65,8 +65,8 @@ public class Levelhead extends AbstractMod {
     private JsonHolder types = new JsonHolder();
 
     public Levelhead() {
-        Metadata metadata = new Metadata(this, "LevelHead", "5.0", "Sk1er");
-        metadata.setDisplayName(ChatColor.AQUA + "LevelHead");
+        Metadata metadata = new Metadata(this, "Levelhead", "5.0", "Sk1er");
+        metadata.setDisplayName(ChatColor.AQUA + "Levelhead");
         this.meta = metadata;
     }
 
@@ -90,9 +90,7 @@ public class Levelhead extends AbstractMod {
         register(this);
         userUuid = UUIDUtil.getClientUUID();
         register(new LevelHeadRender(this), this);
-
         Hyperium.INSTANCE.getHandlers().getHyperiumCommandHandler().registerCommand(new LevelHeadCommand(this));
-
         return this;
     }
 
@@ -103,34 +101,21 @@ public class Levelhead extends AbstractMod {
 
     @SuppressWarnings("SimplifiableIfStatement")
     public boolean loadOrRender(EntityPlayer player) {
-        if (!Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel())
-            return false;
-        if (!this.config.isEnabled())
-            return false;
+        if (!Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) return false;
+        if (!this.config.isEnabled()) return false;
 
         for (PotionEffect effect : player.getActivePotionEffects()) {
-            if (effect.getPotionID() == 14)
-                return false;
+            if (effect.getPotionID() == 14) return false;
         }
-        if (!renderFromTeam(player))
-            return false;
-        if (player.riddenByEntity != null)
-            return false;
+        if (!renderFromTeam(player)) return false;
+        if (player.riddenByEntity != null) return false;
         int min = Math.min(64 * 64, this.config.getRenderDistance() * this.config.getRenderDistance());
-        if (player.getDistanceSqToEntity(Minecraft.getMinecraft().thePlayer) > min) {
-            return false;
-        }
-        if (!this.existedMorethan5Seconds.contains(player.getUniqueID())) {
-            return false;
-        }
+        if (player.getDistanceSqToEntity(Minecraft.getMinecraft().thePlayer) > min) return false;
+        if (!this.existedMorethan5Seconds.contains(player.getUniqueID())) return false;
 
-        if (player.hasCustomName() && player.getCustomNameTag().isEmpty()) {
-            return false;
-        }
-        if (player.isInvisible() || player.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
-            return false;
-        if (player.isSneaking())
-            return false;
+        if (player.hasCustomName() && player.getCustomNameTag().isEmpty()) return false;
+        if (player.isInvisible() || player.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer)) return false;
+        if (player.isSneaking()) return false;
         return player.getAlwaysRenderNameTagForRender() && !player.getName().isEmpty();
     }
 
@@ -165,16 +150,13 @@ public class Levelhead extends AbstractMod {
 
         if (!mc.isGamePaused() && mc.thePlayer != null && mc.theWorld != null) {
             if (System.currentTimeMillis() < this.waitUntil) {
-                if (this.updates > 0) {
-                    this.updates = 0;
-                }
+                if (this.updates > 0)  this.updates = 0;
                 return;
             }
 
             for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
                 if (!existedMorethan5Seconds.contains(entityPlayer.getUniqueID())) {
-                    if (!timeCheck.containsKey(entityPlayer.getUniqueID()))
-                        timeCheck.put(entityPlayer.getUniqueID(), 0);
+                    if (!timeCheck.containsKey(entityPlayer.getUniqueID())) timeCheck.put(entityPlayer.getUniqueID(), 0);
                     int old = timeCheck.get(entityPlayer.getUniqueID());
                     if (old > 100) {
                         existedMorethan5Seconds.add(entityPlayer.getUniqueID());
@@ -184,9 +166,7 @@ public class Levelhead extends AbstractMod {
 
                 if (loadOrRender(entityPlayer)) {
                     final UUID uuid = entityPlayer.getUniqueID();
-                    if (!levelCache.containsKey(uuid)) {
-                        getLevel(uuid);
-                    }
+                    if (!levelCache.containsKey(uuid)) getLevel(uuid);
                 }
             }
         }
