@@ -25,7 +25,7 @@ public class FontFixValues {
     private Cache<StringHash, CachedString> stringCache = Caffeine.newBuilder()
         .writer(new RemovalListener())
         .executor(Multithreading.POOL)
-        .maximumSize(5000)
+        .maximumSize(6000)
         .build();
     private Queue<Integer> glRemoval = new ConcurrentLinkedQueue<>();
 
