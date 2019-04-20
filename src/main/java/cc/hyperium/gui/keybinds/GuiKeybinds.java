@@ -162,7 +162,6 @@ public class GuiKeybinds extends HyperiumGui {
                 resetAll();
                 return;
             } else if (backButton.mousePressed(mc, mouseX, mouseY)) {
-                openPreviousGui();
                 return;
             }
 
