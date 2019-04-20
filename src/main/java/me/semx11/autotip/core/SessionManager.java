@@ -114,13 +114,8 @@ public class SessionManager {
     }
 
     public void logout() {
-        if (!loggedIn) {
-            return;
-        }
-        LogoutReply reply = LogoutRequest.of(sessionKey).execute();
-        if (!reply.isSuccess()) {
-            Autotip.LOGGER.warn("Error during logout: {}", reply.getCause());
-        }
+        if (!loggedIn)  return;
+        LogoutRequest.of(sessionKey).execute();
 
         this.loggedIn = false;
         this.sessionKey = null;
@@ -134,10 +129,7 @@ public class SessionManager {
             taskManager.cancelTask(TaskType.KEEP_ALIVE);
             return;
         }
-        KeepAliveReply r = KeepAliveRequest.of(sessionKey).execute();
-        if (!r.isSuccess()) {
-            Autotip.LOGGER.warn("KeepAliveRequest failed: {}", r.getCause());
-        }
+        KeepAliveRequest.of(sessionKey).execute();
     }
 
     private void tipWave() {
@@ -152,11 +144,8 @@ public class SessionManager {
         TipReply r = TipRequest.of(sessionKey).execute();
         if (r.isSuccess()) {
             tipQueue.addAll(r.getTips());
-            Autotip.LOGGER.info("Current tip queue: {}",
-                    StringUtils.join(tipQueue.iterator(), ", "));
         } else {
             tipQueue.addAll(TipReply.getDefault().getTips());
-            Autotip.LOGGER.info("Failed to fetch tip queue, tipping 'all' instead.");
         }
 
         long tipCycle = reply.getTipCycleRate();
@@ -169,7 +158,6 @@ public class SessionManager {
             return;
         }
 
-        Autotip.LOGGER.info("Attempting to tip: {}", tipQueue.peek().toString());
         messageUtil.sendCommand(tipQueue.poll().getAsCommand());
     }
 

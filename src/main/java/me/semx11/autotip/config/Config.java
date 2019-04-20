@@ -108,9 +108,7 @@ public class Config {
 
         try {
             List<String> lines = Files.readAllLines(fileUtil.getPath("options.at"));
-            if (lines.size() < 2) {
-                return this;
-            }
+            if (lines.size() < 2) return this;
 
             this.enabled = Boolean.parseBoolean(lines.get(0));
             try {
@@ -124,7 +122,6 @@ public class Config {
 
             return this.save();
         } catch (IOException e) {
-            Autotip.LOGGER.error("Could not read legacy options.at file!");
             return this.save();
         }
     }

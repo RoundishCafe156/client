@@ -97,5 +97,4 @@ public class TaskManager {
     public enum TaskType {
         LOGIN, KEEP_ALIVE, TIP_WAVE, TIP_CYCLE, LOGOUT
     }
-
 }

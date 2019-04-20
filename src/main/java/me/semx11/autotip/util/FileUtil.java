@@ -7,15 +7,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import me.semx11.autotip.Autotip;
 import org.apache.commons.io.FilenameUtils;
 
 public class FileUtil {
-    private static final DateTimeFormatter OLD_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
     private final Path userDir;
     private final Path statsDir;
 
@@ -40,10 +37,6 @@ public class FileUtil {
         return Files.exists(this.getPath(path));
     }
 
-    public void delete(String path) {
-        this.delete(this.getPath(path));
-    }
-
     public void delete(File file) {
         this.delete(file.toPath());
     }
@@ -54,10 +47,6 @@ public class FileUtil {
         } catch (IOException e) {
             Autotip.LOGGER.error("Could not delete file " + path);
         }
-    }
-
-    public File getLegacyStatsFile(LocalDate localDate) {
-        return this.getFile(this.statsDir, localDate.format(OLD_FORMAT) + ".at");
     }
 
     public File getStatsFile(LocalDate localDate) {
@@ -75,7 +64,6 @@ public class FileUtil {
                     .findFirst()
                     .orElseGet(LocalDate::now);
         } catch (IOException e) {
-            Autotip.LOGGER.error("Could not list files in stats dir.");
             return LocalDate.now();
         }
     }

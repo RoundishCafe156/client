@@ -60,7 +60,6 @@ public class MessageUtil {
             UniversalUtil.addChatMessage(msg);
         } else {
             chatQueue.add(msg);
-            Autotip.LOGGER.info("Queued chat message: " + msg);
         }
     }
 
@@ -70,7 +69,6 @@ public class MessageUtil {
             autotip.getMinecraft().thePlayer.sendChatMessage(command);
         } else {
             cmdQueue.add(command);
-            Autotip.LOGGER.info("Queued command: " + command);
         }
     }
 

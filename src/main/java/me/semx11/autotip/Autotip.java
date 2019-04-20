@@ -17,7 +17,6 @@ import me.semx11.autotip.command.impl.CommandAutotip;
 import me.semx11.autotip.command.impl.CommandLimbo;
 import me.semx11.autotip.config.Config;
 import me.semx11.autotip.config.GlobalSettings;
-import me.semx11.autotip.core.MigrationManager;
 import me.semx11.autotip.core.SessionManager;
 import me.semx11.autotip.core.StatsManager;
 import me.semx11.autotip.core.TaskManager;
@@ -62,7 +61,6 @@ public class Autotip {
 
     private TaskManager taskManager;
     private SessionManager sessionManager;
-    private MigrationManager migrationManager;
     private StatsManager statsManager;
 
     public boolean isInitialized() {
@@ -117,10 +115,6 @@ public class Autotip {
         return sessionManager;
     }
 
-    public MigrationManager getMigrationManager() {
-        return migrationManager;
-    }
-
     public StatsManager getStatsManager() {
         return statsManager;
     }
@@ -151,11 +145,9 @@ public class Autotip {
             this.taskManager = new TaskManager();
             this.sessionManager = new SessionManager(this);
             this.statsManager = new StatsManager(this);
-            this.migrationManager = new MigrationManager(this);
 
             this.fileUtil.createDirectories();
             this.config.load();
-            this.taskManager.getExecutor().execute(() -> this.migrationManager.migrateLegacyFiles());
 
             this.registerEvents(
                     new EventClientConnection(this),

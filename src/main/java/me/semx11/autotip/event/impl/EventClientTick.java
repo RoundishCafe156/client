@@ -6,9 +6,7 @@ import me.semx11.autotip.Autotip;
 import me.semx11.autotip.event.Event;
 
 public class EventClientTick implements Event {
-
     private final Autotip autotip;
-
     public EventClientTick(Autotip autotip) {
         this.autotip = autotip;
     }
@@ -20,5 +18,4 @@ public class EventClientTick implements Event {
             autotip.getStatsManager().saveCycle();
         }
     }
-
 }

@@ -24,9 +24,9 @@ public class EventChatReceived implements Event {
 
     @InvokeEvent
     public void onChat(ServerChatEvent event) {
-        Config config = autotip.getConfig();
-
         if (!autotip.getSessionManager().isOnHypixel()) return;
+
+        Config config = autotip.getConfig();
 
         String msg = UniversalUtil.getUnformattedText(event);
 
@@ -70,5 +70,4 @@ public class EventChatReceived implements Event {
     private StatsDaily getStats() {
         return this.autotip.getStatsManager().getToday();
     }
-
 }

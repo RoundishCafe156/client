@@ -88,7 +88,6 @@ public class StatsManager {
         try {
             String json = autotip.getGson().toJson(stats);
             FileUtils.writeStringToFile(file, json, StandardCharsets.UTF_8);
-            Autotip.LOGGER.info("Saved " + stats.getFile().getName());
         } catch (IOException e) {
             Autotip.LOGGER.error("Could not write to " + file, e);
         }
@@ -121,5 +120,4 @@ public class StatsManager {
             ticks.decrementAndGet();
         }
     }
-
 }
