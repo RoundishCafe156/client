@@ -2,7 +2,6 @@ package cc.hyperium.gui.keybinds;
 
 import cc.hyperium.Hyperium;
 import cc.hyperium.gui.HyperiumGui;
-import cc.hyperium.gui.hyperium.HyperiumMainGui;
 import cc.hyperium.handlers.handlers.keybinds.HyperiumBind;
 import cc.hyperium.utils.HyperiumFontRenderer;
 import net.minecraft.client.Minecraft;
@@ -21,7 +20,6 @@ public class GuiKeybinds extends HyperiumGui {
     private HyperiumFontRenderer sfr = new HyperiumFontRenderer("Arial", Font.PLAIN, 12);
     private GuiButton resetButton;
     private GuiButton backButton;
-    private HyperiumMainGui prevGui;
 
     private int scrollOffset;
     private int buttonHeight = 20;
@@ -35,8 +33,6 @@ public class GuiKeybinds extends HyperiumGui {
     private int initialGuiScale;
 
     public GuiKeybinds() {
-
-        // Change the GUI scale to the intended one.
         Minecraft.getMinecraft().gameSettings.guiScale = 3;
     }
 
@@ -53,12 +49,10 @@ public class GuiKeybinds extends HyperiumGui {
 
         scrollOffset = 0;
 
-        // Measurements of the GUI.
         int fixedWidth = 485;
         int fixedHeight = 300;
         int buttonWidth = 70;
 
-        // Measurements of the screen on which the GUI was intended to be drawn.
         int intendedWidth = 640;
         int intendedHeight = 360;
 
@@ -83,9 +77,6 @@ public class GuiKeybinds extends HyperiumGui {
         topGui = calculatedGap;
         bottomGui = height - calculatedGap;
 
-        prevGui = HyperiumMainGui.INSTANCE;
-
-        // Get keybinds.
         binds = new ArrayList<>(Hyperium.INSTANCE.getHandlers().getKeybindHandler().getKeybinds().values());
 
         for (int i = 0; i < binds.size(); i++) {
@@ -125,9 +116,7 @@ public class GuiKeybinds extends HyperiumGui {
                 if (!exceedsBoundaries(yPosition)) {
                     entry.renderBind(startX, yPosition, fontRendererObj, mc, mouseX, mouseY);
                 } else {
-                    if (entry.isVisible()) {
-                        entry.setVisible(false);
-                    }
+                    if (entry.isVisible()) entry.setVisible(false);
                 }
                 index++;
             }
@@ -138,14 +127,8 @@ public class GuiKeybinds extends HyperiumGui {
 
     private boolean exceedsBoundaries(int yPosition) {
         int centre = yPosition + buttonHeight / 2;
-        if (centre - (buttonHeight / 2) < topGui) {
-            // Button has been scrolled up too far.
-            return true;
-        }
-
-        // Button has been scrolled down too far.
+        if (centre - (buttonHeight / 2) < topGui) return true;
         return centre + (buttonHeight / 2) > bottomGui;
-
     }
 
     private List<List<KeybindEntry>> divideList(List<KeybindEntry> inputList, int number) {
@@ -156,9 +139,7 @@ public class GuiKeybinds extends HyperiumGui {
 
         int counter = 0;
         for (KeybindEntry entry : inputList) {
-            if (counter >= number) {
-                counter = 0;
-            }
+            if (counter >= number) counter = 0;
 
             partitions.get(counter).add(entry);
             counter++;
@@ -198,13 +179,11 @@ public class GuiKeybinds extends HyperiumGui {
                     int bIndex = keybindEntries.indexOf(entry);
                     keybindEntries.remove(entry);
 
-                    // Checks every other entry.
                     for (KeybindEntry keybindEntry : keybindEntries) {
                         KeybindButton entryButton = keybindEntry.getKeybindButton();
                         entryButton.setListening(false);
                     }
 
-                    // Reinsert original entry back into list.
                     keybindEntries.add(bIndex, entry);
                     button.mouseButtonClicked(mouseButton);
                 }
@@ -238,18 +217,12 @@ public class GuiKeybinds extends HyperiumGui {
         }
     }
 
-    private void openPreviousGui() {
-        prevGui.show();
-    }
-
     @Override
     public void onGuiClosed() {
-        // Reset back to the user's normal GUI scale.
         Minecraft.getMinecraft().gameSettings.guiScale = initialGuiScale;
         Hyperium.CONFIG.save();
 
         super.onGuiClosed();
-        openPreviousGui();
     }
 
     private void detectAllConflicts() {
@@ -262,9 +235,7 @@ public class GuiKeybinds extends HyperiumGui {
     private boolean areKeysListening() {
         for (KeybindEntry entry : keybindEntries) {
             KeybindButton btn = entry.getKeybindButton();
-            if (btn.isListening()) {
-                return true;
-            }
+            if (btn.isListening()) return true;
         }
         return false;
     }
@@ -272,9 +243,7 @@ public class GuiKeybinds extends HyperiumGui {
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == Keyboard.KEY_ESCAPE) {
-            if (areKeysListening()) {
-                return;
-            }
+            if (areKeysListening()) return;
         }
         super.keyTyped(typedChar, keyCode);
     }
