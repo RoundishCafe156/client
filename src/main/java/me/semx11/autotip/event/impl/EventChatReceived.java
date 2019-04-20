@@ -4,7 +4,7 @@ import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.ServerChatEvent;
 import me.semx11.autotip.Autotip;
 import me.semx11.autotip.command.impl.CommandLimbo;
-import me.semx11.autotip.config.Config;
+import me.semx11.autotip.Config;
 import me.semx11.autotip.event.Event;
 import me.semx11.autotip.universal.UniversalUtil;
 

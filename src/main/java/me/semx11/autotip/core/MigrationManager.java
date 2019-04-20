@@ -1,7 +1,7 @@
 package me.semx11.autotip.core;
 
 import me.semx11.autotip.Autotip;
-import me.semx11.autotip.config.Config;
+import me.semx11.autotip.Config;
 import me.semx11.autotip.util.FileUtil;
 
 public class MigrationManager {
