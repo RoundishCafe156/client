@@ -28,7 +28,7 @@ public class AutoGGListener {
         if (this.mod.getConfig().ANTI_GG && invoked) {
             if (event.getChat().getUnformattedText().toLowerCase().endsWith("gg") || event.getChat().getUnformattedText().endsWith("Good Game")) event.setCancelled(true);
         }
-        if (!this.mod.getConfig().isToggled() || this.mod.isRunning() || this.mod.getTriggers().isEmpty()) eturn;
+        if (!this.mod.getConfig().isToggled() || this.mod.isRunning() || this.mod.getTriggers().isEmpty()) return;
 
         // Double parse to remove hypixel formatting codes
         String unformattedMessage = ChatColor.stripColor(event.getChat().getUnformattedText());
