@@ -17,7 +17,6 @@
 
 package cc.hyperium.mods.levelhead.config;
 
-
 import cc.hyperium.config.Category;
 import cc.hyperium.config.ConfigOpt;
 import cc.hyperium.config.SliderSetting;
@@ -25,7 +24,7 @@ import cc.hyperium.config.ToggleSetting;
 import cc.hyperium.utils.ChatColor;
 
 public class LevelheadConfig {
-    @ConfigOpt(alt = "club.sk1er.mods.levelhead.config.LevelheadConfig;glintColorizer")
+    @ConfigOpt(alt = "club.sk1er.mods.levelhead.config.LevelheadConfig;enabled")
     @ToggleSetting(category = Category.LEVEL_HEAD, mods = true, name = "Enable")
     public boolean enabled = true;
 
