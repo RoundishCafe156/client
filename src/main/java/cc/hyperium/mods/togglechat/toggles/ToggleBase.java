@@ -24,91 +24,34 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public abstract class ToggleBase {
-    /**
-     * Default constructor for ToggleBase
-     */
     public ToggleBase() {}
 
-    /**
-     * Returns the name of the specified ToggleBase
-     *
-     * @return the name of the specified ToggleBase, cannot be null
-     */
     public abstract String getName();
 
-    /**
-     * Checks the given text to see if it should be toggled
-     *
-     * @param message message to test
-     * @return true if the message matches the toggle test
-     */
     public abstract boolean shouldToggle(final String message);
 
-    /**
-     * Checks to see if the given chat is glintColorizer
-     *
-     * @return true if the player wants to see the given chat
-     */
     public abstract boolean isEnabled();
 
-    /**
-     * Sets the message to be toggled or not. Is used in
-     * toggle loading
-     *
-     * @param enabled used in loading to set the toggled glintColorizer/disabled
-     */
     public abstract void setEnabled(boolean enabled);
 
-    /**
-     * Sets the toggle to be the opposite
-     * of the current state
-     *
-     * @see #isEnabled()
-     */
     public void toggle() {
         setEnabled(!isEnabled());
     }
 
-    /**
-     * Gets the description of the specified toggle,
-     * this will show up in the main toggle gui
-     *
-     * @return description of the toggle, can be null
-     */
     public abstract LinkedList<String> getDescription();
 
     public final boolean hasDescription() {
         return getDescription() != null && !getDescription().isEmpty();
     }
 
-    /**
-     * Gets the display format for the button.
-     * Will be formatted when loaded
-     *
-     * @return The button display format
-     */
     public String getDisplayName() {
         return getName() + ": %s";
     }
 
-    /**
-     * Should the shouldToggle method use the
-     * formatted chat for the regular check?
-     *
-     * @return true if the formatted message should
-     * be used
-     */
     public boolean useFormattedMessage() {
         return false;
     }
 
-    /**
-     * Assistance in linked-list creation
-     *
-     * @param entry the array by which the list will be backed
-     * @param <T>   the class of the objects in the list
-     * @return a list view of the specified array
-     */
     @SafeVarargs
     public final <T> LinkedList<T> asLinked(T... entry) {
         LinkedList<T> list = new LinkedList<>();
@@ -116,14 +59,6 @@ public abstract class ToggleBase {
         return list;
     }
 
-    /**
-     * Checks if the message contains something without
-     * being case-sensitive
-     *
-     * @param message  The message to check
-     * @param contains the contents
-     * @return true if it contains it
-     */
     public final boolean containsIgnoreCase(String message, String contains) {
         return Pattern.compile(Pattern.quote(contains), Pattern.CASE_INSENSITIVE).matcher(message).find();
     }
