@@ -29,6 +29,7 @@ import me.semx11.autotip.util.MinecraftVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IChatComponent;
 import org.apache.logging.log4j.Logger;
+import rocks.rdil.jailbreak.chat.CommonChatCanceller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,6 @@ public class Autotip {
     public static IChatComponent tabHeader;
     private final List<Event> events = new ArrayList<>();
     private final List<CommandAbstract> commands = new ArrayList<>();
-    private boolean initialized = false;
     private Minecraft minecraft;
     private MinecraftVersion mcVersion;
     private Gson gson;
@@ -51,10 +51,6 @@ public class Autotip {
     private TaskManager taskManager;
     private SessionManager sessionManager;
     private MigrationManager migrationManager;
-
-    public boolean isInitialized() {
-        return initialized;
-    }
 
     public Minecraft getMinecraft() {
         return minecraft;
@@ -96,6 +92,7 @@ public class Autotip {
     }
 
     public void init() {
+        new CommonChatCanceller("tipped");
         RequestHandler.setAutotip(this);
         UniversalUtil.setAutotip(this);
         this.minecraft = Minecraft.getMinecraft();
@@ -131,7 +128,6 @@ public class Autotip {
                     new CommandLimbo(this)
             );
             Runtime.getRuntime().addShutdownHook(new Thread(sessionManager::logout));
-            this.initialized = true;
         } catch (IllegalStateException | IOException e) {
             messageUtil.send("Autotip is disabled because of an error.");
         }
