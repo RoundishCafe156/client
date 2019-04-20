@@ -26,7 +26,6 @@ import cc.hyperium.utils.JsonHolder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -36,55 +35,31 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class KeystrokesSettings {
-
     private final KeystrokesMod theMod;
     private final File configFile;
-
     private int x = 0;
-
     private int y = 0;
-
     private boolean enabled = true;
-
     private boolean chroma = false;
-
     private boolean mouseButtons = false;
-
     private boolean showCPS = false;
-
     private boolean showCPSOnButtons = false;
-
     private boolean showSpacebar = false;
-
     private double scale = 1;
-
     private double fadeTime = 1;
-
     private int red = 255;
-
     private int green = 255;
-
     private int blue = 255;
-
     private int pressedRed = 0;
-
     private int pressedGreen = 0;
-
     private int pressedBlue = 0;
-
     private boolean leftClick = true;
-
     private boolean showingSneak = false;
-
     private List<CustomKeyWrapper> configWrappers = new ArrayList<>();
 
     public KeystrokesSettings(KeystrokesMod mod, File directory) {
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
+        if (!directory.exists()) directory.mkdirs();
         this.theMod = mod;
-
         this.configFile = new File(directory, "keystrokes.json");
     }
 
@@ -99,34 +74,23 @@ public class KeystrokesSettings {
             List<String> options = f.lines().collect(Collectors.toList());
             StringBuilder builder = new StringBuilder();
 
-            if (options.isEmpty()) {
-                return;
-            }
+            if (options.isEmpty()) return;
 
             for (String s : options) {
                 builder.append(s);
             }
 
-            if (builder.toString().trim().length() > 0) {
-                parseSettings(new BetterJsonObject(builder.toString().trim()));
-            }
+            if (builder.toString().trim().length() > 0) parseSettings(new BetterJsonObject(builder.toString().trim()));
         } catch (Exception ex) {
-            Hyperium.LOGGER.warn(String.format("Could not load config file! (\"%s\")", this.configFile.getName()));
             save();
         }
     }
 
     public void save() {
         try {
-            if (!this.configFile.getParentFile().exists()) {
-                this.configFile.getParentFile().mkdirs();
-            }
+            if (!this.configFile.getParentFile().exists()) this.configFile.getParentFile().mkdirs();
 
-            if (!this.configFile.exists()) {
-                if (!this.configFile.createNewFile()) {
-                    return;
-                }
-            }
+            if (!this.configFile.exists() && !this.configFile.createNewFile()) return;
 
             BetterJsonObject object = new BetterJsonObject();
             object.addProperty("x", getX());
@@ -140,7 +104,7 @@ public class KeystrokesSettings {
             object.addProperty("pressedBlue", getPressedBlue());
             object.addProperty("scale", getScale());
             object.addProperty("fadeTime", getFadeTime());
-            object.addProperty("glintColorizer", isEnabled());
+            object.addProperty("enabled", isEnabled());
             object.addProperty("chroma", isChroma());
             object.addProperty("mouseButtons", isShowingMouseButtons());
             object.addProperty("showCPS", isShowingCPS());
@@ -159,9 +123,7 @@ public class KeystrokesSettings {
 
             object.getData().add("custom", keys);
             object.writeToFile(configFile);
-        } catch (Exception ex) {
-            Hyperium.LOGGER.warn(String.format("Could not save config file! (\"%s\")", this.configFile.getName()));
-        }
+        } catch (Exception ignored) {}
     }
 
     private void parseSettings(BetterJsonObject object) {
@@ -175,7 +137,7 @@ public class KeystrokesSettings {
         setPressedBlue(object.optInt("pressedBlue"));
         setScale(object.optDouble("scale", 1.0D));
         setFadeTime(object.optDouble("fadeTime", 1.0D));
-        setEnabled(object.optBoolean("glintColorizer", true));
+        setEnabled(object.optBoolean("enabled", true));
         setChroma(object.optBoolean("chroma"));
         setLeftClick(object.optBoolean("leftClick", true));
         setShowingMouseButtons(object.optBoolean("mouseButtons"));
