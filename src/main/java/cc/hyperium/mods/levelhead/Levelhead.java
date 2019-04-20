@@ -143,9 +143,7 @@ public class Levelhead extends AbstractMod {
 
     @InvokeEvent
     public void tick(TickEvent event) {
-        if (!Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel() || !this.config.isEnabled() || !this.mod.isEnabled()) {
-            return;
-        }
+        if (!Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel() || !this.config.isEnabled()) return;
         Minecraft mc = Minecraft.getMinecraft();
 
         if (!mc.isGamePaused() && mc.thePlayer != null && mc.theWorld != null) {
