@@ -7,12 +7,8 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-
 import java.util.Map;
 
-/**
- * Created by mitchellkatz on 6/25/18. Designed for production use on Sk1er.club
- */
 public class SpellParticle implements IParticle {
     @Override
     public EntityFX spawn(World world, double x, double y, double z) {

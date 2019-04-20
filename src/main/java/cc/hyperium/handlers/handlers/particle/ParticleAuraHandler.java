@@ -21,17 +21,14 @@ import cc.hyperium.utils.UUIDUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.particle.EntityFX;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Vec3;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class ParticleAuraHandler {
-    private final ArrayList<EnumParticleTypes> particleTypes = new ArrayList<>();
     private HashMap<UUID, ParticleAura> auras = new HashMap<>();
     private HashMap<String, AbstractAnimation> animations = new HashMap<>();
     private EnumMap<EnumParticleType, IParticle> renderEngines = new EnumMap<>(EnumParticleType.class);

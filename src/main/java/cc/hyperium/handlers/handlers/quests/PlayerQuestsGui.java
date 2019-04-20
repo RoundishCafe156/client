@@ -39,7 +39,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -54,7 +53,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerQuestsGui extends HyperiumGui {
-
     private static Map<AbstractHypixelStats, DynamicTexture> logos = new HashMap<>();
     private HypixelApiPlayer player;
     private AbstractHypixelStats hovered;
@@ -64,7 +62,6 @@ public class PlayerQuestsGui extends HyperiumGui {
     private ConcurrentHashMap<AbstractHypixelStats, GuiBlock> location = new ConcurrentHashMap<>();
     HypixelApiGuild guild;
 
-    //TODO make only generate once
     public PlayerQuestsGui(HypixelApiPlayer player) {
         this.player = player;
         fields.add(new ArcadeStats());
@@ -108,12 +105,10 @@ public class PlayerQuestsGui extends HyperiumGui {
                         e.printStackTrace();
                     }
             });
-
         }
 
         guild = player.getGuild();
 
-        //Init
         for (AbstractHypixelStats field : fields) {
             field.getQuests(player);
         }
@@ -141,8 +136,7 @@ public class PlayerQuestsGui extends HyperiumGui {
                 flag = true;
         }
         boolean flag2 = focused == null;
-        if (!flag && flag2)
-            focused = null;
+        if (!flag && flag2) focused = null;
 
         ScaledResolution current = ResolutionUtil.current();
         if (focused != null && new GuiBlock((current.getScaledWidth() / 2 - 22 - 64), (current.getScaledWidth() / 2 - 22), 73, 73 + 64).isMouseOver(mouseX, mouseY)) {
@@ -159,21 +153,16 @@ public class PlayerQuestsGui extends HyperiumGui {
                     }
                 }
             }
-
     }
 
     @Override
-    protected void pack() {
-
-
-    }
+    protected void pack() {}
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (!texturesImage.isEmpty()) {
             for (AbstractHypixelStats s : texturesImage.keySet()) {
-                if (!logos.containsKey(s))
-                    logos.put(s, new DynamicTexture(texturesImage.get(s)));
+                if (!logos.containsKey(s)) logos.put(s, new DynamicTexture(texturesImage.get(s)));
             }
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -184,7 +173,6 @@ public class PlayerQuestsGui extends HyperiumGui {
         String s1 = "Quests Completed: ";
         drawScaledText(s1, 5, 55, leftTextScale, Color.CYAN.getRGB(), true, false);
         drawScaledText(WebsiteUtils.comma(player.getTotalQuests()), (int) (5 + fontRendererObj.getStringWidth(s1) * leftTextScale), 55, leftTextScale, Color.YELLOW.getRGB(), true, false);
-
 
         if (focused == null) {
             float scaleMod = 4 / 5F;
@@ -209,8 +197,6 @@ public class PlayerQuestsGui extends HyperiumGui {
                     y++;
                 }
                 if (dynamicTexture != null) {
-                    //Render Image
-
                     double spacing = 1.1;
                     int offsetY = 35;
                     int y1 = (int) (offsetY + (y * blockWidth * spacing) - 10 - offset);
@@ -220,10 +206,7 @@ public class PlayerQuestsGui extends HyperiumGui {
                     int y2 = (int) ((offsetY + y * blockWidth * spacing) - offset);
                     int x1 = startX + x * blockWidth;
                     GuiBlock value = new GuiBlock((int) (x1 * scaleMod), (int) ((x1 + blockWidth / 2) * scaleMod), (int) (y2 * scaleMod), (int) ((y2 + blockWidth / 2) * scaleMod));
-                    if (value.isMouseOver(mouseX, mouseY)) {
-                        hovered = field;
-                    }
-//                    value.scalePosition(1/10F);
+                    if (value.isMouseOver(mouseX, mouseY)) hovered = field;
                     location.put(field, value);
                     GlStateManager.translate(x1, y2, 0);
                     GlStateManager.bindTexture(dynamicTexture.getGlTextureId());
@@ -252,12 +235,10 @@ public class PlayerQuestsGui extends HyperiumGui {
                     percent = field.getCompletedWeekly() + "/" + field.getTotalWeekly() + " (" + (int) weeklyPercent + "%)";
                     drawScaledText(percent, 0, 0, 1.0, Color.HSBtoRGB(weeklyPercent / 100F / 3F, 1.0F, 1.0F), true, true);
 
-
                     GlStateManager.popMatrix();
                 }
             }
             GlStateManager.scale(1 / scaleMod, 1 / scaleMod, 1 / scaleMod);
-
 
             if (hovered != null) {
                 List<StatsDisplayItem> preview = hovered.getQuests(player);
@@ -350,9 +331,5 @@ public class PlayerQuestsGui extends HyperiumGui {
         String text = "Weekly Quests: ";
         drawScaledText(text, 5, 40, leftTextScale, Color.CYAN.getRGB(), true, false);
         drawScaledText((int) completedWeekly + "/" + (int) totalWeekly + " (" + (int) weeklyPercent + "%)", (int) (5 + fontRendererObj.getStringWidth(text) * leftTextScale), 40, leftTextScale, Color.HSBtoRGB(weeklyPercent / 100F / 3F, 1.0F, 1.0F), true, false);
-
-
     }
-
-
 }
