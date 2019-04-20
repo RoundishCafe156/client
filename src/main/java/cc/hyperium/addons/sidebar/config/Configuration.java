@@ -8,8 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Configuration {
-    private Configuration() {}
-
     public boolean enabled = true;
     public int offsetX = 0;
     public int offsetY = 0;
@@ -21,6 +19,8 @@ public class Configuration {
     public boolean chromaEnabled = false;
     public int chromaSpeed = 2;
     public GuiSidebar.ChromaType chromaType = GuiSidebar.ChromaType.ONE;
+
+    private Configuration() {}
 
     public static Configuration load(File saveFile) throws IOException {
         if (!saveFile.isFile()) {
