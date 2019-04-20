@@ -25,10 +25,6 @@ import static cc.hyperium.config.Category.*;
 public class Settings {
     public static final Settings INSTANCE = new Settings();
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;at")
-    @ToggleSetting(name = "at", category = INTEGRATIONS)
-    public static boolean autotip = true;
-
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;JailbreakFPSMode")
     @ToggleSetting(name = "gui.settings.FPS", category = INTEGRATIONS)
     public static boolean FPS = false;

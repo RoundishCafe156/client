@@ -69,10 +69,6 @@ public class CommandAutotip extends CommandAbstract {
                 break;
             case "w":
             case "wave":
-                if (!Settings.autotip) {
-                    messageUtil.sendKey("error.disabled");
-                    return;
-                }
                 if (!manager.isOnHypixel()) {
                     messageUtil.sendKey("error.disabledHypixel");
                     return;

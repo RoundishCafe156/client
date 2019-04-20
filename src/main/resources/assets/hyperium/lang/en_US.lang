@@ -13,8 +13,6 @@ button.ingame.serverlist=Server List
 # Hyperium Disclaimer
 button.disclaimer.accept=Accept
 button.disclaimer.confirm=Confirm Accept
-at=Enable Autotip
-at.m=No Autotip messages
 
 # Hyperium Menu Strings
 menu.profile.credits=%s Credits
@@ -26,7 +24,6 @@ tab.settings.name=Settings
 
 # Hyperium Tabs Attributes
 tab.update.autorestart=Once update is done, Minecraft will automatically restart
-tab.update.changelog=Changelog coming soon
 tab.update.update=Update
 tab.update.updating=Updating...
 tab.update.downloading=Downloading...
