@@ -56,9 +56,7 @@ public class CustomCrosshairConfig {
 
                     final String[] splitted = line.split(":");
 
-                    if (splitted.length <= 1) {
-                        continue;
-                    }
+                    if (splitted.length <= 1) continue;
 
                     int red = this.crosshairMod.getCrosshair().getColour().getRed();
                     int green = this.crosshairMod.getCrosshair().getColour().getGreen();
@@ -82,7 +80,7 @@ public class CustomCrosshairConfig {
                         case "crosshairtype":
                             this.crosshairMod.getCrosshair().setCrosshairType(Integer.parseInt(value));
                             break;
-                        case "glintColorizer":
+                        case "enabled":
                             this.crosshairMod.getCrosshair().setEnabled(Boolean.parseBoolean(value));
                             break;
                         case "colour_red":
@@ -203,7 +201,6 @@ public class CustomCrosshairConfig {
             final FileWriter fileWriter = new FileWriter(this.saveFile);
             final BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             final List<String> lines = new ArrayList<>();
-            lines.add("// Custom Crosshair Mod Save File - Made by Sparkless101");
             lines.add("crosshairType:" + crosshairType);
             lines.add("glintColorizer:" + enabled);
             lines.add("colour_red:" + colour_red);
