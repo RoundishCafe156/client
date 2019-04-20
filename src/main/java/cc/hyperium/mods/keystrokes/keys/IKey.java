@@ -23,16 +23,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 
-/**
- * Used as the base class for all keys with a few essential methods and fields
- *
- * @author boomboompower
- */
 public abstract class IKey extends Gui {
-
     protected final Minecraft mc = Minecraft.getMinecraft();
     protected final KeystrokesMod mod;
 
@@ -55,70 +48,28 @@ public abstract class IKey extends Gui {
         }
     }
 
-    /**
-     * Renders the key at the specified x and y location
-     */
     protected abstract void renderKey(int x, int y);
 
-    /**
-     * Gets the x offset of the key
-     *
-     * @return x offset of the key
-     */
     protected final int getXOffset() {
         return this.xOffset;
     }
 
-    /**
-     * Gets the y offset of the key
-     *
-     * @return y offset
-     */
     protected final int getYOffset() {
         return this.yOffset;
     }
 
-    /**
-     * Gets the color of the text whilst the key is not being pressed
-     * <p>
-     * if chroma this will return the current generated chroma color
-     *
-     * @return the color from settings or chroma if its glintColorizer
-     */
     protected final int getColor() {
         return this.mod.getSettings().isChroma() ? Color.HSBtoRGB((float) ((System.currentTimeMillis() - (getXOffset() * 10) - (getYOffset() * 10)) % 2000) / 2000.0F, 0.8F, 0.8F) : new Color(this.mod.getSettings().getRed(), this.mod.getSettings().getGreen(), this.mod.getSettings().getBlue()).getRGB();
     }
 
-    /**
-     * Gets the color of the text whilst the key is being pressed
-     * <p>
-     * this will not be used if chroma is glintColorizer
-     *
-     * @return the color from settings or chroma if its glintColorizer
-     */
     public final int getPressedColor() {
         return this.mod.getSettings().isChroma() ? new Color(0, 0, 0).getRGB() : new Color(this.mod.getSettings().getPressedRed(), this.mod.getSettings().getPressedGreen(), this.mod.getSettings().getPressedBlue()).getRGB();
     }
 
-    /**
-     * Draws a centered string without a background shadow at the specified location
-     * with the given color
-     *
-     * @param text  text to draw
-     * @param x     the x position for the text
-     * @param y     the y position for the text
-     * @param color the texts color
-     */
     protected final void drawCenteredString(String text, int x, int y, int color) {
         this.mc.fontRendererObj.drawString(text, (float) (x - this.mc.fontRendererObj.getStringWidth(text) / 2), (float) y, color, false);
     }
 
-    /**
-     * Get the name of the key being set for CustomKey
-     *
-     * @param keyCode opengl name of the key being pressed
-     * @return the name of the key
-     */
     protected String getKeyOrMouseName(int keyCode) {
         if (keyCode < 0) {
             String openGLName = Mouse.getButtonName(keyCode + 100);
