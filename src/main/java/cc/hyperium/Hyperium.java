@@ -52,7 +52,6 @@ import cc.hyperium.utils.mods.CompactChat;
 import cc.hyperium.utils.mods.FPSLimiter;
 import jb.Metadata;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.crash.CrashReport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -134,12 +133,12 @@ public class Hyperium {
             // Creates the accounts dir
             firstLaunch = new File(folder.getAbsolutePath() + "/accounts").mkdirs();
 
-            SplashProgress.setProgress(5, I18n.format("splashprogress.loadinghandlers"));
+            SplashProgress.setProgress(5, "Loading Handlers");
             EventBus.INSTANCE.register(autogg);
             handlers = new HyperiumHandlers();
             handlers.postInit();
 
-            SplashProgress.setProgress(6, I18n.format("splashprogress.registeringlisteners"));
+            SplashProgress.setProgress(6, "Registering Utilities");
             minigameListener = new MinigameListener();
             EventBus.INSTANCE.register(minigameListener);
             EventBus.INSTANCE.register(new ToggleSprintContainer());
@@ -154,19 +153,18 @@ public class Hyperium {
             CONFIG.register(statTrack);
             CONFIG.register(new ToggleSprintContainer());
 
-            SplashProgress.setProgress(7, I18n.format("splashprogress.startinghyperium"));
+            SplashProgress.setProgress(7, "Starting");
             Display.setTitle("HyperiumJailbreak");
 
-            // instance does not need to be saved as shit is static ^.^
-            SplashProgress.setProgress(9, I18n.format("splashprogress.registeringconfiguration"));
+            SplashProgress.setProgress(9, "Preparing Config");
             Settings.register();
             Hyperium.CONFIG.register(new ColourOptions());
             // Register commands.
-            SplashProgress.setProgress(10, I18n.format("splashprogress.registeringcommands"));
+            SplashProgress.setProgress(10, "Loading Chat Commands");
             registerCommands();
             EventBus.INSTANCE.register(PurchaseApi.getInstance());
 
-            SplashProgress.setProgress(11, I18n.format("splashprogress.loadingintegrations"));
+            SplashProgress.setProgress(11, "Loading Mods");
             modIntegration = new HyperiumModIntegration();
             internalAddons = new InternalAddons();
 
@@ -179,13 +177,11 @@ public class Hyperium {
             Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
             if (!OS.isMacintosh()) richPresenceManager.load();
 
-            SplashProgress.setProgress(12, I18n.format("splashprogress.reloadingresourcemanager"));
+            SplashProgress.setProgress(12, "Reloading Jailbreak Manager");
             Minecraft.getMinecraft().refreshResources();
 
-            SplashProgress.setProgress(13, I18n.format("splashprogress.finishing"));
-            if (FontFixValues.INSTANCE == null) {
-                FontFixValues.INSTANCE = new FontFixValues();
-            }
+            SplashProgress.setProgress(13, "Almost Done, Finishing Up");
+            if (FontFixValues.INSTANCE == null) FontFixValues.INSTANCE = new FontFixValues();
 
             Multithreading.runAsync(() -> {
                 EventBus.INSTANCE.register(FontFixValues.INSTANCE);
@@ -265,9 +261,7 @@ public class Hyperium {
         // Tell the modules the game is shutting down
         EventBus.INSTANCE.post(new GameShutDownEvent());
 
-        LOGGER.info("Shutting down..");
-
-        if (updateQueue) { LaunchUtil.launch(); }
+        if (updateQueue) LaunchUtil.launch();
     }
 
     public ConfirmationPopup getConfirmation() {
