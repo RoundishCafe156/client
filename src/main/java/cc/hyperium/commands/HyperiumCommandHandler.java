@@ -134,8 +134,7 @@ public class HyperiumCommandHandler {
     }
 
     public boolean addOrRemoveCommand(String input) {
-        if (input == null || input.isEmpty() || input.trim().isEmpty() ||
-                input.equalsIgnoreCase("disablecommand") || input.equalsIgnoreCase("hyperium")) {
+        if (input == null || input.isEmpty() || input.trim().isEmpty() || input.equalsIgnoreCase("disablecommand") || input.equalsIgnoreCase("hyperium")) {
             return false;
         }
         input = input.trim();
@@ -212,10 +211,8 @@ public class HyperiumCommandHandler {
         File disabledCommandFile = new File(Hyperium.folder, "disabledcommands.txt");
 
         try {
-            if (!disabledCommandFile.getParentFile().exists()) {
-                if (!disabledCommandFile.getParentFile().mkdirs()) {
-                    return;
-                }
+            if (!disabledCommandFile.getParentFile().exists() && !disabledCommandFile.getParentFile().mkdirs()) {
+                return;
             }
 
             if (!disabledCommandFile.exists()) {
@@ -230,9 +227,8 @@ public class HyperiumCommandHandler {
 
             reader.close();
             fileReader.close();
-        } catch (IOException ignored) {
+        } catch (IOException ignored) {}
 
-        }
         disabledCommands.add("l");
         disabledCommands.add("lobby");
         disabledCommands.add("hub");
@@ -243,17 +239,8 @@ public class HyperiumCommandHandler {
         File disabledCommandFile = new File(Hyperium.folder, "disabledcommands.txt");
 
         try {
-            if (!disabledCommandFile.getParentFile().exists()) {
-                if (!disabledCommandFile.getParentFile().mkdirs()) {
-                    return;
-                }
-            }
-
-            if (!disabledCommandFile.exists()) {
-                if (!disabledCommandFile.createNewFile()) {
-                    return;
-                }
-            }
+            if (!disabledCommandFile.getParentFile().exists() && !disabledCommandFile.getParentFile().mkdirs()) return;
+            if (!disabledCommandFile.exists() && !disabledCommandFile.createNewFile()) return;
 
             FileWriter fileWriter = new FileWriter(disabledCommandFile);
             BufferedWriter writer = new BufferedWriter(fileWriter);
