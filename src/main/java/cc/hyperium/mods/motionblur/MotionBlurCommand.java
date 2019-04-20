@@ -29,7 +29,6 @@ public class MotionBlurCommand implements BaseCommand {
 
                 try {
                     MotionBlurMod.applyShader();
-                    Hyperium.INSTANCE.getHandlers().getGeneralChatHandler().sendMessage("Motion blur glintColorizer.");
                 } catch (Throwable var5) {
                     Hyperium.INSTANCE.getHandlers().getGeneralChatHandler().sendMessage("Failed to enable motion blur.");
                     var5.printStackTrace();
@@ -37,7 +36,6 @@ public class MotionBlurCommand implements BaseCommand {
             } else {
                 Settings.MOTION_BLUR_ENABLED = false;
                 HyperiumEntityRenderer.INSTANCE.disableBlurShader();
-                Hyperium.INSTANCE.getHandlers().getGeneralChatHandler().sendMessage("Motion blur disabled.");
             }
         }
     }
