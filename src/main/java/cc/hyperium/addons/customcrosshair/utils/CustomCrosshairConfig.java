@@ -202,7 +202,7 @@ public class CustomCrosshairConfig {
             final BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             final List<String> lines = new ArrayList<>();
             lines.add("crosshairType:" + crosshairType);
-            lines.add("enabled :" + enabled);
+            lines.add("enabled:" + enabled);
             lines.add("colour_red:" + colour_red);
             lines.add("colour_green:" + colour_green);
             lines.add("colour_blue:" + colour_blue);
