@@ -24,11 +24,7 @@ import cc.hyperium.config.SliderSetting;
 import cc.hyperium.config.ToggleSetting;
 import cc.hyperium.utils.ChatColor;
 
-/**
- * @author Sk1er
- */
 public class LevelheadConfig {
-
     @ConfigOpt(alt = "club.sk1er.mods.levelhead.config.LevelheadConfig;glintColorizer")
     @ToggleSetting(category = Category.LEVEL_HEAD, mods = true, name = "Enable")
     public boolean enabled = true;
@@ -44,7 +40,6 @@ public class LevelheadConfig {
     @ConfigOpt(alt = "club.sk1er.mods.levelhead.config.LevelheadConfig;purgeSize")
     @SliderSetting(name = "Cache Size", mods = true, category = Category.LEVEL_HEAD, min = 150, max = 5000, isInt = true)
     public int purgeSize = 500;
-
 
     @ConfigOpt(alt = "club.sk1er.mods.levelhead.config.LevelheadConfig;headerChroma")
     public boolean headerChroma = false;
@@ -90,7 +85,6 @@ public class LevelheadConfig {
 
     @ConfigOpt(alt = "club.sk1er.mods.levelhead.config.LevelheadConfig;footerAlpha")
     public double footerAlpha = 1.0;
-
 
     public boolean isFooterChroma() {
         return footerChroma;
@@ -147,7 +141,6 @@ public class LevelheadConfig {
     public void setFooterAlpha(double footerAlpha) {
         this.footerAlpha = footerAlpha;
     }
-
 
     public boolean isHeaderChroma() {
         return headerChroma;
@@ -228,7 +221,6 @@ public class LevelheadConfig {
     public void setShowSelf(boolean showSelf) {
         this.showSelf = showSelf;
     }
-
 
     public int getPurgeSize() {
         return purgeSize;
