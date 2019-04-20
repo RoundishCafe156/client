@@ -138,7 +138,6 @@ public class CommandAutotip extends CommandAbstract {
                             messageUtil.sendKey("command.stats.usage");
                         }
                         break;
-
                 }
                 break;
             case "?":
@@ -150,7 +149,7 @@ public class CommandAutotip extends CommandAbstract {
                         .withKey("credits", context -> context.getBuilder()
                                 .setHover(context.getKey("creditsHover"))
                                 .send())
-                        .sendKey("status." + (config.isEnabled() ? "glintColorizer" : "disabled"))
+                        .sendKey("status." + (config.isEnabled() ? "enabled" : "disabled"))
                         .sendKey("messages", config.getMessageOption())
                         .sendKey("tipsSent", today.getTipsSent())
                         .sendKey("tipsReceived", today.getTipsReceived())
@@ -176,14 +175,14 @@ public class CommandAutotip extends CommandAbstract {
                 if (!manager.isOnHypixel()) {
                     config.toggleEnabled().save();
                     messageUtil.getKeyHelper("command.toggle")
-                            .sendKey(config.isEnabled() ? "glintColorizer" : "disabled");
+                            .sendKey(config.isEnabled() ? "enabled" : "disabled");
                     return;
                 }
                 if (!config.isEnabled()) {
                     if (!manager.isLoggedIn()) {
                         taskManager.executeTask(TaskType.LOGIN, manager::login);
                         config.setEnabled(true).save();
-                        messageUtil.sendKey("command.toggle.glintColorizer");
+                        messageUtil.sendKey("command.toggle.enabled");
                     } else {
                         messageUtil.sendKey("command.toggle.error");
                     }
