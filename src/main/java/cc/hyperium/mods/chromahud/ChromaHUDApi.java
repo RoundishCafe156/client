@@ -24,19 +24,13 @@ import cc.hyperium.mods.chromahud.api.StringConfig;
 import cc.hyperium.mods.chromahud.api.TextConfig;
 import cc.hyperium.utils.JsonHolder;
 import com.google.gson.JsonArray;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * @author Sk1er
- */
 public class ChromaHUDApi {
-    // Have this for others incase implementation changes.
-    public static final String VERSION = "3.0-Hyperium";
     private static ChromaHUDApi instance;
     private final List<ChromaHUDParser> parsers = new ArrayList<>();
     private final Map<String, String> names = new HashMap<>();
@@ -51,9 +45,6 @@ public class ChromaHUDApi {
         instance = this;
     }
 
-    /**
-     * @return ChromaHUD Api Instance
-     */
     public static ChromaHUDApi getInstance() {
         if (instance == null)
             instance = new ChromaHUDApi();
@@ -84,19 +75,10 @@ public class ChromaHUDApi {
         return new ArrayList<>();
     }
 
-    /**
-     * @return All Display Elements the client is
-     */
     public List<DisplayElement> getElements() {
         return elements;
     }
 
-    /**
-     * Register a text CONFIG
-     *
-     * @param type   String ID for StatsDisplayItem to show and activate on for CONFIG
-     * @param config Config object
-     */
     public void registerTextConfig(String type, TextConfig config) {
         type = type.toLowerCase();
         if (!textConfigs.containsKey(type))
@@ -104,12 +86,6 @@ public class ChromaHUDApi {
         textConfigs.get(type).add(config);
     }
 
-    /**
-     * Register a String CONFIG
-     *
-     * @param type   String ID for StatsDisplayItem to show and activate on for CONFIG
-     * @param config Config object
-     */
     public void registerStringConfig(String type, StringConfig config) {
         type = type.toLowerCase();
         if (!stringConfigs.containsKey(type))
@@ -117,12 +93,6 @@ public class ChromaHUDApi {
         stringConfigs.get(type).add(config);
     }
 
-    /**
-     * Register a button CONFIG
-     *
-     * @param type   String ID for StatsDisplayItem to show and activate on for CONFIG
-     * @param config Config object
-     */
     public void registerButtonConfig(String type, ButtonConfig config) {
         type = type.toLowerCase();
         if (!buttonConfigs.containsKey(type))
@@ -130,23 +100,12 @@ public class ChromaHUDApi {
         buttonConfigs.get(type).add(config);
     }
 
-    /**
-     * <p>Add a parser to the ChromaHUD runtime. Must be done before FMLPostInitialization event</p>
-     *
-     * @param parser A valid ChromaHUDParser object for an addon.
-     */
     public void register(ChromaHUDParser parser) {
-        if (posted)
-            throw new IllegalStateException("Cannot register parser after FMLPostInitialization event");
+        if (posted) throw new IllegalStateException("Cannot register parser after FMLPostInitialization event");
         parsers.add(parser);
         names.putAll(parser.getNames());
     }
 
-    /**
-     * Internal method to setup system once all items have been registered
-     *
-     * @param config Config data from file
-     */
     public void post(JsonHolder config) {
         this.config = config;
         this.posted = true;
@@ -163,37 +122,16 @@ public class ChromaHUDApi {
                 Logger.getLogger("ChromaHUD").severe("A fatal error occurred while loading the display element " + object);
             }
         }
-        if (!config.has("elements")) {
-            // setup blank
-        }
     }
 
-    /**
-     * Parse StatsDisplayItem from CONFIG
-     *
-     * @param type type of item
-     * @param ord  ordinal inside element
-     * @param item Other JSON data that is stored
-     * @return StatsDisplayItem instance created, null if the system was unable to resolve type
-     */
     public DisplayItem parse(String type, int ord, JsonHolder item) {
         for (ChromaHUDParser parser : parsers) {
             DisplayItem parsed = parser.parse(type, ord, item);
-            if (parsed != null) {
-
-                return parsed;
-            }
+            if (parsed != null) return parsed;
         }
-        //No parsers could parse -> return null
         return null;
     }
 
-    /**
-     * ID -> Human readable name for a StatsDisplayItem
-     *
-     * @param type type of StatsDisplayItem to retrieve name for
-     * @return Display name of StatsDisplayItem
-     */
     public String getName(String type) {
         return names.getOrDefault(type, type);
     }

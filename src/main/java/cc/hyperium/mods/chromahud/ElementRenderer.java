@@ -28,20 +28,14 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Mitchell Katz on 5/25/2017.
- */
 public class ElementRenderer {
-
     private static final List<Long> clicks = new ArrayList<>();
     private static final List<Long> rClicks = new ArrayList<>();
-    private static final List<Long> mClicks = new ArrayList<>();
     private static double currentScale = 1.0;
     private static int color;
     private static DisplayElement current;
@@ -49,7 +43,7 @@ public class ElementRenderer {
     private static String cValue;
     private final ChromaHUD mod;
     private final Minecraft minecraft;
-    boolean last = false;
+    private boolean last = false;
     private boolean rLast = false;
     private boolean mLast = false;
 
@@ -76,20 +70,6 @@ public class ElementRenderer {
         draw(x, y, tmp);
     }
 
-    public static int RGBtoHEX(Color color) {
-        String hex = Integer.toHexString(color.getRGB() & 0xffffff);
-        if (hex.length() < 6) {
-            if (hex.length() == 5)
-                hex = "0" + hex;
-            if (hex.length() == 4)
-                hex = "00" + hex;
-            if (hex.length() == 3)
-                hex = "000" + hex;
-        }
-        hex = "#" + hex;
-        return Integer.decode(hex);
-    }
-
     public static void draw(int x, double y, List<String> list) {
         double ty = y;
         for (String string : list) {
@@ -111,8 +91,6 @@ public class ElementRenderer {
         }
     }
 
-
-    // Don't shift, by the time it is here it is already shifted
     public static void drawChromaString(String text, int xIn, int y) {
         FontRenderer renderer = Minecraft.getMinecraft().fontRendererObj;
         int x = xIn;
@@ -127,11 +105,6 @@ public class ElementRenderer {
             renderer.drawString(tmp, (float) ((double) x / getCurrentScale()), (float) ((double) y / getCurrentScale()), i, current.isShadow());
             x += (double) renderer.getCharWidth(c) * getCurrentScale();
         }
-    }
-
-
-    private static boolean isChromaInt(int e) {
-        return e >= 0 && e <= 1;
     }
 
     public static int maxWidth(List<String> list) {
@@ -202,14 +175,6 @@ public class ElementRenderer {
         return rClicks.size();
     }
 
-    public static int getMiddleCPS() {
-        Iterator<Long> iterator = mClicks.iterator();
-        while (iterator.hasNext())
-            if (System.currentTimeMillis() - iterator.next() > 1000L)
-                iterator.remove();
-        return mClicks.size();
-    }
-
     /* Until Sk1er fixes the old one causing an NPE, keep it like this */
     @InvokeEvent
     public void tick(TickEvent event) {
@@ -217,57 +182,32 @@ public class ElementRenderer {
             cValue = Minecraft.getMinecraft().renderGlobal.getDebugInfoRenders().split("/")[0].trim();
     }
 
-    // Right CPS Counter
-
     @InvokeEvent
     public void onRenderTick(RenderHUDEvent event) {
-
-        if (!this.minecraft.inGameHasFocus || this.minecraft.gameSettings.showDebugInfo) {
-            return;
-        }
-        if (!Settings.SHOW_CHROMAHUD)
-            return;
-
+        if (!this.minecraft.inGameHasFocus || this.minecraft.gameSettings.showDebugInfo) return;
+        if (!Settings.SHOW_CHROMAHUD) return;
         renderElements();
         GlStateManager.resetColor();
 
     }
 
-    // Middle CPS Counter
-
     public void renderElements() {
+        if (fontRendererObj == null) fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
 
-        if (fontRendererObj == null)
-            fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
-
-        // Mouse Button Left
         boolean m = Mouse.isButtonDown(0);
         if (m != last) {
             last = m;
-            if (m) {
-                clicks.add(System.currentTimeMillis());
-            }
+            if (m) clicks.add(System.currentTimeMillis());
         }
 
-        // Mouse Button Middle
         boolean mm = Mouse.isButtonDown(2);
-        if (mm != mLast) {
-            mLast = mm;
-            if (mm) {
-                mClicks.add(System.currentTimeMillis());
-            }
-        }
+        if (mm != mLast) mLast = mm;
 
-        // Mouse Button Right
         boolean rm = Mouse.isButtonDown(1);
         if (rm != rLast) {
             rLast = rm;
-            if (rm) {
-                rClicks.add(System.currentTimeMillis());
-            }
+            if (rm) rClicks.add(System.currentTimeMillis());
         }
-
-        // Others
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -276,10 +216,8 @@ public class ElementRenderer {
             startDrawing(element);
             try {
                 element.draw();
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
             endDrawing(element);
         }
-
     }
 }

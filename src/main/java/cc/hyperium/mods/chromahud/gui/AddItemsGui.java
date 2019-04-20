@@ -17,7 +17,6 @@
 
 package cc.hyperium.mods.chromahud.gui;
 
-
 import cc.hyperium.Hyperium;
 import cc.hyperium.mods.chromahud.ChromaHUD;
 import cc.hyperium.mods.chromahud.ChromaHUDApi;
@@ -29,12 +28,10 @@ import cc.hyperium.mods.chromahud.api.Dimension;
 import cc.hyperium.mods.chromahud.api.DisplayItem;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
 import cc.hyperium.utils.JsonHolder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +45,6 @@ public class AddItemsGui extends GuiScreen {
     private final DisplayElement element;
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
     private final Map<GuiButton, Consumer<GuiButton>> updates = new HashMap<>();
-    private final Map<String, GuiButton> nameMap = new HashMap<>();
     private final List<DisplayElement> all = new ArrayList<>();
     private final DisplayElement target;
     private int tmpId = 0;
@@ -59,7 +55,6 @@ public class AddItemsGui extends GuiScreen {
     public AddItemsGui(ChromaHUD mod, DisplayElement element) {
         this.mod = mod;
         this.element = element;
-        //Make all parsers so we can access them
         for (ChromaHUDParser chromaHUDParser : ChromaHUDApi.getInstance().getParsers()) {
             for (String s : chromaHUDParser.getNames().keySet()) {
                 DisplayItem item = chromaHUDParser.parse(s, 0, new JsonHolder().put("type", s));
@@ -85,38 +80,22 @@ public class AddItemsGui extends GuiScreen {
     public void initGui() {
         super.initGui();
         reg("Add", new GuiButton(nextId(), 2, 2, 100, 20, "Add"), (guiButton) -> {
-            //On click
             adding = true;
             offset = 0;
         }, (guiButton) -> guiButton.enabled = !adding);
         reg("Explore", new GuiButton(nextId(), 2, 23, 100, 20, "Explore"), (guiButton) -> {
-            //On click
             adding = false;
             offset = 0;
         }, (guiButton) -> guiButton.enabled = adding);
 
-        reg("Down", new GuiButton(nextId(), 2, 23 + 21 * 2, 100, 20, "Scroll Down"), (guiButton) -> {
-            //On click
-            offset += 50;
-        }, (guiButton) -> {
-        });
-        reg("Up", new GuiButton(nextId(), 2, 23 + 21 * 1, 100, 20, "Scroll Up"), (guiButton) -> {
-            //On click
-            offset -= 50;
-        }, (guiButton) -> {
-        });
-
-
-        reg("Back", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod)), (guiButton) -> {
-        });
-
+        reg("Down", new GuiButton(nextId(), 2, 23 + 21 * 2, 100, 20, "Scroll Down"), (guiButton) -> offset += 50, (guiButton) -> { });
+        reg("Up", new GuiButton(nextId(), 2, 23 + 21, 100, 20, "Scroll Up"), (guiButton) -> offset -= 50, (guiButton) -> {});
+        reg("Back", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod)), (guiButton) -> {});
     }
 
     private void reg(String name, GuiButton button, Consumer<GuiButton> consumer, Consumer<GuiButton> tick) {
         this.buttonList.add(button);
         this.clicks.put(button, consumer);
-        this.updates.put(button, tick);
-        this.nameMap.put(name, button);
     }
 
     @Override
@@ -133,9 +112,7 @@ public class AddItemsGui extends GuiScreen {
         super.updateScreen();
         for (GuiButton guiButton : buttonList) {
             Consumer<GuiButton> guiButtonConsumer = updates.get(guiButton);
-            if (guiButtonConsumer != null) {
-                guiButtonConsumer.accept(guiButton);
-            }
+            if (guiButtonConsumer != null) guiButtonConsumer.accept(guiButton);
         }
     }
 
@@ -196,10 +173,7 @@ public class AddItemsGui extends GuiScreen {
                             }
                         }
                     cursorY += 23;
-
-
                 }
-
             }
         } else {
             int cursorY = 50 + offset;
@@ -240,9 +214,7 @@ public class AddItemsGui extends GuiScreen {
 
     private DisplayElement find(String key) {
         for (DisplayElement displayElement : all) {
-            if (displayElement.getDisplayItems().get(0).getType().equalsIgnoreCase(key)) {
-                return displayElement;
-            }
+            if (displayElement.getDisplayItems().get(0).getType().equalsIgnoreCase(key)) return displayElement;
         }
         return null;
     }

@@ -32,7 +32,6 @@ import cc.hyperium.mods.chromahud.displayitems.chromahud.PotionEffects;
 import cc.hyperium.mods.chromahud.displayitems.chromahud.TextItem;
 import cc.hyperium.mods.chromahud.displayitems.chromahud.TimeHud;
 import cc.hyperium.utils.JsonHolder;
-
 import java.util.HashMap;
 import java.util.Map;
 

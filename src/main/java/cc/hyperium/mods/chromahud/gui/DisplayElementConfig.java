@@ -138,12 +138,9 @@ public class DisplayElementConfig extends GuiScreen {
         }, button -> {
             String type = "Error";
 
-            if (element.isRGB())
-                type = "RGB";
-            if (element.isColorPallet())
-                type = "Color Pallet";
-            if (element.isChroma())
-                type = "Chroma";
+            if (element.isRGB()) type = "RGB";
+            if (element.isColorPallet()) type = "Color Pallet";
+            if (element.isChroma()) type = "Chroma";
             button.displayString = ChatColor.YELLOW + "Color mode: " + ChatColor.GREEN.toString() + type;
         });
 
@@ -169,7 +166,7 @@ public class DisplayElementConfig extends GuiScreen {
             }
         });
 
-        reg( new GuiSlider(nextId(), posX, start_y + 22 * 8, 200, 20, "Blue: ", "", 0, 255, element.getData().optInt("blue"), false, true), button -> {}, button -> {
+        reg(new GuiSlider(nextId(), posX, start_y + 22 * 8, 200, 20, "Blue: ", "", 0, 255, element.getData().optInt("blue"), false, true), button -> {}, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -180,8 +177,7 @@ public class DisplayElementConfig extends GuiScreen {
                 button.displayString = EnumChatFormatting.YELLOW + "Blue: " + (element.getData().optInt("blue"));
             }
         });
-        reg(new GuiSlider(nextId(), posX, start_y + 22 * 7, 200, 20, "Green: ", "", 0, 255, element.getData().optInt("green"), false, true), button -> {
-        }, button -> {
+        reg(new GuiSlider(nextId(), posX, start_y + 22 * 7, 200, 20, "Green: ", "", 0, 255, element.getData().optInt("green"), false, true), button -> {}, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -216,9 +212,7 @@ public class DisplayElementConfig extends GuiScreen {
         if (element.isRGB()) element.recalculateColor();
         for (GuiButton guiButton : buttonList) {
             Consumer<GuiButton> guiButtonConsumer = updates.get(guiButton);
-            if (guiButtonConsumer != null) {
-                guiButtonConsumer.accept(guiButton);
-            }
+            if (guiButtonConsumer != null) guiButtonConsumer.accept(guiButton);
         }
     }
 
@@ -233,12 +227,9 @@ public class DisplayElementConfig extends GuiScreen {
     }
 
     private void apply(int mouseX, int mouseY) {
-        if (mouseLock)
-            return;
-        if (!Mouse.isButtonDown(0))
-            return;
-        if (!element.isColorPallet())
-            return;
+        if (mouseLock) return;
+        if (!Mouse.isButtonDown(0)) return;
+        if (!element.isColorPallet()) return;
         float scale = scale();
         int left = posX(1);
         int right = posX(2);
@@ -303,8 +294,7 @@ public class DisplayElementConfig extends GuiScreen {
             int start_y = Math.max((int) (current.getScaledHeight_double() * .1) - 20, 5) + 22 * 8 + 25;
             int left1 = current.getScaledWidth() / 2 - 100;
             int right1 = current.getScaledWidth() / 2 + 100;
-            Gui.drawRect(left1,
-                start_y, right1, right1 - left1 + 200, element.getColor());
+            Gui.drawRect(left1, start_y, right1, right1 - left1 + 200, element.getColor());
         }
         if (!element.isColorPallet()) return;
 
@@ -316,7 +306,6 @@ public class DisplayElementConfig extends GuiScreen {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);//
         GlStateManager.scale(size / 285F, size / 285F, 0);
         drawTexturedModalRect(0, 0, 0, 0, 256, 256);
-
         if (texture2 != null) {
             GlStateManager.bindTexture(texture2.getGlTextureId());
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -325,8 +314,7 @@ public class DisplayElementConfig extends GuiScreen {
         }
         GlStateManager.scale(285F / size, 285F / size, 0);
         GL11.glPopMatrix();
-        if (lastX != 0 && lastY != 0)
-            drawCircle(lastX, lastY);
+        if (lastX != 0 && lastY != 0) drawCircle(lastX, lastY);
     }
     private int availableSpace() {
         ScaledResolution current = ResolutionUtil.current();

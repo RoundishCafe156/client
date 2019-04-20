@@ -33,13 +33,9 @@ import cc.hyperium.mods.chromahud.displayitems.hyperium.ReachDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.ScoreboardDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.ToggleSprintStatus;
 import cc.hyperium.utils.JsonHolder;
-
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author Sk1er
- */
 public class HyperiumChromaHudParser implements ChromaHUDParser {
 
     private final Map<String, String> names = new HashMap<>();

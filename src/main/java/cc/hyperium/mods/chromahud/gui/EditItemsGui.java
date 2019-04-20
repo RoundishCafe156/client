@@ -34,8 +34,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +49,6 @@ public class EditItemsGui extends GuiScreen {
     private final DisplayElement element;
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
     private final Map<GuiButton, Consumer<GuiButton>> updates = new HashMap<>();
-    private final Map<String, GuiButton> nameMap = new HashMap<>();
     private final ChromaHUD mod;
     private DisplayItem modifying;
     private int tmpId;
@@ -59,7 +56,6 @@ public class EditItemsGui extends GuiScreen {
     public EditItemsGui(DisplayElement element, ChromaHUD mod) {
         this.element = element;
         this.mod = mod;
-        boolean mouseLock = Mouse.isButtonDown(0);
     }
 
     private int nextId() {
@@ -68,63 +64,38 @@ public class EditItemsGui extends GuiScreen {
 
     @Override
     public void initGui() {
-        reg("add", new GuiButton(nextId(), 2, 2, 100, 20, "Add Items"), (guiButton) -> {
-            //On click
-            Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new AddItemsGui(mod, element));
-        }, (guiButton) -> {
-
-        });
-        reg("Remove", new GuiButton(nextId(), 2, 23, 100, 20, "Remove Item"), (guiButton) -> {
-            //On click
+        reg(new GuiButton(nextId(), 2, 2, 100, 20, "Add Items"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new AddItemsGui(mod, element)), (guiButton) -> {});
+        reg( new GuiButton(nextId(), 2, 23, 100, 20, "Remove Item"), (guiButton) -> {
             if (modifying != null) {
                 element.removeDisplayItem(modifying.getOrdinal());
-                if (modifying.getOrdinal() >= element.getDisplayItems().size())
-                    modifying = null;
+                if (modifying.getOrdinal() >= element.getDisplayItems().size()) modifying = null;
             }
         }, (guiButton) -> guiButton.enabled = modifying != null);
-        reg("Move Up", new GuiButton(nextId(), 2, 23 + 21, 100, 20, "Move Up"), (guiButton) -> {
-            //On click
+        reg(new GuiButton(nextId(), 2, 23 + 21, 100, 20, "Move Up"), (guiButton) -> {
             if (modifying != null) {
-                int i = modifying.getOrdinal();
                 Collections.swap(element.getDisplayItems(), modifying.getOrdinal(), modifying.getOrdinal() - 1);
                 element.adjustOrdinal();
             }
         }, (guiButton) -> guiButton.enabled = modifying != null && this.modifying.getOrdinal() > 0);
-        reg("Move Down", new GuiButton(nextId(), 2, 23 + 21 * 2, 100, 20, "Move Down"), (guiButton) -> {
-            //On click
+        reg(new GuiButton(nextId(), 2, 23 + 21 * 2, 100, 20, "Move Down"), (guiButton) -> {
             if (modifying != null) {
-                int i = modifying.getOrdinal();
                 Collections.swap(element.getDisplayItems(), modifying.getOrdinal(), modifying.getOrdinal() + 1);
                 element.adjustOrdinal();
             }
         }, (guiButton) -> guiButton.enabled = modifying != null && this.modifying.getOrdinal() < this.element.getDisplayItems().size() - 1);
-
-
-        reg("Back", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new DisplayElementConfig(element, mod)), (guiButton) -> {
-        });
-
+        reg(new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new DisplayElementConfig(element, mod)), (guiButton) -> {});
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         Consumer<GuiButton> guiButtonConsumer = clicks.get(button);
-        if (guiButtonConsumer != null) {
-            guiButtonConsumer.accept(button);
-        }
-
+        if (guiButtonConsumer != null) guiButtonConsumer.accept(button);
     }
 
-    private void reg(String name, GuiButton button, Consumer<GuiButton> consumer) {
-        reg(name, button, consumer, button1 -> {
-
-        });
-    }
-
-    private void reg(String name, GuiButton button, Consumer<GuiButton> consumer, Consumer<GuiButton> tick) {
+    private void reg(GuiButton button, Consumer<GuiButton> consumer, Consumer<GuiButton> tick) {
         this.buttonList.add(button);
         this.clicks.put(button, consumer);
         this.updates.put(button, tick);
-        this.nameMap.put(name, button);
     }
 
     @Override
@@ -132,13 +103,8 @@ public class EditItemsGui extends GuiScreen {
         super.updateScreen();
         for (GuiButton guiButton : buttonList) {
             Consumer<GuiButton> guiButtonConsumer = updates.get(guiButton);
-            if (guiButtonConsumer != null) {
-                guiButtonConsumer.accept(guiButton);
-            }
-
+            if (guiButtonConsumer != null) guiButtonConsumer.accept(guiButton);
         }
-
-
     }
 
     @Override
@@ -179,21 +145,16 @@ public class EditItemsGui extends GuiScreen {
                 for (TextConfig config : textConfigs) {
                     GuiTextField textField = config.getTextField();
                     textField.mouseClicked(mouseX, mouseY, mouseButton);
-                    if (textField.isFocused()) {
-                        return;
-                    }
-
+                    if (textField.isFocused()) return;
                 }
             }
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
         if (mouseButton == 0) {
             DisplayItem item1 = null;
-            //Check X range first since it is easy
             ScaledResolution current = ResolutionUtil.current();
             int xCenter = current.getScaledWidth() / 2;
             if (mouseX >= xCenter - 80 && mouseX <= xCenter + 80) {
-                //now some super janky code
                 int yPosition = 40;
 
                 for (DisplayItem displayItem : element.getDisplayItems()) {
@@ -201,13 +162,11 @@ public class EditItemsGui extends GuiScreen {
                         item1 = displayItem;
                         break;
                     }
-                    //Adjust for 3 pixel gap
                     yPosition += 23;
                 }
             }
             for (GuiButton guiButton : super.buttonList) {
-                if (guiButton.isMouseOver())
-                    return;
+                if (guiButton.isMouseOver()) return;
             }
             this.modifying = item1;
             if (this.modifying != null) {
@@ -215,11 +174,7 @@ public class EditItemsGui extends GuiScreen {
                 ChromaHUDApi.getInstance().getButtonConfigs(this.modifying.getType()).forEach((button) -> button.getLoad().accept(button.getButton(), this.modifying));
                 ChromaHUDApi.getInstance().getStringConfigs(this.modifying.getType()).forEach((button) -> button.getLoad().accept(this.modifying));
             }
-
-
         }
-
-
     }
 
     @Override
@@ -228,15 +183,12 @@ public class EditItemsGui extends GuiScreen {
         if (modifying != null) {
             List<ButtonConfig> configs = ChromaHUDApi.getInstance().getButtonConfigs(modifying.getType());
             if (configs != null && !configs.isEmpty()) {
-
                 for (ButtonConfig config : configs) {
                     GuiButton button = config.getButton();
                     button.mouseReleased(mouseX, mouseY);
                 }
             }
-
         }
-
     }
 
     @Override

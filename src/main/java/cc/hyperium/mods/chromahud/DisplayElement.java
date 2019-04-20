@@ -36,7 +36,6 @@ public class DisplayElement extends Dimension {
     private boolean shadow;
     private boolean highlighted;
     private boolean rightSided;
-    // Used for rainbox rendering
     private boolean selected;
     private boolean chroma;
     private boolean rgb;

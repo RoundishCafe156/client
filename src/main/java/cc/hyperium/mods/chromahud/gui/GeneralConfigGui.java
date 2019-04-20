@@ -34,7 +34,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 import java.io.IOException;
 import java.util.HashMap;
@@ -42,9 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-/**
- * @author Sk1er
- */
 public class GeneralConfigGui extends GuiScreen {
     private final ChromaHUD mod;
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
@@ -55,11 +51,10 @@ public class GeneralConfigGui extends GuiScreen {
     private double lastY;
     private boolean lastD = false;
     private boolean pastClick = false;
-    private int dTick = 0; //double clik delay
+    private int dTick = 0;
 
     public GeneralConfigGui(ChromaHUD mod) {
         this.mod = mod;
-        boolean mouseLock = Mouse.isButtonDown(0);
     }
 
     private void reg(GuiButton button, Consumer<GuiButton> consumer) {
@@ -71,10 +66,7 @@ public class GeneralConfigGui extends GuiScreen {
     public void initGui() {
         super.initGui();
         reg((edit = new GuiButtonIcon(1, new ResourceLocation("textures/chromahud/iconsheet.png"), 5, 0, 1, .4f)), button -> {
-            //Open Gui for editing element
-            if (currentElement != null) {
-                Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new DisplayElementConfig(currentElement, mod));
-            }
+            if (currentElement != null) Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new DisplayElementConfig(currentElement, mod));
         });
         ((GuiButtonIcon) edit).setOutline(true);
         reg(new GuiButton(2, 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "New"), (guiButton) -> {
@@ -91,7 +83,6 @@ public class GeneralConfigGui extends GuiScreen {
         super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
     }
 
-    @SuppressWarnings("Duplicates")
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         ScaledResolution current = ResolutionUtil.current();
@@ -99,9 +90,7 @@ public class GeneralConfigGui extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
         List<DisplayElement> elementList = mod.getDisplayElements();
         for (DisplayElement element : elementList) {
-            if (this.currentElement != null && this.currentElement == element) {
-                continue;
-            }
+            if (this.currentElement != null && this.currentElement == element) continue;
 
             ElementRenderer.startDrawing(element);
             try {
@@ -116,25 +105,19 @@ public class GeneralConfigGui extends GuiScreen {
             ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
             double offset = currentElement.isRightSided() ? currentElement.getDimensions().getWidth() : 0;
 
-            // Left top right bottom
             double x1 = currentElement.getXloc() * resolution.getScaledWidth_double() - offset;
             double x2 = currentElement.getXloc() * resolution.getScaledWidth_double() + (cbHud ? 60 : currentElement.getDimensions().getWidth()) - offset;
             double y1 = currentElement.getYloc() * resolution.getScaledHeight_double();
             double y2 = currentElement.getYloc() * resolution.getScaledHeight_double() + currentElement.getDimensions().getHeight();
 
-            // Chroma selection background
-            if (this.currentElement.isSelected()) {
-                HyperiumGui.drawChromaBox((int) x1 - 2, (int) y1 - 2, (int) x2 + 2, (int) y2 - 2, 0.2F);
-            }
+            if (this.currentElement.isSelected()) HyperiumGui.drawChromaBox((int) x1 - 2, (int) y1 - 2, (int) x2 + 2, (int) y2 - 2, 0.2F);
 
             ElementRenderer.startDrawing(currentElement);
 
-            // Draw the element after the background
             this.currentElement.drawForConfig();
 
             ElementRenderer.endDrawing(currentElement);
 
-            // Turns the edit image on
             this.edit.visible = true;
 
             int propX = (int) x1 - 5;
@@ -146,15 +129,12 @@ public class GeneralConfigGui extends GuiScreen {
                 propY = resolution.getScaledHeight() / 2;
             edit.xPosition = propX;
             edit.yPosition = propY;
-            // moving the thing
             if (Mouse.isButtonDown(0)) {
                 if (mouseX > x1 - 2 && mouseX < x2 + 2 && mouseY > y1 - 2 && mouseY < y2 + 2 || lastD) {
-                    //inside
                     double x3 = Mouse.getX() / ResolutionUtil.current().getScaledWidth_double();
                     double y3 = Mouse.getY() / ResolutionUtil.current().getScaledHeight_double();
                     currentElement.setXloc(currentElement.getXloc() - (lastX - x3) / ((double) ResolutionUtil.current().getScaleFactor()));
                     currentElement.setYloc(currentElement.getYloc() + (lastY - y3) / ((double) ResolutionUtil.current().getScaleFactor()));
-                    //Math to keep it inside screen
                     if (currentElement.getXloc() * resolution.getScaledWidth_double() - offset < 0) {
                         if (currentElement.isRightSided())
                             currentElement.setXloc(offset / resolution.getScaledWidth_double());
@@ -173,23 +153,20 @@ public class GeneralConfigGui extends GuiScreen {
                         currentElement.setYloc((resolution.getScaledHeight_double() - currentElement.getDimensions().getHeight()) / resolution.getScaledHeight_double());
                     }
                     lastD = true;
-                } else lastD = false;
+                }
             } else lastD = false;
         } else {
             this.edit.visible = false;
         }
         lastX = Mouse.getX() / ResolutionUtil.current().getScaledWidth_double();
         lastY = Mouse.getY() / ResolutionUtil.current().getScaledHeight_double();
-        if (dTick <= 0 && pastClick)
-            pastClick = false;
-        if (pastClick)
-            dTick--;
+        if (dTick <= 0 && pastClick) pastClick = false;
+        if (pastClick) dTick--;
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-
     }
 
     @Override
@@ -223,11 +200,9 @@ public class GeneralConfigGui extends GuiScreen {
         }
         boolean isOver = false;
         for (GuiButton button : buttonList) {
-            if (button.isMouseOver())
-                isOver = true;
+            if (button.isMouseOver()) isOver = true;
         }
         if (!mouseDown && Mouse.isButtonDown(0) && !isOver) {
-            //Mouse pushed down. Calculate current element
             int clickX = Mouse.getX() / current.getScaleFactor();
             int clickY = Mouse.getY() / current.getScaleFactor();
             boolean found = false;
@@ -242,14 +217,11 @@ public class GeneralConfigGui extends GuiScreen {
                     && clickY < displayYLoc
                     && clickY > displayYLoc - dimension.getHeight()) {
 
-                    // Open gui
                     if (currentElement != null && currentElement == element && pastClick) {
-                        // Safely nuke the fields and deactivate the chroma effect
                         element.setSelected(false);
                         this.currentElement = null;
 
-                        this.mc.getSoundHandler().playSound(PositionedSoundRecord
-                            .create(new ResourceLocation("gui.button.press"), 1.0F));
+                        this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
                         Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new DisplayElementConfig(element, mod));
                         return;
                     }
@@ -261,9 +233,7 @@ public class GeneralConfigGui extends GuiScreen {
                 }
             }
             if (!found) {
-                if (currentElement != null) {
-                    currentElement.setSelected(false);
-                }
+                if (currentElement != null) currentElement.setSelected(false);
                 currentElement = null;
             }
         }
@@ -277,10 +247,7 @@ public class GeneralConfigGui extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
         Consumer<GuiButton> guiButtonConsumer = clicks.get(button);
-        if (guiButtonConsumer != null) {
-            guiButtonConsumer.accept(button);
-        }
-
+        if (guiButtonConsumer != null) guiButtonConsumer.accept(button);
     }
 
     @Override
@@ -292,7 +259,6 @@ public class GeneralConfigGui extends GuiScreen {
     public void display() {
         Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(this);
     }
-
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
