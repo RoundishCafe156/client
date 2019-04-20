@@ -38,7 +38,7 @@ public class SettingsHandler {
                 if (!purchaseSettings.has("deadmau5_cosmetic")) {
                     purchaseSettings.put("deadmau5_cosmetic", new JsonHolder());
                 }
-                purchaseSettings.optJSONObject("deadmau5_cosmetic").put("glintColorizer", yes);
+                purchaseSettings.optJSONObject("deadmau5_cosmetic").put("enabled", yes);
                 NettyClient client = NettyClient.getClient();
                 if (client != null) {
                     client.write(ServerCrossDataPacket.build(new JsonHolder().put("internal", true).put("ears", yes)));
@@ -70,9 +70,7 @@ public class SettingsHandler {
             });
             registerCallback(hats, o -> {
                 NettyClient client = NettyClient.getClient();
-                if (client == null) {
-                    return;
-                }
+                if (client == null) return;
                 EnumPurchaseType parse = null;
                 for (int i = 0; i < hats1.length; i++) {
                     if (hats1[i].equalsIgnoreCase(o.toString())) {
