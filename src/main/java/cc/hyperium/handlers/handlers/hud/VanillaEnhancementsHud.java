@@ -26,18 +26,12 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.WorldSettings;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
 import java.util.List;
 import java.util.Map;
 
 public class VanillaEnhancementsHud {
-
-
-    /*
-    Most of code adapted from Orange Marshall's Vanilla Enhancements
-     */
     private Minecraft mc = Minecraft.getMinecraft();
-    private String lastMessage = "";
+    private String lastMessage;
 
     public VanillaEnhancementsHud() {
         EventBus.INSTANCE.register(new NetworkInfo());

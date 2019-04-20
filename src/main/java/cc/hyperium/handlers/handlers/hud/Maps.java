@@ -1,6 +1,5 @@
 package cc.hyperium.handlers.handlers.hud;
 
-
 import java.util.HashMap;
 import java.util.Map;
 

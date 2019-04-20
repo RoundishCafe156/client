@@ -48,7 +48,6 @@ public class StatisticViewingGui extends HyperiumGui {
             itemMap.computeIfAbsent((int) ((valueTrackingItem.getTime() - masterTimeOne) / delta), integer -> new ArrayList<>()).add(valueTrackingItem);
         }
 
-        //Handle data collision
         HashMap<Integer, List<ValueTrackingItem>> dataPoints = new HashMap<>();
         for (int integer = 0; integer < DATA_POINTS; integer++) {
 

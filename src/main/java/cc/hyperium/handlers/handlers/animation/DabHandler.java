@@ -11,21 +11,11 @@ public class DabHandler extends AbstractPreCopyAnglesAnimationHandler {
 
     @Override
     public float modifyState() {
-        return HyperiumGui.clamp(
-            HyperiumGui.easeOut(
-                this.state,
-                this.asc ? 100.0f : 0.0f,
-                0.01f,
-                5
-            ),
-            0.0f,
-            100.0f
-        );
+        return HyperiumGui.clamp(HyperiumGui.easeOut(this.state, this.asc ? 100.0f : 0.0f, 0.01f, 5), 0.0f, 100.0f);
     }
 
     @Override
     public void modifyPlayer(AbstractClientPlayer entity, IMixinModelPlayer player, float heldPercent) {
-
         if (right) {
             player.getBipedRightUpperArm().rotateAngleX = (float) Math.toRadians(-90.0f * heldPercent);
             player.getBipedRightUpperArm().rotateAngleY = (float) Math.toRadians(-35.0f * heldPercent);
@@ -49,7 +39,6 @@ public class DabHandler extends AbstractPreCopyAnglesAnimationHandler {
 
             player.getBipedHeadwear().rotateAngleX = (float) Math.toRadians(-rotationX * heldPercent) + (float) Math.toRadians(45.0f * heldPercent + rotationX);
             player.getBipedHeadwear().rotateAngleY = (float) Math.toRadians(rotationY * heldPercent) + (float) Math.toRadians(35.0f * heldPercent - rotationY);
-
         } else {
             player.getBipedLeftUpperArm().rotateAngleX = (float) Math.toRadians(-90.0f * heldPercent);
             player.getBipedLeftUpperArm().rotateAngleY = (float) Math.toRadians(35.0f * heldPercent);
@@ -64,7 +53,6 @@ public class DabHandler extends AbstractPreCopyAnglesAnimationHandler {
             player.getBipedRightUpperArmwear().rotateAngleX = (float) Math.toRadians(-15.0f * heldPercent);
             player.getBipedRightUpperArmwear().rotateAngleY = (float) Math.toRadians(-15.0f * heldPercent);
             player.getBipedRightUpperArmwear().rotateAngleZ = (float) Math.toRadians(110.0f * heldPercent);
-
 
             final float rotationX = entity.rotationPitch;
             player.getBipedHead().rotateAngleX = (float) Math.toRadians(-rotationX * heldPercent) + (float) Math.toRadians(45.0f * heldPercent + rotationX);

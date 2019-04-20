@@ -23,7 +23,6 @@ import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Vec3;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -31,11 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by mitchellkatz on 6/23/18. Designed for production use on Sk1er.club
- */
 public class ParticleAuraHandler {
-
     private final ArrayList<EnumParticleTypes> particleTypes = new ArrayList<>();
     private HashMap<UUID, ParticleAura> auras = new HashMap<>();
     private HashMap<String, AbstractAnimation> animations = new HashMap<>();
@@ -57,20 +52,8 @@ public class ParticleAuraHandler {
 
     }
 
-    public EnumMap<EnumParticleType, IParticle> getRenderEngines() {
-        return renderEngines;
-    }
-
-    public HashMap<UUID, ParticleAura> getAuras() {
-        return auras;
-    }
-
     public HashMap<String, AbstractAnimation> getAnimations() {
         return animations;
-    }
-
-    public ArrayList<EnumParticleTypes> getParticleTypes() {
-        return particleTypes;
     }
 
     @InvokeEvent
@@ -86,22 +69,14 @@ public class ParticleAuraHandler {
         AbstractAnimation particle_animation = animations.get(particle_animation1);
 
         EnumParticleType type = EnumParticleType.parse(data.optString("type"));
-        if (particle_animation == null || type == null) {
-            return;
-        }
-
-        if (!purchase.hasPurchased("PARTICLE_" + type.name()) || !purchase.hasPurchased("ANIMATION_"+(particle_animation1.toUpperCase().replace(" ","_")))) {
-            System.out.println("cancel");
-            return;
-        }
+        if (particle_animation == null || type == null) return;
+        if (!purchase.hasPurchased("PARTICLE_" + type.name()) || !purchase.hasPurchased("ANIMATION_"+(particle_animation1.toUpperCase().replace(" ","_")))) return;
 
         boolean rgb = data.optBoolean("rgb");
         boolean chroma = data.optBoolean("chroma");
         ParticleAura max_age = new ParticleAura(renderEngines.get(type), particle_animation, data.optInt("max_age", 2), chroma, rgb);
         max_age.setRgb(data.optInt("red"), data.optInt("green"), data.optInt("blue"));
         auras.put(purchase.getPlayerUUID(), max_age);
-
-
     }
 
     @InvokeEvent
@@ -115,21 +90,15 @@ public class ParticleAuraHandler {
 
     @InvokeEvent
     public void renderPlayer(RenderPlayerEvent event) {
-        if (Minecraft.getMinecraft().isGamePaused())
-            return;
-        if (event.getEntity().isInvisible())
-            return;
-        if (Minecraft.getMinecraft().currentScreen instanceof GuiHyperiumScreenIngameMenu)
-            return;
-        if (Minecraft.getMinecraft().theWorld == null || Minecraft.getMinecraft().thePlayer == null)
-            return;
+        if (Minecraft.getMinecraft().isGamePaused()) return;
+        if (event.getEntity().isInvisible()) return;
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiHyperiumScreenIngameMenu) return;
+        if (Minecraft.getMinecraft().theWorld == null || Minecraft.getMinecraft().thePlayer == null) return;
         if (!Settings.SHOW_PARTICLES) return;
-
 
         AbstractClientPlayer entity = event.getEntity();
         if (!entity.equals(Minecraft.getMinecraft().thePlayer)) {
-            if (entity.posX != entity.prevPosZ || entity.posY != entity.prevPosY || entity.posZ != entity.prevPosZ)
-                return;
+            if (entity.posX != entity.prevPosZ || entity.posY != entity.prevPosY || entity.posZ != entity.prevPosZ) return;
         }
         ParticleAura particleAura = auras.get(entity.getUniqueID());
         if (particleAura != null && !entity.isInvisible()) {
@@ -158,6 +127,4 @@ public class ParticleAuraHandler {
             }
         }
     }
-
-
 }

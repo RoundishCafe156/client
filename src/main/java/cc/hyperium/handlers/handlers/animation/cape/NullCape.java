@@ -6,9 +6,7 @@ import net.minecraft.util.ResourceLocation;
 public class NullCape implements ICape {
     public static final NullCape INSTANCE = new NullCape();
 
-    private NullCape() {
-
-    }
+    private NullCape() {}
 
     @Override
     public ResourceLocation get() {
@@ -16,7 +14,5 @@ public class NullCape implements ICape {
     }
 
     @Override
-    public void delete(TextureManager manager) {
-
-    }
+    public void delete(TextureManager manager) {}
 }

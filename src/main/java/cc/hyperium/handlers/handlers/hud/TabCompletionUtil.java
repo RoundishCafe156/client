@@ -3,11 +3,8 @@ package cc.hyperium.handlers.handlers.hud;
 import com.google.common.base.Functions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,10 +30,6 @@ public class TabCompletionUtil {
         return list;
     }
 
-    public static List<String> getListOfStringsMatchingLastWord(final String[] p_175762_0_, final String[] p_175762_1_) {
-        return getListOfStringsMatchingLastWord(p_175762_0_, Arrays.asList(p_175762_1_));
-    }
-
     private static boolean doesStringStartWith(final String original, final String region) {
         return region.regionMatches(true, 0, original, 0, original.length());
     }
@@ -49,9 +42,4 @@ public class TabCompletionUtil {
         }
         return player.sendQueue.getPlayerInfoMap().stream().map(netPlayerInfo -> netPlayerInfo.getGameProfile().getName()).collect(Collectors.toList());
     }
-
-    public static List<EntityPlayer> getLoadedPlayers() {
-        return Minecraft.getMinecraft().theWorld.playerEntities;
-    }
 }
-

@@ -1,6 +1,5 @@
 package cc.hyperium.handlers.handlers.hud;
 
-
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.ServerJoinEvent;
 import cc.hyperium.event.ServerLeaveEvent;
@@ -9,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.EnumChatFormatting;
-
 import java.util.Collection;
 
 public class NetworkInfo {
@@ -28,18 +26,12 @@ public class NetworkInfo {
 
     @InvokeEvent
     public void onServerJoin(ServerJoinEvent event) {
-
         this.currentServerAddress = ServerAddress.fromString(event.getServer());
-
     }
 
     @InvokeEvent
     public void onServerLeave(ServerLeaveEvent event) {
         this.currentServerAddress = null;
-    }
-
-    public ServerAddress getCurrentServerAddress() {
-        return this.currentServerAddress;
     }
 
     private NetworkPlayerInfo getPlayerInfo(final String ign) {
@@ -50,14 +42,6 @@ public class NetworkInfo {
             }
         }
         return null;
-    }
-
-    public int getPing(final String ign) {
-        final NetworkPlayerInfo networkInfo = this.getPlayerInfo(ign);
-        if (networkInfo == null) {
-            return -1;
-        }
-        return networkInfo.getResponseTime();
     }
 
     public void printPing(final String name) {

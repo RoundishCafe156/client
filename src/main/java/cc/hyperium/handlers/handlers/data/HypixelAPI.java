@@ -2,7 +2,6 @@ package cc.hyperium.handlers.handlers.data;
 import cc.hyperium.Hyperium;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.JoinHypixelEvent;
-import cc.hyperium.handlers.handlers.data.leaderboards.Leaderboard;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.sk1ercommon.Sk1erMod;
 import cc.hyperium.netty.utils.Utils;
@@ -44,7 +43,6 @@ public class HypixelAPI {
         .executor(Multithreading.POOL)
         .buildAsync(this::getApiGuild);
 
-    private List<Leaderboard> LEADERBOARDS = null;
     private JsonHolder QUESTS = null;
     private List<UUID> friendsForCurrentUser = new ArrayList<>();
     public HypixelAPI() {
@@ -98,20 +96,6 @@ public class HypixelAPI {
 
     public List<UUID> getListOfCurrentUsersFriends() {
         return friendsForCurrentUser;
-    }
-
-    public CompletableFuture<List<Leaderboard>> getLeaderboards(boolean refresh) {
-        if (LEADERBOARDS != null && !refresh) return CompletableFuture.completedFuture(LEADERBOARDS);
-        return CompletableFuture.supplyAsync(() -> {
-            JsonHolder holder = new JsonHolder(Sk1erMod.getInstance().rawWithAgent("https://api.sk1er.club/leaderboards"));
-            return holder.getKeys().stream().map(key -> new Leaderboard(key, holder.optString(key))).collect(Collectors.toList());
-        }, Multithreading.POOL).whenComplete((leaderboards, error) -> {
-            if (error != null) LEADERBOARDS = leaderboards;
-        });
-    }
-
-    public CompletableFuture<List<Leaderboard>> getLeaderboards() {
-        return getLeaderboards(false);
     }
 
     public CompletableFuture<JsonHolder> getLeaderboardWithID(String ID) {

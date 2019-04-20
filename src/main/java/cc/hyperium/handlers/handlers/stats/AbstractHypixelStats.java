@@ -60,7 +60,6 @@ public abstract class AbstractHypixelStats {
     private boolean isWeek(long last_completed) {
         Calendar now = Calendar.getInstance();
         now.setTimeZone(TimeZone.getTimeZone("EST"));
-        //shift because it resets Friday not thursday
         now.setTimeInMillis(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(5));
         Calendar timeToCheck = Calendar.getInstance();
         timeToCheck.setTimeZone(TimeZone.getTimeZone("EST"));

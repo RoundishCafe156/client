@@ -21,7 +21,6 @@ public class StaticCape implements ICape {
     public void delete(TextureManager manager) {
         ITextureObject texture = manager.getTexture(location);
         if (texture instanceof ThreadDownloadImageData) {
-            //Unlink the buffered image so garbage collector can do its magic
             ((ThreadDownloadImageData) texture).setBufferedImage(null);
         }
         manager.deleteTexture(location);

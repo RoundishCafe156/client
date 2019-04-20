@@ -31,11 +31,7 @@ import cc.hyperium.handlers.handlers.particle.particle.WaterBubbleParticle;
 import cc.hyperium.handlers.handlers.particle.particle.WaterDripParticle;
 import cc.hyperium.handlers.handlers.particle.particle.WaterDropParticle;
 
-/**
- * Created by mitchellkatz on 6/25/18. Designed for production use on Sk1er.club
- */
 public enum EnumParticleType {
-
     CLOUD("Cloud Particle", new CloudParticle()),
     CRIT("Crit Particle", new CritParticle()),
     EXPLOSION("Explosion Particle", new ExplosionParticle()),
@@ -67,19 +63,15 @@ public enum EnumParticleType {
     WATER_DRIP("Water Drip Particle", new WaterDripParticle()),
     WATER_DROP("Water Drop", new WaterDropParticle());
 
-
     private String name;
     private IParticle particle;
 
     EnumParticleType(String s, IParticle particle) {
         this.name = s;
         this.particle = particle;
-
-
     }
 
     public static EnumParticleType parse(String key) {
-
         try {
             return valueOf(key);
         } catch (Exception e) {

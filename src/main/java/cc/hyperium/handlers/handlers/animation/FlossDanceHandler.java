@@ -4,13 +4,11 @@ import cc.hyperium.gui.HyperiumGui;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelBiped;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelPlayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
-
 import java.util.Random;
 
 public class FlossDanceHandler extends AbstractPreCopyAnglesAnimationHandler {
-
     private final Random random = new Random();
-    private final float[] randomHeadMovement = new float[3]; // x, y, z values
+    private final float[] randomHeadMovement = new float[3];
     private ArmsDirection armsDirection = ArmsDirection.HORIZONTAL;
 
     public FlossDanceHandler() {
@@ -37,9 +35,7 @@ public class FlossDanceHandler extends AbstractPreCopyAnglesAnimationHandler {
 
     @Override
     public void modifyPlayer(AbstractClientPlayer entity, IMixinModelPlayer player, float heldPercent) {
-        if (shouldNotModify(entity, player)) {
-            return;
-        }
+        if (shouldNotModify(entity, player)) return;
 
         player.getBipedBody().rotateAngleZ = (float) Math.toRadians((right ? 10f : -10f) * heldPercent);
         player.getBipedBodywear().rotateAngleZ = (float) Math.toRadians((right ? 10f : -10f) * heldPercent);
@@ -103,9 +99,7 @@ public class FlossDanceHandler extends AbstractPreCopyAnglesAnimationHandler {
         int ticks = animationState.getFrames();
 
         if (ticks <= 2) {
-            if (animationState.shouldReset()) {
-                resetAnimation(player);
-            }
+            if (animationState.shouldReset()) resetAnimation(player);
 
             return true;
         }

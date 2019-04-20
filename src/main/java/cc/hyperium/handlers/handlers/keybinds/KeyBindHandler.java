@@ -36,7 +36,6 @@ import cc.hyperium.handlers.handlers.keybinds.keybinds.TPoseKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.TogglePerspectiveKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.ToggleSprintKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.TwerkDanceKeybind;
-import cc.hyperium.handlers.handlers.keybinds.keybinds.ViewStatsKeybind;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import java.util.HashMap;
@@ -63,7 +62,6 @@ public class KeyBindHandler {
         registerKeyBinding(new GuiKeybind());
         registerKeyBinding(new DabKeybind());
         registerKeyBinding(new FlipKeybind());
-        registerKeyBinding(new ViewStatsKeybind());
         registerKeyBinding(new FlossKeybind());
         registerKeyBinding(toggleSprintKeybind = new ToggleSprintKeybind());
         registerKeyBinding(new TogglePerspectiveKeybind());
@@ -72,12 +70,9 @@ public class KeyBindHandler {
         registerKeyBinding(new TPoseKeybind());
         registerKeyBinding(new GuiDanceKeybind());
         registerKeyBinding(new RearCamKeybind());
-
-        // Populate mouse bind list in accordance with Minecraft's values.
         for (int i = 0; i < 16; i++) {
             mouseBinds.put(i, -100 + i);
         }
-
         this.keyBindConfig.load();
     }
 
@@ -126,7 +121,6 @@ public class KeyBindHandler {
                             bind.setWasPressed(false);
                         }
                     }
-
                 }
             }
         }
@@ -151,10 +145,6 @@ public class KeyBindHandler {
         return this.keybinds;
     }
 
-    public ToggleSprintKeybind getToggleSprintBind() {
-        return toggleSprintKeybind;
-    }
-
     public void releaseAllKeybinds() {
         if (!keybinds.isEmpty()) {
             for (Map.Entry<String, HyperiumBind> map : keybinds.entrySet()) {
@@ -164,8 +154,6 @@ public class KeyBindHandler {
                     bind.setWasPressed(false);
                     return;
                 }
-
-                // If bind is being held.
                 if (bind.wasPressed()) {
                     bind.onRelease();
                     return;

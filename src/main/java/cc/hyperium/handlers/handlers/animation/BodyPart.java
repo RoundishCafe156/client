@@ -45,5 +45,4 @@ public class BodyPart {
     private float interpolate(final float now, final float then, final float percent) {
         return (now + (then - now) * percent);
     }
-
 }

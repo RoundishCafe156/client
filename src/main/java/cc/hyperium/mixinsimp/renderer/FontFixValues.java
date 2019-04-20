@@ -21,12 +21,11 @@ import java.util.concurrent.TimeUnit;
 public class FontFixValues {
     public static FontFixValues INSTANCE;
     public static SharedDrawable drawable;
-    private final int MAX = 5000;
     public List<StringHash> obfuscated = new ArrayList<>();
     private Cache<StringHash, CachedString> stringCache = Caffeine.newBuilder()
         .writer(new RemovalListener())
         .executor(Multithreading.POOL)
-        .maximumSize(MAX)
+        .maximumSize(5000)
         .build();
     private Queue<Integer> glRemoval = new ConcurrentLinkedQueue<>();
 
@@ -67,7 +66,7 @@ public class FontFixValues {
     }
 
     @InvokeEvent
-    public void tick(TickEvent tickEvent) {
+    public void tick(TickEvent t) {
         stringCache.invalidateAll(obfuscated);
         obfuscated.clear();
         if (drawable == null) {

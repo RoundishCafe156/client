@@ -17,9 +17,7 @@
 
 package cc.hyperium.handlers.handlers.keybinds;
 
-import cc.hyperium.Hyperium;
 import cc.hyperium.utils.BetterJsonObject;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,17 +25,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-@SuppressWarnings("ResultOfMethodCallIgnored") // Suppress because we don't care
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class KeyBindConfig {
-
     private final KeyBindHandler handler;
     private final File keybindFile;
     private BetterJsonObject keyBindJson = new BetterJsonObject();
 
     KeyBindConfig(KeyBindHandler handler, File directory) {
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        if (!directory.exists()) directory.mkdirs();
 
         this.handler = handler;
         this.keybindFile = new File(directory, "keybinds.json");
@@ -60,9 +55,7 @@ public class KeyBindConfig {
             }
 
             this.keyBindJson.writeToFile(this.keybindFile);
-        } catch (IOException ex) {
-            Hyperium.LOGGER.error("An error occured while saving the Hyperium Keybinds, this is not good.");
-        }
+        } catch (IOException ignored) {}
     }
 
     public void load() {
@@ -78,7 +71,6 @@ public class KeyBindConfig {
                 }
                 this.keyBindJson = new BetterJsonObject(builder.toString());
             } catch (Exception ex) {
-                // Error while loading
                 save();
                 return;
             }
@@ -87,7 +79,6 @@ public class KeyBindConfig {
                 bind.setKeyCode(this.keyBindJson.optInt(bind.getRealDescription(), bind.getDefaultKeyCode()));
             }
         } else {
-            // Config file doesn't exist
             save();
         }
     }

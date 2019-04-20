@@ -64,7 +64,6 @@ public class PlayerStatsGui extends HyperiumGui {
     private static Map<AbstractHypixelStats, DynamicTexture> logos = new HashMap<>();
     private ConcurrentHashMap<AbstractHypixelStats, GuiBlock> location = new ConcurrentHashMap<>();
 
-    //TODO make only generate once
     public PlayerStatsGui(HypixelApiPlayer player) {
         this.player = player;
         fields.add(new GeneralStats());
@@ -98,7 +97,7 @@ public class PlayerStatsGui extends HyperiumGui {
                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setRequestMethod("GET");
                         connection.setUseCaches(true);
-                        connection.addRequestProperty("User-Agent", "Mozilla/4.76 Hyperium ");
+                        connection.addRequestProperty("User-Agent", "Mozilla/4.76 Hyperium");
                         connection.setReadTimeout(15000);
                         connection.setConnectTimeout(15000);
                         connection.setDoOutput(true);

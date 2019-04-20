@@ -16,17 +16,15 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class YeetHandler {
-
     private List<Yeet> yeets = new ArrayList<>();
 
-
+    @SuppressWarnings("unused")
     @InvokeEvent
     public void tickEvent(TickEvent event) {
         yeets.removeIf(yeet -> {
@@ -51,13 +49,10 @@ public class YeetHandler {
             double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
 
             EntityPlayer sender = yeet.sender;
-            if (sender == null) {
-                continue;
-            }
+            if (sender == null) continue;
             double e0 = yeet.sender.lastTickPosX + (yeet.sender.posX - yeet.sender.lastTickPosX) * (double) partialTicks;
             double e1 = yeet.sender.lastTickPosY + (yeet.sender.posY - yeet.sender.lastTickPosY) * (double) partialTicks;
             double e2 = yeet.sender.lastTickPosZ + (yeet.sender.posZ - yeet.sender.lastTickPosZ) * (double) partialTicks;
-
 
             GlStateManager.translate(e0 - d0, e1 - d1, e2 - d2);
             GlStateManager.translate(0, 3, 0);
@@ -65,9 +60,8 @@ public class YeetHandler {
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
 
-            int xMultiplier = 1; // Nametag x rotations should flip in front-facing 3rd person
-            if (Minecraft.getMinecraft() != null && Minecraft.getMinecraft().gameSettings != null && Minecraft.getMinecraft().gameSettings.thirdPersonView == 2)
-                xMultiplier = -1;
+            int xMultiplier = 1;
+            if (Minecraft.getMinecraft() != null && Minecraft.getMinecraft().gameSettings != null && Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) xMultiplier = -1;
             GlStateManager.rotate(renderManager.playerViewX * xMultiplier, 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(-f1, -f1, f1);
             GlStateManager.disableLighting();
@@ -79,8 +73,7 @@ public class YeetHandler {
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             int i = 0;
 
-            String string = "YEET";
-            int j = fontrenderer.getStringWidth(string) / 2;
+            int j = fontrenderer.getStringWidth("YEET") / 2;
             GlStateManager.disableTexture2D();
             GlStateManager.scale(4, 4, 4);
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
@@ -91,7 +84,7 @@ public class YeetHandler {
             tessellator.draw();
             GlStateManager.enableTexture2D();
 
-            fontrenderer.drawString(string, -j, 0, Settings.REACH_COLOR_TYPE.equalsIgnoreCase("RGB") ? new Color(Settings.REACH_RED, Settings.REACH_GREEN, Settings.REACH_BLUE).getRGB() : Hyperium.INSTANCE.getModIntegration().getLevelhead().getRGBColor(), true);
+            fontrenderer.drawString("YEET", -j, 0, Settings.REACH_COLOR_TYPE.equalsIgnoreCase("RGB") ? new Color(Settings.REACH_RED, Settings.REACH_GREEN, Settings.REACH_BLUE).getRGB() : Hyperium.INSTANCE.getModIntegration().getLevelhead().getRGBColor(), true);
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);
@@ -103,12 +96,9 @@ public class YeetHandler {
 
     public void yeet(UUID uuid) {
         WorldClient theWorld = Minecraft.getMinecraft().theWorld;
-        if (theWorld == null)
-            return;
+        if (theWorld == null) return;
         EntityPlayer player = theWorld.getPlayerEntityByUUID(uuid);
-        if (player != null) {
-            yeets.add(new Yeet(player));
-        }
+        if (player != null) yeets.add(new Yeet(player));
     }
 
     class Yeet {
