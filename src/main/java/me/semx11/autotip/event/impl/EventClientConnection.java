@@ -1,6 +1,5 @@
 package me.semx11.autotip.event.impl;
 
-import cc.hyperium.Hyperium;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.ServerJoinEvent;
 import cc.hyperium.event.ServerLeaveEvent;
@@ -15,18 +14,14 @@ import net.minecraft.util.IChatComponent;
 
 public class EventClientConnection implements Event {
     private final Autotip autotip;
+    private final String hypixelHeader;
 
-    private String serverIp;
     private long lastLogin;
 
     public EventClientConnection(Autotip autotip) {
         this.autotip = autotip;
+        this.hypixelHeader = autotip.getGlobalSettings().getHypixelHeader();
     }
-
-    public String getServerIp() {
-        return serverIp;
-    }
-
     public long getLastLogin() {
         return lastLogin;
     }
@@ -50,23 +45,27 @@ public class EventClientConnection implements Event {
 
         autotip.getMessageUtil().clearQueues();
 
-        this.serverIp = UniversalUtil.getRemoteAddress(event).toLowerCase();
         this.lastLogin = System.currentTimeMillis();
 
         taskManager.getExecutor().execute(() -> {
             Object header;
             int attempts = 0;
             while ((header = this.getHeader()) == null) {
-                if (attempts > 15) return;
+                if (attempts > 15) {
+                    return;
+                }
                 try {
                     Thread.sleep(500);
-                } catch (InterruptedException ignored) {}
+                } catch (InterruptedException ignored) {
+                }
                 attempts++;
             }
 
-            if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) {
+            if (UniversalUtil.getUnformattedText(header).equals(hypixelHeader)) {
                 manager.setOnHypixel(true);
-                if (autotip.getConfig().isEnabled())taskManager.executeTask(TaskType.LOGIN, manager::login);
+                if (autotip.getConfig().isEnabled()) {
+                    taskManager.executeTask(TaskType.LOGIN, manager::login);
+                }
             } else {
                 manager.setOnHypixel(false);
             }

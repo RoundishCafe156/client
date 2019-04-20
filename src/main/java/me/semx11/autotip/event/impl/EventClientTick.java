@@ -6,6 +6,7 @@ import me.semx11.autotip.Autotip;
 import me.semx11.autotip.event.Event;
 
 public class EventClientTick implements Event {
+
     private final Autotip autotip;
 
     public EventClientTick(Autotip autotip) {
@@ -15,5 +16,9 @@ public class EventClientTick implements Event {
     @InvokeEvent
     public void onClientTick(TickEvent event) {
         autotip.getMessageUtil().flushQueues();
+        if (autotip.isInitialized()) {
+            autotip.getStatsManager().saveCycle();
+        }
     }
+
 }

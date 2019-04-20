@@ -6,6 +6,7 @@ import java.util.Locale;
 import me.semx11.autotip.gson.adapter.TypeAdapter;
 
 public class LocaleAdapter implements TypeAdapter<Locale> {
+
     @Override
     public Locale deserialize(JsonElement json) {
         return Locale.forLanguageTag(json.getAsString());
@@ -15,4 +16,5 @@ public class LocaleAdapter implements TypeAdapter<Locale> {
     public JsonElement serialize(Locale src) {
         return new JsonPrimitive(src.toLanguageTag());
     }
+
 }

@@ -1,6 +1,7 @@
 package me.semx11.autotip.core;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -18,6 +19,7 @@ import me.semx11.autotip.util.ErrorReport;
 public class TaskManager {
     private final ExecutorService executor;
     private final ScheduledExecutorService scheduler;
+
     private final Map<TaskType, Future> tasks;
 
     public TaskManager() {
@@ -28,6 +30,14 @@ public class TaskManager {
 
     public ExecutorService getExecutor() {
         return executor;
+    }
+
+    public void schedule(Runnable runnable, long delay) {
+        try {
+            scheduler.schedule(runnable, delay, SECONDS).get();
+        } catch (InterruptedException | ExecutionException e) {
+            ErrorReport.reportException(e);
+        }
     }
 
     public <T> T scheduleAndAwait(Callable<T> callable, long delay) {
@@ -68,7 +78,11 @@ public class TaskManager {
         this.executor.execute(() -> {
             try {
                 future.get();
-            } catch (InterruptedException | ExecutionException | CancellationException ignored) {} finally {
+            } catch (CancellationException ignored) {
+                // Manual cancellation of a repeating task.
+            } catch (InterruptedException | ExecutionException e) {
+                ErrorReport.reportException(e);
+            } finally {
                 tasks.remove(type);
             }
         });
@@ -76,10 +90,12 @@ public class TaskManager {
 
     private ThreadFactory getFactory(String name) {
         return new ThreadFactoryBuilder().setNameFormat(name)
-                .setUncaughtExceptionHandler((t, e) -> ErrorReport.reportException(e)).build();
+                .setUncaughtExceptionHandler((t, e) -> ErrorReport.reportException(e))
+                .build();
     }
 
     public enum TaskType {
         LOGIN, KEEP_ALIVE, TIP_WAVE, TIP_CYCLE, LOGOUT
     }
+
 }

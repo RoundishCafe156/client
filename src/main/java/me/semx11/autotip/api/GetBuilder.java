@@ -5,7 +5,6 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 
 public class GetBuilder {
-
     private static final String BASE_URL = "https://api.autotip.pro/";
 
     private final RequestBuilder builder;

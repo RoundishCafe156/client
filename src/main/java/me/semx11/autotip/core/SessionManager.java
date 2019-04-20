@@ -11,7 +11,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import me.semx11.autotip.Autotip;
 import me.semx11.autotip.api.SessionKey;
+import me.semx11.autotip.api.reply.impl.KeepAliveReply;
 import me.semx11.autotip.api.reply.impl.LoginReply;
+import me.semx11.autotip.api.reply.impl.LogoutReply;
 import me.semx11.autotip.api.reply.impl.TipReply;
 import me.semx11.autotip.api.reply.impl.TipReply.Tip;
 import me.semx11.autotip.api.request.impl.KeepAliveRequest;
@@ -21,9 +23,11 @@ import me.semx11.autotip.api.request.impl.TipRequest;
 import me.semx11.autotip.chat.MessageUtil;
 import me.semx11.autotip.core.TaskManager.TaskType;
 import me.semx11.autotip.event.impl.EventClientConnection;
+import me.semx11.autotip.stats.StatsRange;
 import me.semx11.autotip.util.ErrorReport;
 import me.semx11.autotip.util.HashUtil;
 import net.minecraft.util.Session;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 
 public class SessionManager {
@@ -60,6 +64,10 @@ public class SessionManager {
         this.onHypixel = onHypixel;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
     public long getLastTipWave() {
         return lastTipWave;
     }
@@ -76,9 +84,13 @@ public class SessionManager {
         String serverHash = HashUtil.hash(uuid + HashUtil.getNextSalt());
 
         int statusCode = this.authenticate(session.getToken(), uuid, serverHash);
-        if (statusCode != 204) return;
+        if (statusCode != 204) {
+            messageUtil.send("&cError {} during authentication: Session servers down?", statusCode);
+            return;
+        }
 
-        LoginRequest request = LoginRequest.of(autotip, profile, serverHash);
+        StatsRange all = autotip.getStatsManager().getAll();
+        LoginRequest request = LoginRequest.of(autotip, profile, serverHash, all.getTipsTotalInt());
 
         long lastLogin = autotip.getEvent(EventClientConnection.class).getLastLogin();
         long delay = lastLogin + 5000 - System.currentTimeMillis();
@@ -102,8 +114,13 @@ public class SessionManager {
     }
 
     public void logout() {
-        if (!loggedIn)  return;
-        LogoutRequest.of(sessionKey).execute();
+        if (!loggedIn) {
+            return;
+        }
+        LogoutReply reply = LogoutRequest.of(sessionKey).execute();
+        if (!reply.isSuccess()) {
+            Autotip.LOGGER.warn("Error during logout: {}", reply.getCause());
+        }
 
         this.loggedIn = false;
         this.sessionKey = null;
@@ -117,7 +134,10 @@ public class SessionManager {
             taskManager.cancelTask(TaskType.KEEP_ALIVE);
             return;
         }
-        KeepAliveRequest.of(sessionKey).execute();
+        KeepAliveReply r = KeepAliveRequest.of(sessionKey).execute();
+        if (!r.isSuccess()) {
+            Autotip.LOGGER.warn("KeepAliveRequest failed: {}", r.getCause());
+        }
     }
 
     private void tipWave() {
@@ -132,8 +152,11 @@ public class SessionManager {
         TipReply r = TipRequest.of(sessionKey).execute();
         if (r.isSuccess()) {
             tipQueue.addAll(r.getTips());
+            Autotip.LOGGER.info("Current tip queue: {}",
+                    StringUtils.join(tipQueue.iterator(), ", "));
         } else {
             tipQueue.addAll(TipReply.getDefault().getTips());
+            Autotip.LOGGER.info("Failed to fetch tip queue, tipping 'all' instead.");
         }
 
         long tipCycle = reply.getTipCycleRate();
@@ -146,6 +169,7 @@ public class SessionManager {
             return;
         }
 
+        Autotip.LOGGER.info("Attempting to tip: {}", tipQueue.peek().toString());
         messageUtil.sendCommand(tipQueue.poll().getAsCommand());
     }
 

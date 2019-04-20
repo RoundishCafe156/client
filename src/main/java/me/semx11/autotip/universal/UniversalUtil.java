@@ -2,8 +2,8 @@ package me.semx11.autotip.universal;
 
 import cc.hyperium.event.ServerChatEvent;
 import cc.hyperium.event.ServerJoinEvent;
-import cc.hyperium.utils.ChatColor;
 import me.semx11.autotip.Autotip;
+import me.semx11.autotip.chat.ChatColor;
 import me.semx11.autotip.util.MinecraftVersion;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.event.ClickEvent;
@@ -21,6 +21,7 @@ public class UniversalUtil {
     }
 
     public static MinecraftVersion getMinecraftVersion() {
+
         return MinecraftVersion.V1_8_9;
     }
 
@@ -38,7 +39,23 @@ public class UniversalUtil {
         }
 
         String unformattedText = ((IChatComponent) component).getUnformattedText();
-        return ChatColor.stripColor(unformattedText);
+        return ChatColor.stripFormatting(unformattedText);
+    }
+
+    public static String getHoverText(ServerChatEvent event) {
+        return getHoverText(event.getChat());
+    }
+
+    public static String getHoverText(Object component) {
+        IChatComponent chatComponent = (IChatComponent) component;
+
+        if (component == null || chatComponent.getChatStyle() == null || chatComponent.getChatStyle().getChatHoverEvent() == null) {
+            return null;
+        }
+
+        IChatComponent hoverText = chatComponent.getChatStyle().getChatHoverEvent().getValue();
+
+        return getUnformattedText(hoverText);
     }
 
     public static void addChatMessage(String text) {

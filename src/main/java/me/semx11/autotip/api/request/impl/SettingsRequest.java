@@ -8,11 +8,16 @@ import me.semx11.autotip.api.RequestType;
 import me.semx11.autotip.api.reply.Reply;
 import me.semx11.autotip.api.reply.impl.SettingsReply;
 import me.semx11.autotip.api.request.Request;
+import me.semx11.autotip.util.Version;
 import org.apache.http.client.methods.HttpUriRequest;
 
 public class SettingsRequest implements Request<SettingsReply> {
 
-    private SettingsRequest(Autotip autotip) {}
+    private final Version version;
+
+    private SettingsRequest(Autotip autotip) {
+        this.version = autotip.getVersion();
+    }
 
     public static SettingsRequest of(Autotip autotip) {
         return new SettingsRequest(autotip);
@@ -21,7 +26,7 @@ public class SettingsRequest implements Request<SettingsReply> {
     @Override
     public SettingsReply execute() {
         HttpUriRequest request = GetBuilder.of(this)
-                .addParameter("v", "3.0")
+                .addParameter("v", this.version.get())
                 .build();
 
         Optional<Reply> optional = RequestHandler.getReply(this, request.getURI());
