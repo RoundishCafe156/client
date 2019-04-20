@@ -1,7 +1,6 @@
 package cc.hyperium.handlers.handlers.animation;
 
 import cc.hyperium.event.InvokeEvent;
-import cc.hyperium.event.PostCopyPlayerModelAnglesEvent;
 import cc.hyperium.event.WorldChangeEvent;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelBiped;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelPlayer;
@@ -10,21 +9,13 @@ import cc.hyperium.utils.Multithreading;
 import com.google.gson.JsonElement;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.command.CommandBase;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.IChatComponent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.UUID;
 
 public abstract class AnimatedDance extends AbstractPreCopyAnglesAnimationHandler {
-
     public List<AnimationFrame> frames = new ArrayList<>();
     public boolean loaded;
     public long duration;
@@ -32,50 +23,6 @@ public abstract class AnimatedDance extends AbstractPreCopyAnglesAnimationHandle
 
     public AnimatedDance() {
         Multithreading.runAsync(() -> generateFrames(getData()));
-    }
-
-    public static void Frame(Scanner scanner) {
-        while (true) {
-            int time = 18;
-            String in = scanner.nextLine();
-            JsonHolder out = new JsonHolder();
-            out.put("time", time);
-            try {
-                String[] args = in.split(" ");
-                IChatComponent ichatcomponent = CommandBase.getChatComponentFromNthArg(null, args, 5);
-                NBTTagCompound tagFromJson = JsonToNBT.getTagFromJson(ichatcomponent.getUnformattedText());
-                NBTTagCompound pose = (NBTTagCompound) tagFromJson.getTag("Pose");
-                HashMap<String, String> mappings = new HashMap<>();
-                mappings.put("Body", "chest");
-                mappings.put("Head", "head");
-                mappings.put("LeftLeg", "leftUpperLeg");
-                mappings.put("RightLeg", "rightUpperLeg");
-                mappings.put("LeftArm", "leftUpperArm");
-                mappings.put("RightArm", "rightUpperArm");
-                for (String s : mappings.keySet()) {
-                    JsonHolder holder = new JsonHolder();
-                    NBTTagList tag = (NBTTagList) pose.getTag(s);
-                    if (tag == null)
-                        continue;
-                    String[] obj = {"X", "Y", "Z"};
-                    for (int i = 0; i < 3; i++) {
-                        float floatAt = tag.getFloatAt(i);
-                        if (floatAt != 0) {
-                            if (floatAt > 180) {
-                                floatAt -= 360;
-                            }
-                            holder.put("rotateAngle" + obj[i], ((float) Math.toRadians(floatAt)));
-                        }
-                    }
-                    if (holder.getKeys().size() != 0) {
-                        out.put(mappings.get(s), holder);
-                    }
-                }
-            } catch (NBTException | net.minecraft.command.CommandException e) {
-                e.printStackTrace();
-            }
-            System.out.println(out);
-        }
     }
 
     public void generateFrames(JsonHolder data) {
@@ -121,10 +68,6 @@ public abstract class AnimatedDance extends AbstractPreCopyAnglesAnimationHandle
             duration = frames.get(Math.max(0, frames.size() - 1)).getTime();
     }
 
-    public float radians(int deg) {
-        return (float) Math.toRadians(deg);
-    }
-
     public long frame(int frame) {
         return frame * 1000 / 30;
     }
@@ -141,14 +84,6 @@ public abstract class AnimatedDance extends AbstractPreCopyAnglesAnimationHandle
     @Override
     public float modifyState() {
         return 0;
-    }
-
-    // Added so we can do legs
-    @InvokeEvent
-    public void onPostCopyPlayerModelAngles(PostCopyPlayerModelAnglesEvent event) {
-        AbstractClientPlayer entity = event.getEntity();
-        IMixinModelBiped player = event.getModel();
-        modify(entity, player, false);
     }
 
     public abstract JsonHolder getData();
