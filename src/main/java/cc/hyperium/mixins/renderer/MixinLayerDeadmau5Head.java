@@ -39,6 +39,6 @@ class MixinLayerDeadmau5Head {
     @Inject(method = "doRenderLayer", at = @At("HEAD"))
     private void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_,
                                float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale, CallbackInfo ci) {
-        Hyperium.INSTANCE.getHandlers().getLayerDeadmau5HeadHandler().doRenderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_, p_177141_7_, scale, playerRenderer);
+        Hyperium.INSTANCE.getHandlers().getLayerDeadmau5HeadHandler().doRenderLayer(entitylivingbaseIn, partialTicks, playerRenderer);
     }
 }
