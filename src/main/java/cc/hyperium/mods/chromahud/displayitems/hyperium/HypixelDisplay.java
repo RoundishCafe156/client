@@ -38,7 +38,6 @@ public class HypixelDisplay extends DisplayItem {
             string = "[Hypixel] " + Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel();
         }
         ElementRenderer.draw(x, y, string);
-        //TODO remove specific reference
         this.width = config ? ElementRenderer.getFontRenderer().getStringWidth(string) : 0;
     }
 }

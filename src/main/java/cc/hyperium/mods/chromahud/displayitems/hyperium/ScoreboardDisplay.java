@@ -31,14 +31,12 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumChatFormatting;
-
 import java.awt.Color;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScoreboardDisplay extends DisplayItem {
-
     public static ScoreObjective p_180475_1_;
     public static ScaledResolution p_180475_2_;
 
@@ -72,11 +70,10 @@ public class ScoreboardDisplay extends DisplayItem {
             int i1 = collection.size() * Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
             int k1 = 3;
             int l1 = starX;
-            if (ElementRenderer.getCurrent().isRightSided())
-                l1 -= i;
+            if (ElementRenderer.getCurrent().isRightSided()) l1 -= i;
             int j = 0;
 
-            int k = 0;
+            int k;
             for (Score score1 : collection) {
                 ++j;
                 ScorePlayerTeam scoreplayerteam1 = scoreboard.getPlayersTeam(score1.getPlayerName());
@@ -91,7 +88,6 @@ public class ScoreboardDisplay extends DisplayItem {
                         RenderUtils.drawRect(l1 - 2, k, l1 + i, k + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT, 1342177280);
                 }
                 Minecraft.getMinecraft().fontRendererObj.drawString(s1, l1, k, Color.WHITE.getRGB());
-                // todo: make toggle number
                 if (data.optBoolean("numbers")) {
                     Minecraft.getMinecraft().fontRendererObj.drawString(s2, l1 + i - Minecraft.getMinecraft().fontRendererObj.getStringWidth(s2), k, Color.WHITE.getRGB());
                 }
@@ -110,11 +106,8 @@ public class ScoreboardDisplay extends DisplayItem {
                     Minecraft.getMinecraft().fontRendererObj.drawString(s3, l1 + i / 2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(s3) / 2, k - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT, Color.WHITE.getRGB());
                 }
             }
-            //432 ms
             this.width = i - (data.optBoolean("numbers") ? 0 : 10);
             this.height = i1 + 10;
         }
     }
-
-
 }
