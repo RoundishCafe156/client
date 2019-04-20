@@ -7,8 +7,6 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 
 public class MotionBlurResourceManager implements IResourceManager {
-    public MotionBlurResourceManager() {}
-
     public Set<String> getResourceDomains() {
         return null;
     }

@@ -7,8 +7,6 @@ import cc.hyperium.mixinsimp.entity.HyperiumEntityRenderer;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class MotionBlurCommand implements BaseCommand {
-    public MotionBlurCommand() {}
-
     public void onExecute(String[] args) {
         if (args.length != 1) {
             Hyperium.INSTANCE.getHandlers().getGeneralChatHandler().sendMessage("Usage: /motionblur <0 - 7>.");

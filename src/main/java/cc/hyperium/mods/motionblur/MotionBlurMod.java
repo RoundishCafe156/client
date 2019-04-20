@@ -42,14 +42,12 @@ public class MotionBlurMod extends AbstractMod {
 
     @Override
     public Metadata getModMetadata() {
-        return new Metadata(this, "Motion Blur Mod", "1.0", "Chachy, Amp, Koding");
+        return new Metadata(this, "MotionBlur", "1.0", "Hyperium");
     }
 
     @InvokeEvent
     public void onClientTick(TickEvent event) {
-        if (Settings.MOTION_BLUR_ENABLED && !Minecraft.getMinecraft().entityRenderer.isShaderActive() && mc.theWorld != null && !isFastRenderEnabled()) {
-            applyShader();
-        }
+        if (Settings.MOTION_BLUR_ENABLED && !Minecraft.getMinecraft().entityRenderer.isShaderActive() && mc.theWorld != null && !isFastRenderEnabled()) applyShader();
         if (this.domainResourceManagers == null) {
             try {
                 Field[] var2 = SimpleReloadableResourceManager.class.getDeclaredFields();
@@ -65,8 +63,6 @@ public class MotionBlurMod extends AbstractMod {
                 throw new RuntimeException(var6);
             }
         }
-        if (!this.domainResourceManagers.containsKey("motionblur")) {
-            this.domainResourceManagers.put("motionblur", new MotionBlurResourceManager());
-        }
+        if (!this.domainResourceManagers.containsKey("motionblur")) this.domainResourceManagers.put("motionblur", new MotionBlurResourceManager());
     }
 }
