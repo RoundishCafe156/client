@@ -25,68 +25,31 @@ import cc.hyperium.cosmetics.wings.WingsCosmetic;
 import cc.hyperium.event.EventBus;
 import cc.hyperium.purchases.EnumPurchaseType;
 import net.minecraft.util.ResourceLocation;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HyperiumCosmetics {
-    private final List<AbstractCosmetic> cosmeticList = new ArrayList<>();
     private final FlipCosmetic flipCosmetic;
     private final Deadmau5Cosmetic deadmau5Cosmetic;
-    private final WingsCosmetic wingsCosmetic;
-    private final DragonCosmetic dragonCosmetic;
-    private DragonCompanion dragonCompanion;
-    private HamsterCompanion hamsterCompanion;
-    private final CosmeticHat topHatCosmetic = new CosmeticHat(false, EnumPurchaseType.HAT_TOPHAT).setModel(new ModelHatTophat(), new ResourceLocation("textures/cosmetics/hats/tophat.png"));
-    private final CosmeticHat fezCosmetic = new CosmeticHat(false, EnumPurchaseType.HAT_FEZ).setModel(new ModelHatFez(), new ResourceLocation("textures/cosmetics/hats/fez.png"));
-    private final CosmeticHat legoCosmetic = new CosmeticHat(false, EnumPurchaseType.HAT_LEGO).setModel(new ModelHatLego(), new ResourceLocation("textures/cosmetics/hats/lego.png"));
+
     public HyperiumCosmetics() {
         registerCosmetic(flipCosmetic = new FlipCosmetic());
         registerCosmetic(deadmau5Cosmetic = new Deadmau5Cosmetic());
-        registerCosmetic(wingsCosmetic = new WingsCosmetic());
-        registerCosmetic(dragonCosmetic = new DragonCosmetic());
-        registerCosmetic(dragonCompanion = new DragonCompanion());
-        registerCosmetic(hamsterCompanion = new HamsterCompanion());
-        registerCosmetic(topHatCosmetic);
-        registerCosmetic(fezCosmetic);
-        registerCosmetic(legoCosmetic);
-    }
-    private void registerCosmetic(AbstractCosmetic cosmetic) {
-        cosmeticList.add(cosmetic);
-        EventBus.INSTANCE.register(cosmetic);
-    }
-    public enum EnumCosmeticType {
-        DAB,
-        FLIP,
-        DEALWITHIT,
-        DEADMAU5,
-        WINGS,
-        DRAGON,
-        HAT_TOPHAT,
-        HAT_FEZ,
-        HAT_LEGO
+        registerCosmetic(new WingsCosmetic());
+        registerCosmetic(new DragonCosmetic());
+        registerCosmetic(new DragonCompanion());
+        registerCosmetic(new HamsterCompanion());
+        registerCosmetic(new CosmeticHat(false, EnumPurchaseType.HAT_TOPHAT).setModel(new ModelHatTophat(), new ResourceLocation("textures/cosmetics/hats/tophat.png")));
+        registerCosmetic(new CosmeticHat(false, EnumPurchaseType.HAT_FEZ).setModel(new ModelHatFez(), new ResourceLocation("textures/cosmetics/hats/fez.png")));
+        registerCosmetic(new CosmeticHat(false, EnumPurchaseType.HAT_LEGO).setModel(new ModelHatLego(), new ResourceLocation("textures/cosmetics/hats/lego.png")));
     }
 
-    public AbstractCosmetic getCosmetic(EnumCosmeticType givenType) {
-        switch (givenType) {
-            case FLIP:
-                return this.flipCosmetic;
-            case DEADMAU5:
-                return this.deadmau5Cosmetic;
-            case WINGS:
-                return this.wingsCosmetic;
-            case DRAGON:
-                return this.dragonCosmetic;
-            case HAT_TOPHAT:
-                return this.topHatCosmetic;
-            case HAT_FEZ:
-                return this.fezCosmetic;
-            default:
-                return null;
-        }
+    private void registerCosmetic(AbstractCosmetic cosmetic) {
+        EventBus.INSTANCE.register(cosmetic);
     }
+
     public FlipCosmetic getFlipCosmetic() {
         return this.flipCosmetic;
     }
+
     public Deadmau5Cosmetic getDeadmau5Cosmetic() {
         return this.deadmau5Cosmetic;
     }
