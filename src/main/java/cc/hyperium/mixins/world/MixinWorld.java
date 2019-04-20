@@ -22,11 +22,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IntHashMap;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.WorldInfo;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -65,14 +63,7 @@ public abstract class MixinWorld {
     protected List<Entity> unloadedEntityList;
 
     @Shadow
-    @Final
-    protected IntHashMap<Entity> entitiesById;
-
-    @Shadow
     private WorldInfo worldInfo;
-
-    @Shadow
-    private boolean processingLoadedTiles;
 
     @Shadow
     @Final

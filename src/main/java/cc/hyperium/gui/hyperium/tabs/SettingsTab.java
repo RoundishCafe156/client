@@ -65,7 +65,7 @@ public class SettingsTab extends AbstractTab {
         }
 
         // Link to capes GUI.
-        apply(new LinkComponent(this, Collections.emptyList(), "Youtuber Capes", new CapesGui()), false, Category.COSMETICS, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "YouTuber Capes", new CapesGui()), false, Category.COSMETICS, items);
 
         for (RGBFieldSet rgbFieldSet : gui.getRgbFields()) {
             apply(new RGBComponent(this, rgbFieldSet), rgbFieldSet.isMods(), rgbFieldSet.getCategory(), items);

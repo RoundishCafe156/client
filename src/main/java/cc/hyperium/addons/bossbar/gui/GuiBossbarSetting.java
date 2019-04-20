@@ -5,7 +5,6 @@ import cc.hyperium.addons.bossbar.config.BossbarConfig;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fml.client.config.GuiSlider;
 import java.io.IOException;
 
 public class GuiBossbarSetting extends GuiScreen {

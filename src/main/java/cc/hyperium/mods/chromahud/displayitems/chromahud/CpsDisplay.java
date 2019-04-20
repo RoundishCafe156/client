@@ -22,19 +22,12 @@ import cc.hyperium.mods.chromahud.api.DisplayItem;
 import cc.hyperium.utils.JsonHolder;
 import net.minecraft.client.Minecraft;
 import cc.hyperium.config.Settings;
-import cc.hyperium.config.ConfigOpt;
 
-
-/**
- * @author Sk1er
- */
 public class CpsDisplay extends DisplayItem {
-
     public CpsDisplay(JsonHolder data, int ordinal) {
         super(data, ordinal);
         this.height = 10;
     }
-
 
     @Override
     public void draw(int starX, double startY, boolean isConfig) {
@@ -52,6 +45,4 @@ public class CpsDisplay extends DisplayItem {
         } else
             this.width = 0;
     }
-
-
 }

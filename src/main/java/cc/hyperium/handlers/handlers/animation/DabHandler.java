@@ -1,21 +1,13 @@
 package cc.hyperium.handlers.handlers.animation;
 
-import cc.hyperium.cosmetics.CosmeticsUtil;
 import cc.hyperium.gui.HyperiumGui;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelBiped;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelPlayer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 
 public class DabHandler extends AbstractPreCopyAnglesAnimationHandler {
-
-    private int dabs;
-
     @Override
-    public void onRender() {
-        if (state == 100 && get(Minecraft.getMinecraft().thePlayer.getUniqueID()).isAnimating())
-            incDabs();
-    }
+    public void onRender() {}
 
     @Override
     public float modifyState() {
@@ -29,14 +21,6 @@ public class DabHandler extends AbstractPreCopyAnglesAnimationHandler {
             0.0f,
             100.0f
         );
-    }
-
-    public int getDabs() {
-        return dabs;
-    }
-
-    public void incDabs() {
-        dabs++;
     }
 
     @Override

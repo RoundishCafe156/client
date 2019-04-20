@@ -1,7 +1,6 @@
 package cc.hyperium.mixinsimp.renderer;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.TickEvent;
-import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.CacheWriter;
@@ -22,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class FontFixValues {
     public static FontFixValues INSTANCE;
     public static SharedDrawable drawable;
-    private final int MAX = 5000 /* Worth bumping up to 10_000? */;
+    private final int MAX = 5000;
     public List<StringHash> obfuscated = new ArrayList<>();
     private Cache<StringHash, CachedString> stringCache = Caffeine.newBuilder()
         .writer(new RemovalListener())
@@ -51,9 +50,7 @@ public class FontFixValues {
                     }
                 }
                 Integer integer;
-                int i = 0;
                 while ((integer = glRemoval.poll()) != null) {
-                    i++;
                     GLAllocation.deleteDisplayLists(integer);
                 }
                 drawable.releaseContext();
@@ -67,10 +64,6 @@ public class FontFixValues {
                 }
             }
         }, 1, 1, TimeUnit.SECONDS);
-    }
-
-    public Queue<Integer> getGlRemoval() {
-        return glRemoval;
     }
 
     @InvokeEvent
@@ -89,10 +82,6 @@ public class FontFixValues {
     @Nullable
     public CachedString get(StringHash key) {
         return stringCache.getIfPresent(key);
-    }
-
-    public void cache(StringHash key, CachedString value) {
-        stringCache.put(key, value);
     }
 
     private class RemovalListener implements CacheWriter<StringHash, CachedString> {

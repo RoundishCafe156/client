@@ -30,8 +30,6 @@ import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMultiplayer;
-import net.minecraft.client.gui.GuiSelectWorld;
 
 public class DiscordPresence {
     private long startTime;
@@ -66,26 +64,7 @@ public class DiscordPresence {
             DiscordRPC.discordUpdatePresence(
                 new DiscordRichPresence.Builder("On the Main Menu")
                     .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                    .setStartTimestamps(startTime)
-                    .setSmallImage("compass", "Hyperium")
-                    .setBigImage("hyperium", "Hyperium Client")
-                    .build()
-            );
-        } else if (event.getGui() instanceof GuiMultiplayer) {
-            DiscordRPC.discordUpdatePresence(
-                new DiscordRichPresence.Builder("Browsing Servers")
-                    .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                    .setStartTimestamps(startTime)
-                    .setSmallImage("compass", "Hyperium")
-                    .setBigImage("hyperium", "Hyperium Client")
-                    .build()
-            );
-        } else if (event.getGui() instanceof GuiSelectWorld) {
-            DiscordRPC.discordUpdatePresence(
-                new DiscordRichPresence.Builder("Selecting a World")
-                    .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                    .setStartTimestamps(startTime)
-                    .setSmallImage("compass", "Hyperium")
+                    .setStartTimestamps(startTime).setSmallImage("compass", "Hyperium")
                     .setBigImage("hyperium", "Hyperium Client")
                     .build()
             );
@@ -99,8 +78,7 @@ public class DiscordPresence {
                 DiscordRPC.discordUpdatePresence(
                 new DiscordRichPresence.Builder("Playing on Hypixel")
                     .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                    .setStartTimestamps(startTime)
-                    .setSmallImage("compass", "Hypixel Network")
+                    .setStartTimestamps(startTime).setSmallImage("compass", "Hypixel Network")
                     .setBigImage("16", "Hypixel Network")
                     .build()
                 );
@@ -108,8 +86,7 @@ public class DiscordPresence {
                 DiscordRPC.discordUpdatePresence(
                     new DiscordRichPresence.Builder("On a Server")
                         .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                        .setStartTimestamps(startTime)
-                        .setSmallImage("compass", "Hyperium")
+                        .setStartTimestamps(startTime).setSmallImage("compass", "Hyperium")
                         .setBigImage("hyperium", "Hyperium Client")
                         .build()
                 );
@@ -123,8 +100,7 @@ public class DiscordPresence {
             DiscordRPC.discordUpdatePresence(
                 new DiscordRichPresence.Builder("Playing " + event.getMinigame().getScoreName() + " on Hypixel")
                     .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                    .setStartTimestamps(startTime)
-                    .setSmallImage("compass", "Minigames")
+                    .setStartTimestamps(startTime).setSmallImage("compass", "Minigames")
                     .setBigImage(String.valueOf(event.getMinigame().getId()), event.getMinigame().getScoreName())
                     .build()
             );
@@ -136,8 +112,7 @@ public class DiscordPresence {
         DiscordRPC.discordUpdatePresence(
             new DiscordRichPresence.Builder("Playing Singleplayer")
                 .setDetails("IGN: " + Minecraft.getMinecraft().getSession().getUsername())
-                .setStartTimestamps(startTime)
-                .setSmallImage("compass", "Singleplayer")
+                .setStartTimestamps(startTime).setSmallImage("compass", "Singleplayer")
                 .setBigImage("hyperium", "Hyperium Client")
                 .build()
         );

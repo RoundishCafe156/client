@@ -12,13 +12,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
-
 import java.lang.reflect.Field;
 import java.util.Map;
 
-
 public class MotionBlurMod extends AbstractMod {
-
     private Minecraft mc;
     private Map domainResourceManagers;
 
@@ -38,8 +35,7 @@ public class MotionBlurMod extends AbstractMod {
     @Override
     public AbstractMod init() {
         this.mc = Minecraft.getMinecraft();
-        Hyperium.INSTANCE.getHandlers().getHyperiumCommandHandler()
-                .registerCommand(new MotionBlurCommand());
+        Hyperium.INSTANCE.getHandlers().getHyperiumCommandHandler().registerCommand(new MotionBlurCommand());
         EventBus.INSTANCE.register(this);
         return this;
     }
@@ -69,10 +65,8 @@ public class MotionBlurMod extends AbstractMod {
                 throw new RuntimeException(var6);
             }
         }
-
         if (!this.domainResourceManagers.containsKey("motionblur")) {
             this.domainResourceManagers.put("motionblur", new MotionBlurResourceManager());
         }
-
     }
 }

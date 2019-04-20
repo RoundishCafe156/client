@@ -1,6 +1,5 @@
 package me.semx11.autotip.event.impl;
 
-import cc.hyperium.event.ChatEvent;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.ServerChatEvent;
 import me.semx11.autotip.Autotip;
@@ -17,7 +16,6 @@ import me.semx11.autotip.stats.StatsDaily;
 import me.semx11.autotip.universal.UniversalUtil;
 
 public class EventChatReceived implements Event {
-
     private final Autotip autotip;
 
     public EventChatReceived(Autotip autotip) {
@@ -28,9 +26,7 @@ public class EventChatReceived implements Event {
     public void onChat(ServerChatEvent event) {
         Config config = autotip.getConfig();
 
-        if (!autotip.getSessionManager().isOnHypixel()) {
-            return;
-        }
+        if (!autotip.getSessionManager().isOnHypixel()) return;
 
         String msg = UniversalUtil.getUnformattedText(event);
 
@@ -44,9 +40,7 @@ public class EventChatReceived implements Event {
             }
         }
 
-        if (!config.isEnabled()) {
-            return;
-        }
+        if (!config.isEnabled()) return;
 
         GlobalSettings settings = autotip.getGlobalSettings();
         MessageOption option = config.getMessageOption();

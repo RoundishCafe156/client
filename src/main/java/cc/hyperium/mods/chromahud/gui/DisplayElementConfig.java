@@ -24,7 +24,6 @@ import cc.hyperium.mods.chromahud.DisplayElement;
 import cc.hyperium.mods.chromahud.ElementRenderer;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
 import cc.hyperium.utils.ChatColor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -45,7 +44,6 @@ import java.util.function.Consumer;
 public class DisplayElementConfig extends GuiScreen {
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
     private final Map<GuiButton, Consumer<GuiButton>> updates = new HashMap<>();
-    private final Map<String, GuiButton> nameMap = new HashMap<>();
     private DisplayElement element;
     private int ids;
     private int lastX, lastY;
@@ -60,14 +58,13 @@ public class DisplayElementConfig extends GuiScreen {
     private boolean mouseLock;
 
     public DisplayElementConfig(DisplayElement element, ChromaHUD mod) {
-        if (element == null) throw new NullPointerException("Display element is null!");
         this.mod = mod;
         this.element = element;
         regenImage();
         mouseLock = Mouse.isButtonDown(0);
     }
 
-    public void regenImage() {
+    private void regenImage() {
         int dim = 256;
         BufferedImage image = new BufferedImage(dim, dim, BufferedImage.TYPE_INT_RGB);
         for (int x = 0; x < dim; x++) {
@@ -88,15 +85,14 @@ public class DisplayElementConfig extends GuiScreen {
         }
     }
 
-    private void reg(String name, GuiButton button, Consumer<GuiButton> consumer) {
-        reg(name, button, consumer, button1 -> {});
+    private void reg(GuiButton button, Consumer<GuiButton> consumer) {
+        reg(button, consumer, button1 -> {});
     }
 
-    private void reg(String name, GuiButton button, Consumer<GuiButton> consumer, Consumer<GuiButton> tick) {
+    private void reg(GuiButton button, Consumer<GuiButton> consumer, Consumer<GuiButton> tick) {
         this.buttonList.add(button);
         this.clicks.put(button, consumer);
         this.updates.put(button, tick);
-        this.nameMap.put(name, button);
     }
 
     private int nextId() {
@@ -112,36 +108,23 @@ public class DisplayElementConfig extends GuiScreen {
         buttonList.clear();
         clicks.clear();
         updates.clear();
-        nameMap.clear();
         ScaledResolution current = ResolutionUtil.current();
         int start_y = Math.max((int) (current.getScaledHeight_double() * .1) - 20, 5);
         int posX = (int) (current.getScaledWidth_double() * .5) - 100;
-        reg("pos", new GuiButton(nextId(), posX, start_y, "Change Position"), button -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new MoveElementGui(mod, element)));
-        reg("items", new GuiButton(nextId(), posX, start_y + 22, "Change Items"), button -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod)));
+        reg(new GuiButton(nextId(), posX, start_y, "Change Position"), button -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new MoveElementGui(mod, element)));
+        reg(new GuiButton(nextId(), posX, start_y + 22, "Change Items"), button -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod)));
 
-        reg("Highlight", new GuiButton(nextId(), posX, start_y + 22 * 2, "-"), button -> {
-            element.setHighlighted(!element.isHighlighted());
-        }, button -> {
-            button.displayString = ChatColor.YELLOW.toString() + "Highlighted: " + (element.isHighlighted() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No");
-        });
+        reg(new GuiButton(nextId(), posX, start_y + 22 * 2, "-"), button -> element.setHighlighted(!element.isHighlighted()), button -> button.displayString = ChatColor.YELLOW.toString() + "Highlighted: " + (element.isHighlighted() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No"));
 
-        reg("shadow", new GuiButton(nextId(), posX, start_y + 22 * 3, "-"), button -> {
-            element.setShadow(!element.isShadow());
-        }, button -> {
-            button.displayString = ChatColor.YELLOW.toString() + "Shadow: " + (element.isShadow() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No");
-        });
-        reg("Toggle Right", new GuiButton(nextId(), posX, start_y + 22 * 4, "-"), button -> {
-            element.setRightSided(!element.isRightSided());
-        }, button -> {
-            button.displayString = ChatColor.YELLOW.toString() + "Right side: " + (element.isRightSided() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No");
-        });
+        reg(new GuiButton(nextId(), posX, start_y + 22 * 3, "-"), button -> element.setShadow(!element.isShadow()), button -> button.displayString = ChatColor.YELLOW.toString() + "Shadow: " + (element.isShadow() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No"));
+        reg(new GuiButton(nextId(), posX, start_y + 22 * 4, "-"), button -> element.setRightSided(!element.isRightSided()), button -> button.displayString = ChatColor.YELLOW.toString() + "Right side: " + (element.isRightSided() ? ChatColor.GREEN + "Yes" : ChatColor.RED.toString() + "No"));
 
-        reg("Scale Slider", new GuiSlider(nextId(), 5, 5, 200, 20, "Scale: ", "", 50, 200, element.getScale() * 100D, false, true), button -> {}, button -> {
+        reg(new GuiSlider(nextId(), 5, 5, 200, 20, "Scale: ", "", 50, 200, element.getScale() * 100D, false, true), button -> {}, button -> {
             element.setScale(((GuiSlider) button).getValue() / 100D);
             button.displayString = EnumChatFormatting.YELLOW + "Scale: " + ((GuiSlider) button).getValueInt() + "%";
         });
 
-        reg("color", new GuiButton(nextId(), posX, start_y + 22 * 5, "-"), button -> {
+        reg(new GuiButton(nextId(), posX, start_y + 22 * 5, "-"), button -> {
             if (element.isChroma()) {
                 element.setChroma(false);
                 element.setRgb(true);
@@ -164,9 +147,7 @@ public class DisplayElementConfig extends GuiScreen {
             button.displayString = ChatColor.YELLOW + "Color mode: " + ChatColor.GREEN.toString() + type;
         });
 
-        reg("chromaMode", new GuiButton(nextId(), posX, start_y + 22 * 6, "-"), button -> {
-            element.setStaticChroma(!element.isStaticChroma());
-        }, button -> {
+        reg(new GuiButton(nextId(), posX, start_y + 22 * 6, "-"), button -> element.setStaticChroma(!element.isStaticChroma()), button -> {
             if (!element.isChroma()) {
                 button.enabled = false;
                 button.visible = false;
@@ -176,7 +157,7 @@ public class DisplayElementConfig extends GuiScreen {
                 button.displayString = ChatColor.YELLOW + "Chroma mode: " + (element.isStaticChroma() ? ChatColor.GREEN + "Static" : ChatColor.GREEN + "Wave");
             }
         });
-        reg("redSlider", new GuiSlider(nextId(), posX, start_y + 22 * 6, 200, 20, "Red: ", "", 0, 255, element.getData().optInt("red"), false, true), button -> {}, button -> {
+        reg(new GuiSlider(nextId(), posX, start_y + 22 * 6, 200, 20, "Red: ", "", 0, 255, element.getData().optInt("red"), false, true), button -> {}, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -188,7 +169,7 @@ public class DisplayElementConfig extends GuiScreen {
             }
         });
 
-        reg("blueSlider", new GuiSlider(nextId(), posX, start_y + 22 * 8, 200, 20, "Blue: ", "", 0, 255, element.getData().optInt("blue"), false, true), button -> {}, button -> {
+        reg( new GuiSlider(nextId(), posX, start_y + 22 * 8, 200, 20, "Blue: ", "", 0, 255, element.getData().optInt("blue"), false, true), button -> {}, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
                 button.visible = false;
@@ -199,7 +180,7 @@ public class DisplayElementConfig extends GuiScreen {
                 button.displayString = EnumChatFormatting.YELLOW + "Blue: " + (element.getData().optInt("blue"));
             }
         });
-        reg("greenSlider", new GuiSlider(nextId(), posX, start_y + 22 * 7, 200, 20, "Green: ", "", 0, 255, element.getData().optInt("green"), false, true), button -> {
+        reg(new GuiSlider(nextId(), posX, start_y + 22 * 7, 200, 20, "Green: ", "", 0, 255, element.getData().optInt("green"), false, true), button -> {
         }, button -> {
             if (!element.isRGB()) {
                 button.enabled = false;
@@ -211,8 +192,8 @@ public class DisplayElementConfig extends GuiScreen {
                 button.displayString = EnumChatFormatting.YELLOW + "Green: " + (element.getData().optInt("green"));
             }
         });
-        reg("Back", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GeneralConfigGui(mod)), (guiButton) -> {});
-        reg("Delete", new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22 * 2, 100, 20, "Delete"), (guiButton) -> {
+        reg(new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22, 100, 20, "Back"), (guiButton) -> Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GeneralConfigGui(mod)), (guiButton) -> {});
+        reg(new GuiButton(nextId(), 2, ResolutionUtil.current().getScaledHeight() - 22 * 2, 100, 20, "Delete"), (guiButton) -> {
             Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GeneralConfigGui(mod));
             ChromaHUDApi.getInstance().getElements().remove(element);
         }, (guiButton) -> {});
@@ -232,8 +213,7 @@ public class DisplayElementConfig extends GuiScreen {
             lastWidth = current.getScaledWidth();
             lastHeight = current.getScaledHeight();
         }
-        if (element.isRGB())
-            element.recalculateColor();
+        if (element.isRGB()) element.recalculateColor();
         for (GuiButton guiButton : buttonList) {
             Consumer<GuiButton> guiButtonConsumer = updates.get(guiButton);
             if (guiButtonConsumer != null) {
@@ -259,14 +239,13 @@ public class DisplayElementConfig extends GuiScreen {
             return;
         if (!element.isColorPallet())
             return;
-        ScaledResolution current = ResolutionUtil.current();
         float scale = scale();
         int left = posX(1);
         int right = posX(2);
         int top = posY(1);
         int bottom = posY(3);
-        float x = 0;
-        float y = 0;
+        float x;
+        float y;
         if (mouseX > left && mouseX < right) {
             if (mouseY > top && mouseY < bottom) {
                 x = mouseX - left;
@@ -320,7 +299,6 @@ public class DisplayElementConfig extends GuiScreen {
         int top = posY(2);
         int right = posX(2);
         int size = right - left;
-        int bottom = posY(3);
         if (element.isRGB()) {
             int start_y = Math.max((int) (current.getScaledHeight_double() * .1) - 20, 5) + 22 * 8 + 25;
             int left1 = current.getScaledWidth() / 2 - 100;
@@ -350,14 +328,13 @@ public class DisplayElementConfig extends GuiScreen {
         if (lastX != 0 && lastY != 0)
             drawCircle(lastX, lastY);
     }
-    public int availableSpace() {
+    private int availableSpace() {
         ScaledResolution current = ResolutionUtil.current();
         int yMin = current.getScaledHeight() - 15 - startY();
         if (yMin + 20 > current.getScaledWidth())
             return yMin - 50;
         return yMin;
     }
-
 
     private int startY() {
         ScaledResolution current = ResolutionUtil.current();

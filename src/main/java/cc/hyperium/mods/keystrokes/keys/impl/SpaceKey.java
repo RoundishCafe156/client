@@ -21,24 +21,17 @@ import cc.hyperium.mods.keystrokes.KeystrokesMod;
 import cc.hyperium.mods.keystrokes.keys.IKey;
 import cc.hyperium.utils.ChatColor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
 import java.awt.Color;
 
 public class SpaceKey extends IKey {
-
     private final KeyBinding key;
-
     private boolean wasPressed = true;
-
     private long lastPress = 0L;
-
     private String name;
 
     public SpaceKey(KeystrokesMod mod, KeyBinding key, int xOffset, int yOffset, String name) {
