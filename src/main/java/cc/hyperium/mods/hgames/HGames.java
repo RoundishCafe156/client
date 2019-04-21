@@ -10,6 +10,7 @@ import cc.hyperium.mods.AbstractMod;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.MinigameDisplay;
 import cc.hyperium.mods.hgames.minigames.Minigame;
 import cc.hyperium.mods.hgames.minigames.Walls3;
+import net.hypixel.api.GameType;
 
 public class HGames extends AbstractMod {
     private final Metadata metadata;
@@ -21,7 +22,7 @@ public class HGames extends AbstractMod {
 
     @InvokeEvent
     private void onMinigameSwitch(JoinMinigameEvent event) {
-        if(event.getMinigame().equals(WALLS3)) {
+        if(event.getMinigame().equals(GameType.WALLS3)) {
             minigame = new Walls3();
         } else minigame = null;
     }
