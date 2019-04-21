@@ -8,13 +8,11 @@ task:
     folder: ~/.gradle/caches
     fingerprint_script: |
       cat build.gradle
-      rm -rf ~/.gradle
     populate_script: gradle setupCiWorkspace
-  matrix:
-  - name: Cirrus CI
-    script: gradle build
-    jar_artifacts:
-      path: ./build/libs/**
+  name: Cirrus CI
+  script: gradle build
+  jar_artifacts:
+    path: ./build/libs/**
   always:
     cleanup_before_cache_script: |
       find ~/.gradle/caches/ -name "*.lock" -type f -delete
