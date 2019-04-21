@@ -36,7 +36,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.opengl.GL11;
-import java.util.List;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class DragonHeadRenderer extends ModelBase {
@@ -46,7 +46,7 @@ public class DragonHeadRenderer extends ModelBase {
     private boolean playerUsesFullHeight;
     private DragonCosmetic dragonCosmetic;
     private ResourceLocation selectedLoc;
-    private List<UUID> timeMap = new List<>();
+    private HashMap<UUID, JumpState> timeMap = new HashMap<>();
 
     public DragonHeadRenderer(DragonCosmetic cosmetic) {
         this.dragonCosmetic = cosmetic;
@@ -175,3 +175,5 @@ public class DragonHeadRenderer extends ModelBase {
         return f;
     }
 }
+
+private class JumpState {}
