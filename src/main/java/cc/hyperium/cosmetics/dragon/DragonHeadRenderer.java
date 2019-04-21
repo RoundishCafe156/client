@@ -47,7 +47,7 @@ public class DragonHeadRenderer extends ModelBase {
     private boolean playerUsesFullHeight;
     private DragonCosmetic dragonCosmetic;
     private ResourceLocation selectedLoc;
-    private HashMap<UUID, JumpState> timeMap = new HashMap<>();
+    private HashMap<UUID> timeMap = new HashMap<>();
 
     public DragonHeadRenderer(DragonCosmetic cosmetic) {
         this.dragonCosmetic = cosmetic;
