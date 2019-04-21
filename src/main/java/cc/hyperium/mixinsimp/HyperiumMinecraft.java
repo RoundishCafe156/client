@@ -19,7 +19,6 @@ import cc.hyperium.event.WorldChangeEvent;
 import cc.hyperium.event.WorldUnloadEvent;
 import cc.hyperium.gui.CrashReportGUI;
 import cc.hyperium.gui.GuiHyperiumScreenMainMenu;
-import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.internal.addons.AddonBootstrap;
 import cc.hyperium.internal.addons.AddonMinecraftBootstrap;
 import cc.hyperium.internal.addons.IAddon;
