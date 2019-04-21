@@ -17,6 +17,9 @@ Because the license requires it, here is a list of changes made:
 * Removed in-game browser (improves compiling times)
 * Removed some cosmetics
 * Removed Chattriggers
+* Removed particle auras
+* Disabled autotip error reporting for privacy
+* Sk1erMod no longer spies on you
 
 ## ToS
 
