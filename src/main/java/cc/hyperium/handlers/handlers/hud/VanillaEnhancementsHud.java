@@ -47,9 +47,8 @@ public class VanillaEnhancementsHud {
                     if (heldItem.getUnlocalizedName().equalsIgnoreCase("item.bow")) {
                         int c = 0;
                         for (ItemStack is : thePlayer.inventory.mainInventory) {
-                            if (is != null) {
-                                if (is.getUnlocalizedName().equalsIgnoreCase("item.arrow"))
-                                    c += is.stackSize;
+                            if (is != null && is.getUnlocalizedName().equalsIgnoreCase("item.arrow")) {
+                                c += is.stackSize;
                             }
                         }
                         ScaledResolution current = ResolutionUtil.current();
@@ -262,7 +261,7 @@ public class VanillaEnhancementsHud {
         KeyBinding[] hotbarBindings = getGameSettings().keyBindsHotbar;
         for (int i = 0; i < Math.min(result.length, hotbarBindings.length); ++i) {
             result[i] = hotbarBindings[i].getKeyCode();
-          }
+        }
 
         return result;
     }
