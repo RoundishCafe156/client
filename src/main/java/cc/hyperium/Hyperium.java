@@ -213,7 +213,6 @@ public class Hyperium {
         if(!Settings.FPS) {
             hyperiumCommandHandler.registerCommand(new CustomLevelheadCommand());
             hyperiumCommandHandler.registerCommand(new AutofriendCommand());
-            hyperiumCommandHandler.registerCommand(new CommandParticleAuras());
             hyperiumCommandHandler.registerCommand(new CommandStatistics());
             hyperiumCommandHandler.registerCommand(new CommandQuests());
         }
