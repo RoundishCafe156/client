@@ -141,10 +141,6 @@ public class Settings {
     public static boolean HYPIXEL_ZOO = true;
 
     @ConfigOpt
-    @ToggleSetting(category = COSMETICS, name = "gui.settings.showparticleauras")
-    public static boolean SHOW_PARTICLES = true;
-
-    @ConfigOpt
     @ToggleSetting(category = GENERAL, name = "Show own name tag")
     public static boolean SHOW_OWN_NAME = false;
 
@@ -229,15 +225,10 @@ public class Settings {
         {
             "1",
             "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "CUSTOM",
             "DEFAULT"
         }
     )
-    public static String BACKGROUND = "4";
+    public static String BACKGROUND = "1”;
 
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.BackgroundSettings;fastWorldGuiEnabled")
     @ToggleSetting(name = "gui.settings.transparentcontainerbackgrounds")
