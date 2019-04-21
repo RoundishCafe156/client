@@ -24,41 +24,26 @@ import cc.hyperium.utils.ChatColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ToggleChatMainGui extends GuiScreen {
-
-    //        - 99
-    //        - 75
-    //        - 51
-    //        - 27
-    //        - 3
-    //        + 21
-    //        + 45
-    //        + 69
-
     private final ToggleChatMod main;
     private final Map<GuiButton, ToggleBase> data = new HashMap<>();
 
     private boolean changed = false;
-
     private int pageNumber;
 
     public ToggleChatMainGui(ToggleChatMod main, int pageNumber) {
         this.pageNumber = pageNumber;
-
         this.main = main;
-
         this.mc = Minecraft.getMinecraft();
     }
 
     @Override
     public void initGui() {
         this.buttonList.clear();
-
         setupPage();
     }
 
@@ -82,13 +67,8 @@ public class ToggleChatMainGui extends GuiScreen {
                 position[0] += 24;
             });
 
-//            GuiButton last = new GuiButton(1, this.width - 114, this.height - 25, 50, 20, "\u21E6");
-//            GuiButton next = new GuiButton(2, this.width - 60, this.height - 25, 50, 20, "\u21E8");
-
-
             GuiButton last = new GuiButton(1, this.width / 2 - 51, this.height / 2 + 90, 50, 20, "\u21E6");
             GuiButton next = new GuiButton(2, this.width / 2 + 1, this.height / 2 + 90, 50, 20, "\u21E8");
-
 
             this.buttonList.add(last);
             this.buttonList.add(next);
@@ -100,26 +80,22 @@ public class ToggleChatMainGui extends GuiScreen {
 
     public void drawScreen(int x, int y, float ticks) {
         drawDefaultBackground();
-
         drawCenteredString(this.fontRendererObj, String.format("Page %s/%s", (this.pageNumber), (int) Math.ceil((double) this.main.getToggleHandler().getToggles().size() / 7D)), this.width / 2, this.height / 2 - 94, Color.WHITE.getRGB());
-
         super.drawScreen(x, y, ticks);
-
         checkHover(this.height / 2 - 75);
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        switch (button.id) {
-            case 1:
-                this.mc.displayGuiScreen(new ToggleChatMainGui(this.main, this.pageNumber - 1));
-                return;
-            case 2:
-                this.mc.displayGuiScreen(new ToggleChatMainGui(this.main, this.pageNumber + 1));
-                return;
+        if(button.id == 1) {
+            this.mc.displayGuiScreen(new ToggleChatMainGui(this.main, this.pageNumber - 1));
+            return;
+        }
+        if (button.id == 2) {
+            this.mc.displayGuiScreen(new ToggleChatMainGui(this.main, this.pageNumber + 1));
+            return;
         }
 
-        // Make sure the id is 0 to prevent other buttons being pressed
         if (button.id == 0) {
             for (ToggleBase base : this.main.getToggleHandler().getToggles().values()) {
                 if (this.data.containsKey(button) && base.equals(this.data.get(button))) {
@@ -134,11 +110,7 @@ public class ToggleChatMainGui extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        if (this.changed) {
-            this.main.getConfigLoader().saveToggles();
-        }
-
-        // Prevent memory leaks
+        if (this.changed) this.main.getConfigLoader().saveToggles();
         this.data.clear();
         this.buttonList.clear();
     }
@@ -173,6 +145,4 @@ public class ToggleChatMainGui extends GuiScreen {
     public void display() {
         Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(this);
     }
-
-
 }
