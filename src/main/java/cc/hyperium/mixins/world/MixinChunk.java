@@ -54,9 +54,6 @@ public class MixinChunk {
     public int zPosition;
 
     @Shadow
-    private boolean isChunkLoaded;
-
-    @Shadow
     @Final
     private World worldObj;
 
@@ -67,9 +64,6 @@ public class MixinChunk {
     @Shadow
     @Final
     private ClassInheritanceMultiMap<Entity>[] entityLists;
-
-    @Shadow
-    private boolean hasEntities;
 
     private HyperiumChunk hyperiumChunk = new HyperiumChunk();
 
