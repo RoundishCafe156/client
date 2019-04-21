@@ -46,6 +46,12 @@ public class MixinChunk {
     private static Logger logger;
 
     @Shadow
+    private boolean hasEntities;
+
+    @Shadow
+    private boolean isChunkLoaded;
+
+    @Shadow
     @Final
     public int xPosition;
 
