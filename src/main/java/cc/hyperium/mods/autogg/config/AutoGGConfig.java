@@ -12,10 +12,10 @@ public class AutoGGConfig {
     @ToggleSetting(name = "Hide GG's at end of game", mods = true, category = AUTO_GG)
     public boolean ANTI_GG = false;
     @ConfigOpt
-    @SliderSetting(name = "Delay", min = 0, max = 5, round = true, isInt = true, category = Category.AUTO_GG, mods = true)
+    @SliderSetting(name = "Delay", min = 0, max = 5, round = true, isInt = true, category = AUTO_GG, mods = true)
     public int delay = 1;
     @ConfigOpt
-    @ToggleSetting(name = "Enable", mods = true, category = Category.AUTO_GG)
+    @ToggleSetting(name = "Enable", mods = true, category = AUTO_GG)
     public boolean toggled = true;
     @ConfigOpt
     @ToggleSetting(name = "Say Good Game instead of GG", mods = true, category = AUTO_GG)
