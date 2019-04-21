@@ -1,7 +1,6 @@
 package club.sk1er.website.api.requests;
 import cc.hyperium.utils.JsonHolder;
 import com.google.gson.JsonArray;
-import java.util.List;
 
 public class HypixelApiFriends implements HypixelApiObject {
     private JsonHolder master;
