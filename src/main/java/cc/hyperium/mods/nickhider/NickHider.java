@@ -52,7 +52,6 @@ public class NickHider {
     private Sk1erMod sk1erMod;
     private NickHiderConfig config;
     private boolean forceDown = false;
-    private boolean extendedUse = true;
     private String override = null;
     public NickHider() {
         INSTANCE = this;
