@@ -9,14 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(GuiMultiplayer.class)
 public abstract class MixinGuiMultiplayer implements IMixinGuiMultiplayer {
     @Shadow
-    private boolean directConnect;
-    @Shadow
     private ServerData selectedServer;
-
-    @Override
-    public void makeDirectConnect() {
-        directConnect = true;
-    }
 
     @Override
     public void setIp(ServerData ip) {
