@@ -175,8 +175,4 @@ public class DragonHeadRenderer extends ModelBase {
         }
         return f;
     }
-
-    private class JumpState {
-        private boolean onground = true;
-    }
 }
