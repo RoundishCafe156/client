@@ -88,7 +88,6 @@ public class DragonHeadRenderer extends ModelBase {
         this.jaw.setRotationPoint(0.0F, 4.0F, 8.0F + f);
         this.jaw.addBox("jaw", -6.0F, 0.0F, -16.0F, 12, 4, 16);
         this.head.addChild(this.jaw);
-
     }
 
     @InvokeEvent
@@ -114,7 +113,6 @@ public class DragonHeadRenderer extends ModelBase {
             this.renderHead(event.getEntity(), event.getPartialTicks());
             GlStateManager.popMatrix();
         }
-
     }
 
     private void renderHead(final EntityPlayer player, final float partialTicks) {
@@ -180,6 +178,5 @@ public class DragonHeadRenderer extends ModelBase {
 
     private class JumpState {
         private boolean onground = true;
-        private long lastOnGround = System.currentTimeMillis();
     }
 }
