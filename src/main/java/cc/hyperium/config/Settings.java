@@ -228,7 +228,7 @@ public class Settings {
             "DEFAULT"
         }
     )
-    public static String BACKGROUND = "1”;
+    public static String BACKGROUND = "1";
 
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.BackgroundSettings;fastWorldGuiEnabled")
     @ToggleSetting(name = "gui.settings.transparentcontainerbackgrounds")
