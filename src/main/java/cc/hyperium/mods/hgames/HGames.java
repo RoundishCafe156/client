@@ -21,7 +21,7 @@ public class HGames extends AbstractMod {
 
     @InvokeEvent
     private void onMinigameSwitch(JoinMinigameEvent event) {
-        if(event.getMinigame() == WALLS3) {
+        if(event.getMinigame().equals(WALLS3)) {
             minigame = new Walls3();
         } else minigame = null;
     }
