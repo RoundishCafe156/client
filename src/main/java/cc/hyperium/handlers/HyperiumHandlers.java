@@ -55,7 +55,6 @@ import cc.hyperium.handlers.handlers.hud.VanillaEnhancementsHud;
 import cc.hyperium.handlers.handlers.hypixel.HypixelGuiAugmenter;
 import cc.hyperium.handlers.handlers.keybinds.KeyBindHandler;
 import cc.hyperium.handlers.handlers.mixin.LayerDeadmau5HeadHandler;
-import cc.hyperium.handlers.handlers.particle.ParticleAuraHandler;
 import cc.hyperium.handlers.handlers.reach.ReachDisplay;
 import cc.hyperium.handlers.handlers.stats.StatsHandler;
 import cc.hyperium.handlers.handlers.tracking.HypixelValueTracking;
@@ -87,7 +86,6 @@ public class HyperiumHandlers {
     private OtherConfigOptions configOptions;
     private DabHandler dabHandler;
     private FlossDanceHandler flossDanceHandler;
-    private ParticleAuraHandler particleAuraHandler;
     private VanillaEnhancementsHud vanillaEnhancementsHud;
     private QuestTrackingChatHandler questTracking;
     private ReachDisplay reachDisplay;
@@ -127,7 +125,6 @@ public class HyperiumHandlers {
         register(scoreboardRenderer = new ScoreboardRenderer());
         register(dabHandler = new DabHandler());
         register(twerkDance = new TwerkDance());
-        register(particleAuraHandler = new ParticleAuraHandler());
         register(yeetHandler = new YeetHandler());
         register(hypixelGuiAugmenter = new HypixelGuiAugmenter());
         register(statusHandler = new StatusHandler());
@@ -170,10 +167,6 @@ public class HyperiumHandlers {
 
     public HyperiumNetwork getNetwork() {
         return network;
-    }
-
-    public ParticleAuraHandler getParticleAuraHandler() {
-        return particleAuraHandler;
     }
 
     public FlipHandler getFlipHandler() {
