@@ -53,9 +53,6 @@ public abstract class MixinGuiIngame extends Gui {
     private HyperiumGuiIngame hyperiumGuiIngame = new HyperiumGuiIngame((GuiIngame) (Object) this);
 
     @Shadow
-    public abstract FontRenderer getFontRenderer();
-
-    @Shadow
     @Final
     private Random rand;
 
@@ -306,8 +303,6 @@ public abstract class MixinGuiIngame extends Gui {
 
     @Inject(method = "displayTitle", at = @At("HEAD"), cancellable = true)
     private void displayTitle(String title, String subTitle, int timeFadeIn, int displayTime, int timeFadeOut, CallbackInfo ci) {
-        if (Settings.HIDE_TITLES) {
-            ci.cancel();
-        }
+        if (Settings.HIDE_TITLES) ci.cancel();
     }
 }
