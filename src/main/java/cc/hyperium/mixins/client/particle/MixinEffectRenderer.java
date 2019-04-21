@@ -31,7 +31,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,6 @@ import java.util.concurrent.CountDownLatch;
 
 @Mixin(EffectRenderer.class)
 public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
-
     @Shadow
     @Final
     private static ResourceLocation particleTextures;
@@ -101,7 +99,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
                     }
                     latch.countDown();
                 });
-
             } else {
                 this.updateEffectAlphaLayer(this.modifiedFxLayer[p_178922_1_][finalI]);
             }
@@ -251,21 +248,18 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
 
                 ConcurrentLinkedQueue<EntityFX> entityFXES = this.modifiedFxLayer[i][j];
                 if (!entityFXES.isEmpty()) {
-                    switch (j) {
-                        case 0:
-                            GlStateManager.depthMask(false);
-                            break;
-                        case 1:
-                            GlStateManager.depthMask(true);
+                    if(j == 0) {
+                        GlStateManager.depthMask(false);
+                    }
+                    if(j == 1) {
+                        GlStateManager.depthMask(true);
                     }
 
-                    switch (i) {
-                        case 0:
-                        default:
-                            this.renderer.bindTexture(particleTextures);
-                            break;
-                        case 1:
-                            this.renderer.bindTexture(TextureMap.locationBlocksTexture);
+                    if(i == 0) {
+                        this.renderer.bindTexture(particleTextures);
+                    }
+                    if(i == 1) {
+                        this.renderer.bindTexture(TextureMap.locationBlocksTexture);
                     }
 
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -274,7 +268,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
                     worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
                     for (EntityFX entityfx : entityFXES) {
-
                         try {
                             if (entityfx == null)
                                 continue;
@@ -287,7 +280,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
                             throw new ReportedException(crashreport);
                         }
                     }
-
                     tessellator.draw();
                 }
             }
