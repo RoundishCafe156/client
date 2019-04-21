@@ -25,13 +25,10 @@ public class GuiConfirmQuit extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        switch (button.id) {
-            case 0:
-                mc.shutdown();
-                break;
-            case 1:
-                Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GuiHyperiumScreenMainMenu());
-                break;
+        if(button.id == 0) {
+            mc.shutdown();
+        }else{
+            Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GuiHyperiumScreenMainMenu());
         }
     }
 }
