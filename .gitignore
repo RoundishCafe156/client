@@ -1,26 +1,15 @@
-.fuse_hidden*
-.directory
-.Trash-*
-.nfs*
 Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
 [Dd]esktop.ini
-$RECYCLE.BIN/
 *.iml
 build/
 .gradle/
-settings.gradle
 out/
 run/
 src/api/
 src/test/
 .idea/
-gradle/
-gradlew
 .DS_Store
 .AppleDesktop
-Network Trash Folder
 Temporary Items
 .apdisk
 .AppleDouble
