@@ -126,8 +126,6 @@ public class MixinModelBiped extends ModelBase implements IMixinModelBiped {
             this.bipedLeftLeg.render(scale);
             this.bipedHeadwear.render(scale);
 
-
-            // Adding our parts
             if (getClass().equals(ModelBiped.class))
                 renderBiped(scale);
         } else {
@@ -143,7 +141,6 @@ public class MixinModelBiped extends ModelBase implements IMixinModelBiped {
             this.bipedLeftLeg.render(scale);
             this.bipedHeadwear.render(scale);
 
-            // Adding our parts
             if (getClass().equals(ModelBiped.class))
                 renderBiped(scale);
         }
@@ -185,18 +182,13 @@ public class MixinModelBiped extends ModelBase implements IMixinModelBiped {
         }
         this.bipedRightArm.rotateAngleY = 0.0f;
         this.bipedRightArm.rotateAngleZ = 0.0f;
-        switch (this.heldItemRight) {
-            case 1: {
-                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5f - 0.31415927f * this.heldItemRight;
-                break;
-            }
-            case 3: {
-                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5f - 0.31415927f * this.heldItemRight;
-                if (!Settings.OLD_BLOCKING) {
-                    this.bipedRightArm.rotateAngleY = -0.5235988f;
-                    break;
-                }
-                break;
+        if(this.heldItemRight == 1) {
+            this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5f - 0.31415927f * this.heldItemRight;
+        }
+        if(this.heldItemRight == 3) {
+            this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5f - 0.31415927f * this.heldItemRight;
+            if (!Settings.OLD_BLOCKING) {
+                this.bipedRightArm.rotateAngleY = -0.5235988f;
             }
         }
         this.bipedLeftArm.rotateAngleY = 0.0f;
