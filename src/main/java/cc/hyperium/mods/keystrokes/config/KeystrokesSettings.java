@@ -17,7 +17,6 @@
 
 package cc.hyperium.mods.keystrokes.config;
 
-import cc.hyperium.Hyperium;
 import cc.hyperium.mods.keystrokes.KeystrokesMod;
 import cc.hyperium.mods.keystrokes.keys.impl.CustomKey;
 import cc.hyperium.mods.keystrokes.render.CustomKeyWrapper;
