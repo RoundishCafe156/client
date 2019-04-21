@@ -46,8 +46,8 @@ public class ClassTransformer implements IClassTransformer {
         ClassRemapper adapter = new ClassRemapper(classWriter, new Remapper() {
             @Override
             public String map(String typeName) {
-                if (typeName.equals("CapeUtils$1")) {
-                    return "cc.hyperium.mods.memoryfix.CapeImageBuffer".replace('.', '/');
+                if ("CapeUtils$1".equals(typeName)) {
+                    return "cc/hyperium/mods/memoryfix/CapeImageBuffer";
                 }
                 return typeName;
             }
