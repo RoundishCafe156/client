@@ -11,9 +11,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import me.semx11.autotip.Autotip;
 import me.semx11.autotip.api.SessionKey;
-import me.semx11.autotip.api.reply.impl.KeepAliveReply;
 import me.semx11.autotip.api.reply.impl.LoginReply;
-import me.semx11.autotip.api.reply.impl.LogoutReply;
 import me.semx11.autotip.api.reply.impl.TipReply;
 import me.semx11.autotip.api.reply.impl.TipReply.Tip;
 import me.semx11.autotip.api.request.impl.KeepAliveRequest;
@@ -27,7 +25,6 @@ import me.semx11.autotip.stats.StatsRange;
 import me.semx11.autotip.util.ErrorReport;
 import me.semx11.autotip.util.HashUtil;
 import net.minecraft.util.Session;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 
 public class SessionManager {
