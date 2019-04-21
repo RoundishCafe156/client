@@ -8,7 +8,7 @@ task:
     folder: ~/.gradle/caches
     fingerprint_script: |
       cat build.gradle
-      echo $OS
+      echo $CI
     populate_script: gradle setupCiWorkspace
   matrix:
   - name: Cirrus CI
