@@ -20,6 +20,8 @@ Because the license requires it, here is a list of changes made:
 * Removed particle auras
 * Disabled autotip error reporting for privacy
 * Sk1erMod no longer spies on you
+* Custom installer
+* Depedencies updated
 
 ## ToS
 
