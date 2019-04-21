@@ -33,7 +33,7 @@ public class AutoGGListener {
         // Double parse to remove hypixel formatting codes
         String unformattedMessage = ChatColor.stripColor(event.getChat().getUnformattedText());
 
-        if (this.mod.getTriggers().stream().anyMatch(unformattedMessage::contains) && unformattedMessage.startsWith(" ")) {
+        if (this.mod.getTriggers().stream().anyMatch(unformattedMessage::contains) && unformattedMessage.charAt(0).equals(" ")) {
             this.mod.setRunning(true);
             invoked = true;
             Multithreading.runAsync(() -> {
