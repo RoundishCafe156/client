@@ -240,19 +240,6 @@ public class CommandAutotip extends CommandAbstract {
 
     @Override
     public List<String> onTabComplete(String[] args) {
-        switch (args.length) {
-            case 1:
-                return getListOfStringsMatchingLastWord(args, "stats", "info", "messages", "toggle",
-                        "wave");
-            case 2:
-                switch (args[0].toLowerCase()) {
-                    case "s":
-                    case "stats":
-                        return getListOfStringsMatchingLastWord(args, "day", "yesterday", "week",
-                                "month", "year", "lifetime");
-                }
-            default:
-                return Collections.emptyList();
-        }
+        return getListOfStringsMatchingLastWord(args, "info", "messages", "toggle", "wave");
     }
 }
