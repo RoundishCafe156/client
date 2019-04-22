@@ -30,7 +30,6 @@ import cc.hyperium.mods.sk1ercommon.Multithreading;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import java.awt.Color;
-import rocks.rdil.jailbreak.Jailbreak;
 import java.util.regex.Pattern;
 
 public class HypixelDetector {
@@ -42,6 +41,8 @@ public class HypixelDetector {
         instance = this;
     }
 
+    private void noop() {}
+
     public static HypixelDetector getInstance() {
         return instance;
     }
@@ -51,7 +52,6 @@ public class HypixelDetector {
         this.hypixel = HYPIXEL_PATTERN.matcher(event.getServer()).find();
 
         Multithreading.runAsync(() -> {
-            // Wait a while until the player isn't null, signifying the joining process is complete
             int tries = 0;
             while (Minecraft.getMinecraft().thePlayer == null) {
                 tries++;
@@ -65,17 +65,14 @@ public class HypixelDetector {
                 }
             }
 
-            if (hypixel) { // If player is online recognized Hypixel IP
+            if (hypixel) {
                 EventBus.INSTANCE.post(new JoinHypixelEvent(ServerVerificationMethod.IP));
-            } else { // Double check the player isn't online Hypixel
+            } else {
                 if (Minecraft.getMinecraft() != null && Minecraft.getMinecraft().getCurrentServerData() != null) {
                     final ServerData serverData = Minecraft.getMinecraft().getCurrentServerData();
-
-                    if (serverData != null && serverData.serverMOTD != null) {
-                        if (serverData.serverMOTD.toLowerCase().contains("hypixel network")) {
-                            this.hypixel = true;
-                            EventBus.INSTANCE.post(new JoinHypixelEvent(ServerVerificationMethod.MOTD));
-                        }
+                    if (serverData != null && serverData.serverMOTD != null && serverData.serverMOTD.toLowerCase().contains("hypixel network")) {
+                        this.hypixel = true;
+                        EventBus.INSTANCE.post(new JoinHypixelEvent(ServerVerificationMethod.MOTD));
                     }
                 }
             }
@@ -84,11 +81,7 @@ public class HypixelDetector {
 
     @InvokeEvent
     public void join(JoinHypixelEvent event) {
-        if (Settings.HYPIXEL_ZOO) {
-            Hyperium.INSTANCE.getNotification().display("Welcome to the Hypixel Zoo.", "Click to visit the forums",
-                5f, null, () -> Jailbreak.getBrowseUtil().BrowseURI("https://hypixel.net"),
-                new Color(200, 150, 50));
-        }
+        if (Settings.HYPIXEL_ZOO) Hyperium.INSTANCE.getNotification().display("Welcome to the Hypixel Zoo.", "_____________________",5f, null, () -> noop(),new Color(200, 150, 50));
     }
 
     @InvokeEvent
