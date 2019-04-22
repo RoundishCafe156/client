@@ -189,7 +189,6 @@ public abstract class HyperiumGui extends GuiScreen {
     public void initGui() {
         super.initGui();
         rePack();
-        loadCustomBackground();
     }
 
     @Override
