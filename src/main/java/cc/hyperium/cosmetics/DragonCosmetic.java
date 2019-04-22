@@ -25,11 +25,9 @@ import cc.hyperium.purchases.EnumPurchaseType;
 import net.minecraft.client.entity.AbstractClientPlayer;
 
 public class DragonCosmetic extends AbstractCosmetic {
-    private DragonHeadRenderer renderer;
-
     public DragonCosmetic() {
         super(false, EnumPurchaseType.DRAGON_HEAD);
-        renderer = new DragonHeadRenderer(this);
+        new DragonHeadRenderer(this);
         EventBus.INSTANCE.register(renderer);
     }
 
