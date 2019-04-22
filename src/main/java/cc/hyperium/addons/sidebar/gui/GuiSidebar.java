@@ -32,6 +32,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cc.hyperium.addons.sidebar.gui.GuiSidebar.ChromaType.*;
+
 public class GuiSidebar extends Gui {
     public enum ChromaType {
         ONE("Background 1", 0),
@@ -49,7 +51,7 @@ public class GuiSidebar extends Gui {
         }
 
         public static ChromaType next(ChromaType current) {
-            return current == ChromaType.ONE ? ChromaType.TWO : (current == ChromaType.TWO ? ChromaType.THREE : (current == ChromaType.THREE ? ChromaType.FOUR : ChromaType.ONE));
+            return current == ChromaType.ONE ? TWO : (current == TWO ? ChromaType.THREE : (current == ChromaType.THREE ? ChromaType.FOUR : ChromaType.ONE));
         }
     }
 
@@ -140,35 +142,29 @@ public class GuiSidebar extends Gui {
         if (this.chromaEnabled && isBackground) {
             long dif;
             float ff;
-            switch (this.chromaType) {
-                case ONE:
-                    dif = 0;
-                    ff = 1000.0f;
-                    long l = System.currentTimeMillis() - dif;
-                    l = l * chromaSpeed;
-                    rgb = Color.HSBtoRGB((float) (l % (int) ff) / ff, 0.8F, 0.8F);
-                    break;
-                case TWO:
-                    dif = (this.sidebarX * 10) - (this.sidebarY * 10);
-                    ff = 2000.0f;
-                    long l2 = System.currentTimeMillis() - dif;
-                    rgb = Color.HSBtoRGB((float) (l2 % (int) ff) / ff, 0.8F, 0.8F);
-                    break;
+            if(this.chromaType == ONE) {
+                dif = 0;
+                ff = 1000.0f;
+                long l = System.currentTimeMillis() - dif;
+                l = l * chromaSpeed;
+                rgb = Color.HSBtoRGB((float) (l % (int) ff) / ff, 0.8F, 0.8F);}
+            if(this.chromaType == TWO) {
+                dif = (this.sidebarX * 10) - (this.sidebarY * 10);
+                ff = 2000.0f;
+                long l2 = System.currentTimeMillis() - dif;
+                rgb = Color.HSBtoRGB((float) (l2 % (int) ff) / ff, 0.8F, 0.8F);
             }
         } else if (this.chromaEnabled) {
             long dif;
             float ff;
-            switch (this.chromaType) {
-                case THREE:
-                    dif = 0;
-                    ff = 1000.0f;
-                    break;
-                case FOUR:
-                    dif = (this.sidebarX * 10) - (this.sidebarY * 10);
-                    ff = 2000.0f;
-                    break;
-                default:
-                    return 553648127;
+            if(this.chromaType == THREE) {
+                dif = 0;
+                ff = 1000.0f;
+            } else if(this.chromaType == FOUR) {
+                dif = (this.sidebarX * 10) - (this.sidebarY * 10);
+                ff = 2000.0f;
+            } else {
+                return 553648127;
             }
             long l = System.currentTimeMillis() - dif;
             rgb = Color.HSBtoRGB((float) (l % (int) ff) / ff, 0.8F, 0.8F);
