@@ -161,7 +161,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
 
     @Overwrite
     public void renderLitParticles(Entity entityIn, float p_78872_2_) {
-        float f = 0.017453292F;
         float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F);
         float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F);
         float f3 = -f2 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F);
