@@ -1,20 +1,14 @@
 package cc.hyperium.mixinsimp.gui;
 
 import com.google.common.collect.Lists;
-
 import java.util.List;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
 public class HyperiumGuiUtilRenderComponents {
-    private GuiUtilRenderComponents parent;
-
-    public HyperiumGuiUtilRenderComponents(GuiUtilRenderComponents parent) {
-        this.parent = parent;
-    }
+    public HyperiumGuiUtilRenderComponents() {}
 
     public static List<IChatComponent> func_178908_a(IChatComponent p_178908_0_, int p_178908_1_, FontRenderer p_178908_2_, boolean p_178908_3_, boolean p_178908_4_) {
         int i = 0;

@@ -9,7 +9,6 @@ import cc.hyperium.event.RenderHUDEvent;
 import cc.hyperium.event.RenderSelectedItemEvent;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.ScoreboardDisplay;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
@@ -20,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class HyperiumGuiIngame {
-    public static boolean renderScoreboard = true;
-
     private GuiIngame parent;
 
     public HyperiumGuiIngame(GuiIngame parent) {
@@ -38,24 +35,18 @@ public class HyperiumGuiIngame {
         EventBus.INSTANCE.post(new RenderHUDEvent(part));
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getMinecraft().mcProfiler.endSection();
-
     }
 
     public void renderScoreboard(ScoreObjective objective, ScaledResolution resolution) {
-        //For *extra* scoreboards
         ScoreboardDisplay.p_180475_1_ = objective;
         ScoreboardDisplay.p_180475_2_ = resolution;
-
-        if (renderScoreboard) {
-            Hyperium.INSTANCE.getHandlers().getScoreboardRenderer().render(objective, resolution);
-        }
+        Hyperium.INSTANCE.getHandlers().getScoreboardRenderer().render(objective, resolution);
     }
 
     public void renderBossHealth() {
         if (BossStatus.bossName != null && BossStatus.statusBarTime > 0 && BossbarConfig.bossBarEnabled) {
             --BossStatus.statusBarTime;
 
-            FontRenderer fontrenderer = Minecraft.getMinecraft().fontRendererObj;
             ScaledResolution scaledresolution = new ScaledResolution(Minecraft.getMinecraft());
             int i = scaledresolution.getScaledWidth();
             if (Settings.BOSSBAR_TEXT_ONLY || (!BossbarConfig.barEnabled && BossbarConfig.textEnabled)) {

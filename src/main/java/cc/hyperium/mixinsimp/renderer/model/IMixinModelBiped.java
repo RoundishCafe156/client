@@ -1,6 +1,5 @@
 package cc.hyperium.mixinsimp.renderer.model;
 
-import cc.hyperium.mixins.renderer.model.MixinModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 
 public interface IMixinModelBiped {

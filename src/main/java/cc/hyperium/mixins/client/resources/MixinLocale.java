@@ -17,8 +17,7 @@ public abstract class MixinLocale {
 
     @Redirect(
         method = "loadLocaleDataFiles",
-        at = @At(
-            value = "INVOKE",
+        at = @At(value = "INVOKE",
             target = "Ljava/lang/String;format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"
         )
     )
