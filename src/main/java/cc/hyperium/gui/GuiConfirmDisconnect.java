@@ -26,22 +26,20 @@ public class GuiConfirmDisconnect extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        switch (button.id) {
-            case 0:
-                boolean integratedServerRunning = this.mc.isIntegratedServerRunning();
-                button.enabled = false;
-                this.mc.theWorld.sendQuittingDisconnectingPacket();
-                this.mc.loadWorld(null);
+        if(button.id == 0) {
+            boolean integratedServerRunning = this.mc.isIntegratedServerRunning();
+            button.enabled = false;
+            this.mc.theWorld.sendQuittingDisconnectingPacket();
+            this.mc.loadWorld(null);
 
-                if (integratedServerRunning) {
-                    Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GuiMainMenu());
-                } else {
-                    Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GuiMultiplayer(new GuiMainMenu()));
-                }
-                break;
-            case 1:
-                mc.displayGuiScreen(null);
-                break;
+            if (integratedServerRunning) {
+                Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GuiMainMenu());
+            } else {
+                Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new GuiMultiplayer(new GuiMainMenu()));
+            }
+        }
+        if(button.id == 1) {
+            mc.displayGuiScreen(null);
         }
     }
 }
