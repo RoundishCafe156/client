@@ -1,7 +1,8 @@
 # Jailbroken Hyperium
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/966f221ca8b44ac5b7027246c2b22388)](https://app.codacy.com/app/hyperiumjailbreak/client?utm_source=github.com&utm_medium=referral&utm_content=hyperiumjailbreak/client&utm_campaign=Badge_Grade_Dashboard)
-[![](https://jitpack.io/v/hyperiumjailbreak/client.svg)](https://jitpack.io/#hyperiumjailbreak/client)
+[![JitPack](https://jitpack.io/v/hyperiumjailbreak/client.svg)](https://jitpack.io/#hyperiumjailbreak/client)
+[![CI Status](https://api.cirrus-ci.com/github/hyperiumjailbreak/client.svg?branch=master)](https://cirrus-ci.com/github/hyperiumjailbreak/client)
 
 Jailbroken Hyperium is a fork of [HyperiumClient](https://hyperium.cc) with enhancements and misc. fixes.
 
