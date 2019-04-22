@@ -79,10 +79,7 @@ public class Levelhead extends AbstractMod {
     }
 
     public AbstractMod init() {
-        mod = new Sk1erMod(MODID, VERSION, object -> {
-            count = object.optInt("count");
-            this.wait = object.optInt("wait", Integer.MAX_VALUE);
-        });
+        mod = new Sk1erMod(MODID, VERSION);
         Multithreading.runAsync(() -> types = new JsonHolder(mod.rawWithAgent("https://api.sk1er.club/levelhead_config")));
         this.config = new LevelheadConfig();
         Hyperium.CONFIG.register(config);

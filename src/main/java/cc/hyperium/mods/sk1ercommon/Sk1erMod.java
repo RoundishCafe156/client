@@ -36,10 +36,6 @@ public class Sk1erMod {
         instance = this;
     }
 
-    public Sk1erMod(String modid, String version, GenKeyCallback callback) {
-        this(modid, version);
-    }
-
     public static Sk1erMod getInstance() {
         return instance;
     }

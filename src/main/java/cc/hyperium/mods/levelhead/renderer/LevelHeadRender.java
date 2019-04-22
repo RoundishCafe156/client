@@ -48,40 +48,35 @@ public class LevelHeadRender {
 
     @InvokeEvent
     public void render(RenderNameTagEvent event) {
-
-        if ((event.getEntity().getUniqueID().equals(this.levelHead.userUuid) && !levelHead.getConfig().isShowSelf()) || !Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel())
-            return;
+        if ((event.getEntity().getUniqueID().equals(this.levelHead.userUuid) && !levelHead.getConfig().isShowSelf()) || !Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) return;
 
         EntityPlayer player = event.getEntity();
 
-        if (levelHead.loadOrRender(player) && (this.levelHead.getLevelString(player.getUniqueID())) != null) {
-            if (player.getDistanceSqToEntity(Minecraft.getMinecraft().thePlayer) < 64 * 64) {
-                double offset = 0.3;
-                Scoreboard scoreboard = player.getWorldScoreboard();
-                ScoreObjective scoreObjective = scoreboard.getObjectiveInDisplaySlot(2);
+        if (levelHead.loadOrRender(player) && (this.levelHead.getLevelString(player.getUniqueID())) != null && player.getDistanceSqToEntity(Minecraft.getMinecraft().thePlayer) < 64 * 64) {
+            double offset = 0.3;
+            Scoreboard scoreboard = player.getWorldScoreboard();
+            ScoreObjective scoreObjective = scoreboard.getObjectiveInDisplaySlot(2);
 
-                if (scoreObjective != null && player.getDistanceSqToEntity(Minecraft.getMinecraft().thePlayer) < 10 * 10) {
-                    offset *= 2;
-                }
-                if (player.getUniqueID().equals(this.levelHead.userUuid) && !Settings.SHOW_OWN_NAME)
-                    offset = -10;
-                if (Hyperium.INSTANCE.getCosmetics().getDeadmau5Cosmetic().isPurchasedBy(event.getEntity().getUniqueID())) {
-                    HyperiumPurchase packageIfReady = PurchaseApi.getInstance().getPackageIfReady(event.getEntity().getUniqueID());
-                    if (packageIfReady != null) {
-                        AbstractHyperiumPurchase purchase = packageIfReady.getPurchase(EnumPurchaseType.DEADMAU5_COSMETIC);
-                        if (purchase != null) {
-                            if (event.getEntity().getUniqueID() != Minecraft.getMinecraft().thePlayer.getUniqueID()) {
-                                if (((EarsCosmetic) purchase).isEnabled()) {
-                                    offset += .3;
-                                }
-                            } else if (Settings.EARS_STATE.equalsIgnoreCase("on"))
-                                offset += .2;
-                        }
-
+            if (scoreObjective != null && player.getDistanceSqToEntity(Minecraft.getMinecraft().thePlayer) < 10 * 10) {
+                offset *= 2;
+            }
+            if (player.getUniqueID().equals(this.levelHead.userUuid) && !Settings.SHOW_OWN_NAME)
+                offset = -10;
+            if (Hyperium.INSTANCE.getCosmetics().getDeadmau5Cosmetic().isPurchasedBy(event.getEntity().getUniqueID())) {
+                HyperiumPurchase packageIfReady = PurchaseApi.getInstance().getPackageIfReady(event.getEntity().getUniqueID());
+                if (packageIfReady != null) {
+                    AbstractHyperiumPurchase purchase = packageIfReady.getPurchase(EnumPurchaseType.DEADMAU5_COSMETIC);
+                    if (purchase != null) {
+                        if (event.getEntity().getUniqueID() != Minecraft.getMinecraft().thePlayer.getUniqueID()) {
+                            if (((EarsCosmetic) purchase).isEnabled()) {
+                                offset += .3;
+                            }
+                        } else if (Settings.EARS_STATE.equalsIgnoreCase("on"))
+                            offset += .2;
                     }
                 }
-                renderName(event, (this.levelHead.getLevelString(player.getUniqueID())), offset);
             }
+            renderName(event, (this.levelHead.getLevelString(player.getUniqueID())), offset);
         }
     }
 

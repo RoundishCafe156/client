@@ -103,10 +103,8 @@ public abstract class MixinGuiIngame extends Gui {
             this.playerHealth = currentHealth;
             int lastPlayerHealth = this.lastPlayerHealth;
             this.rand.setSeed((long) (this.updateCounter * 312871));
-            boolean alwaysFalseFlagWhatIsThis = false;
             FoodStats foodstats = entityplayer.getFoodStats();
             int foodLevel = foodstats.getFoodLevel();
-            int prevFoodLevel = foodstats.getPrevFoodLevel();
             IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
             int widthLeft = p_180477_1_.getScaledWidth() / 2 - 91;
             int widthRight = p_180477_1_.getScaledWidth() / 2 + 91;
@@ -214,19 +212,8 @@ public abstract class MixinGuiIngame extends Gui {
                     if (entityplayer.getFoodStats().getSaturationLevel() <= 0.0F && this.updateCounter % (foodLevel * 3 + 1) == 0) {
                         foodHeight = height + (this.rand.nextInt(3) - 1);
                     }
-                    if (alwaysFalseFlagWhatIsThis) {
-                        textureX = 1;
-                    }
                     int foodPositionX = widthRight - foodPostion * 8 - 9;
                     this.drawTexturedModalRect(foodPositionX, foodHeight, 16 + textureX * 9, 27, 9, 9);
-                    if (alwaysFalseFlagWhatIsThis) {
-                        if (foodPostion * 2 + 1 < prevFoodLevel) {
-                            this.drawTexturedModalRect(foodPositionX, foodHeight, textureXT + 54, 27, 9, 9);
-                        }
-                        if (foodPostion * 2 + 1 == prevFoodLevel) {
-                            this.drawTexturedModalRect(foodPositionX, foodHeight, textureXT + 63, 27, 9, 9);
-                        }
-                    }
 
                     if (foodPostion * 2 + 1 < foodLevel) {
                         this.drawTexturedModalRect(foodPositionX, foodHeight, textureXT + 36, 27, 9, 9);
@@ -252,9 +239,6 @@ public abstract class MixinGuiIngame extends Gui {
                     for (int mountHealth = 0; mountHealth < heartInt; ++mountHealth) {
                         int textureX = 52;
                         int additionalX = 0;
-                        if (alwaysFalseFlagWhatIsThis) {
-                            additionalX = 1;
-                        }
                         int mountHealthPositionX = widthRight - mountHealth * 8 - 9;
                         this.drawTexturedModalRect(mountHealthPositionX, mountHealthHeight, textureX + additionalX * 9, 9, 9, 9);
                         if (mountHealth * 2 + 1 + tempInt < tempHealth) {
