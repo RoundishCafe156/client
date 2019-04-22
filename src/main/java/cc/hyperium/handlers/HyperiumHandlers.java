@@ -61,12 +61,9 @@ import cc.hyperium.handlers.handlers.tracking.HypixelValueTracking;
 import cc.hyperium.mods.PerspectiveModifierHandler;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.command.ICommandManager;
-import net.minecraft.server.integrated.IntegratedServer;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class HyperiumHandlers {
     private LocationHandler locationHandler;
     private HypixelDetector hypixelDetector;
@@ -76,7 +73,6 @@ public class HyperiumHandlers {
     private List<HyperiumChatHandler> chatHandlers;
     private GeneralChatHandler generalChatHandler;
     private HypixelAPI dataHandler;
-    private ResolutionUtil resolutionUtil;
     private StatusHandler statusHandler;
     private GuiDisplayHandler guiDisplayHandler;
     private KeyBindHandler keybindHandler;
@@ -86,18 +82,13 @@ public class HyperiumHandlers {
     private OtherConfigOptions configOptions;
     private DabHandler dabHandler;
     private FlossDanceHandler flossDanceHandler;
-    private VanillaEnhancementsHud vanillaEnhancementsHud;
-    private QuestTrackingChatHandler questTracking;
-    private ReachDisplay reachDisplay;
     private FlipHandler flipHandler;
     private LayerDeadmau5HeadHandler layerDeadmau5HeadHandler;
     private PerspectiveModifierHandler perspectiveHandler;
     private TPoseHandler tPoseHandler;
     private FortniteDefaultDance fortniteDefaultDance;
-    private HypixelGuiAugmenter hypixelGuiAugmenter;
     private TwerkDance twerkDance;
     private StatsHandler statsHandler;
-    private BroadcastEvents broadcastEvents;
     private HypixelValueTracking hypixelValueTracking;
     private SettingsHandler settingsHandler;
     private YeetHandler yeetHandler;
@@ -113,31 +104,31 @@ public class HyperiumHandlers {
         register(keybindHandler = new KeyBindHandler());
         register(hypixelDetector = new HypixelDetector());
         register(flipHandler = new FlipHandler());
-        register(reachDisplay = new ReachDisplay());
+        register(new ReachDisplay());
         register(locationHandler = new LocationHandler());
-        register(vanillaEnhancementsHud = new VanillaEnhancementsHud());
+        register(new VanillaEnhancementsHud());
         register(valueHandler = new ValueHandler());
         register(layerDeadmau5HeadHandler = new LayerDeadmau5HeadHandler());
         register(hypixelValueTracking = new HypixelValueTracking());
-        register(resolutionUtil = new ResolutionUtil());
+        register(new ResolutionUtil());
         register(capeHandler = new CapeHandler());
         register(guiDisplayHandler = new GuiDisplayHandler());
         register(scoreboardRenderer = new ScoreboardRenderer());
         register(dabHandler = new DabHandler());
         register(twerkDance = new TwerkDance());
         register(yeetHandler = new YeetHandler());
-        register(hypixelGuiAugmenter = new HypixelGuiAugmenter());
+        register(new HypixelGuiAugmenter());
         register(statusHandler = new StatusHandler());
         register(flossDanceHandler = new FlossDanceHandler());
         register(tPoseHandler = new TPoseHandler());
         register(fortniteDefaultDance = new FortniteDefaultDance());
         register(statsHandler = new StatsHandler());
-        register(broadcastEvents = new BroadcastEvents());
+        register(new BroadcastEvents());
         commandQueue = new CommandQueue();
         dataHandler = new HypixelAPI();
         registerChatHandler(new RankedRatingChatHandler());
         registerChatHandler(new DMChatHandler());
-        registerChatHandler(questTracking = new QuestTrackingChatHandler());
+        registerChatHandler(new QuestTrackingChatHandler());
         registerChatHandler(new WinTrackingChatHandler());
         registerChatHandler(new FriendRequestChatHandler());
         registerChatHandler(new PartyInviteChatHandler());
@@ -190,13 +181,11 @@ public class HyperiumHandlers {
         chatHandlers.add(chatHandler);
     }
 
+    @SuppressWarnings("unused")
     @InvokeEvent
     public void tick(TickEvent event) {
         // Runs first tick
-        IntegratedServer integratedServer = Minecraft.getMinecraft().getIntegratedServer();
-        if (integratedServer == null) return;
-        ICommandManager commandManager = integratedServer.getCommandManager();
-        if (commandManager == null) return;
+        if (Minecraft.getMinecraft().getIntegratedServer() == null || Minecraft.getMinecraft().getIntegratedServer().getCommandManager() == null) return;
         EventBus.INSTANCE.unregister(HyperiumHandlers.class);
     }
 
