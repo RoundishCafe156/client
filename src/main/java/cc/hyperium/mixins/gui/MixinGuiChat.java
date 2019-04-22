@@ -19,7 +19,6 @@ package cc.hyperium.mixins.gui;
 
 import cc.hyperium.mixinsimp.gui.HyperiumGuiChat;
 import cc.hyperium.mods.nickhider.NickHider;
-import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.EnumChatFormatting;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,7 +34,7 @@ public class MixinGuiChat {
     @Shadow
     private GuiTextField inputField;
 
-    private HyperiumGuiChat hyperiumGuiChat = new HyperiumGuiChat((GuiChat) (Object) this);
+    private HyperiumGuiChat hyperiumGuiChat = new HyperiumGuiChat();
 
     @Inject(method = "initGui", at = @At("RETURN"))
     private void init(CallbackInfo ci) {
