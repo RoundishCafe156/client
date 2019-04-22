@@ -43,7 +43,7 @@ import java.util.Map;
 
 public class KeyBindHandler {
     private static final Map<Integer, Integer> mouseBinds = new HashMap<>();
-    public final HyperiumBind debug = new HyperiumBind("DEBUG", Keyboard.KEY_J) {
+    private final HyperiumBind debug = new HyperiumBind("DEBUG", Keyboard.KEY_J) {
         @Override
         public void onPress() {}
         @Override
@@ -51,7 +51,6 @@ public class KeyBindHandler {
     };
     private final KeyBindConfig keyBindConfig;
     private final Map<String, HyperiumBind> keybinds = new HashMap<>();
-    private ToggleSprintKeybind toggleSprintKeybind;
 
     public KeyBindHandler() {
         this.keyBindConfig = new KeyBindConfig(this, Hyperium.folder);
@@ -63,7 +62,7 @@ public class KeyBindHandler {
         registerKeyBinding(new DabKeybind());
         registerKeyBinding(new FlipKeybind());
         registerKeyBinding(new FlossKeybind());
-        registerKeyBinding(toggleSprintKeybind = new ToggleSprintKeybind());
+        registerKeyBinding(new ToggleSprintKeybind());
         registerKeyBinding(new TogglePerspectiveKeybind());
         registerKeyBinding(new FortniteDefaultDanceKeybind());
         registerKeyBinding(new TwerkDanceKeybind());
@@ -105,21 +104,19 @@ public class KeyBindHandler {
     @InvokeEvent
     public void onMouseButton(MouseButtonEvent event) {
         // Dismisses mouse movement input.
-        if (event.getValue() >= 0) {
-            if (Minecraft.getMinecraft().inGameHasFocus && Minecraft.getMinecraft().currentScreen == null) {
-                for (HyperiumBind bind : this.keybinds.values()) {
-                    if (bind.isConflicted()) {
-                        continue;
-                    }
-                    // Gets Minecraft value of the mouse value and checks to see if it matches a keybind.
-                    if (mouseBinds.get(event.getValue()) == bind.getKeyCode()) {
-                        if (event.getState()) {
-                            bind.onPress();
-                            bind.setWasPressed(true);
-                        } else {
-                            bind.onRelease();
-                            bind.setWasPressed(false);
-                        }
+        if (event.getValue() >= 0 && Minecraft.getMinecraft().inGameHasFocus && Minecraft.getMinecraft().currentScreen == null) {
+            for (HyperiumBind bind : this.keybinds.values()) {
+                if (bind.isConflicted()) {
+                    continue;
+                }
+                // Gets Minecraft value of the mouse value and checks to see if it matches a keybind.
+                if (mouseBinds.get(event.getValue()) == bind.getKeyCode()) {
+                    if (event.getState()) {
+                        bind.onPress();
+                        bind.setWasPressed(true);
+                    } else {
+                        bind.onRelease();
+                        bind.setWasPressed(false);
                     }
                 }
             }
