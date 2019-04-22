@@ -19,7 +19,6 @@ import me.semx11.autotip.core.SessionManager;
 import me.semx11.autotip.core.StatsManager;
 import me.semx11.autotip.core.TaskManager;
 import me.semx11.autotip.core.TaskManager.TaskType;
-import me.semx11.autotip.stats.StatsDaily;
 import me.semx11.autotip.util.MinecraftVersion;
 
 import static net.minecraft.command.CommandBase.getListOfStringsMatchingLastWord;
@@ -139,22 +138,6 @@ public class CommandAutotip extends CommandAbstract {
                         }
                         break;
                 }
-                break;
-            case "?":
-            case "info":
-                StatsDaily today = stats.get();
-                messageUtil.getKeyHelper("command.info")
-                        .separator()
-                        .sendKey("version", autotip.getVersion())
-                        .withKey("credits", context -> context.getBuilder()
-                                .setHover(context.getKey("creditsHover"))
-                                .send())
-                        .sendKey("status." + (config.isEnabled() ? "enabled" : "disabled"))
-                        .sendKey("messages", config.getMessageOption())
-                        .sendKey("tipsSent", today.getTipsSent())
-                        .sendKey("tipsReceived", today.getTipsReceived())
-                        .sendKey("statsCommand")
-                        .separator();
                 break;
             case "m":
             case "messages":

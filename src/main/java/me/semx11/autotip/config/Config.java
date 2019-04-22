@@ -5,14 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.Locale;
 import javax.annotation.CheckReturnValue;
 import me.semx11.autotip.Autotip;
 import me.semx11.autotip.chat.MessageOption;
 import me.semx11.autotip.gson.exclusion.Exclude;
-import me.semx11.autotip.util.FileUtil;
 import org.apache.commons.io.FileUtils;
 
 public class Config {
@@ -95,35 +92,6 @@ public class Config {
             Autotip.LOGGER.error("Could not read config.at!", e);
         }
         return this.save();
-    }
-
-    public Config migrate() {
-        FileUtil fileUtil = autotip.getFileUtil();
-
-        // Check if legacy config file exists
-        File legacyFile = fileUtil.getFile("options.at");
-        if (!legacyFile.exists()) {
-            return this;
-        }
-
-        try {
-            List<String> lines = Files.readAllLines(fileUtil.getPath("options.at"));
-            if (lines.size() < 2) return this;
-
-            this.enabled = Boolean.parseBoolean(lines.get(0));
-            try {
-                this.messageOption = MessageOption.valueOf(lines.get(1));
-            } catch (IllegalArgumentException | NullPointerException e) {
-                this.messageOption = MessageOption.SHOWN;
-            }
-
-            // Deletes old file to complete migration
-            fileUtil.delete(legacyFile);
-
-            return this.save();
-        } catch (IOException e) {
-            return this.save();
-        }
     }
 
     private Config merge(final Config that) {
