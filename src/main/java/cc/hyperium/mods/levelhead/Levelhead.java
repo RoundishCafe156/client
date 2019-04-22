@@ -29,7 +29,6 @@ import cc.hyperium.mods.levelhead.renderer.LevelHeadRender;
 import cc.hyperium.mods.levelhead.renderer.LevelheadTag;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.sk1ercommon.Sk1erMod;
-import cc.hyperium.utils.ChatColor;
 import cc.hyperium.utils.JsonHolder;
 import cc.hyperium.utils.UUIDUtil;
 import net.minecraft.client.Minecraft;
@@ -66,7 +65,6 @@ public class Levelhead extends AbstractMod {
 
     public Levelhead() {
         Metadata metadata = new Metadata(this, "Levelhead", "5.0", "Sk1er");
-        metadata.setDisplayName(ChatColor.AQUA + "Levelhead");
         this.meta = metadata;
     }
 
