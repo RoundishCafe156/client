@@ -104,7 +104,6 @@ public class AddItemsGui extends GuiScreen {
         if (guiButtonConsumer != null) {
             guiButtonConsumer.accept(button);
         }
-
     }
 
     @Override
@@ -161,17 +160,15 @@ public class AddItemsGui extends GuiScreen {
                     int height = 20;
                     mc.fontRendererObj.drawString(text1, (current.getScaledWidth() / 2 - 80 + width / 2 - mc.fontRendererObj.getStringWidth(text1) / 2), cursorY + (height - 8) / 2, j, false);
                     int i = ResolutionUtil.current().getScaledHeight() - (Mouse.getY() / current.getScaleFactor());
-                    if (Mouse.isButtonDown(0) && !mouseLock)
-                        if (i >= cursorY && i <= cursorY + 23) {
-                            int i1 = Mouse.getX() / current.getScaleFactor();
-                            if (i1 >= current.getScaledWidth() / 2 - 80 && i1 <= current.getScaledWidth() / 2 + 80) {
-                                DisplayItem item = ChromaHUDApi.getInstance().parse(s, 0, new JsonHolder().put("type", s));
-                                element.getDisplayItems().add(item);
-                                element.adjustOrdinal();
-                                Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod));
-
-                            }
+                    if (Mouse.isButtonDown(0) && !mouseLock && i >= cursorY && i <= cursorY + 23) {
+                        int i1 = Mouse.getX() / current.getScaleFactor();
+                        if (i1 >= current.getScaledWidth() / 2 - 80 && i1 <= current.getScaledWidth() / 2 + 80) {
+                            DisplayItem item = ChromaHUDApi.getInstance().parse(s, 0, new JsonHolder().put("type", s));
+                            element.getDisplayItems().add(item);
+                            element.adjustOrdinal();
+                            Hyperium.INSTANCE.getHandlers().getGuiDisplayHandler().setDisplayNextTick(new EditItemsGui(element, mod));
                         }
+                    }
                     cursorY += 23;
                 }
             }
@@ -204,9 +201,7 @@ public class AddItemsGui extends GuiScreen {
                     displayElement.drawForConfig();
                     mc.fontRendererObj.drawString(text1, (float) ((current.getScaledWidth() - totalWidth) / 2), cursorY, Color.RED.getRGB(), true);
                     cursorY += dimensions.getHeight() + 5;
-
                 }
-
             }
         }
         ElementRenderer.endDrawing(target);
