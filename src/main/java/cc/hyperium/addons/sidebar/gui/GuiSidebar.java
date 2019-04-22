@@ -36,13 +36,13 @@ import static cc.hyperium.addons.sidebar.gui.GuiSidebar.ChromaType.*;
 
 public class GuiSidebar extends Gui {
     public enum ChromaType {
-        ONE("Background 1", 0),
-        TWO("Background 2", 1),
-        THREE("Text 1", 2),
-        FOUR("Text 2", 3);
+        ONE("Background 1"),
+        TWO("Background 2"),
+        THREE("Text 1"),
+        FOUR("Text 2");
         private String name;
 
-        ChromaType(String name, int index) {
+        ChromaType(String name) {
             this.name = name;
         }
 
@@ -51,7 +51,7 @@ public class GuiSidebar extends Gui {
         }
 
         public static ChromaType next(ChromaType current) {
-            return current == ChromaType.ONE ? TWO : (current == TWO ? THREE : (current == THREE ? FOUR : ONE));
+            return current == ONE ? TWO : (current == TWO ? THREE : (current == THREE ? FOUR : ONE));
         }
     }
 
