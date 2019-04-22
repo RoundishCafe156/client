@@ -34,8 +34,7 @@ import rocks.rdil.jailbreak.Jailbreak;
 import java.util.regex.Pattern;
 
 public class HypixelDetector {
-    private static final Pattern HYPIXEL_PATTERN =
-        Pattern.compile("^(?:(?:(?:.+\\.)?hypixel\\.net)|(?:209\\.222\\.115\\.\\d{1,3})|(?:99\\.198\\.123\\.[123]?\\d?))\\.?(?::\\d{1,5}\\.?)?$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern HYPIXEL_PATTERN = Pattern.compile("^(?:(?:(?:.+\\.)?hypixel\\.net)|(?:209\\.222\\.115\\.\\d{1,3})|(?:99\\.198\\.123\\.[123]?\\d?))\\.?(?::\\d{1,5}\\.?)?$", Pattern.CASE_INSENSITIVE);
 
     private static HypixelDetector instance;
     private boolean hypixel = false;
@@ -86,7 +85,7 @@ public class HypixelDetector {
     @InvokeEvent
     public void join(JoinHypixelEvent event) {
         if (Settings.HYPIXEL_ZOO) {
-            Hyperium.INSTANCE.getNotification().display("Welcome to the Hypixel Zoo.", "Click to visit https://hypixel.net/",
+            Hyperium.INSTANCE.getNotification().display("Welcome to the Hypixel Zoo.", "Click to visit the forums",
                 5f, null, () -> Jailbreak.getBrowseUtil().BrowseURI("https://hypixel.net"),
                 new Color(200, 150, 50));
         }
