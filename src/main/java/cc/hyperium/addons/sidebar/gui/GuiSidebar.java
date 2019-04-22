@@ -51,7 +51,7 @@ public class GuiSidebar extends Gui {
         }
 
         public static ChromaType next(ChromaType current) {
-            return current == ChromaType.ONE ? TWO : (current == TWO ? ChromaType.THREE : (current == ChromaType.THREE ? ChromaType.FOUR : ChromaType.ONE));
+            return current == ChromaType.ONE ? TWO : (current == TWO ? THREE : (current == THREE ? FOUR : ONE));
         }
     }
 
@@ -114,9 +114,7 @@ public class GuiSidebar extends Gui {
             final ScorePlayerTeam team2 = scoreboard.getPlayersTeam(score2.getPlayerName());
             final String s3 = ScorePlayerTeam.formatPlayerName(team2, score2.getPlayerName());
             String s4 = EnumChatFormatting.RED + "" + score2.getScorePoints();
-            if (!this.redNumbers) {
-                s4 = "";
-            }
+            if (!this.redNumbers) s4 = "";
             final int scoreX = this.sidebarX + this.sidebarWidth + 1;
             final int scoreY = this.sidebarY - index * fr.FONT_HEIGHT;
             drawRect(this.sidebarX - 2, scoreY, scoreX, scoreY + fr.FONT_HEIGHT, this.getColor(false, true));
