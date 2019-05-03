@@ -16,14 +16,3 @@ task:
     cleanup_before_cache_script: |
       rm -rf ~/.gradle/caches/$GRADLE_VERSION/ ~/.gradle/caches/transforms-1 ~/.gradle/caches/journal-1 ~/.gradle/caches/minecraft/deobfedDeps/compileDummy.jar ~/.gradle/caches/minecraft/deobfedDeps/providedDummy.jar
       find ~/.gradle/caches/ -name "*.lock" -type f -delete
-
-deploy_task:
-  only_if: $CIRRUS_TAG != ''
-  auto_cancellation: false
-  env:
-    CLOUDREPO_USER_ID: ENCRYPTED[91a3b900f799cc9b295e23c2f6d8b1c386db37ff99b73bb4f241778fea6ed885423fcc8837176790e9751f250bb0cd66]
-    CLOUDREPO_AUTH: ENCRYPTED[f3a7b3d9fd4d16be0e0d4ea8a47ecd697aac8cc46e9b9bb118afc6cdbaeaa5caac18c01d45371c391fa8ba4ef21aa5c7]
-    uploads/test-123.jar
-  script: |
-    export ENCODED_PW=`echo -n ${CLOUDREPO_USER_ID}:${CLOUDREPO_AUTH} | base64 -`
-    curl -X PUT https://hyperiumjailbreak.mycloudrepo.io/repositories/java/Hyperium-${CIRRUS_TAG}.jar -H "Authorization: Basic ${ENCODED_PW}" -d @build/libs/Hyperium-${CIRRUS_TAG}.jar
