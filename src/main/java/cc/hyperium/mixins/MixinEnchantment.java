@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Enchantment.class)
 public abstract class MixinEnchantment {
-
     private HyperiumEnchantment enchantment = new HyperiumEnchantment();
 
     @Shadow
@@ -36,8 +35,6 @@ public abstract class MixinEnchantment {
 
     @Inject(method = "getTranslatedName", at = @At("HEAD"), cancellable = true)
     private void getTranslatedName(int level, CallbackInfoReturnable<String> ci) {
-        if (!Settings.ROMAN_NUMERALS) {
-            enchantment.getTranslatedName(level, ci, getName());
-        }
+        if (!Settings.ROMAN_NUMERALS) enchantment.getTranslatedName(level, ci, getName());
     }
 }
