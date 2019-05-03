@@ -25,7 +25,6 @@ import cc.hyperium.internal.addons.IAddon;
 import cc.hyperium.mixins.IMixinMinecraft;
 import cc.hyperium.utils.AddonWorkspaceResourcePack;
 import cc.hyperium.utils.Utils;
-import cc.hyperium.utils.mods.FPSLimiter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiGameOver;
@@ -223,10 +222,6 @@ public class HyperiumMinecraft {
         }
 
         if (Hyperium.INSTANCE.getHandlers() != null) Hyperium.INSTANCE.getHandlers().getKeybindHandler().releaseAllKeybinds();
-    }
-
-    public void getLimitFramerate(CallbackInfoReturnable<Integer> ci) {
-        if (FPSLimiter.shouldLimitFramerate()) ci.setReturnValue(FPSLimiter.getInstance().getFpsLimit());
     }
 
     public void onStartGame(CallbackInfo ci) {
