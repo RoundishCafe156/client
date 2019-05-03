@@ -27,7 +27,6 @@ public abstract class AbstractMod {
     public abstract Metadata getModMetadata();
 
     public class Metadata {
-
         private final AbstractMod mod;
         private final String author;
         private final String name;
