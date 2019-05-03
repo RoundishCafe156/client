@@ -29,10 +29,6 @@ public class Settings {
     @ToggleSetting(name = "gui.settings.FPS", category = INTEGRATIONS)
     public static boolean FPS = false;
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;discordRPEnabled")
-    @ToggleSetting(name = "gui.settings.discordrp", category = INTEGRATIONS)
-    public static boolean DISCORD_RP = true;
-
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;fullbrightEnabled")
     @ToggleSetting(name = "gui.settings.fullbright", category = INTEGRATIONS)
     public static boolean FULLBRIGHT = true;
@@ -40,10 +36,6 @@ public class Settings {
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;romanNumeralsEnabled")
     @ToggleSetting(name = "gui.settings.romannumerals")
     public static boolean ROMAN_NUMERALS = true;
-
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;discordServerDisplayEnabled")
-    @ToggleSetting(name = "gui.settings.rpshowserver", category = INTEGRATIONS)
-    public static boolean DISCORD_RP_SERVER = true;
 
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;compactChatEnabled")
     @ToggleSetting(name = "gui.settings.compactchat", category = INTEGRATIONS)
@@ -543,26 +535,6 @@ public class Settings {
     @ConfigOpt
     @ToggleSetting(name = "gui.settings.confirmquit", category = MISC)
     public static boolean CONFIRM_QUIT = false;
-
-    @ConfigOpt
-    @ToggleSetting(category = GLINTCOLORIZER, mods = true, name = "Chroma")
-    public static boolean glintcolorChroma;
-
-    @ConfigOpt
-    @SliderSetting(name = "Red", mods = true, category = GLINTCOLORIZER, min = 0, max = 255, isInt = true)
-    public static int glintR = 255;
-
-    @ConfigOpt
-    @SliderSetting(name = "Green", mods = true, category = GLINTCOLORIZER, min = 0, max = 255, isInt = true)
-    public static int glintG = 255;
-
-    @ConfigOpt
-    @SliderSetting(name = "Blue", mods = true, category = GLINTCOLORIZER, min = 0, max = 255, isInt = true)
-    public static int glintB = 255;
-
-    @ConfigOpt
-    @ToggleSetting(category = GLINTCOLORIZER, mods = true, name = "Enabled")
-    public static boolean glintColorizer = false;
 
     private Settings() {}
     public static void register() {
