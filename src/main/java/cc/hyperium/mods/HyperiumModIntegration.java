@@ -43,7 +43,7 @@ public class HyperiumModIntegration {
     private final Autotip autotip;
     private final AutoGG autogg;
     private final HGames hgames;
-    private final GlintColorizer glintcolorizer;
+    private final GlintColorizer gc;
     private final BlockOverlay blockOverlay;
     private final MotionBlurMod motionBlur;
     private final OldAnimations oldanimations;
@@ -69,12 +69,12 @@ public class HyperiumModIntegration {
         this.autofriend = (AutofriendMod) new AutofriendMod();
         this.fncompass = (FortniteCompassMod) new FortniteCompassMod();
         this.itemPhysicMod = (ItemPhysicMod) new ItemPhysicMod();
-        this.glintcolorizer = (GlintColorizer) new GlintColorizer();
+        this.gc = (GlintColorizer) new GlintColorizer();
         this.blockOverlay = (BlockOverlay) new BlockOverlay();
         this.keystrokesMod = (KeystrokesMod) new KeystrokesMod();
         this.timeChanger = (TimeChanger) new TimeChanger();
         this.motionBlur = (MotionBlurMod) new MotionBlurMod();
-        this.glintcolorizer.init();
+        this.gc.init();
         if (!Settings.FPS) {
             this.autofriend.init();
             this.fncompass.init();
