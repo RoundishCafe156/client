@@ -37,7 +37,6 @@ import cc.hyperium.mods.HyperiumModIntegration;
 import cc.hyperium.mods.autofriend.command.AutofriendCommand;
 import cc.hyperium.mods.autogg.AutoGG;
 import cc.hyperium.mods.ToggleSprintContainer;
-import cc.hyperium.mods.DiscordPresence;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.GeneralStatisticsTracking;
 import cc.hyperium.netty.NettyClient;
@@ -71,7 +70,6 @@ public class Hyperium {
     public static final File folder = new File("hyperium");
     public static final DefaultConfig CONFIG = new DefaultConfig(new File(folder, "CONFIG.json"));
     private final GeneralStatisticsTracking statTrack = new GeneralStatisticsTracking();
-    private final DiscordPresence richPresenceManager = new DiscordPresence();
     private final ConfirmationPopup confirmation = new ConfirmationPopup();
     private NotificationCenter notification;
     private HyperiumCosmetics cosmetics;
@@ -164,24 +162,7 @@ public class Hyperium {
             SplashProgress.setProgress(13, "Almost Done, Finishing Up");
             if (FontFixValues.INSTANCE == null) FontFixValues.INSTANCE = new FontFixValues();
 
-            Multithreading.runAsync(() -> {
-                EventBus.INSTANCE.register(FontFixValues.INSTANCE);
-                if (Settings.PERSISTENT_CHAT) {
-                    File file = new File(folder, "chat.txt");
-                    if (file.exists()) {
-                        try {
-                            FileReader fr = new FileReader(file);
-                            BufferedReader bufferedReader = new BufferedReader(fr);
-                            String line;
-                            while ((line = bufferedReader.readLine()) != null) {
-                                Minecraft.getMinecraft().ingameGUI.getChatGUI().addToSentMessages(line);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
+            Multithreading.runAsync(() -> EventBus.INSTANCE.register(FontFixValues.INSTANCE));
 
             // Check if OptiFine is installed.
             try {
@@ -222,22 +203,6 @@ public class Hyperium {
 
     private void shutdown() {
         CONFIG.save();
-        richPresenceManager.shutdown();
-        if (Settings.PERSISTENT_CHAT) {
-            File file = new File(folder, "chat.txt");
-            try {
-                file.createNewFile();
-                FileWriter fileWriter = new FileWriter(file);
-                BufferedWriter bw = new BufferedWriter(fileWriter);
-                for (String s : Minecraft.getMinecraft().ingameGUI.getChatGUI().getSentMessages()) {
-                    bw.write(s + "\n");
-                }
-                bw.close();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         // Tell the modules the game is shutting down
         EventBus.INSTANCE.post(new GameShutDownEvent());
     }
