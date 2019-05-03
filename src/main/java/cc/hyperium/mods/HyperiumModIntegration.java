@@ -31,7 +31,6 @@ import cc.hyperium.mods.oldanimations.OldAnimations;
 import cc.hyperium.mods.tabtoggle.TabToggleMod;
 import cc.hyperium.mods.timechanger.TimeChanger;
 import cc.hyperium.mods.togglechat.ToggleChatMod;
-import cc.hyperium.mods.glintcolorizer.GlintColorizer;
 import me.semx11.autotip.Autotip;
 
 public class HyperiumModIntegration {
