@@ -35,7 +35,6 @@ import cc.hyperium.handlers.handlers.keybinds.keybinds.RearCamKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.TPoseKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.TogglePerspectiveKeybind;
 import cc.hyperium.handlers.handlers.keybinds.keybinds.ToggleSprintKeybind;
-import cc.hyperium.handlers.handlers.keybinds.keybinds.TwerkDanceKeybind;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import java.util.HashMap;
@@ -43,19 +42,12 @@ import java.util.Map;
 
 public class KeyBindHandler {
     private static final Map<Integer, Integer> mouseBinds = new HashMap<>();
-    private final HyperiumBind debug = new HyperiumBind("DEBUG", Keyboard.KEY_J) {
-        @Override
-        public void onPress() {}
-        @Override
-        public void onRelease() {}
-    };
     private final KeyBindConfig keyBindConfig;
     private final Map<String, HyperiumBind> keybinds = new HashMap<>();
 
     public KeyBindHandler() {
         this.keyBindConfig = new KeyBindConfig(this, Hyperium.folder);
 
-        registerKeyBinding(debug);
         registerKeyBinding(new FriendsKeybind());
         registerKeyBinding(new NamesKeybind());
         registerKeyBinding(new GuiKeybind());
@@ -65,7 +57,6 @@ public class KeyBindHandler {
         registerKeyBinding(new ToggleSprintKeybind());
         registerKeyBinding(new TogglePerspectiveKeybind());
         registerKeyBinding(new FortniteDefaultDanceKeybind());
-        registerKeyBinding(new TwerkDanceKeybind());
         registerKeyBinding(new TPoseKeybind());
         registerKeyBinding(new GuiDanceKeybind());
         registerKeyBinding(new RearCamKeybind());
