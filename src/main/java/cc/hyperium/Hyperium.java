@@ -154,7 +154,6 @@ public class Hyperium {
             });
 
             Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-            if (!OS.isMacintosh()) richPresenceManager.load();
 
             SplashProgress.setProgress(12, "Reloading Jailbreak Manager");
             Minecraft.getMinecraft().refreshResources();
