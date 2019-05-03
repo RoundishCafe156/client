@@ -118,7 +118,7 @@ public class HyperiumModIntegration {
     }
 
     public GlintColorizer getGlintcolorizer() {
-        return glintcolorizer;
+        return gc;
     }
 
     public BlockOverlay getBlockOverlay() {
