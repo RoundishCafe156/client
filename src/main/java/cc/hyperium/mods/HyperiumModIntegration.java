@@ -31,6 +31,7 @@ import cc.hyperium.mods.oldanimations.OldAnimations;
 import cc.hyperium.mods.tabtoggle.TabToggleMod;
 import cc.hyperium.mods.timechanger.TimeChanger;
 import cc.hyperium.mods.togglechat.ToggleChatMod;
+import cc.hyperium.mods.glintcolorizer.GlintColorizer;
 import me.semx11.autotip.Autotip;
 
 public class HyperiumModIntegration {
@@ -73,11 +74,11 @@ public class HyperiumModIntegration {
         this.keystrokesMod = (KeystrokesMod) new KeystrokesMod();
         this.timeChanger = (TimeChanger) new TimeChanger();
         this.motionBlur = (MotionBlurMod) new MotionBlurMod();
+        this.glintcolorizer.init();
         if (!Settings.FPS) {
             this.autofriend.init();
             this.fncompass.init();
             this.itemPhysicMod.init();
-            this.glintcolorizer.init();
             this.blockOverlay.init();
             this.keystrokesMod.init();
             this.timeChanger.init();
