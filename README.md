@@ -32,6 +32,14 @@ Because the license requires it, here is a list of changes made:
 By downloading this client, you agree **it is use at your own risk**.
 The developers are not responsible if you get punished for using it.
 
+## Very Special Thanks
+
+[![CloudRepo Logo](https://www.cloudrepo.io/assets/img/logo/landscape/CloudRepo-Landscape-Brand-Blue.png)](https://cloudrepo.io)
+
+The team would like to thank CloudRepo for their legendary Maven repositories.
+
+CloudRepo provides highly-available, fully managed Maven Repositories. Based in the cloud, CloudRepo stores repositories across multiple physical servers ensuring that they are secure. This allows your team to focus on building software. CloudRepo is a proud sponsor of open-source projects, including HyperiumJailbreak.
+
 ## Misc
 
 This fork is maintained by [RDIL](https://rdil.rocks), and not owned nor endorsed by Sk1er LLC.
