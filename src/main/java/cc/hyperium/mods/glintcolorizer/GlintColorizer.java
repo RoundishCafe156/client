@@ -1,7 +1,6 @@
 package cc.hyperium.mods;
 
 import cc.hyperium.Hyperium;
-import cc.hyperium.config.Settings;
 import cc.hyperium.event.EventBus;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.TickEvent;
