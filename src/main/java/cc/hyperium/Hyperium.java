@@ -54,14 +54,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 import rocks.rdil.jailbreak.chat.CommonChatResponder;
-import rocks.rdil.jailbreak.util.OS;
 import rocks.rdil.jailbreak.Jailbreak;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Hyperium {
     public static final Hyperium INSTANCE = new Hyperium();
@@ -97,7 +91,7 @@ public class Hyperium {
             notification = new NotificationCenter();
             new HyperiumScheduler();
             try {
-                Class.forName("net.minecraft.dispenser.BehaviorProjectileDispense"); // check for random MC class
+                Class.forName("net.minecraft.dispenser.BehaviorProjectileDispense");
                 isDevEnv = true;
             } catch (ClassNotFoundException e) {
                 isDevEnv = false;
@@ -145,11 +139,7 @@ public class Hyperium {
             modIntegration = new HyperiumModIntegration();
             new InternalAddons();
 
-            Multithreading.runAsync(() -> {
-                try {
-                    StaffUtils.clearCache();
-                } catch (IOException ignored) {}
-            });
+            Multithreading.runAsync(() -> StaffUtils.clearCache());
 
             Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 
@@ -158,7 +148,6 @@ public class Hyperium {
 
             SplashProgress.setProgress(13, "Almost Done, Finishing Up");
             if (FontFixValues.INSTANCE == null) FontFixValues.INSTANCE = new FontFixValues();
-
             Multithreading.runAsync(() -> EventBus.INSTANCE.register(FontFixValues.INSTANCE));
 
             // Check if OptiFine is installed.
