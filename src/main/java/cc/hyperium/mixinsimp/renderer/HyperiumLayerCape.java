@@ -6,12 +6,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerCape;
 
 public class HyperiumLayerCape {
-
-    private LayerCape parent;
-
-    public HyperiumLayerCape(LayerCape parent) {
-        this.parent = parent;
-    }
+    public HyperiumLayerCape() {}
 
     public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn) {
         if (entitylivingbaseIn.isSneaking() && !Hyperium.INSTANCE.isOptifineInstalled()) {
