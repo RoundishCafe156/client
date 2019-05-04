@@ -27,7 +27,6 @@ import cc.hyperium.mods.timechanger.commands.CommandTimeChangerFastTime;
 import cc.hyperium.mods.timechanger.commands.CommandTimeChangerNight;
 import cc.hyperium.mods.timechanger.commands.CommandTimeChangerReset;
 import cc.hyperium.mods.timechanger.commands.CommandTimeChangerSunset;
-import cc.hyperium.utils.ChatColor;
 import net.minecraft.client.Minecraft;
 
 public class TimeChanger extends AbstractMod {
