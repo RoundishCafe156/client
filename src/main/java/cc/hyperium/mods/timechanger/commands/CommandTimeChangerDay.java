@@ -21,10 +21,8 @@ import cc.hyperium.commands.BaseCommand;
 import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import cc.hyperium.mods.timechanger.TimeChanger;
 import cc.hyperium.mods.timechanger.TimeChanger.TimeType;
-import cc.hyperium.utils.ChatColor;
 
 public class CommandTimeChangerDay implements BaseCommand {
-
     private final TimeChanger mod;
 
     public CommandTimeChangerDay(TimeChanger main) {
@@ -38,12 +36,12 @@ public class CommandTimeChangerDay implements BaseCommand {
 
     @Override
     public String getUsage() {
-        return ChatColor.RED + "Usage: /day";
+        return "Usage: /day";
     }
 
     @Override
     public void onExecute(String[] args) {
         this.mod.setTimeType(TimeType.DAY);
-        GeneralChatHandler.instance().sendMessage(ChatColor.RED + "[TimeChanger] " + ChatColor.GREEN + "Time set to day.", false);
+        GeneralChatHandler.instance().sendMessage("Time set to day.", false);
     }
 }
