@@ -23,11 +23,9 @@ import cc.hyperium.commands.CommandUsageException;
 import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import cc.hyperium.mods.timechanger.TimeChanger;
 import cc.hyperium.mods.timechanger.TimeChanger.TimeType;
-import cc.hyperium.utils.ChatColor;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class CommandTimeChangerFastTime implements BaseCommand {
-
     private final TimeChanger mod;
 
     public CommandTimeChangerFastTime(TimeChanger main) {
@@ -41,7 +39,7 @@ public class CommandTimeChangerFastTime implements BaseCommand {
 
     @Override
     public String getUsage() {
-        return ChatColor.RED + "Usage: /fasttime <multiplier>";
+        return "Usage: /fasttime <multiplier>";
     }
 
     @Override
@@ -53,12 +51,12 @@ public class CommandTimeChangerFastTime implements BaseCommand {
         final double multiplier = NumberUtils.toDouble(args[0], -1.0);
 
         if (multiplier < 0.0) {
-            GeneralChatHandler.instance().sendMessage(ChatColor.RED + "[TimeChanger] " + ChatColor.RED + "Invalid multiplier!", false);
+            GeneralChatHandler.instance().sendMessage("Invalid multiplier!", false);
             return;
         }
 
         this.mod.setTimeType(TimeType.FAST);
         this.mod.setFastTimeMultiplier(multiplier);
-        GeneralChatHandler.instance().sendMessage(ChatColor.RED + "[TimeChanger] " + ChatColor.GREEN + "Time set to fast (" + multiplier + ").", false);
+        GeneralChatHandler.instance().sendMessage("Time set to fast (" + multiplier + ").", false);
     }
 }
