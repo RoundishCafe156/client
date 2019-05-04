@@ -37,9 +37,10 @@ public class StaffUtils {
         return staff;
     }
 
-    public static void clearCache() throws IOException {
+    public static void clearCache() {
         STAFF_CACHE.clear();
-        STAFF_CACHE.putAll(getStaff());
+        try STAFF_CACHE.putAll(getStaff());
+        catch (IOException ignored) {}
     }
 
     public static class DotColour {
