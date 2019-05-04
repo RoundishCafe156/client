@@ -18,11 +18,9 @@
 package cc.hyperium.mods.levelhead.commands;
 
 import cc.hyperium.commands.BaseCommand;
-import cc.hyperium.handlers.handlers.HypixelDetector;
 import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import cc.hyperium.mods.levelhead.Levelhead;
 import cc.hyperium.mods.levelhead.guis.LevelHeadGui;
-import cc.hyperium.mods.sk1ercommon.Sk1erMod;
 import cc.hyperium.utils.ChatColor;
 
 public class LevelHeadCommand implements BaseCommand {
@@ -45,18 +43,9 @@ public class LevelHeadCommand implements BaseCommand {
     @Override
     public void onExecute(String[] args) {
         if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("limit")) {
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Count: " + this.mod.count);
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Wait: " + this.mod.wait);
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Hypixel: " + HypixelDetector.getInstance().isHypixel());
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Local Stats: " + HypixelDetector.getInstance().isHypixel());
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Header State: " + this.mod.getHeaderConfig());
-                GeneralChatHandler.instance().sendMessage(ChatColor.RED + "Footer State: " + this.mod.getFooterConfig());
-                return;
-            } else if (args[0].equalsIgnoreCase("dumpcache")) {
+            if (args[0].equalsIgnoreCase("dumpcache")) {
                 int prevCache = this.mod.levelCache.size();
                 this.mod.levelCache.clear();
-                GeneralChatHandler.instance().sendMessage("Stringcache entries: " + prevCache + " -> " + this.mod.levelCache.size());
                 return;
             } else if (args[0].equalsIgnoreCase("toggle")) {
                 this.mod.getConfig().setEnabled(!this.mod.getConfig().isEnabled());
