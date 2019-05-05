@@ -19,7 +19,6 @@ package cc.hyperium.mixins.scoreboard;
 
 import cc.hyperium.mixinsimp.scoreboard.HyperiumScoreboard;
 import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -36,7 +35,7 @@ public abstract class MixinScoreboard {
     @Final
     private Map<String, ScorePlayerTeam> teamMemberships;
 
-    private HyperiumScoreboard hyperiumScoreboard = new HyperiumScoreboard((Scoreboard) (Object) this);
+    private HyperiumScoreboard hyperiumScoreboard = new HyperiumScoreboard();
 
     @Overwrite
     public void removeTeam(ScorePlayerTeam team) {
