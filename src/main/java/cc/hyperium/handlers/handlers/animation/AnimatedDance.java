@@ -5,7 +5,7 @@ import cc.hyperium.event.WorldChangeEvent;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelBiped;
 import cc.hyperium.mixinsimp.renderer.model.IMixinModelPlayer;
 import cc.hyperium.utils.JsonHolder;
-import cc.hyperium.utils.Multithreading;
+import cc.hyperium.mods.sk1ercommon.Multithreading;
 import com.google.gson.JsonElement;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelRenderer;
