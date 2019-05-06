@@ -1,6 +1,7 @@
 package cc.hyperium.mixinsimp.scoreboard;
 
 import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
 import java.util.Map;
 
 public class HyperiumScoreboard {
