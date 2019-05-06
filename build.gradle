@@ -95,13 +95,10 @@ mixin {
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url "https://hyperiumjailbreak.mycloudrepo.io/public/repositories/java" }
     maven {
         name = 'sponge'
         url = 'https://repo.spongepowered.org/maven/'
-    }
-    maven {
-        name = 'hyperiumjailbreak-cloudrepo'
-        url = 'https://hyperiumjailbreak.mycloudrepo.io/public/repositories/java'
     }
     mavenCentral()
     jcenter()
