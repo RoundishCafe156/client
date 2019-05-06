@@ -39,9 +39,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class NickHider {
-    public static final String MOD_ID = "nick_hider";
-    public static final String VERSION = "3.0";
-    @Instance
     public static NickHider INSTANCE;
     private final Pattern newNick = Pattern.compile("We've generated a random username for you: \\s*(?<nick>\\S+)");
     private final List<Nick> nicks = new ArrayList<>();
@@ -79,11 +76,8 @@ public class NickHider {
     }
 
     public void init() {
-        sk1erMod = new Sk1erMod(MOD_ID, VERSION);
-        Multithreading.runAsync(() -> {
-            String s = sk1erMod.rawWithAgent("https://sk1er.club/words.txt");
-            namesDatabase.addAll(Arrays.asList(s.split("\n")));
-        });
+        sk1erMod = Sk1erMod.getInstance();
+        Multithreading.runAsync(() -> namesDatabase.addAll(Arrays.asList(sk1erMod.rawWithAgent("https://sk1er.club/words.txt").split("\n"))));
         if (suggestedConfigurationFile.exists()) {
             try {
                 FileReader baseReader = new FileReader(this.suggestedConfigurationFile);
