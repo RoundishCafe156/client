@@ -3,12 +3,9 @@ package cc.hyperium.mixinsimp.gui;
 import static cc.hyperium.gui.HyperiumGui.clamp;
 import static cc.hyperium.gui.HyperiumGui.easeOut;
 import static net.minecraft.client.gui.Gui.drawRect;
-
 import cc.hyperium.config.Settings;
 import cc.hyperium.mixins.gui.MixinGuiButton2;
-
 import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -49,7 +46,6 @@ public class HyperiumGuiButton {
                 0.0f,
                 1.0f
             );
-
             this.systemTime += (1000 / 60);
         }
 
@@ -62,8 +58,6 @@ public class HyperiumGuiButton {
                 parentA.isHovered() ? hoverColor : color
             );
         }
-
-        /* hyperium 2 button style created by nystrex, helped port to hyperium */
 
         if (Settings.BUTTON_STYLE.equalsIgnoreCase("HYPERIUM 2")) {
             drawRect(
