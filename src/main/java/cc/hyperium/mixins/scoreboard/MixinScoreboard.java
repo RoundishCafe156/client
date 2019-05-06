@@ -19,6 +19,7 @@ package cc.hyperium.mixins.scoreboard;
 
 import cc.hyperium.mixinsimp.scoreboard.HyperiumScoreboard;
 import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
