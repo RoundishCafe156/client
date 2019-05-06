@@ -1,7 +1,6 @@
 package cc.hyperium.internal.addons
 
 import cc.hyperium.Hyperium.LOGGER
-import cc.hyperium.internal.addons.misc.AddonLoadException
 import cc.hyperium.internal.addons.misc.AddonManifestParser
 import cc.hyperium.internal.addons.strategy.AddonLoaderStrategy
 import cc.hyperium.internal.addons.strategy.DefaultAddonLoader
@@ -12,6 +11,7 @@ import cc.hyperium.internal.addons.translate.TransformerTranslator
 import net.minecraft.launchwrapper.Launch
 import org.apache.commons.io.FileUtils
 import java.io.File
+import java.io.IOException
 import java.util.jar.JarFile
 
 object AddonBootstrap {
@@ -24,7 +24,7 @@ object AddonBootstrap {
     @JvmStatic
     val addonResourcePacks: ArrayList<File?> = ArrayList()
 
-    private lateinit var jars: ArrayList<File>
+    var jars: ArrayList<File>
 
     private val loader = DefaultAddonLoader()
 
@@ -42,7 +42,7 @@ object AddonBootstrap {
 
     init {
         if (!modDirectory.mkdirs() && !modDirectory.exists()) {
-            throw AddonLoadException("Unable to create addon directory!")
+            throw IOException("Unable to create addon directory!")
         }
 
         jars = modDirectory.listFiles()!!
@@ -52,7 +52,7 @@ object AddonBootstrap {
 
     fun init() {
         if (phase != Phase.NOT_STARTED) {
-            throw AddonLoadException("Cannot initialise bootstrap twice")
+            throw IOException("Cannot initialise bootstrap twice")
         }
 
         phase = Phase.PREINIT
@@ -93,7 +93,6 @@ object AddonBootstrap {
             ex.printStackTrace()
         }
 
-        LOGGER.info("Starting to load external jars...")
         for (jar in jars) {
             try {
                 val addon = loadAddon(loader, jar) ?: continue
