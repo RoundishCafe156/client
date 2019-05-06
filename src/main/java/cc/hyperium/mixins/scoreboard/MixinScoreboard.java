@@ -36,7 +36,7 @@ public abstract class MixinScoreboard {
     @Final
     private Map<String, ScorePlayerTeam> teamMemberships;
 
-    private HyperiumScoreboard hyperiumScoreboard = new HyperiumScoreboard();
+    private HyperiumScoreboard hyperiumScoreboard = new HyperiumScoreboard((Scoreboard) (Object) this);
 
     @Overwrite
     public void removeTeam(ScorePlayerTeam team) {
