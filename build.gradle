@@ -20,7 +20,6 @@ version = "2.5"
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
         maven {
             name = "forge"
             url = "https://files.minecraftforge.net/maven"
@@ -94,8 +93,8 @@ mixin {
 }
 
 repositories {
-    maven { url "https://jitpack.io" }
     maven { url "https://hyperiumjailbreak.mycloudrepo.io/public/repositories/java" }
+    maven { url "https://jitpack.io" }
     maven {
         name = 'sponge'
         url = 'https://repo.spongepowered.org/maven/'
