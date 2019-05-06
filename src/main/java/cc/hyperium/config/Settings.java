@@ -124,10 +124,6 @@ public class Settings {
     @SelectorSetting(name = "Companion Type", category = COSMETICS, items = "NONE")
     public static String COMPANION_TYPE = "NONE";
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;hypixelZooEnabled")
-    @ToggleSetting(name = "gui.settings.welcometothehypixelzoo", category = HYPIXEL)
-    public static boolean HYPIXEL_ZOO = true;
-
     @ConfigOpt
     @ToggleSetting(category = GENERAL, name = "Show own name tag")
     public static boolean SHOW_OWN_NAME = false;
