@@ -353,10 +353,6 @@ public class Settings {
     public static String MAX_WORLD_PARTICLES_STRING = "10000";
 
     @ConfigOpt
-    @ToggleSetting(name = "gui.settings.showparticlein1stperson", category = COSMETICS)
-    public static boolean SHOW_PART_1ST_PERSON = false;
-
-    @ConfigOpt
     @ToggleSetting(name = "Show Companion in 1st person", category = COSMETICS)
     public static boolean SHOW_COMPANION_IN_1ST_PERSON = true;
     @ConfigOpt
