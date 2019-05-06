@@ -19,10 +19,8 @@ package cc.hyperium.gui;
 
 import cc.hyperium.utils.HyperiumFontRenderer;
 import me.kbrewster.mojangapi.MojangAPI;
-import me.kbrewster.mojangapi.profile.Name;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import java.awt.Color;
@@ -35,7 +33,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class NameHistoryGui extends GuiScreen {
-
     private String name;
 
     public NameHistoryGui() {
@@ -73,8 +70,7 @@ public class NameHistoryGui extends GuiScreen {
         // TITLE BG
         drawRect(left, top, right, bottom, new Color(0, 0, 0, 150).getRGB());
 
-        //TITLE
-        fontRenderer.drawCenteredString(I18n.format("gui.namehistory.text"), width / 2, height / 5, Color.WHITE.getRGB());
+        fontRenderer.drawCenteredString("Name History", width / 2, height / 5, Color.WHITE.getRGB());
 
         // Text Box
         nameField.drawTextBox();
@@ -122,7 +118,7 @@ public class NameHistoryGui extends GuiScreen {
                 return;
             }
             UUID uuid = MojangAPI.getUUID(username);
-            for (Name history : MojangAPI.getNameHistory(uuid)) {
+            for (MojangAPI.Name history : MojangAPI.getNameHistory(uuid)) {
                 String name = history.getName();
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 if (history.getChangedToAt() == 0) {
@@ -132,11 +128,9 @@ public class NameHistoryGui extends GuiScreen {
                     names.add(String.format("%s -> %s", name, format.format(history.getChangedToAt())));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
