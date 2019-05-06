@@ -100,7 +100,6 @@ repositories {
         url = 'https://repo.spongepowered.org/maven/'
     }
     mavenCentral()
-    jcenter()
 }
 
 processResources {
