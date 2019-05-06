@@ -4,7 +4,6 @@ import cc.hyperium.event.EventBus;
 import cc.hyperium.event.InvokeEvent;
 import cc.hyperium.event.RenderEvent;
 import cc.hyperium.event.TickEvent;
-import cc.hyperium.internal.addons.annotations.Instance;
 import cc.hyperium.mixins.gui.MixinGuiScreenBook;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.sk1ercommon.Sk1erMod;
