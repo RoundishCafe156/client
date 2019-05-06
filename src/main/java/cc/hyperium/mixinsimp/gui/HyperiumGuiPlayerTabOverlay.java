@@ -24,7 +24,6 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
-
 import java.awt.Color;
 import java.util.List;
 import java.util.UUID;
@@ -74,14 +73,12 @@ public class HyperiumGuiPlayerTabOverlay {
                 colour = 11141120;
             }
 
-
             if (ping >= 0 && ping < 10000) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.5f, 0.5f, 0.5f);
                 mc.fontRendererObj.drawString("   " + ping + "", (2 * x), (2 * y), colour);
                 GlStateManager.scale(2.0f, 2.0f, 2.0f);
                 GlStateManager.popMatrix();
-
             }
             return;
         }
