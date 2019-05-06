@@ -1,5 +1,5 @@
 task:
-  auto_cancellation: true
+  auto_cancellation: $CIRRUS_BRANCH == 'master' && $CIRRUS_TAG != ''
   container:
     image: gradle:4.10.3-jdk8
     cpu: 4
@@ -8,6 +8,7 @@ task:
     folder: ~/.gradle/caches
     fingerprint_script: cat build.gradle
     populate_script: gradle setupCiWorkspace
+  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'trying' || $CIRRUS_BRANCH == 'staging'
   name: Cirrus CI
   script: gradle build
   jar_artifacts:
