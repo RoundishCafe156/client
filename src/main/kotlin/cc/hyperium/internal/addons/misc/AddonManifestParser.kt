@@ -36,7 +36,6 @@ class AddonManifestParser {
             this.json = json
         } catch (e: Exception) {
             e.printStackTrace()
-            throw AddonLoadException("Exception reading manifest")
         } finally {
             if (jarInputStream != null) jarInputStream.close()
             jar.close()
