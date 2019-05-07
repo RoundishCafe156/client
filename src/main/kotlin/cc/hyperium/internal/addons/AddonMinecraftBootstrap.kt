@@ -1,7 +1,7 @@
 package cc.hyperium.internal.addons
 
 import cc.hyperium.Hyperium
-import cc.hyperium.internal.addons.misc.AddonLoadException
+import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 
 object AddonMinecraftBootstrap {
@@ -24,7 +24,7 @@ object AddonMinecraftBootstrap {
     fun init() {
         try {
             if (AddonBootstrap.phase != AddonBootstrap.Phase.INIT) {
-                throw AddonLoadException("Bootstrap is currently at Phase.${AddonBootstrap.phase} when it should be at Phase.INIT")
+                throw IOException("Bootstrap is currently at Phase.${AddonBootstrap.phase} when it should be at Phase.INIT")
             }
 
             val toLoadMap = AddonBootstrap.addonManifests.map { it.name to it }.toMap().toMutableMap()
@@ -137,7 +137,7 @@ object AddonMinecraftBootstrap {
                     if (o is IAddon) {
                         loaded.add(o)
                     } else {
-                        throw AddonLoadException("Main class isn't an instance of IAddon!")
+                        throw IOException("Main class isn't an instance of IAddon!")
                     }
                 } catch (e: Throwable) {
                     e.printStackTrace()
