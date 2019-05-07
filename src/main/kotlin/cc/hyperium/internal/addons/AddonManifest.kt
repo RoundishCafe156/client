@@ -11,8 +11,6 @@ class AddonManifest {
 
     val mixinConfigs: List<String>? = null
 
-    val tweakerClass: String? = null
-
     val dependencies: List<String> = ArrayList()
 
     val transformerClass: String? = null
