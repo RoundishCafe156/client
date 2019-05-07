@@ -2,6 +2,10 @@
 
 ## Staging (release queue)
 
+Nothing in the release queue now, check back later.
+
+## v2.6
+
 ```diff
 + Added code of conduct
 * Updated MojangAPI
