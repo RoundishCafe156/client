@@ -29,7 +29,6 @@ buildscript {
             url = 'https://repo.spongepowered.org/maven'
         }
         maven { url "https://plugins.gradle.org/m2/" }
-        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
@@ -47,7 +46,6 @@ apply plugin: 'net.minecraftforge.gradle.tweaker-client'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'kotlin'
 apply plugin: 'java'
-apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -82,7 +80,7 @@ dependencies {
     embed group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0'
     embed 'com.github.hyperiumjailbreak:DeobfStack:2.1'
     embed 'com.github.HyperiumClient:Installer:1.9'
-    embed 'rocks.rdil.MojangAPI:MojangAPI:3.1'
+    embed 'rocks.rdil.MojangAPI:MojangAPI:4.2'
     embed fileTree(dir: 'libs', include: 'Netty Client.jar')
     compile fileTree(dir: 'libs', include: '*.jar')
 }

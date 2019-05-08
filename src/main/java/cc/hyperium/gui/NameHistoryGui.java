@@ -18,7 +18,6 @@
 package cc.hyperium.gui;
 
 import cc.hyperium.utils.HyperiumFontRenderer;
-import me.kbrewster.mojangapi.MojangAPI;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import org.lwjgl.input.Keyboard;
@@ -31,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import rocks.rdil.api.MojangAPI;
 
 public class NameHistoryGui extends GuiScreen {
     private String name;
