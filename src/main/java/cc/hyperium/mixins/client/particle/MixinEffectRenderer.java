@@ -161,7 +161,7 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
 
     @Overwrite
     public void updateEffects() {
-        latch = null;
+        CountDownLatch latch = null;
 
         for (int i = 0; i < 4; ++i) {
             this.updateEffectLayer(i);
