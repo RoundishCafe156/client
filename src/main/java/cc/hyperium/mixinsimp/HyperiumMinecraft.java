@@ -166,22 +166,6 @@ public class HyperiumMinecraft {
         Display.setResizable(true);
     }
 
-    public void setWindowIcon() {
-        if (!OS.isMacintosh()) {
-            try (InputStream inputStream16x = Minecraft.class
-                .getResourceAsStream("/assets/hyperium/icons/icon-16x.png");
-                 InputStream inputStream32x = Minecraft.class
-                     .getResourceAsStream("/assets/hyperium/icons/icon-32x.png")) {
-                ByteBuffer[] icons = new ByteBuffer[]{
-                    Utils.INSTANCE.readImageToBuffer(inputStream16x),
-                    Utils.INSTANCE.readImageToBuffer(inputStream32x)};
-                Display.setIcon(icons);
-            } catch (Exception e) {
-                Hyperium.LOGGER.error("Couldn't set Icon. Error:", e);
-            }
-        }
-    }
-
     public void displayGuiScreen(GuiScreen guiScreenIn, GuiScreen currentScreen,
                                  WorldClient theWorld, EntityPlayerSP thePlayer, GameSettings gameSettings, GuiIngame ingameGUI) {
         if (currentScreen != null) currentScreen.onGuiClosed();
