@@ -6,7 +6,6 @@ import cc.hyperium.mixinsimp.renderer.IMixinRenderManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,6 @@ import java.util.Map;
 
 @Mixin(RenderManager.class)
 public class MixinRenderManger implements IMixinRenderManager {
-
     @Shadow
     private double renderPosX;
 
@@ -28,9 +26,6 @@ public class MixinRenderManger implements IMixinRenderManager {
 
     @Shadow
     private double renderPosZ;
-
-    @Shadow
-    private Map<String, RenderPlayer> skinMap;
 
     @Shadow
     private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap;
@@ -53,10 +48,5 @@ public class MixinRenderManger implements IMixinRenderManager {
     @Override
     public double getPosZ() {
         return renderPosZ;
-    }
-
-    @Override
-    public Map<String, RenderPlayer> getSkinMap() {
-        return skinMap;
     }
 }
