@@ -2,10 +2,8 @@ package cc.hyperium.utils;
 
 import cc.hyperium.installer.components.HScrollBarUI;
 import cc.hyperium.installer.components.VScrollBarUI;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
