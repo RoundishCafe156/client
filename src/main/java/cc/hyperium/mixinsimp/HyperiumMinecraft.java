@@ -186,10 +186,7 @@ public class HyperiumMinecraft {
         if (old != null && guiScreenIn != old) old.onGuiClosed();
         if (old != null) EventBus.INSTANCE.unregister(old);
 
-        if (guiScreenIn instanceof GuiHyperiumScreenMainMenu) {
-            gameSettings.showDebugInfo = false;
-            if (!Settings.PERSISTENT_CHAT) ingameGUI.getChatGUI().clearChatMessages();
-        }
+        if (guiScreenIn instanceof GuiHyperiumScreenMainMenu) gameSettings.showDebugInfo = false;
 
         ((IMixinMinecraft) parent).setCurrentScreen(guiScreenIn);
 
