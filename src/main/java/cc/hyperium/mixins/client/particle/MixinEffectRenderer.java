@@ -2,7 +2,6 @@ package cc.hyperium.mixins.client.particle;
 
 import cc.hyperium.config.Settings;
 import cc.hyperium.mixinsimp.renderer.client.particle.IMixinEffectRenderer;
-import cc.hyperium.mods.sk1ercommon.Multithreading;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -55,7 +54,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
     private TextureManager renderer;
     @Shadow
     private Random rand;
-    private CountDownLatch latch;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void load(World in, TextureManager manager, CallbackInfo info) {
