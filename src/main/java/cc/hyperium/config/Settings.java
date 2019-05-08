@@ -271,10 +271,6 @@ public class Settings {
     @ToggleSetting(category = HYPIXEL, name = "gui.settings.pingondm")
     public static boolean PING_ON_DM = true;
 
-    public static boolean IMPROVE_PARTICLES = false;
-    public static boolean IMPROVE_ENTITY_HANDLING = false;
-    public static boolean IMPROVE_PARTICLE_RUN = false; /* any reason why this isnt used at all? */
-
     @ConfigOpt()
     @ToggleSetting(category = GENERAL, name = "gui.settings.sprintbypassstaticfov")
     public static boolean staticFovSprintModifier;
