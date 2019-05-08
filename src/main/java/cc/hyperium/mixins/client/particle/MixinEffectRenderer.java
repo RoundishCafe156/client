@@ -2,7 +2,6 @@ package cc.hyperium.mixins.client.particle;
 
 import cc.hyperium.config.Settings;
 import cc.hyperium.mixinsimp.renderer.client.particle.IMixinEffectRenderer;
-import cc.hyperium.mods.sk1ercommon.Multithreading;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -31,9 +30,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -55,7 +51,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
     private TextureManager renderer;
     @Shadow
     private Random rand;
-    private CountDownLatch latch;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void load(World in, TextureManager manager, CallbackInfo info) {
@@ -90,55 +85,12 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
     private void updateEffectLayer(int p_178922_1_) {
         for (int i = 0; i < 2; ++i) {
             int finalI = i;
-            if (Settings.IMPROVE_PARTICLE_RUN) {
-                Multithreading.runAsync(() -> {
-                    try {
-                        this.updateEffectAlphaLayer(this.modifiedFxLayer[p_178922_1_][finalI]);
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
-                    latch.countDown();
-                });
-            } else {
-                this.updateEffectAlphaLayer(this.modifiedFxLayer[p_178922_1_][finalI]);
-            }
+            this.updateEffectAlphaLayer(this.modifiedFxLayer[p_178922_1_][finalI]);
         }
     }
 
     private void updateEffectAlphaLayer(ConcurrentLinkedQueue<EntityFX> queue) {
-        if (Settings.IMPROVE_PARTICLE_RUN) {
-            int total = queue.size();
-            int threads = total / 100 + 1;
-            CountDownLatch latch = new CountDownLatch(threads);
-            HashMap<Integer, List<EntityFX>> fx = new HashMap<>();
-            int tmp = 0;
-            for (int i = 0; i < threads; i++) {
-                fx.computeIfAbsent(tmp, integer -> new ArrayList<>());
-            }
-            for (EntityFX entityFX : queue) {
-                fx.computeIfAbsent(tmp, integer -> new ArrayList<>()).add(entityFX);
-                tmp++;
-                if (tmp > threads)
-                    tmp = 0;
-            }
-            for (List<EntityFX> entityFXES : fx.values()) {
-                Multithreading.runAsync(() -> {
-                    try {
-                        for (EntityFX entityFX : entityFXES) {
-                            try {
-                                tickParticle(entityFX);
-                            } catch (Throwable t) {
-                                t.printStackTrace();
-                            }
-
-                        }
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
-                    latch.countDown();
-                });
-            }
-        } else queue.forEach(this::tickParticle);
+        queue.forEach(this::tickParticle);
         queue.removeIf(entityFX -> entityFX.isDead);
     }
 
@@ -175,7 +127,6 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
                 queue.forEach(entityFX -> entityFX.renderParticle(worldrenderer, entityIn, p_78872_2_, f1, f5, f2, f3, f4));
-
             }
         }
     }
@@ -207,8 +158,7 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
 
     @Overwrite
     public void updateEffects() {
-        Settings.IMPROVE_PARTICLE_RUN = Settings.IMPROVE_PARTICLES;
-        latch = Settings.IMPROVE_PARTICLE_RUN ? new CountDownLatch(8) : null;
+        CountDownLatch latch = null;
 
         for (int i = 0; i < 4; ++i) {
             this.updateEffectLayer(i);
