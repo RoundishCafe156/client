@@ -22,7 +22,6 @@ import cc.hyperium.gui.CrashReportGUI;
 import cc.hyperium.handlers.handlers.HypixelDetector;
 import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import cc.hyperium.mods.chromahud.ChromaHUDApi;
-import cc.hyperium.mods.sk1ercommon.Sk1erMod;
 import cc.hyperium.network.NetworkHandler;
 import cc.hyperium.purchases.HyperiumPurchase;
 import cc.hyperium.purchases.PurchaseApi;
