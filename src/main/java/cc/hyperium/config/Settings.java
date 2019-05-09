@@ -352,14 +352,6 @@ public class Settings {
     public static boolean SHOW_HIT_DISTANCES = false;
 
     @ConfigOpt
-    @ToggleSetting(name = "gui.settings.motionblurenabled", category = MOTION_BLUR, mods = true)
-    public static boolean MOTION_BLUR_ENABLED = false;
-
-    @ConfigOpt
-    @SliderSetting(name = "gui.settings.motionblurintensity", min = 0F, max = 7F, category = MOTION_BLUR, mods = true)
-    public static double MOTION_BLUR_AMOUNT = 4.0F;
-
-    @ConfigOpt
     @ToggleSetting(name = "gui.settings.autofriendenabled", category = AUTOFRIEND, mods = true)
     public static boolean AUTOFRIEND_TOGGLE = false;
 
