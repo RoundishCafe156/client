@@ -137,9 +137,5 @@ public class CommandDebug implements BaseCommand {
             GeneralChatHandler.instance().sendMessage("Enabled logging, please restart your game to begin. It will be auto disabled after next launch.");
             return;
         }
-        String message = get();
-        String haste = CrashReportGUI.haste(message);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(haste), null);
-        GeneralChatHandler.instance().sendMessage("Link copied: " + haste);
     }
 }
