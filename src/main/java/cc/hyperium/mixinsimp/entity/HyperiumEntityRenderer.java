@@ -138,9 +138,6 @@ public class HyperiumEntityRenderer {
     }
 
     public void loadShader(ResourceLocation resourceLocation){
-        if (resourceLocation.equals(new ResourceLocation("shaders/hyperium_blur.json"))) {
-            return;
-        }
         // Uses an accessor to call the original load shader method.
         ((IMixinEntityRenderer) parent).callLoadShader(resourceLocation);
     }
