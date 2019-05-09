@@ -112,10 +112,6 @@ public class Settings {
     @ConfigOpt
     public static int SETTINGS_ALPHA = 100;
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;blurGuiBackgroundsEnabled")
-    @ToggleSetting(name = "gui.settings.blurredguibackground")
-    public static boolean BLUR_GUI = false;
-
     @ConfigOpt
     @SelectorSetting(name = "Hat Type", category = COSMETICS, items = "NONE")
     public static String HAT_TYPE = "NONE";
