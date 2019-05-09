@@ -17,7 +17,6 @@ import cc.hyperium.event.SingleplayerJoinEvent;
 import cc.hyperium.event.TickEvent;
 import cc.hyperium.event.WorldChangeEvent;
 import cc.hyperium.event.WorldUnloadEvent;
-import cc.hyperium.gui.CrashReportGUI;
 import cc.hyperium.gui.GuiHyperiumScreenMainMenu;
 import cc.hyperium.internal.addons.AddonBootstrap;
 import cc.hyperium.internal.addons.AddonMinecraftBootstrap;
@@ -222,7 +221,6 @@ public class HyperiumMinecraft {
     }
 
     public void displayCrashReport(CrashReport crashReportIn) {
-        // Separate Hyperium crash reports.
         String data = crashReportIn.getCauseStackTraceOrString();
         File crashReportDir;
         String crashReportPrefix = "crash-";
@@ -241,63 +239,7 @@ public class HyperiumMinecraft {
         crashReportIn.saveToFile(crashReportFile);
         Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
 
-        try {
-            Display.setFullscreen(false);
-            Display.setDisplayMode(new DisplayMode(720, 480));
-            Display.update();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Intercept the crash with Hyperium crash report GUI.
-        int crashAction = CrashReportGUI.handle(crashReportIn);
-
-        switch (crashAction) {
-            case 0:
-                System.exit(-1);
-                break;
-            case 1:
-                try {
-                    parent.shutdown();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.exit(-1); // if minecraft could not exit normally
-                }
-                break;
-            case 2:
-                try {
-                    // Restart the client using the command line.
-                    StringBuilder cmd = new StringBuilder();
-                    String[] command = System.getProperty("sun.java.command").split(" ");
-                    cmd.append(System.getProperty("java.home")).append(File.separator).append("bin")
-                        .append(File.separator).append("java ");
-                    ManagementFactory.getRuntimeMXBean().getInputArguments().forEach(s -> {
-                        if (!s.contains("-agentlib")) {
-                            cmd.append(s).append(" ");
-                        }
-                    });
-                    if (command[0].endsWith(".jar")) {
-                        cmd.append("-jar ").append(new File(command[0]).getPath()).append(" ");
-                    } else {
-                        cmd.append("-cp \"").append(System.getProperty("java.class.path"))
-                            .append("\" ").append(command[0]).append(" ");
-                    }
-                    for (int i = 1; i < command.length; i++) {
-                        cmd.append(command[i]).append(" ");
-                    }
-                    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                        try {
-                            Runtime.getRuntime().exec(cmd.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }));
-                    parent.shutdown();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                break;
-        }
+        System.exit(1);
     }
 
     public void shutdown(CallbackInfo ci) {
