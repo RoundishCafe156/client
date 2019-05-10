@@ -27,8 +27,6 @@ import cc.hyperium.purchases.PurchaseApi;
 import cc.hyperium.utils.JsonHolder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.util.List;
 
 public class CommandDebug implements BaseCommand {
