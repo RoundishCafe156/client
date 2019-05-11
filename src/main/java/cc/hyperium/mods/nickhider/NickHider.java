@@ -76,7 +76,7 @@ public class NickHider {
 
     public void init() {
         sk1erMod = Sk1erMod.getInstance();
-        Multithreading.runAsync(() -> namesDatabase.addAll(Arrays.asList(sk1erMod.rawWithAgent("https://rdil.rocks/list.txt").split("\n"))));
+        Multithreading.runAsync(() -> namesDatabase.addAll(Arrays.asList(sk1erMod.rawWithAgent("https://sk1er.club/words.txt").split("\n"))));
         if (suggestedConfigurationFile.exists()) {
             try {
                 FileReader baseReader = new FileReader(this.suggestedConfigurationFile);
