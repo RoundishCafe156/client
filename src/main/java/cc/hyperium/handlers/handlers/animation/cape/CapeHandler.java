@@ -87,8 +87,7 @@ public class CapeHandler {
             if (cape == null) {
                 setCape(player.getUniqueID(), NullCape.INSTANCE);
                 Multithreading.runAsync(() -> {
-                    HyperiumPurchase hyperiumPurchase = PurchaseApi.getInstance()
-                        .getPackageSync(uuid);
+                    PurchaseApi.getInstance().getPackageSync(uuid);
                     loadStaticCape(uuid, "http://s.optifine.net/capes/" + player.getGameProfile().getName() + ".png");
                 });
                 return capes.getOrDefault(uuid, NullCape.INSTANCE).get();
