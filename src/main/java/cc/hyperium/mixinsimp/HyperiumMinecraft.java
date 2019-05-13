@@ -72,8 +72,7 @@ public class HyperiumMinecraft {
     public void loop(CallbackInfo info, boolean inGameHasFocus, WorldClient theWorld,
                      EntityPlayerSP thePlayer, RenderManager renderManager, Timer timer) {
         if (inGameHasFocus && theWorld != null) {
-            RenderPlayerEvent event = new RenderPlayerEvent(thePlayer, renderManager, renderManager.viewerPosZ, renderManager.viewerPosY, renderManager.viewerPosZ,
-                timer.renderPartialTicks);
+            new RenderPlayerEvent(thePlayer, renderManager, renderManager.viewerPosZ, renderManager.viewerPosY, renderManager.viewerPosZ,timer.renderPartialTicks);
         }
     }
 
@@ -230,9 +229,7 @@ public class HyperiumMinecraft {
             crashReportDir = new File(Minecraft.getMinecraft().mcDataDir, "crash-reports");
         }
 
-        File crashReportFile = new File(crashReportDir,
-            crashReportPrefix + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-jbc.txt"
-        );
+        File crashReportFile = new File(crashReportDir, crashReportPrefix + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-jbc.txt");
 
         crashReportIn.saveToFile(crashReportFile);
         Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
