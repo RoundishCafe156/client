@@ -1,7 +1,8 @@
 package cc.hyperium.mods.autofriend;
 
-import net.minecraft.event.*;
-import net.minecraft.util.*;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ChatStyle;
 
 public class AutoFriendUtils {
     private final IChatComponent parent;
