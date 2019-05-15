@@ -31,12 +31,6 @@ import cc.hyperium.event.minigames.MinigameListener;
 import cc.hyperium.gui.*;
 import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.handlers.handlers.stats.PlayerStatsGui;
-import cc.hyperium.installer.utils.http.NameValuePair;
-import cc.hyperium.installer.utils.http.client.HttpClient;
-import cc.hyperium.installer.utils.http.client.entity.UrlEncodedFormEntity;
-import cc.hyperium.installer.utils.http.client.methods.HttpPost;
-import cc.hyperium.installer.utils.http.impl.client.HttpClients;
-import cc.hyperium.installer.utils.http.message.BasicNameValuePair;
 import cc.hyperium.mixinsimp.client.resources.HyperiumLocale;
 import cc.hyperium.mixinsimp.renderer.FontFixValues;
 import cc.hyperium.mods.HyperiumModIntegration;
@@ -60,6 +54,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 import rocks.rdil.jailbreak.chat.CommonChatResponder;
 import rocks.rdil.jailbreak.Jailbreak;
+import rocks.rdil.jailbreak.BackendHandler;
 import java.io.*;
 import java.util.*;
 
@@ -80,6 +75,7 @@ public class Hyperium {
     private boolean firstLaunch = false;
     private AutoGG autogg = new AutoGG();
     public Jailbreak j = new Jailbreak();
+    private BackendHandler bh = new BackendHandler();
 
     @InvokeEvent(priority = Priority.HIGH)
     public void init(InitializationEvent event) {
@@ -158,25 +154,8 @@ public class Hyperium {
             } catch (ClassNotFoundException e) {
                 optifineInstalled = false;
             }
-            Multithreading.runAsync(() -> {
-                try {
-                    HttpClient httpclient = HttpClients.createDefault();
-                    HttpPost httppost = new HttpPost("http://backend.rdil.rocks/join");
-
-                    List<NameValuePair> params = new ArrayList<NameValuePair>(1);
-                    params.add(new BasicNameValuePair("uuid", "123123"));
-                    try {
-                        httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-                    // Execute and get the response.
-                    httpclient.execute(httppost);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            // update player count
+            this.bh.apiJoinRequest();
         } catch (Throwable t) {
             Minecraft.getMinecraft().crashed(new CrashReport("Hyperium Startup Failure", t));
         }
@@ -210,24 +189,8 @@ public class Hyperium {
     private void shutdown() {
         CONFIG.save();
 
-        Multithreading.runAsync(() -> {
-            HttpClient httpclient = HttpClients.createDefault();
-            HttpPost httppost = new HttpPost("http://backend.rdil.rocks/leave");
-
-            // Request parameters and other properties.
-            List<NameValuePair> params = new ArrayList<NameValuePair>(0);
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                httpclient.execute(httppost);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        // Remove from online players
+        this.bh.apiLeaveRequest();
 
         // Tell the modules the game is shutting down
         EventBus.INSTANCE.post(new GameShutDownEvent());
