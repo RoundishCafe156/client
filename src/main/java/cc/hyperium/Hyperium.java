@@ -109,7 +109,7 @@ public class Hyperium {
             handlers = new HyperiumHandlers();
             handlers.postInit();
 
-            SplashProgress.setProgress(6, "Registering Utilities");
+            SplashProgress.setProgress(6, "Loading Utilities");
             minigameListener = new MinigameListener();
             EventBus.INSTANCE.register(minigameListener);
             EventBus.INSTANCE.register(new ToggleSprintContainer());
@@ -157,7 +157,7 @@ public class Hyperium {
             // update player count
             this.bh.apiJoinRequest();
         } catch (Throwable t) {
-            Minecraft.getMinecraft().crashed(new CrashReport("Hyperium Startup Failure", t));
+            Minecraft.getMinecraft().crashed(new CrashReport("Startup Failure", t));
         }
     }
 
