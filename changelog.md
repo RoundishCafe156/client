@@ -3,8 +3,12 @@
 ## v2.8
 
 ```diff
-+ Added update checker
++ Added automatic update checker
+- Removed DeobfStack (removes 2MB from Jar!)
 * Cleanup
++ Added MemoryFix mod
+- Removed unused code
+- Removed armor base mixin
 ```
 
 ## v2.7
