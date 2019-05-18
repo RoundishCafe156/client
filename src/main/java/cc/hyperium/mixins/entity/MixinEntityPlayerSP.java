@@ -35,7 +35,6 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(EntityPlayerSP.class)
 public class MixinEntityPlayerSP extends AbstractClientPlayer {
-
     private HyperiumEntityPlayerSP hyperiumEntityPlayerSP = new HyperiumEntityPlayerSP((EntityPlayerSP) (Object) this);
 
     @Shadow
@@ -82,5 +81,10 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
             this.timeInPortal = 0.0F;
         }
         super.removePotionEffectClient(potionId);
+    }
+
+    @Redirect(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;currentScreen:Lnet/minecraft/client/gui/GuiScreen;", ordinal = 0))
+    private GuiScreen getCurrentScreen(Minecraft mc) {
+        return null;
     }
 }
