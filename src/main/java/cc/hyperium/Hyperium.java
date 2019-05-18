@@ -193,28 +193,6 @@ public class Hyperium {
         hyperiumCommandHandler.registerCommand(new CommandKeybinds());
     }
 
-    @InvokeEvent
-    public void worldSwap(ServerJoinEvent event) {
-        boolean update = this.bh.getUpdate();
-        Runnable wait = new Runnable() {
-            public void run() {
-                while (Minecraft.getMinecraft().thePlayer == null) {
-                    noop();
-                }
-                if (update) {
-                    try {
-                        Thread.sleep(2000);
-                        this.getHandlers().getGeneralChatHandler().sendMessage(ChatColor.DARK_PURPLE + "An update for the client is now available at https://rdil.rocks/update", false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        ExecutorService executor = Executors.newCachedThreadPool();
-        executor.submit(wait);
-    }
-
     private void shutdown() {
         CONFIG.save();
 
@@ -271,5 +249,27 @@ public class Hyperium {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @InvokeEvent
+    public void worldSwap(ServerJoinEvent event) {
+        boolean update = this.bh.getUpdate();
+        Runnable wait = new Runnable() {
+            public void run() {
+                while (Minecraft.getMinecraft().thePlayer == null) {
+                    noop();
+                }
+                if (update) {
+                    try {
+                        Thread.sleep(2000);
+                        this.getHandlers().getGeneralChatHandler().sendMessage(ChatColor.DARK_PURPLE + "An update for the client is now available at https://rdil.rocks/update", false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.submit(wait);
     }
 }
