@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.8
+
+```diff
++ Added update checker
+* Cleanup
+```
+
 ## v2.7
 
 ```diff
