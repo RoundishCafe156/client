@@ -82,9 +82,4 @@ public class MixinEntityPlayerSP extends AbstractClientPlayer {
         }
         super.removePotionEffectClient(potionId);
     }
-
-    @Redirect(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;currentScreen:Lnet/minecraft/client/gui/GuiScreen;", ordinal = 0))
-    private GuiScreen getCurrentScreen(Minecraft mc) {
-        return null;
-    }
 }
