@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.8.1
+
+> This is a minor release.
+
+```diff
+- Removed quest tracking
++ Decreased server join lag
+* Cleaned up ChromaHUD
+```
+
 ## v2.8
 
 ```diff
