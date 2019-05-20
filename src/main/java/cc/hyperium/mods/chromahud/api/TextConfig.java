@@ -39,7 +39,6 @@ public class TextConfig {
         return button;
     }
 
-
     public BiConsumer<GuiTextField, DisplayItem> getLoad() {
         return load;
     }
