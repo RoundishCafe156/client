@@ -21,7 +21,6 @@ import cc.hyperium.config.Settings;
 import cc.hyperium.mods.chromahud.ElementRenderer;
 import cc.hyperium.mods.chromahud.api.DisplayItem;
 import cc.hyperium.utils.JsonHolder;
-import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import java.text.DecimalFormat;
@@ -31,7 +30,6 @@ import java.util.List;
 public class CordsDisplay extends DisplayItem {
     public int state = 0;
     public int precision = 1;
-    private JsonObject raw;
 
     public CordsDisplay(JsonHolder options, int orderinal) {
         super(options, orderinal);
