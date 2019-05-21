@@ -4,7 +4,6 @@ import cc.hyperium.config.Settings;
 import cc.hyperium.utils.JsonHolder;
 
 public class PurchaseSettings {
-    private JsonHolder source;
 
     private boolean wingsDisabled;
     private double wingsScale;
@@ -13,8 +12,6 @@ public class PurchaseSettings {
     private EnumPurchaseType companion;
 
     public PurchaseSettings(JsonHolder source) {
-        this.source = source;
-
         this.wingsDisabled = source.optJSONObject("wings").optBoolean("disabled");
         this.wingsScale = source.optJSONObject("wings").optDouble("scale", Settings.WINGS_SCALE);
         dragonHeadDisabled = source.optJSONObject("dragon").optBoolean("disabled");
