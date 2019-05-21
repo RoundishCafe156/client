@@ -156,28 +156,26 @@ public abstract class MixinNetHandlerPlayClient {
                 packetBuffer.readBytes(payload);
                 String message = new String(payload, Charsets.UTF_8);
 
-                if ("REGISTER".equalsIgnoreCase(packetIn.getChannelName())) {
-                    if (message.contains("Hyperium")) {
-                        PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-                        buffer.writeString("Hyperium;" + Metadata.getVersion());
-                        addToSendQueue(new C17PacketCustomPayload("REGISTER", buffer));
-                        PacketBuffer addonbuffer = new PacketBuffer(Unpooled.buffer());
-                        List<AddonManifest> addons = AddonBootstrap.INSTANCE.getAddonManifests();
-                        addonbuffer.writeInt(addons.size());
-                        for (AddonManifest addonmanifest : addons) {
-                            String addonName = addonmanifest.getName();
-                            String version = addonmanifest.getVersion();
-                            if (addonName == null) {
-                                addonName = addonmanifest.getMainClass();
-                            }
-                            if (version == null) {
-                                version = "unknown";
-                            }
-                            addonbuffer.writeString(addonName);
-                            addonbuffer.writeString(version);
+                if ("REGISTER".equalsIgnoreCase(packetIn.getChannelName()) && message.contains("Hyperium")) {
+                    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+                    buffer.writeString("Hyperium;" + Metadata.getVersion());
+                    addToSendQueue(new C17PacketCustomPayload("REGISTER", buffer));
+                    PacketBuffer addonbuffer = new PacketBuffer(Unpooled.buffer());
+                    List<AddonManifest> addons = AddonBootstrap.INSTANCE.getAddonManifests();
+                    addonbuffer.writeInt(addons.size());
+                    for (AddonManifest addonmanifest : addons) {
+                        String addonName = addonmanifest.getName();
+                        String version = addonmanifest.getVersion();
+                        if (addonName == null) {
+                            addonName = addonmanifest.getMainClass();
                         }
-                        addToSendQueue(new C17PacketCustomPayload("hyperium|Addons", addonbuffer));
+                        if (version == null) {
+                            version = "unknown";
+                        }
+                        addonbuffer.writeString(addonName);
+                        addonbuffer.writeString(version);
                     }
+                    addToSendQueue(new C17PacketCustomPayload("hyperium|Addons", addonbuffer));
                 }
             }
         } catch (Exception e) {
@@ -207,7 +205,7 @@ public abstract class MixinNetHandlerPlayClient {
             if (isLevelProtocol && (url.contains("..") || !url.endsWith("/resources.zip"))) {
                 EntityPlayerSP thePlayer = Minecraft.getMinecraft().thePlayer;
                 if (thePlayer != null) {
-                    thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + EnumChatFormatting.BOLD.toString() + "[WARNING] The current server has tried to hack your client, but HyperiumJailbreak stopped it."));
+                    thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + EnumChatFormatting.BOLD.toString() + "[WARNING] The current server has tried to hack you, but HyperiumJailbreak stopped it."));
                 }
                 throw new URISyntaxException(url, "Invalid levelstorage resourcepack path");
             }
