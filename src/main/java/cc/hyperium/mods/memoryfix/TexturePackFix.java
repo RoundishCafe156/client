@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ResourcePackImageScaler {
+public class TexturePackFix {
     public static final int SIZE = 64;
 
     public static BufferedImage scalePackImage(BufferedImage image) throws IOException {
