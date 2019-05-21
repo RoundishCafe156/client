@@ -33,15 +33,13 @@ public class MinigameListener {
     @InvokeEvent
     public void onTick(TickEvent event) {
         if (Minecraft.getMinecraft().theWorld != null) {
-            if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel() && Minecraft.getMinecraft().theWorld.getScoreboard() != null) {
-                if (this.cooldown <= 0) {
-                    this.cooldown = 3 * 20;
-                    String minigameName = getScoreboardTitle();
-                    for (Minigame m : Minigame.values()) {
-                        if (minigameName.equalsIgnoreCase(m.scoreName) && !minigameName.equalsIgnoreCase(this.currentMinigameName)) {
-                            this.currentMinigameName = minigameName;
-                            EventBus.INSTANCE.post(new JoinMinigameEvent(m));
-                        }
+            if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel() && Minecraft.getMinecraft().theWorld.getScoreboard() != null && this.cooldown <= 0) {
+                this.cooldown = 3 * 20;
+                String minigameName = getScoreboardTitle();
+                for (Minigame m : Minigame.values()) {
+                    if (minigameName.equalsIgnoreCase(m.scoreName) && !minigameName.equalsIgnoreCase(this.currentMinigameName)) {
+                        this.currentMinigameName = minigameName;
+                        EventBus.INSTANCE.post(new JoinMinigameEvent(m));
                     }
                 } else {
                     this.cooldown--;
@@ -53,8 +51,7 @@ public class MinigameListener {
     public String getScoreboardTitle() {
         if (Minecraft.getMinecraft().theWorld.getScoreboard().getObjectiveInDisplaySlot(1) != null) {
             return ChatColor.stripColor(Minecraft.getMinecraft().theWorld.getScoreboard()
-                .getObjectiveInDisplaySlot(1)
-                .getDisplayName().trim()
+                .getObjectiveInDisplaySlot(1).getDisplayName().trim()
                 .replace("\u00A7[0-9a-zA-Z]", ""));
         }
         return "";
