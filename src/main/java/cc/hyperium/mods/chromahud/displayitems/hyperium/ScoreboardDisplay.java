@@ -68,7 +68,6 @@ public class ScoreboardDisplay extends DisplayItem {
             }
 
             int i1 = collection.size() * Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
-            int k1 = 3;
             int l1 = starX;
             if (ElementRenderer.getCurrent().isRightSided()) l1 -= i;
             int j = 0;
