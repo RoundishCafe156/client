@@ -263,7 +263,7 @@ public class Hyperium {
                 if (update) {
                     try {
                         Thread.sleep(2000);
-                        getHandlers().getGeneralChatHandler().sendMessage(ChatColor.DARK_PURPLE + "An update for the client is now available at https://rdil.rocks/update", false);
+                        getHandlers().getGeneralChatHandler().sendMessage(ChatColor.BOLD + ChatColor.RED + "An update for the client is now available at " + ChatColor.WHITE + "https://rdil.rocks/update", false);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
