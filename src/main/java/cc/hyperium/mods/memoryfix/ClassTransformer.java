@@ -86,7 +86,7 @@ public class ClassTransformer implements IClassTransformer {
                 if (insn.getOpcode() == Opcodes.ARETURN) {
                     method.instructions.insertBefore(insn, new MethodInsnNode(
                             Opcodes.INVOKESTATIC,
-                            "io.prplz.memoryfix.ResourcePackImageScaler".replace('.', '/'),
+                            "cc.hyperium.mods.memoryfix.TexturePackFix".replace('.', '/'),
                             "scalePackImage",
                             "(Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;",
                             false));
