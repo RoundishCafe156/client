@@ -33,14 +33,15 @@ public class MinigameListener {
     @InvokeEvent
     public void onTick(TickEvent event) {
         if (Minecraft.getMinecraft().theWorld != null) {
-            if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel() && Minecraft.getMinecraft().theWorld.getScoreboard() != null && this.cooldown <= 0) {
-                this.cooldown = 3 * 20;
-                String minigameName = getScoreboardTitle();
-                for (Minigame m : Minigame.values()) {
-                    if (minigameName.equalsIgnoreCase(m.scoreName) && !minigameName.equalsIgnoreCase(this.currentMinigameName)) {
-                        this.currentMinigameName = minigameName;
-                        EventBus.INSTANCE.post(new JoinMinigameEvent(m));
-                    }
+            if (Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel() && Minecraft.getMinecraft().theWorld.getScoreboard() != null) {
+                if (this.cooldown <= 0) {
+                    this.cooldown = 3 * 20;
+                    String minigameName = getScoreboardTitle();
+                    for (Minigame m : Minigame.values()) {
+                        if (minigameName.equalsIgnoreCase(m.scoreName) && !minigameName.equalsIgnoreCase(this.currentMinigameName)) {
+                            this.currentMinigameName = minigameName;
+                            EventBus.INSTANCE.post(new JoinMinigameEvent(m));
+                        }
                 } else {
                     this.cooldown--;
                 }
