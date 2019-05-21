@@ -4,7 +4,6 @@ import cc.hyperium.config.Settings;
 import cc.hyperium.utils.JsonHolder;
 
 public class PurchaseSettings {
-
     private boolean wingsDisabled;
     private double wingsScale;
     private boolean dragonHeadDisabled;
