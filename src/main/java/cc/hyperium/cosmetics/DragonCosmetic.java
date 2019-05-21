@@ -20,7 +20,6 @@ package cc.hyperium.cosmetics;
 import cc.hyperium.cosmetics.dragon.DragonHeadRenderer;
 import cc.hyperium.event.EventBus;
 import cc.hyperium.purchases.EnumPurchaseType;
-import net.minecraft.client.entity.AbstractClientPlayer;
 
 public class DragonCosmetic extends AbstractCosmetic {
     public DragonCosmetic() {
