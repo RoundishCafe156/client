@@ -31,11 +31,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
-
 import java.awt.Color;
 
 public class CustomCrosshair {
-
     public static boolean showVanillaCrosshair = true;
     private boolean enabled;
     private Color colour;
@@ -93,10 +91,8 @@ public class CustomCrosshair {
     public void drawCrosshair() {
         int screenWidth = ResolutionUtil.current().getScaledWidth() / 2;
         int screenHeight = ResolutionUtil.current().getScaledHeight() / 2;
-        if (!this.getEnabled() && !this.mc.gameSettings.hideGUI) {
-            if (this.mc.gameSettings.showDebugInfo) {
-                this.drawDebugAxisCrosshair(screenWidth, screenHeight);
-            }
+        if (!this.getEnabled() && !this.mc.gameSettings.hideGUI && this.mc.gameSettings.showDebugInfo) {
+            this.drawDebugAxisCrosshair(screenWidth, screenHeight);
         }
         if (this.getEnabled() && (this.mc.gameSettings.thirdPersonView <= 0 || this
             .getVisibleThirdPerson()) && (!this.mc.gameSettings.hideGUI || this
@@ -143,8 +139,7 @@ public class CustomCrosshair {
                     if (useCount == 0 || bowExtension > 1.0f) {
                         bowExtension = 1.0f;
                     }
-                    renderGap =
-                        this.getGap() + (int) ((1.0f - bowExtension) * (this.getGap() + 5) * 2.0f);
+                    renderGap = this.getGap() + (int) ((1.0f - bowExtension) * (this.getGap() + 5) * 2.0f);
                 }
             }
 
@@ -170,9 +165,7 @@ public class CustomCrosshair {
                 }
 
                 if (this.getDot()) {
-                    CustomCrosshairGraphics
-                        .drawFilledRectangle(screenWidth, screenHeight, screenWidth + 1,
-                            screenHeight + 1, this.getDotColour());
+                    CustomCrosshairGraphics.drawFilledRectangle(screenWidth, screenHeight, screenWidth + 1,screenHeight + 1, this.getDotColour());
                 }
             } else {
                 this.drawDebugAxisCrosshair(screenWidth, screenHeight);
@@ -181,8 +174,7 @@ public class CustomCrosshair {
         GlStateManager.resetColor();
     }
 
-    private void drawCrossCrosshair(int screenWidth, int screenHeight, int renderGap,
-                                    Color renderColour) {
+    private void drawCrossCrosshair(int screenWidth, int screenHeight, int renderGap, Color renderColour) {
         int renderThickness = this.getThickness() / 2;
         if (this.getOutline()) {
             CustomCrosshairGraphics.drawFilledRectangle(screenWidth - renderThickness - 1,
