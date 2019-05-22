@@ -24,8 +24,10 @@ public class HypixelGuiAugmenter {
         if (!Hyperium.INSTANCE.getHandlers().getHypixelDetector().isHypixel()) return;
         GuiScreen gui = event.getScreen();
         String location = Hyperium.INSTANCE.getHandlers().getLocationHandler().getLocation();
-        if (location.toLowerCase().contains("lobby") && gui instanceof GuiContainer) {
-            modifyLobbyGui(gui);
+        if (location.toLowerCase().contains("lobby")) {
+            if (gui instanceof GuiContainer) {
+                modifyLobbyGui(gui);
+            }
         }
     }
 
