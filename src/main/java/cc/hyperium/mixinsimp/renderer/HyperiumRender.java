@@ -24,6 +24,7 @@ import java.awt.Color;
 import java.util.UUID;
 
 public class HyperiumRender<T extends Entity> {
+
     private Render<T> parent;
 
     public HyperiumRender(Render<T> parent) {
@@ -100,23 +101,24 @@ public class HyperiumRender<T extends Entity> {
             GlStateManager.depthMask(true);
             if (show)
                 fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, 0, -1);
-            if (Settings.SHOW_ONLINE_PLAYERS && Settings.SHOW_DOTS_ON_NAME_TAGS && entityIn instanceof EntityPlayer && show) {
-                String s = "⚫";
-                UUID gameProfileId = ((EntityPlayer) entityIn).getGameProfile().getId();
-                boolean online = Hyperium.INSTANCE.getHandlers().getStatusHandler().isOnline(gameProfileId);
-                if (StaffUtils.isStaff(gameProfileId)) {
-                    StaffUtils.DotColour colour = StaffUtils.getColor(gameProfileId);
-                    if (colour.isChroma) {
-                        drawChromaWaveString(s, (fontrenderer.getStringWidth(str) + fontrenderer.getStringWidth(s)) / 2, -2);
+            if (show)
+                if (Settings.SHOW_ONLINE_PLAYERS && Settings.SHOW_DOTS_ON_NAME_TAGS && entityIn instanceof EntityPlayer) {
+                    String s = "⚫";
+                    UUID gameProfileId = ((EntityPlayer) entityIn).getGameProfile().getId();
+                    boolean online = Hyperium.INSTANCE.getHandlers().getStatusHandler().isOnline(gameProfileId);
+                    if (StaffUtils.isStaff(gameProfileId)) {
+                        StaffUtils.DotColour colour = StaffUtils.getColor(gameProfileId);
+                        if (colour.isChroma) {
+                            drawChromaWaveString(s, (fontrenderer.getStringWidth(str) + fontrenderer.getStringWidth(s)) / 2, -2);
+                        } else {
+                            String format = StaffUtils.getColor(gameProfileId).baseColour + s;
+                            fontrenderer.drawString(format, (fontrenderer.getStringWidth(str) + fontrenderer.getStringWidth(s)) / 2, -2, Color.WHITE.getRGB());
+                        }
                     } else {
-                        String format = StaffUtils.getColor(gameProfileId).baseColour + s;
+                        String format = online ? ChatColor.GREEN + s : ChatColor.RED + s;
                         fontrenderer.drawString(format, (fontrenderer.getStringWidth(str) + fontrenderer.getStringWidth(s)) / 2, -2, Color.WHITE.getRGB());
                     }
-                } else {
-                    String format = online ? ChatColor.GREEN + s : ChatColor.RED + s;
-                    fontrenderer.drawString(format, (fontrenderer.getStringWidth(str) + fontrenderer.getStringWidth(s)) / 2, -2, Color.WHITE.getRGB());
                 }
-            }
             if (entityIn instanceof EntityPlayer && !RenderNameTagEvent.CANCEL) {
                 EventBus.INSTANCE.post(new RenderNameTagEvent(((AbstractClientPlayer) entityIn), renderManager));
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
