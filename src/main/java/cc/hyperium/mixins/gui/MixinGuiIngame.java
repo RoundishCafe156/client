@@ -169,12 +169,15 @@ public abstract class MixinGuiIngame extends Gui {
                     hardCore = 5;
                 }
                 this.drawTexturedModalRect(healthWidth, healthHeight, 16 + gettingDamage * 9, 9 * hardCore, 9, 9);
-                if (!Settings.OLD_HEALTH && isGettingDamage) {
-                    if (healthHeartAmount * 2 + 1 < lastPlayerHealth) {
-                        this.drawTexturedModalRect(healthWidth, healthHeight, baseTextureX + 54, 9 * hardCore, 9, 9);
-                    }
-                    if (healthHeartAmount * 2 + 1 == lastPlayerHealth) {
-                        this.drawTexturedModalRect(healthWidth, healthHeight, baseTextureX + 63, 9 * hardCore, 9, 9);
+                if (!Settings.OLD_HEALTH) {
+                    if (isGettingDamage) {
+                        if (healthHeartAmount * 2 + 1 < lastPlayerHealth) {
+                            this.drawTexturedModalRect(healthWidth, healthHeight, baseTextureX + 54, 9 * hardCore, 9, 9);
+                        }
+
+                        if (healthHeartAmount * 2 + 1 == lastPlayerHealth) {
+                            this.drawTexturedModalRect(healthWidth, healthHeight, baseTextureX + 63, 9 * hardCore, 9, 9);
+                        }
                     }
                 }
 
