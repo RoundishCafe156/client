@@ -72,7 +72,6 @@ public class LevelHeadGui extends GuiScreen {
     private GuiButton prefixButton;
     private boolean isCustom = false;
     private GuiTextField textField;
-    private GuiButton buttonType;
 
     private int calculateHeight(int row) {
         return 55 + row * 23;
@@ -165,7 +164,7 @@ public class LevelHeadGui extends GuiScreen {
         }), null);
 
         JsonHolder types = instance.getTypes();
-        reg(this.buttonType = new GuiButton(4, this.width / 2 - 155, calculateHeight(3), 150 * 2 + 10, 20, "Current Type: " + types.optJSONObject(instance.getType()).optString("name")), button -> {
+        reg(new GuiButton(4, this.width / 2 - 155, calculateHeight(3), 150 * 2 + 10, 20, "Current Type: " + types.optJSONObject(instance.getType()).optString("name")), button -> {
             String currentType = instance.getType();
             List<String> keys = types.getKeys();
             int i = keys.indexOf(currentType);
