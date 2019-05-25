@@ -2,7 +2,6 @@ package cc.hyperium.mixinsimp.entity;
 
 import cc.hyperium.config.Settings;
 import cc.hyperium.event.EventBus;
-import cc.hyperium.event.LivingDeathEvent;
 import cc.hyperium.event.PlayerAttackEntityEvent;
 import cc.hyperium.event.PlayerSwingEvent;
 import cc.hyperium.mixins.entity.IMixinEntity;
@@ -35,9 +34,7 @@ public class HyperiumEntityPlayer {
         if (last != parent.isSwingInProgress) {
             last = parent.isSwingInProgress;
             if (parent.isSwingInProgress) {
-                EventBus.INSTANCE.post(
-                    new PlayerSwingEvent(parent.getUniqueID(), parent.getPositionVector(), parent.getLookVec(),
-                        parent.getPosition()));
+                EventBus.INSTANCE.post(new PlayerSwingEvent(parent.getUniqueID(), parent.getPositionVector(), parent.getLookVec(), parent.getPosition()));
             }
         }
     }
@@ -102,10 +99,6 @@ public class HyperiumEntityPlayer {
 
     public void attackTargetEntityWithCurrentItem(Entity targetEntity) {
         EventBus.INSTANCE.post(new PlayerAttackEntityEvent(parent.getUniqueID(), targetEntity));
-    }
-
-    public void onDeath(DamageSource source) {
-        EventBus.INSTANCE.post(new LivingDeathEvent(parent, source));
     }
 
     public void setName(String name) {

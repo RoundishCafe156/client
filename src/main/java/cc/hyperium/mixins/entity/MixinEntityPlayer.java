@@ -26,7 +26,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Team;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +38,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase implements IMixinEntityPlayer {
-
     public MixinEntityPlayer(World worldIn) {
         super(worldIn);
     }
@@ -78,11 +76,6 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IMix
     @Overwrite
     public IChatComponent getDisplayName() {
         return hyperiumEntityPlayer.getDisplayName();
-    }
-
-    @Inject(method = "onDeath", at = @At("HEAD"))
-    private void onDeath(DamageSource source, CallbackInfo ci) {
-        hyperiumEntityPlayer.onDeath(source);
     }
 
     @Inject(method = "dropItem", at = @At("RETURN"))
