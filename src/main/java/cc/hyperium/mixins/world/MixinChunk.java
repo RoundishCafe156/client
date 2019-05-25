@@ -28,7 +28,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -41,10 +40,6 @@ import java.util.Map;
 
 @Mixin(Chunk.class)
 public class MixinChunk {
-    @Shadow
-    @Final
-    private static Logger logger;
-
     @Shadow
     private boolean hasEntities;
 
@@ -122,7 +117,6 @@ public class MixinChunk {
             int j = MathHelper.floor_double(entityIn.posZ / 16.0D);
 
             if (i != this.xPosition || j != this.zPosition) {
-                logger.warn("Wrong location! (" + i + ", " + j + ") should be (" + this.xPosition + ", " + this.zPosition + "), " + entityIn, entityIn);
                 entityIn.setDead();
             }
 
