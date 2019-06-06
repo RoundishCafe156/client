@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.8.2
+
+> This is a minor release.
+
+```diff
+- Removed some useless events
++ Improved addon performance
+```
+
 ## v2.8.1
 
 > This is a minor release.
