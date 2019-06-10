@@ -3,6 +3,7 @@ package cc.hyperium.mixins;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
