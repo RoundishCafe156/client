@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.9
+
+```diff
++ Lava bucket fix (prevents false bans)
+```
+
 ## v2.8.2
 
 > This is a minor release.
