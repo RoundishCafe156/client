@@ -1,4 +1,4 @@
-package com.example.mixins;
+package cc.hyperium.mixins.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
