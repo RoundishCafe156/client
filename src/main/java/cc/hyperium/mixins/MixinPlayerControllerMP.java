@@ -1,6 +1,7 @@
 package cc.hyperium.mixins;
 
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -9,7 +10,7 @@ import net.minecraft.init.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.CallBackInfo;
+import org.spongepowered.asm.mixin.injection.CallbackInfo;
 
 @SuppressWarnings("unused")
 @Mixin(PlayerControllerMP.class)
