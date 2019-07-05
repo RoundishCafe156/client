@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.9.1
+
+> This is a minor release.
+
+```diff
+* Updated Kotlin version
+```
+
 ## v2.9
 
 ```diff
