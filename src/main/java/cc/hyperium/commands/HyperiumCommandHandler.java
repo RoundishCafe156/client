@@ -80,6 +80,7 @@ public class HyperiumCommandHandler {
         } else {
             commandName = commandLine;
         }
+        commandName = commandName.toLowerCase();
 
         // Disabled commands will be ignored
         if (isCommandDisabled(commandName)) {
