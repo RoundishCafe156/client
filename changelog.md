@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.10.0
+
+```diff
+- Downgraded Kotlin standard library
+* FIXED CRASHES RELATED TO JOINING GAMES!!!
+```
+
 ## v2.9.1
 
 > This is a minor release.
