@@ -392,13 +392,12 @@ public class LevelHeadGui extends GuiScreen {
     }
 
     private void drawTitle() {
-        String text = "Levelhead Jailbreak";
+        String text = "Levelhead for HJB";
 
         drawCenteredString(mc.fontRendererObj, text, this.width / 2, 5, Color.WHITE.getRGB());
         drawHorizontalLine(this.width / 2 - mc.fontRendererObj.getStringWidth(text) / 2 - 5, this.width / 2 + mc.fontRendererObj.getStringWidth(text) / 2 + 5, 15, Color.WHITE.getRGB());
         drawCenteredString(mc.fontRendererObj, ChatColor.YELLOW + "Custom Levelhead Status: " + (isCustom ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled / Inactive"), this.width / 2,
             20, Color.WHITE.getRGB());
-
     }
 
     private void drawLook() {
@@ -428,7 +427,7 @@ public class LevelHeadGui extends GuiScreen {
             }
 
         } else {
-            drawCenteredString(renderer, "LevelHead is disabled", this.width / 2, 30, Color.WHITE.getRGB());
+            drawCenteredString(renderer, "Levelhead disabled", this.width / 2, 30, Color.WHITE.getRGB());
             drawCenteredString(renderer, "Player level\'s will not appear", this.width / 2, 40, Color.WHITE.getRGB());
         }
     }
