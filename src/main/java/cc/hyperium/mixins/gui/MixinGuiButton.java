@@ -50,9 +50,6 @@ public abstract class MixinGuiButton extends Gui {
     private long systemTime = Minecraft.getSystemTime();
     private HyperiumGuiButton hyperiumButton = new HyperiumGuiButton((GuiButton) (Object) this);
 
-    @Shadow
-    protected abstract void mouseDragged(Minecraft mc, int mouseX, int mouseY);
-
     @Overwrite
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         hyperiumButton.drawButton(mc, mouseX, mouseY);
