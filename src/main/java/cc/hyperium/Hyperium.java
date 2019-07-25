@@ -35,7 +35,6 @@ import cc.hyperium.event.minigames.MinigameListener;
 import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.handlers.handlers.stats.PlayerStatsGui;
 import cc.hyperium.mixinsimp.client.resources.HyperiumLocale;
-import cc.hyperium.mixinsimp.renderer.FontFixValues;
 import cc.hyperium.mods.HyperiumModIntegration;
 import cc.hyperium.mods.autofriend.command.AutofriendCommand;
 import cc.hyperium.mods.autogg.AutoGG;
@@ -150,8 +149,6 @@ public class Hyperium {
             Minecraft.getMinecraft().refreshResources();
 
             SplashProgress.setProgress(13, "Almost Done, Finishing Up");
-            if (FontFixValues.INSTANCE == null) FontFixValues.INSTANCE = new FontFixValues();
-            Multithreading.runAsync(() -> EventBus.INSTANCE.register(FontFixValues.INSTANCE));
 
             // Check if OptiFine is installed.
             try {
