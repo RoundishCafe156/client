@@ -89,9 +89,6 @@ public abstract class MixinFontRenderer {
         // Should help fix issues
         GlStateModifier.INSTANCE.reset();
 
-        if (FontFixValues.INSTANCE == null) FontFixValues.INSTANCE = new FontFixValues();
-        FontFixValues instance = FontFixValues.INSTANCE;
-
         int list = 0;
         final float posX = this.posX;
         final float posY = this.posY;
@@ -208,7 +205,6 @@ public abstract class MixinFontRenderer {
         value.setWidth(this.posX);
         this.posY = posY + value.getHeight();
         this.posX = posX + value.getWidth();
-        if (hasObf) instance.obfuscated.add(hash);
         GlStateManager.translate(-posX, -posY, 0F);
     }
 
@@ -289,7 +285,6 @@ public abstract class MixinFontRenderer {
                 }
                 return i;
             });
-
         }
     }
 }
