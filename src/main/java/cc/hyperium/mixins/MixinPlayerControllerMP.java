@@ -12,13 +12,13 @@ import net.minecraft.init.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @SuppressWarnings("unused")
 @Mixin(PlayerControllerMP.class)
 public class MixinPlayerControllerMP {
     @Inject(method = "onPlayerRightClick", at = @At("HEAD"))
-    private void placeClientLiquid(CallbackInfo ci, EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, EnumFacing side, Vec3 hitVec) {
+    private void placeClientLiquid(CallbackInfoReturnable cir, EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, EnumFacing side, Vec3 hitVec) {
         if (heldStack == null) return;
         final float f = (float)(hitVec.xCoord - hitPos.getX());
         final float f2 = (float)(hitVec.yCoord - hitPos.getY());
