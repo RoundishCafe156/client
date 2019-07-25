@@ -4,7 +4,6 @@ import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.handlers.handlers.FontRendererData;
 import cc.hyperium.mixinsimp.client.GlStateModifier;
 import cc.hyperium.mixinsimp.renderer.CachedString;
-import cc.hyperium.mixinsimp.renderer.FontFixValues;
 import cc.hyperium.mixinsimp.renderer.StringHash;
 import cc.hyperium.mods.nickhider.NickHider;
 import net.minecraft.client.gui.FontRenderer;
