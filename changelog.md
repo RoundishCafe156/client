@@ -5,6 +5,11 @@
 ```diff
 - Downgraded Kotlin standard library
 * FIXED CRASHES RELATED TO JOINING GAMES!!!
+- Removed last of optimized item renderer
+- Removed broken text in pause menu
++ Made /logs async
++ The clients commands now work when not all lowercase (e.g. /hYpErIuM or /HYPERIUM work)
+* Cleanup & removed unused method
 ```
 
 ## v2.9.1
