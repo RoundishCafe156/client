@@ -182,10 +182,6 @@ public class GuiHyperiumScreen extends GuiScreen {
         /* Render Hyperium version number */
         fr.drawStringScaled("Hyperium Jailbreak", width - 152, 39, 0xFFFFFF, .75);
 
-        /* Display copyright disclaimers at bottom of screen */
-        sfr.drawString(I18n.format("menu.left").toUpperCase(), 1, height - 7, 0x55FFFFFF);
-        String s = I18n.format("menu.right").toUpperCase();
-        sfr.drawString(s, width - sfr.getWidth(s) - 1, height - 7, 0x55FFFFFF);
         GlStateManager.popMatrix();
     }
 
