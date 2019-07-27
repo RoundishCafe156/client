@@ -60,8 +60,6 @@ import rocks.rdil.jailbreak.Jailbreak;
 import rocks.rdil.jailbreak.BackendHandler;
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Hyperium {
     public static final Hyperium INSTANCE = new Hyperium();
