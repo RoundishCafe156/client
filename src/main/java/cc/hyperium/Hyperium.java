@@ -159,9 +159,6 @@ public class Hyperium {
             }
             // update player count
             this.bh.apiRequest("join");
-
-            // Check for updates
-            this.bh.apiUpdateCheck();
         } catch (Throwable t) {
             Minecraft.getMinecraft().crashed(new CrashReport("Startup Failure", t));
         }
@@ -251,8 +248,7 @@ public class Hyperium {
 
     @InvokeEvent
     public void worldSwap(ServerJoinEvent event) {
-        boolean update = this.bh.getUpdate();
-        Runnable wait = new Runnable() {
+        Multithreading.runAsync(new Runnable() {
             public void run() {
                 while (Minecraft.getMinecraft().thePlayer == null) {
                     noop();
@@ -266,8 +262,6 @@ public class Hyperium {
                     }
                 }
             }
-        };
-        ExecutorService executor = Executors.newCachedThreadPool();
-        executor.submit(wait);
+        });
     }
 }
