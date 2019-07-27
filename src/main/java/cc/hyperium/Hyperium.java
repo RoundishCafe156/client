@@ -253,7 +253,7 @@ public class Hyperium {
                 while (Minecraft.getMinecraft().thePlayer == null) {
                     noop();
                 }
-                if (update) {
+                if (this.bh.apiUpdateCheck()) {
                     try {
                         Thread.sleep(2000);
                         getHandlers().getGeneralChatHandler().sendMessage(ChatColor.RED + "An update for the client is now available at " + ChatColor.WHITE + "https://rdil.rocks/update", false);
