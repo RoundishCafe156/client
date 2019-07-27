@@ -186,14 +186,14 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         GlStateManager.translate(0.0F, 0.0F, z);
         i = (e - Math.abs(270 - baseAngle)) / e;
 
-        if (i > 0) drawCenteredString(fontRendererObj, "- Hyperium Jailbreak -" + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
+        if (i > 0) drawCenteredString(fontRendererObj, "Last hour: " + ChatFormatting.GREEN + formatter.format(data.optInt("hour")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
 
         GlStateManager.translate(0.0F, 0.0F, -z);
         GlStateManager.rotate(90, 1.0F, 0.0F, 0.0F);
         GlStateManager.translate(0.0F, 0.0F, z);
         i = (e - Math.abs(180 - baseAngle)) / e;
 
-        drawCenteredString(fontRendererObj, ChatFormatting.BLUE + "Thank you for your support!" + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
+        if (i > 0) drawCenteredString(fontRendererObj, ChatFormatting.BLUE + "Last day: " + ChatFormatting.GREEN + formatter.format(data.optInt("day")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
 
         GlStateManager.translate(0.0F, 0.0F, -z);
         GlStateManager.rotate(90, 1.0F, 0.0F, 0.0F);
