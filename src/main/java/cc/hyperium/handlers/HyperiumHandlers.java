@@ -135,10 +135,6 @@ public class HyperiumHandlers {
         return yeetHandler;
     }
 
-    public void postInit() {
-        generalChatHandler.post();
-    }
-
     public HypixelValueTracking getHypixelValueTracking() {
         return hypixelValueTracking;
     }
