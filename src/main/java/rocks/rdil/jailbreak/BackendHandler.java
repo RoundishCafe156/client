@@ -48,7 +48,7 @@ public class BackendHandler {
             String response = EntityUtils.toString(httpclient.execute(httppost).getEntity(), "UTF-8");
             return !response.equals(jb.Metadata.getVersion());
         } catch (Exception e) {
-            return False;
+            return false;
         }
     }
 }
