@@ -16,7 +16,7 @@ import cc.hyperium.utils.JsonHolder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.cubxity.libs.org.apache.commons.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
