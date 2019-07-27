@@ -110,7 +110,7 @@ public class Hyperium {
             SplashProgress.setProgress(5, "Loading Handlers");
             EventBus.INSTANCE.register(autogg);
             handlers = new HyperiumHandlers();
-            handlers.postInit();
+            handlers.getGeneralChatHandler().post();
 
             SplashProgress.setProgress(6, "Loading Utilities");
             minigameListener = new MinigameListener();
