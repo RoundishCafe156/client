@@ -146,7 +146,7 @@ public class Hyperium {
             SplashProgress.setProgress(12, "Reloading Jailbreak Manager");
             Minecraft.getMinecraft().refreshResources();
 
-            SplashProgress.setProgress(13, "Almost Done, Finishing Up");
+            SplashProgress.setProgress(13, "Finishing Up...");
 
             // Check if OptiFine is installed.
             try {
@@ -251,7 +251,7 @@ public class Hyperium {
                 while (Minecraft.getMinecraft().thePlayer == null) {
                     noop();
                 }
-                if (Hyperium.bh.apiUpdateCheck()) {
+                if (Hyperium.INSTANCE.bh.apiUpdateCheck()) {
                     try {
                         Thread.sleep(2000);
                         getHandlers().getGeneralChatHandler().sendMessage(ChatColor.RED + "An update for the client is now available at " + ChatColor.WHITE + "https://rdil.rocks/update", false);
