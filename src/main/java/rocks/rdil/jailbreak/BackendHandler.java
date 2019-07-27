@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BackendHandler {
-    boolean update = false;
+    private HttpClient httpclient = HttpClients.createDefault();
 
     public BackendHandler() {}
 
     public void apiRequest(String url) {
         try {
-            HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost("http://backend.rdil.rocks/" + url);
 
             List<NameValuePair> params = new ArrayList<NameValuePair>(0);
@@ -34,9 +33,8 @@ public class BackendHandler {
         }
     }
 
-    public void apiUpdateCheck() {
+    public boolean apiUpdateCheck() {
         try {
-            HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost("http://backend.rdil.rocks/checkUpdate");
 
             List<NameValuePair> params = new ArrayList<NameValuePair>(0);
@@ -48,13 +46,9 @@ public class BackendHandler {
 
             // Execute and get the response.
             String response = EntityUtils.toString(httpclient.execute(httppost).getEntity(), "UTF-8");
-            update = !response.equals(jb.Metadata.getVersion());
+            return !response.equals(jb.Metadata.getVersion());
         } catch (Exception e) {
-            e.printStackTrace();
+            return False;
         }
-    }
-
-    public boolean getUpdate() {
-        return update;
     }
 }
