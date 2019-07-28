@@ -211,7 +211,7 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         Multithreading.runAsync(() -> {
             HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost("http://backend.rdil.rocks/getOnline");
-
+            httppost.setHeader("User-Agent", "HyperiumJailbreak");
             List<NameValuePair> params = new ArrayList<NameValuePair>(0);
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
