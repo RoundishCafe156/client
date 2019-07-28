@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.10.1
+
+```diff
+* Fixed player counts, update checking, backend HTTP, and more.
+```
+
 ## v2.10.0
 
 ```diff
