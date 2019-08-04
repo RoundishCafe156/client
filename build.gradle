@@ -83,6 +83,7 @@ dependencies {
     embed ('com.github.HyperiumClient:Installer:1.9') {
         exclude 'LaunchWrapperPatcher'
     }
+    embed 'com.github.hyperiumjailbreak:LaunchWrapperPatcher:6b57308f2c'
     embed 'rocks.rdil.MojangAPI:MojangAPI:3.0'
     embed fileTree(dir: 'libs', include: 'Netty Client.jar')
     compile fileTree(dir: 'libs', include: '*.jar')
