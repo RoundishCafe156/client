@@ -80,10 +80,7 @@ dependencies {
         exclude module: 'lwjgl'
     }
     embed group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0'
-    embed ('com.github.HyperiumClient:Installer:1.9') {
-        exclude group: 'me.cubxity.asm', module: 'LaunchWrapperPatcher'
-    }
-    embed 'com.github.hyperiumjailbreak:LaunchWrapperPatcher:6b57308f2c'
+    embed 'com.github.HyperiumClient:Installer:1.9'
     embed 'rocks.rdil.MojangAPI:MojangAPI:3.0'
     embed fileTree(dir: 'libs', include: 'Netty Client.jar')
     compile fileTree(dir: 'libs', include: '*.jar')
