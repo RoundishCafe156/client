@@ -81,7 +81,7 @@ dependencies {
     }
     embed group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0'
     embed ('com.github.HyperiumClient:Installer:1.9') {
-        exclude group: 'com.github.cubxity'
+        exclude group: 'com.github.Cubxity', module: 'LaunchWrapperPatcher'
     }
     embed 'com.github.hyperiumjailbreak:LaunchWrapperPatcher:6b57308f2c'
     embed 'rocks.rdil.MojangAPI:MojangAPI:3.0'
