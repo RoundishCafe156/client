@@ -103,7 +103,7 @@ public class HyperiumServerList {
             ServerData serverdata = this.getServerData(servers, p_78857_1_);
             servers.set(p_78857_1_, this.getServerData(servers, p_78857_2_));
             servers.set(p_78857_2_, serverdata);
-            this.saveServerList(servers, logger, mc);
+            this.saveServerList(servers, mc);
         } catch (Exception ignored) {}
     }
 
