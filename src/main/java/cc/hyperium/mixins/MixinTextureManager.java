@@ -49,7 +49,7 @@ public abstract class MixinTextureManager {
 
     @Overwrite
     public boolean loadTexture(ResourceLocation textureLocation, ITextureObject textureObj) {
-        return hyperiumTextureManager.loadTexture(textureLocation, textureObj, theResourceManager, logger);
+        return hyperiumTextureManager.loadTexture(textureLocation, textureObj, theResourceManager);
     }
 
     @Overwrite
