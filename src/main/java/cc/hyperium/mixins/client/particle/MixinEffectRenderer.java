@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
-import net.minecraft.profiler.Profiler;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
@@ -163,15 +162,12 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         for (int i = 0; i < 4; ++i) {
             this.updateEffectLayer(i);
         }
-        Profiler mcProfiler = Minecraft.getMinecraft().mcProfiler;
-        mcProfiler.startSection("particle_wait");
         if (latch != null)
             try {
                 latch.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        mcProfiler.endSection();
 
         this.modifiedParticlEmmiters.forEach(EntityParticleEmitter::onUpdate);
         modifiedParticlEmmiters.removeIf(entityParticleEmitter -> entityParticleEmitter.isDead);
