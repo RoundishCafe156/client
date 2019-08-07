@@ -1,9 +1,9 @@
 package cc.hyperium.mixins.renderer;
 
-import cc.hyperium.mixinsimp.renderer.HyperiumThreadDownloadImageData;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,14 +25,13 @@ public abstract class MixinThreadDownloadImageData extends SimpleTexture {
     @Final
     private IImageBuffer imageBuffer;
 
-    private HyperiumThreadDownloadImageData hyperiumThreadDownloadImageData = new HyperiumThreadDownloadImageData();
-
     public MixinThreadDownloadImageData(ResourceLocation textureResourceLocation) {
         super(textureResourceLocation);
     }
 
     @Overwrite
     protected void loadTextureFromServer() {
-        hyperiumThreadDownloadImageData.loadTextureFromServer(imageUrl, cacheFile, imageBuffer, (ThreadDownloadImageData) (Object) this, textureLocation);
+        CachedThreadDownloader cachedThreadDownloader = new CachedThreadDownloader(imageUrl, cacheFile, imageBuffer, threadDownloadImageData, textureLocation);
+        cachedThreadDownloader.process();
     }
 }
