@@ -62,6 +62,8 @@ import java.io.File;
 import java.util.*;
 
 public class Hyperium {
+    public static final String modid = "Hyperium";
+    public static final String version = "2.11.0";
     public static final Hyperium INSTANCE = new Hyperium();
     public static final Logger LOGGER = LogManager.getLogger(Metadata.getModid());
     public static final File folder = new File("hyperium");
