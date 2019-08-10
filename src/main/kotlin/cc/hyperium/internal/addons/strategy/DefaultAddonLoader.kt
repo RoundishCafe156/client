@@ -22,8 +22,7 @@ class DefaultAddonLoader : AddonLoaderStrategy() {
             file.delete()
             return null
         }
-        val uri = file.toURI()
-        Launch.classLoader.addURL(uri.toURL())
+        Launch.classLoader.addURL(file.toURI().toURL())
         return manifest
     }
 }
