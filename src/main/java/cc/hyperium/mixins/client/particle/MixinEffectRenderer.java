@@ -1,7 +1,6 @@
 package cc.hyperium.mixins.client.particle;
 
 import cc.hyperium.config.Settings;
-import cc.hyperium.mixinsimp.renderer.client.particle.IMixinEffectRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -34,7 +33,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 
 @Mixin(EffectRenderer.class)
-public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
+public abstract class MixinEffectRenderer {
     @Shadow
     @Final
     private static ResourceLocation particleTextures;
@@ -230,10 +229,5 @@ public abstract class MixinEffectRenderer implements IMixinEffectRenderer {
         GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
         GlStateManager.alphaFunc(516, 0.1F);
-    }
-
-    @Override
-    public Map<Integer, IParticleFactory> getParticleMap() {
-        return particleTypes;
     }
 }

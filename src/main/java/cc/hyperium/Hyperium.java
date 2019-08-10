@@ -58,7 +58,6 @@ import rocks.rdil.jailbreak.chat.CommonChatResponder;
 import rocks.rdil.jailbreak.Jailbreak;
 import rocks.rdil.jailbreak.BackendHandler;
 import java.io.File;
-import java.util.*;
 
 public class Hyperium {
     public static final String modid = "Hyperium";
@@ -140,7 +139,7 @@ public class Hyperium {
             modIntegration = new HyperiumModIntegration();
             new InternalAddons();
 
-            Multithreading.runAsync(() -> StaffUtils.clearCache());
+            StaffUtils.clearCache();
 
             Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 
@@ -247,18 +246,16 @@ public class Hyperium {
 
     @InvokeEvent
     public void worldSwap(ServerJoinEvent event) {
-        Multithreading.runAsync(new Runnable() {
-            public void run() {
-                while (Minecraft.getMinecraft().thePlayer == null) {
-                    noop();
-                }
-                if (Hyperium.INSTANCE.bh.apiUpdateCheck()) {
-                    try {
-                        Thread.sleep(2000);
-                        getHandlers().getGeneralChatHandler().sendMessage(ChatColor.RED + "An update for the client is now available at " + ChatColor.WHITE + "https://rdil.rocks/update", false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        Multithreading.runAsync(() -> {
+            while (Minecraft.getMinecraft().thePlayer == null) {
+                noop();
+            }
+            if (Hyperium.INSTANCE.bh.apiUpdateCheck()) {
+                try {
+                    Thread.sleep(2000);
+                    getHandlers().getGeneralChatHandler().sendMessage(ChatColor.RED + "An update for the client is now available at " + ChatColor.WHITE + "https://rdil.rocks/update", false);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
