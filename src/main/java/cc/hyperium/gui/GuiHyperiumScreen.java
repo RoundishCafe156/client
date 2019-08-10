@@ -85,7 +85,7 @@ public class GuiHyperiumScreen extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(getStyle == GuiStyle.DEFAULT) {
+        if(getStyle() == GuiStyle.DEFAULT) {
             drawDefaultStyleScreen(mouseX, mouseY);
         } else {
              drawHyperiumStyleScreen(mouseX, mouseY, partialTicks);
