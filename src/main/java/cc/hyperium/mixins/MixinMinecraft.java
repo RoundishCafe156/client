@@ -26,8 +26,10 @@ import cc.hyperium.mixinsimp.HyperiumMinecraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.DefaultResourcePack;
@@ -45,6 +47,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.io.File;
 import java.util.List;
 
@@ -77,6 +80,9 @@ public abstract class MixinMinecraft {
 
     @Shadow
     public GameSettings gameSettings;
+
+    @Shadow
+    public GuiIngame ingameGUI;
 
     @Shadow
     private boolean fullscreen;
@@ -160,7 +166,7 @@ public abstract class MixinMinecraft {
 
     @Overwrite
     public void displayGuiScreen(GuiScreen guiScreenIn) {
-        hyperiumMinecraft.displayGuiScreen(guiScreenIn, currentScreen, theWorld, thePlayer, gameSettings);
+        hyperiumMinecraft.displayGuiScreen(guiScreenIn, currentScreen, theWorld, thePlayer, gameSettings, ingameGUI);
     }
 
     @Shadow
@@ -168,6 +174,9 @@ public abstract class MixinMinecraft {
 
     @Shadow
     public abstract void run();
+
+    @Shadow
+    public EffectRenderer effectRenderer;
 
     @Overwrite
     private void drawSplashScreen(TextureManager tm) {
@@ -194,7 +203,7 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lorg/lwjgl/input/Mouse;getEventButton()I", ordinal = 0))
     private void runTickMouseButton(CallbackInfo ci) {
-        hyperiumMinecraft.runTickMouseButton();
+        hyperiumMinecraft.runTickMouseButton(ci);
     }
 
     @Overwrite
