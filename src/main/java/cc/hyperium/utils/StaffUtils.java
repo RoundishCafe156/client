@@ -1,5 +1,7 @@
 package cc.hyperium.utils;
+
 import cc.hyperium.utils.staff.StaffSettings;
+import cc.hyperium.mods.sk1ercommon.Multithreading;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -39,9 +41,11 @@ public class StaffUtils {
 
     public static void clearCache() {
         STAFF_CACHE.clear();
-        try {
-            STAFF_CACHE.putAll(getStaff());
-        } catch (IOException ignored) {}
+        Multithreading.runAsync(() -> {
+            try {
+                STAFF_CACHE.putAll(getStaff());
+            } catch (IOException ignored) {}
+        });
     }
 
     public static class DotColour {
