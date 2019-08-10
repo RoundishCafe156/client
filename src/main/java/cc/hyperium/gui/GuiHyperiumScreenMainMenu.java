@@ -73,13 +73,10 @@ public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiY
 
         this.addSingleplayerMultiplayerButtons(j - 10, 24);
 
-        switch (getStyle()) {
-            case DEFAULT:
-                addDefaultStyleOptionsButton(j);
-                break;
-            case HYPERIUM:
-                addHyperiumStyleOptionsButton(j);
-                break;
+        if(getStyle() == GuiStyle.DEFAULT) {
+            addDefaultStyleOptionsButton(j);
+        } else {
+            addHyperiumStyleOptionsButton(j);
         }
 
         this.mc.setConnectedToRealms(false);
@@ -97,13 +94,10 @@ public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiY
     }
 
     public void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
-        switch (getStyle()) {
-            case DEFAULT:
-                addDefaultStyleSingleplayerMultiplayerButtons(p_73969_1_, p_73969_2_);
-                break;
-            case HYPERIUM:
-                addHyperiumStyleSingleplayerMultiplayerButtons();
-                break;
+        if(getStyle() == GuiStyle.DEFAULT) {
+            addDefaultStyleSingleplayerMultiplayerButtons(p_73969_1_, p_73969_2_);
+        } else {
+            addHyperiumStyleSingleplayerMultiplayerButtons();
         }
     }
 
@@ -148,24 +142,19 @@ public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiY
             }
         }
 
-        switch (getStyle()) {
-            case DEFAULT:
-                if (button.id == 15)
-                    HyperiumMainGui.INSTANCE.show();
-                if (button.id == 16) {
-                    GuiMultiplayer p_i1182_1_ = new GuiMultiplayer(new GuiMainMenu());
-                    p_i1182_1_.setWorldAndResolution(Minecraft.getMinecraft(), width, height);
-                    ((IMixinGuiMultiplayer) p_i1182_1_).makeDirectConnect();
-                    String hostName = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? "stuck.hypixel.net" : "mc.hypixel.net";
-                    ServerData data = new ServerData("hypixel", hostName, false);
-                    ((IMixinGuiMultiplayer) p_i1182_1_).setIp(data);
-                    p_i1182_1_.confirmClicked(true, 0);
-                }
-                break;
-            case HYPERIUM:
-                if (button.id == 15)
-                    HyperiumMainGui.INSTANCE.show();
-                break;
+        if(getStyle() == GuiStyle.DEFAULT) {
+            if (button.id == 15) HyperiumMainGui.INSTANCE.show();
+            if (button.id == 16) {
+                GuiMultiplayer p_i1182_1_ = new GuiMultiplayer(new GuiMainMenu());
+                p_i1182_1_.setWorldAndResolution(Minecraft.getMinecraft(), width, height);
+                ((IMixinGuiMultiplayer) p_i1182_1_).makeDirectConnect();
+                String hostName = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? "stuck.hypixel.net" : "mc.hypixel.net";
+                ServerData data = new ServerData("hypixel", hostName, false);
+                ((IMixinGuiMultiplayer) p_i1182_1_).setIp(data);
+                p_i1182_1_.confirmClicked(true, 0);
+             }
+        } else {
+            if (button.id == 15) HyperiumMainGui.INSTANCE.show();
         }
 
         if (button.id == 100) {
