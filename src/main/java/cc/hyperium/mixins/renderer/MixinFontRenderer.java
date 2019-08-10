@@ -4,7 +4,6 @@ import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.handlers.handlers.FontRendererData;
 import cc.hyperium.mixinsimp.client.GlStateModifier;
 import cc.hyperium.mixinsimp.renderer.CachedString;
-import cc.hyperium.mixinsimp.renderer.StringHash;
 import cc.hyperium.mods.nickhider.NickHider;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -53,7 +52,6 @@ public abstract class MixinFontRenderer {
         final float posY = this.posY;
         this.posY = 0;
         this.posX = 0;
-        StringHash hash = new StringHash(text, red, green, blue, alpha, shadow);
         GlStateManager.translate(posX, posY, 0F);
         boolean hasObf = false;
         CachedString value = new CachedString(text, list, this.posX - posX, this.posY - posY);
