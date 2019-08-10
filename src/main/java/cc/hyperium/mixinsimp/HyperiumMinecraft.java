@@ -26,6 +26,7 @@ import cc.hyperium.utils.AddonWorkspaceResourcePack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiGameOver;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -153,7 +154,7 @@ public class HyperiumMinecraft {
     }
 
     public void displayGuiScreen(GuiScreen guiScreenIn, GuiScreen currentScreen,
-                                 WorldClient theWorld, EntityPlayerSP thePlayer, GameSettings gameSettings) {
+                                 WorldClient theWorld, EntityPlayerSP thePlayer, GameSettings gameSettings, GuiIngame ingameGUI) {
         if (currentScreen != null) currentScreen.onGuiClosed();
 
         if (guiScreenIn == null && theWorld == null) {
@@ -201,7 +202,7 @@ public class HyperiumMinecraft {
         EventBus.INSTANCE.post(new WorldChangeEvent());
     }
 
-    public void runTickMouseButton() {
+    public void runTickMouseButton(CallbackInfo ci) {
         // Activates for EVERY mouse button.
         int i = Mouse.getEventButton();
         boolean state = Mouse.getEventButtonState();
