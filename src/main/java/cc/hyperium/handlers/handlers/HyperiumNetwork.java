@@ -47,7 +47,7 @@ public class HyperiumNetwork {
                         .put("id", Hyperium.modid)
                         .put("optifine", HyperiumTweaker.INSTANCE.isUsingOptifine())
                         .put("forge", HyperiumTweaker.INSTANCE.isUsingForge())
-                        .put("version", Metadata.getVersion()).toString())));
+                        .put("version", Hyperium.version).toString())));
         });
     }
 }
