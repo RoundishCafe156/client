@@ -18,6 +18,7 @@
 package cc.hyperium.gui;
 
 import cc.hyperium.Hyperium;
+import cc.hyperium.styles.GuiStyle;
 import cc.hyperium.config.Settings;
 import cc.hyperium.gui.hyperium.HyperiumMainGui;
 import cc.hyperium.handlers.handlers.SettingsMigrator;
