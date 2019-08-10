@@ -100,7 +100,6 @@
     "renderer.model.MixinModelBiped",
     "renderer.model.MixinModelBox",
     "renderer.model.MixinModelPlayer",
-    "renderer.model.MixinModelRenderer",
     "scoreboard.MixinScoreboard",
     "utils.MixinChatComponentStyle",
     "utils.MixinChatStyle",
