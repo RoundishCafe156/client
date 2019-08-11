@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.11.0
+
+```diff
+- Removed several unneeded mixins and related interfaces
+* Fixed issues with threading
++ Added Gradle wrappers
++ Update caffeine to latest version (2.8.0)
+* Moved metadata class
++ Improve performance for switch statements
++ Fixed GUIs taking some time to load
+* Merged some classes together
+- Other minor removals
+```
+
 ## v2.10.1
 
 ```diff
