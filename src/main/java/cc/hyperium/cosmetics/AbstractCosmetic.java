@@ -21,7 +21,8 @@ public abstract class AbstractCosmetic {
         this.purchaseType = purchaseType;
         try {
             PurchaseApi.getInstance().getPackageAsync(UUIDUtil.getClientUUID(), hyperiumPurchase -> {
-                if (hyperiumPurchase == null && !Hyperium.INSTANCE.isDevEnv) return;
+                if (Hyperium.INSTANCE.isDevEnv) return;
+                if (hyperiumPurchase == null) return;
                 selfUnlocked = hyperiumPurchase.hasPurchased(purchaseType);
             });
         } catch (Exception e) {
