@@ -17,7 +17,7 @@ public abstract class AbstractCosmetic {
     private final Map<UUID, Boolean> purchasedBy = new ConcurrentHashMap<>();
     private boolean selfUnlocked;
 
-    public AbstractCosmetic(boolean selfOnly, EnumPurchaseType purchaseType) {
+    public AbstractCosmetic(EnumPurchaseType purchaseType) {
         this.purchaseType = purchaseType;
         try {
             PurchaseApi.getInstance().getPackageAsync(UUIDUtil.getClientUUID(), hyperiumPurchase -> {
