@@ -42,8 +42,6 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
     private static JsonHolder data = new JsonHolder();
     private final DecimalFormat formatter = new DecimalFormat("#,###");
     private long lastUpdate = 0L;
-    private int cooldown = 0;
-    private int baseAngle;
 
     @Override
     public void initGui() {
@@ -149,8 +147,6 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
             refreshData();
         }
 
-        baseAngle %= 360;
-
         ScaledResolution current = ResolutionUtil.current();
         GlStateManager.translate(current.getScaledWidth() / 2, 5, 0);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -158,43 +154,13 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         drawCenteredString(fontRendererObj, "HyperiumJailbreak Player Count:", 0, -5, 0xFFFFFF);
         GlStateManager.translate(0F, 10F, 0F);
         GlStateManager.scale(1, 1, 1);
-        GlStateManager.rotate(baseAngle, 1.0F, 0.0F, 0.0F);
         GlStateManager.enableAlpha();
 
         float z = 4F;
-        float e = 80;
-        float i = 0;
 
         GlStateManager.translate(0.0F, 0.0F, z);
 
-        if (baseAngle < e) {
-            i = (e - Math.abs(baseAngle)) / e;
-        } else if (baseAngle > 360 - e) {
-            i = (e - (Math.abs((360) - baseAngle))) / e;
-        }
-
-        if (i > 0) drawCenteredString(fontRendererObj, "Now Online: " + ChatFormatting.GREEN + formatter.format(data.optInt("online")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
-
-        GlStateManager.translate(0.0F, 0.0F, -z);
-        GlStateManager.rotate(90, 1.0F, 0.0F, 0.0F);
-        GlStateManager.translate(0.0F, 0.0F, z);
-        i = (e - Math.abs(270 - baseAngle)) / e;
-
-        if (i > 0) drawCenteredString(fontRendererObj, "Last hour: " + ChatFormatting.GREEN + formatter.format(data.optInt("hour")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
-
-        GlStateManager.translate(0.0F, 0.0F, -z);
-        GlStateManager.rotate(90, 1.0F, 0.0F, 0.0F);
-        GlStateManager.translate(0.0F, 0.0F, z);
-        i = (e - Math.abs(180 - baseAngle)) / e;
-
-        if (i > 0) drawCenteredString(fontRendererObj, ChatFormatting.BLUE + "Last day: " + ChatFormatting.GREEN + formatter.format(data.optInt("day")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
-
-        GlStateManager.translate(0.0F, 0.0F, -z);
-        GlStateManager.rotate(90, 1.0F, 0.0F, 0.0F);
-        GlStateManager.translate(0.0F, 0.0F, z);
-        i = (e - Math.abs(90 - baseAngle)) / e;
-
-        if (i > 0) drawCenteredString(fontRendererObj, ChatFormatting.BLUE + "Thank you for your support!" + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
+        drawCenteredString(fontRendererObj, "Now Online: " + ChatFormatting.GREEN + formatter.format(data.optInt("online")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
 
         GlStateManager.popMatrix();
     }
@@ -205,7 +171,7 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         Multithreading.runAsync(() -> {
             HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost("http://backend.rdil.rocks/getOnline");
-            httppost.setHeader("User-Agent", "HyperiumJailbreak");
+            httppost.setHeader("User-agent", "HyperiumJailbreak");
             List<NameValuePair> params = new ArrayList<NameValuePair>(0);
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -234,17 +200,5 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
             }
             lastUpdate = System.currentTimeMillis();
         });
-    }
-
-    @Override
-    public void updateScreen() {
-        super.updateScreen();
-        cooldown++;
-        if (cooldown > 40) {
-            baseAngle += 9;
-            if (cooldown >= 50) {
-                cooldown = 0;
-            }
-        }
     }
 }
