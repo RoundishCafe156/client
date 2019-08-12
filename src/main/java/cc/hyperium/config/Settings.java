@@ -25,7 +25,7 @@ import static cc.hyperium.config.Category.*;
 public class Settings {
     public static final Settings INSTANCE = new Settings();
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.GeneralSetting;JailbreakFPSMode")
+    @ConfigOpt
     @ToggleSetting(name = "gui.settings.FPS", category = INTEGRATIONS)
     public static boolean FPS = false;
 
