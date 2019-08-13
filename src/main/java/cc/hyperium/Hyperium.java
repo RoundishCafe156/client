@@ -168,7 +168,6 @@ public class Hyperium {
         hyperiumCommandHandler.registerCommand(new CommandPing());
         hyperiumCommandHandler.registerCommand(new CommandStats());
         hyperiumCommandHandler.registerCommand(new CommandParty());
-        hyperiumCommandHandler.registerCommand(new CommandResize());
         hyperiumCommandHandler.registerCommand(new CommandGarbageCollect());
         hyperiumCommandHandler.registerCommand(new CommandMessage());
         hyperiumCommandHandler.registerCommand(new CommandDisableCommand());

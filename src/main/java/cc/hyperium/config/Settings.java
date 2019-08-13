@@ -469,10 +469,6 @@ public class Settings {
     public static boolean HIDE_TITLES = false;
 
     @ConfigOpt
-    @SliderSetting(name = "gui.settings.fpslimiteramount", isInt = true, min = 5, max = 60, category = IMPROVEMENTS)
-    public static int FPS_LIMITER_AMOUNT = 30;
-
-    @ConfigOpt
     @ToggleSetting(name = "gui.settings.disablelightning", category = IMPROVEMENTS)
     public static boolean DISABLE_LIGHTNING = false;
 
