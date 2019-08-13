@@ -1,12 +1,12 @@
 package rocks.rdil.jailbreak;
 
 import cc.hyperium.Hyperium;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import cc.hyperium.installer.utils.http.NameValuePair;
+import cc.hyperium.installer.utils.http.client.HttpClient;
+import cc.hyperium.installer.utils.http.client.entity.UrlEncodedFormEntity;
+import cc.hyperium.installer.utils.http.client.methods.HttpPost;
+import cc.hyperium.installer.utils.http.impl.client.HttpClients;
+import cc.hyperium.installer.utils.http.util.EntityUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
