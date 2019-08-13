@@ -16,6 +16,7 @@
  */
 
 package cc.hyperium;
+import cc.hyperium.event.*;
 import cc.hyperium.gui.ConfirmationPopup;
 import cc.hyperium.gui.SplashProgress;
 import cc.hyperium.gui.ColourOptions;
@@ -25,12 +26,6 @@ import cc.hyperium.commands.defaults.*;
 import cc.hyperium.config.DefaultConfig;
 import cc.hyperium.config.Settings;
 import cc.hyperium.cosmetics.HyperiumCosmetics;
-import cc.hyperium.event.EventBus;
-import cc.hyperium.event.GameShutDownEvent;
-import cc.hyperium.event.InitializationEvent;
-import cc.hyperium.event.InvokeEvent;
-import cc.hyperium.event.Priority;
-import cc.hyperium.event.ServerJoinEvent;
 import cc.hyperium.event.minigames.MinigameListener;
 import cc.hyperium.handlers.HyperiumHandlers;
 import cc.hyperium.handlers.handlers.stats.PlayerStatsGui;
@@ -61,7 +56,7 @@ import java.io.File;
 
 public class Hyperium {
     public static final String modid = "Hyperium";
-    public static final String version = "2.11.0";
+    public static final String version = "2.100.0";
     public static final Hyperium INSTANCE = new Hyperium();
     public static final Logger LOGGER = LogManager.getLogger(modid);
     public static final File folder = new File("hyperium");
@@ -222,10 +217,6 @@ public class Hyperium {
 
     public boolean isDevEnv() {
         return this.isDevEnv;
-    }
-
-    public Jailbreak getJailbreak() {
-        return j;
     }
 
     public HyperiumHandlers getHandlers() {

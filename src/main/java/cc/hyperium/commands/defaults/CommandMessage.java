@@ -26,7 +26,7 @@ public class CommandMessage implements BaseCommand {
     }
 
     @Override
-    public void onExecute(String[] args) throws CommandException {
+    public void onExecute(String[] args) {
         StringBuilder builder = new StringBuilder();
         for (String arg : args) {
             builder.append(arg).append(" ");

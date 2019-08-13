@@ -22,7 +22,7 @@ public class CommandResize implements BaseCommand {
     }
 
     @Override
-    public void onExecute(String[] args) throws CommandException {
+    public void onExecute(String[] args) {
         if (args.length != 2 || !StringUtils.isNumeric(args[0]) || !StringUtils.isNumeric(args[1])) {
             GeneralChatHandler.instance().sendMessage(getUsage());
         }

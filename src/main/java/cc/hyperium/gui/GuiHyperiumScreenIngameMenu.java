@@ -3,17 +3,11 @@ package cc.hyperium.gui;
 import cc.hyperium.Hyperium;
 import cc.hyperium.gui.hyperium.HyperiumMainGui;
 import cc.hyperium.gui.keybinds.GuiKeybinds;
-import cc.hyperium.installer.utils.http.HttpEntity;
-import cc.hyperium.installer.utils.http.HttpResponse;
-import cc.hyperium.installer.utils.http.NameValuePair;
-import cc.hyperium.installer.utils.http.client.HttpClient;
-import cc.hyperium.installer.utils.http.client.entity.UrlEncodedFormEntity;
-import cc.hyperium.installer.utils.http.client.methods.HttpPost;
-import cc.hyperium.installer.utils.http.impl.client.HttpClients;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
 import cc.hyperium.utils.JsonHolder;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import org.apache.commons.io.IOUtils;
@@ -30,17 +24,13 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.server.MinecraftServer;
+import rocks.rdil.jailbreak.BackendHandler;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
     private static JsonHolder data = new JsonHolder();
-    private final DecimalFormat formatter = new DecimalFormat("#,###");
     private long lastUpdate = 0L;
 
     @Override
@@ -160,7 +150,7 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
 
         GlStateManager.translate(0.0F, 0.0F, z);
 
-        drawCenteredString(fontRendererObj, "Now Online: " + ChatFormatting.GREEN + formatter.format(data.optInt("online")) + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
+        drawCenteredString(fontRendererObj, "Now Online: " + ChatFormatting.GREEN + data.optInt("online") + ChatFormatting.RESET, 0, 0, 0xFFFFFF);
 
         GlStateManager.popMatrix();
     }
@@ -169,19 +159,11 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         lastUpdate = System.currentTimeMillis() * 2;
 
         Multithreading.runAsync(() -> {
-            HttpClient httpclient = HttpClients.createDefault();
-            HttpPost httppost = new HttpPost("http://backend.rdil.rocks/getOnline");
-            httppost.setHeader("User-agent", "HyperiumJailbreak");
-            List<NameValuePair> params = new ArrayList<NameValuePair>(0);
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
             HttpResponse response = null;
             try {
-                response = httpclient.execute(httppost);
+                response = BackendHandler.httpclient.execute(
+                        BackendHandler.generate("https://backend.rdil.rocks/getOnline")
+                );
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -191,9 +173,7 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
                 try (InputStream instream = entity.getContent()) {
                     StringWriter writer = new StringWriter();
                     IOUtils.copy(instream, writer, "UTF-8");
-                    String theString = writer.toString();
-                    JsonObject jsonObject = new JsonParser().parse(theString).getAsJsonObject();
-                    data = new JsonHolder(jsonObject);
+                    data = new JsonHolder(new JsonParser().parse(writer.toString()).getAsJsonObject());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
