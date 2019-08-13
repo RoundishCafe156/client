@@ -41,7 +41,7 @@ public abstract class MixinNetworkPlayerInfo {
 
     @Overwrite
     public ResourceLocation getLocationCape() {
-        return hyperiumNetworkPlayerInfo.getLocationCape(this.gameProfile, this.locationCape);
+        return hyperiumNetworkPlayerInfo.getLocationCape(this.locationCape);
     }
 
     @Overwrite
