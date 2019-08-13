@@ -18,8 +18,8 @@ public class BackendHandler {
 
     public void apiRequest(String url) {
         try {
-            HttpPost httppost = new HttpPost("http://backend.rdil.rocks/" + url);
-            httppost.setHeader("User-Agent", "HyperiumJailbreak");
+            HttpPost httppost = new HttpPost("https://backend.rdil.rocks/" + url);
+            httppost.setHeader("User-agent", "HyperiumJailbreak");
             List<NameValuePair> params = new ArrayList<NameValuePair>(0);
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -36,8 +36,8 @@ public class BackendHandler {
 
     public boolean apiUpdateCheck() {
         try {
-            HttpPost httppost = new HttpPost("http://backend.rdil.rocks/checkUpdate");
-            httppost.setHeader("User-Agent", "HyperiumJailbreak");
+            HttpPost httppost = new HttpPost("https://backend.rdil.rocks/checkUpdate");
+            httppost.setHeader("User-agent", "HyperiumJailbreak");
             List<NameValuePair> params = new ArrayList<NameValuePair>(0);
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
