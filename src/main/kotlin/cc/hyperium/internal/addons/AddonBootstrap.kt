@@ -5,7 +5,6 @@ import cc.hyperium.internal.addons.misc.AddonManifestParser
 import cc.hyperium.internal.addons.strategy.AddonLoaderStrategy
 import cc.hyperium.internal.addons.strategy.DefaultAddonLoader
 import cc.hyperium.internal.addons.strategy.WorkspaceAddonLoader
-import cc.hyperium.internal.addons.translate.InstanceTranslator
 import cc.hyperium.internal.addons.translate.MixinTranslator
 import cc.hyperium.internal.addons.translate.TransformerTranslator
 import net.minecraft.launchwrapper.Launch
@@ -30,8 +29,7 @@ object AddonBootstrap {
 
     private val workspaceLoader = WorkspaceAddonLoader()
 
-    internal val translators = arrayListOf(
-            InstanceTranslator(),
+    private val translators = arrayListOf(
             MixinTranslator(),
             TransformerTranslator()
     )
@@ -85,7 +83,7 @@ object AddonBootstrap {
 
     private fun loadAddons(loader: AddonLoaderStrategy): List<AddonManifest> {
         val addons = ArrayList<AddonManifest>()
-        var pendings = if(pendingDirectory.exists()) pendingDirectory.listFiles() else arrayOf()
+        val pendings = if(pendingDirectory.exists()) pendingDirectory.listFiles() else arrayOf()
         try {
             if (pendingDirectory.exists())
                 pendings.forEach { pendingManifests.add(AddonManifestParser(JarFile(it)).getAddonManifest()) }
