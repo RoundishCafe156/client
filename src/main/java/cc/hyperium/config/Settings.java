@@ -192,16 +192,6 @@ public class Settings {
     @ToggleSetting(name = "gui.settings.tposetogglemode", category = COSMETICS)
     public static boolean TPOSE_TOGGLE_MODE = true;
 
-    @ConfigOpt(alt = "cc.hyperium.gui.settings.items.BackgroundSettings;backgroundSelect")
-    @SelectorSetting(name = "gui.settings.background", category = MENUS, items =
-        {
-            "1",
-            "2",
-            "DEFAULT"
-        }
-    )
-    public static String BACKGROUND = "1";
-
     @ConfigOpt(alt = "cc.hyperium.gui.settings.items.BackgroundSettings;fastWorldGuiEnabled")
     @ToggleSetting(name = "gui.settings.transparentcontainerbackgrounds")
     public static boolean FAST_CONTAINER = false;

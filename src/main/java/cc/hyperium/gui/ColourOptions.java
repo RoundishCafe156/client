@@ -21,12 +21,12 @@ public class ColourOptions extends HyperiumOverlay {
         reload();
     }
 
-    private void addSlider(String label, Field f, int max, int min) {
+    private void addSlider(String label, Field f) {
         f.setAccessible(true);
         try {
-            this.getComponents().add(new OverlaySlider(label, min, max, ((Integer) f.get(null)).floatValue(), (i) -> {
+            this.getComponents().add(new OverlaySlider(label, 0, 255, ((Integer) f.get(null)).floatValue(), (i) -> {
                 try {
-                    f.set(null, i.intValue());
+                    f.set(null, i);
                     Colors.setonepoint8color(Colors.glintR, Colors.glintG, Colors.glintB);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -37,16 +37,12 @@ public class ColourOptions extends HyperiumOverlay {
         }
     }
 
-    private void addLabel(String text) {
-        this.getComponents().add(new OverlayLabel(text, true, () -> {}));
-    }
-
     private void reload() {
         try {
-            addLabel("Accent Colour:");
-            addSlider("Red", this.getClass().getField("accent_r"), 255, 0);
-            addSlider("Green", this.getClass().getField("accent_g"), 255, 0);
-            addSlider("Blue", this.getClass().getField("accent_b"), 255, 0);
+            this.getComponents().add(new OverlayLabel("Accent Colour:", true, () -> {}));
+            addSlider("Red", this.getClass().getField("accent_r"));
+            addSlider("Green", this.getClass().getField("accent_g"));
+            addSlider("Blue", this.getClass().getField("accent_b"));
             this.getComponents().add(new OverlayButton("Reset to default colours", () -> {
                 try {
                     this.getClass().getField("accent_r").setInt(null, 136);

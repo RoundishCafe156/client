@@ -18,24 +18,14 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import javax.imageio.ImageIO;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 public class GuiHyperiumScreen extends GuiScreen {
-    public static ResourceLocation background = new ResourceLocation("textures/material/backgrounds/1.png");
-    public static boolean customBackground = false;
-    public static File customImage = new File(Minecraft.getMinecraft().mcDataDir, "customImage.png");
-    public static ResourceLocation bgDynamicTexture = null;
-    public static BufferedImage bgBr = null;
+    private static ResourceLocation background = new ResourceLocation("textures/material/backgrounds/1.png");
     public static HyperiumFontRenderer fr = new HyperiumFontRenderer("Arial", Font.PLAIN, 20);
-    public static HyperiumFontRenderer sfr = new HyperiumFontRenderer("Arial", Font.PLAIN, 12);
-    public static DynamicTexture viewportTexture;
+    static DynamicTexture viewportTexture;
     private static float swing;
-    public GuiButton hypixelButton;
+    GuiButton hypixelButton;
 
     public static void drawScaledCustomSizeModalRect(int x, int y, float u, float v, int uWidth, int vHeight, int width, int height, float tileWidth, float tileHeight) {
         float f = 1.0F / tileWidth;
@@ -49,39 +39,17 @@ public class GuiHyperiumScreen extends GuiScreen {
         GL11.glHint(GL11.GL_POINT_SMOOTH_HINT, GL11.GL_FASTEST);
 
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos((double) x, (double) (y + height), 0.0D).tex((double) (u * f), (double) ((v + (float) vHeight) * f1)).endVertex();
-        worldrenderer.pos((double) (x + width), (double) (y + height), 0.0D).tex((double) ((u + (float) uWidth) * f), (double) ((v + (float) vHeight) * f1)).endVertex();
-        worldrenderer.pos((double) (x + width), (double) y, 0.0D).tex((double) ((u + (float) uWidth) * f), (double) (v * f1)).endVertex();
-        worldrenderer.pos((double) x, (double) y, 0.0D).tex((double) (u * f), (double) (v * f1)).endVertex();
+        worldrenderer.pos(x, (y + height), 0.0D).tex((u * f), ((v + (float) vHeight) * f1)).endVertex();
+        worldrenderer.pos((x + width), (y + height), 0.0D).tex(((u + (float) uWidth) * f), ((v + (float) vHeight) * f1)).endVertex();
+        worldrenderer.pos((x + width), y, 0.0D).tex(((u + (float) uWidth) * f), (v * f1)).endVertex();
+        worldrenderer.pos(x, y, 0.0D).tex((u * f), (v * f1)).endVertex();
         tessellator.draw();
 
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_POINT_SMOOTH);
     }
 
-    public static ResourceLocation getBackground() {
-        return background;
-    }
-
-    public static void setBackground(ResourceLocation givenBackground) {
-        background = givenBackground;
-    }
-
-    public static void setCustomBackground(boolean givenBoolean) {
-        customBackground = givenBoolean;
-    }
-
-    public void initGui() {
-        customBackground = Settings.BACKGROUND.equalsIgnoreCase("CUSTOM");
-        if (customImage.exists() && customBackground) {
-            try {
-                bgBr = ImageIO.read(new FileInputStream(customImage));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (bgBr != null) bgDynamicTexture = mc.getRenderManager().renderEngine.getDynamicTextureLocation(customImage.getName(), new DynamicTexture(bgBr));
-        }
-    }
+    public void initGui() {}
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -93,40 +61,23 @@ public class GuiHyperiumScreen extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
-    public GuiStyle getStyle() {
+    GuiStyle getStyle() {
         return GuiStyle.valueOf(Minecraft.getMinecraft().theWorld == null ? Settings.MENU_STYLE : Settings.PAUSE_STYLE);
     }
 
-    public void renderHyperiumBackground(ScaledResolution p_180476_1_) {
+    private void renderHyperiumBackground(ScaledResolution p_180476_1_) {
         GlStateManager.disableDepth();
         GlStateManager.depthMask(false);
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableAlpha();
-        if (customImage.exists() && bgDynamicTexture != null && customBackground) {
-            Minecraft.getMinecraft().getTextureManager().bindTexture(bgDynamicTexture);
-            Tessellator tessellator = Tessellator.getInstance();
-            WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(0.0D, (double) p_180476_1_.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-            worldrenderer.pos((double) p_180476_1_.getScaledWidth(), (double) p_180476_1_.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos((double) p_180476_1_.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
-            worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
-            tessellator.draw();
-
-            GlStateManager.depthMask(true);
-            GlStateManager.enableDepth();
-            GlStateManager.enableAlpha();
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            return;
-        }
         Minecraft.getMinecraft().getTextureManager().bindTexture(background);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(0.0D, (double) p_180476_1_.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-        worldrenderer.pos((double) p_180476_1_.getScaledWidth(), (double) p_180476_1_.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-        worldrenderer.pos((double) p_180476_1_.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        worldrenderer.pos(0.0D, p_180476_1_.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+        worldrenderer.pos(p_180476_1_.getScaledWidth(), p_180476_1_.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
+        worldrenderer.pos(p_180476_1_.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
         worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
@@ -140,12 +91,10 @@ public class GuiHyperiumScreen extends GuiScreen {
         swing++;
 
         if (mc.theWorld == null) {
-            if (!Settings.BACKGROUND.equals("DEFAULT")) {
-                GlStateManager.disableAlpha();
-                ScaledResolution sr = new ScaledResolution(mc);
-                this.renderHyperiumBackground(sr);
-                GlStateManager.enableAlpha();
-            }
+            GlStateManager.disableAlpha();
+            ScaledResolution sr = new ScaledResolution(mc);
+            this.renderHyperiumBackground(sr);
+            GlStateManager.enableAlpha();
         }
 
         /* Render shadowed bar at top of screen */
@@ -179,11 +128,9 @@ public class GuiHyperiumScreen extends GuiScreen {
         GlStateManager.popMatrix();
     }
 
-    public void drawDefaultStyleScreen(int mouseX, int mouseY) {
-        if (!Settings.BACKGROUND.equals("DEFAULT")) {
-            GlStateManager.disableAlpha();
-            this.renderHyperiumBackground(new ScaledResolution(mc));
-        }
+    private void drawDefaultStyleScreen(int mouseX, int mouseY) {
+        GlStateManager.disableAlpha();
+        this.renderHyperiumBackground(new ScaledResolution(mc));
 
         ParticleOverlay.getOverlay().render(mouseX, mouseY, 0, 0, 0, 0);
         GlStateManager.enableAlpha();
@@ -205,12 +152,12 @@ public class GuiHyperiumScreen extends GuiScreen {
         if (hypixelButton != null) hypixelButton.displayString = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? I18n.format("button.ingame.fixhypixelsession") : I18n.format("button.ingame.joinhypixel");
     }
 
-    public int getIntendedWidth(int value) {
+    int getIntendedWidth(int value) {
         float intendedWidth = 1920F;
         return (int) ((Minecraft.getMinecraft().displayWidth / intendedWidth) * value);
     }
 
-    public int getIntendedHeight(int value) {
+    int getIntendedHeight(int value) {
         float intendedHeight = 1080F;
         return (int) ((Minecraft.getMinecraft().displayHeight / intendedHeight) * value);
     }

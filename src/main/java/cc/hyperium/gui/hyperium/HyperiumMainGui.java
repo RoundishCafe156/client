@@ -42,7 +42,8 @@ public class HyperiumMainGui extends HyperiumGui {
     private List<RGBFieldSet> rgbFields = new ArrayList<>();
     private MaterialTextField searchField;
 
-    public HyperiumMainGui() {
+
+    private HyperiumMainGui() {
         smol = new HyperiumFontRenderer(Settings.GUI_FONT, 14.0F, 0, 1.0F);
         font = new HyperiumFontRenderer(Settings.GUI_FONT, 16.0F, 0, 1.0F);
         title = new HyperiumFontRenderer(Settings.GUI_FONT, 30.0F, 0, 1.0F);
@@ -224,27 +225,16 @@ public class HyperiumMainGui extends HyperiumGui {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableAlpha();
 
-        if (Settings.BACKGROUND.equalsIgnoreCase("default")) {
-            drawDefaultBackground();
-        } else {
-            if (customImage.exists() && bgDynamicTexture != null && customBackground) {
-                Minecraft.getMinecraft().getTextureManager().bindTexture(bgDynamicTexture);
-            } else {
-                Minecraft.getMinecraft().getTextureManager().bindTexture(background);
-            }
+        Minecraft.getMinecraft().getTextureManager().bindTexture(background);
 
-            Tessellator tessellator = Tessellator.getInstance();
-            WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(0.0D, (double) sr.getScaledHeight(), -90.0D).tex(0.0D, 1.0D)
-                .endVertex();
-            worldrenderer.pos((double) sr.getScaledWidth(), (double) sr.getScaledHeight(), -90.0D)
-                .tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos((double) sr.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D)
-                .endVertex();
-            worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
-            tessellator.draw();
-        }
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(0.0D, sr.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+        worldrenderer.pos(sr.getScaledWidth(), sr.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
+        worldrenderer.pos(sr.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
+        tessellator.draw();
 
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();

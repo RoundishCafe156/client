@@ -47,7 +47,7 @@ import net.minecraft.world.storage.WorldInfo;
 import org.lwjgl.input.Keyboard;
 
 public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiYesNoCallback {
-    public static boolean FIRST_START = true;
+    private static boolean FIRST_START = true;
     private final ResourceLocation exit = new ResourceLocation("textures/material/exit.png");
     private final ResourceLocation people_outline = new ResourceLocation("textures/material/people-outline.png");
     private final ResourceLocation person_outline = new ResourceLocation("textures/material/person-outline.png");
@@ -72,12 +72,12 @@ public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiY
         viewportTexture = new DynamicTexture(256, 256);
         int j = this.height / 4 + 48;
 
-        this.addSingleplayerMultiplayerButtons(j - 10, 24);
+        this.addSingleplayerMultiplayerButtons(j - 10);
 
         if(getStyle() == GuiStyle.DEFAULT) {
             addDefaultStyleOptionsButton(j);
         } else {
-            addHyperiumStyleOptionsButton(j);
+            addHyperiumStyleOptionsButton();
         }
 
         this.mc.setConnectedToRealms(false);
@@ -90,13 +90,12 @@ public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiY
 
         if (Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(GameSettings.Options.REALMS_NOTIFICATIONS) && this.parentScreen != null) {
             this.parentScreen.func_183500_a(this.width, this.height);
-            this.parentScreen.initGui();
         }
     }
 
-    private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
+    private void addSingleplayerMultiplayerButtons(int p_73969_1_) {
         if(getStyle() == GuiStyle.DEFAULT) {
-            addDefaultStyleSingleplayerMultiplayerButtons(p_73969_1_, p_73969_2_);
+            addDefaultStyleSingleplayerMultiplayerButtons(p_73969_1_);
         } else {
             addHyperiumStyleSingleplayerMultiplayerButtons();
         }
@@ -170,16 +169,16 @@ public class GuiHyperiumScreenMainMenu extends GuiHyperiumScreen implements GuiY
         this.buttonList.add(new GuiButton(15, this.width / 2 + getIntendedWidth(65), this.height / 2 - getIntendedHeight(55), getIntendedWidth(110), getIntendedHeight(110), ""));
     }
 
-    private void addDefaultStyleSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
+    private void addDefaultStyleSingleplayerMultiplayerButtons(int p_73969_1_) {
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_, I18n.format("menu.multiplayer")));
-        //Change realms button ID to 16 to avoid conflicts
-        this.buttonList.add(this.hypixelButton = new GuiButton(16, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 200, 20, I18n.format("button.ingame.joinhypixel")));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + 24, I18n.format("menu.multiplayer")));
+        // Change realms button ID to 16 to avoid conflicts
+        this.buttonList.add(this.hypixelButton = new GuiButton(16, this.width / 2 - 100, p_73969_1_ + 48, 200, 20, I18n.format("button.ingame.joinhypixel")));
 
-        this.buttonList.add(new GuiButton(15, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 3, "Hyperium Settings"));
+        this.buttonList.add(new GuiButton(15, this.width / 2 - 100, p_73969_1_ + 72, "Hyperium Settings"));
     }
 
-    private void addHyperiumStyleOptionsButton(int j) {
+    private void addHyperiumStyleOptionsButton() {
         this.buttonList.add(new GuiButton(0, width / 2 - getIntendedWidth(55), height / 2 - getIntendedHeight(55), getIntendedWidth(110), getIntendedHeight(110), ""));
         this.buttonList.add(new GuiButton(4, width / 2 + getIntendedWidth(185), height / 2 - getIntendedHeight(55), getIntendedWidth(110), getIntendedHeight(110), ""));
     }
