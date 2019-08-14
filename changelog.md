@@ -1,5 +1,36 @@
 # Changelog
 
+## v2.12.0
+
+```diff
+* Modified a large count of mixins
+- Removed /resize command
+* Fixed /logs
+- Removed animation in ingame menu
+- Removed broken victory royale sound
+```
+
+### Important APIs Changed
+
+```diff
+- @ConfigOpt: Removed comment and ignore fields
+- Removed profiling for events
+- Removed KillEvent, HypixelWinEvent, RenderGuiEvent
+* Made MojangAPI internal, migrated the HTTP client it uses, fixed name histories
+* Deprecated HyperiumOverlay, removed the addToggle and handleMouseInput voids
+- HyperiumPurchase: boolean hasPurchased(String key) and UUID getPlayerUUID() were removed
+- BetterJsonObject: removed BetterJsonObject(JsonObject objectIn)
+* BetterJsonObject: addProperty(String key, String value), addProperty(String key, Number value), addProperty(String key, Boolean value) are now voids
+- ChatColor: stripFormatting(String text) was removed
+- HyperiumFontRenderer: removed int drawStringWithShadow(String text, float x, float y, int color)
+- LaunchUtil is gone
+- utils.Utils: ByteBuffer readImageToBuffer(InputStream inputStream) was removed
+- Forge GuiSlider: removed GuiSlider(int id, int xPos, int yPos, String displayStr, double minVal, double maxVal, double currentVal, ISlider par)
+- Removed Browse util in rocks.rdil.jailbreak
+* Os utility: changed isMacintosh and OSType.OSMacintosh to isDarwin and OSType.OSDarwin
+* Some autotip classes changed
+```
+
 ## v2.11.0
 
 ```diff
