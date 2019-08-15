@@ -42,7 +42,7 @@ object AddonMinecraftBootstrap {
                         val dependencyManifest = toLoadMap[dependency]
                         if (dependencyManifest == null) {
                             toLoadMap.remove(manifest.name)
-                            MISSING_DEPENDENCIES_MAP.computeIfAbsent(manifest) { ArrayList() }.add(dependency)
+                            MISSING_DEPENDENCIES_MAP.computeIfAbsent(manifest) { ArrayList() }.add(dependency.toString())
                             continue@loadBeforeLoop
                         }
 
