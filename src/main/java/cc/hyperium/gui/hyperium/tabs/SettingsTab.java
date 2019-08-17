@@ -1,5 +1,9 @@
 package cc.hyperium.gui.hyperium.tabs;
 
+import cc.hyperium.Hyperium;
+import cc.hyperium.addons.bossbar.gui.GuiBossbarSetting;
+import cc.hyperium.addons.customcrosshair.gui.GuiCustomCrosshairEditCrosshair;
+import cc.hyperium.addons.sidebar.gui.screen.GuiScreenSettings;
 import cc.hyperium.config.Category;
 import cc.hyperium.config.SelectorSetting;
 import cc.hyperium.config.SliderSetting;
@@ -7,12 +11,17 @@ import cc.hyperium.config.ToggleSetting;
 import cc.hyperium.gui.hyperium.HyperiumMainGui;
 import cc.hyperium.gui.hyperium.RGBFieldSet;
 import cc.hyperium.gui.hyperium.components.AbstractTab;
+import cc.hyperium.gui.hyperium.components.LinkComponent;
 import cc.hyperium.gui.hyperium.components.AbstractTabComponent;
 import cc.hyperium.gui.hyperium.components.CollapsibleTabComponent;
 import cc.hyperium.gui.hyperium.components.RGBComponent;
 import cc.hyperium.gui.hyperium.components.SelectorComponent;
 import cc.hyperium.gui.hyperium.components.SliderComponent;
 import cc.hyperium.gui.hyperium.components.ToggleComponent;
+import cc.hyperium.gui.keybinds.GuiKeybinds;
+import cc.hyperium.mods.chromahud.gui.GeneralConfigGui;
+import cc.hyperium.mods.keystrokes.screen.GuiScreenKeystrokes;
+import cc.hyperium.mods.togglechat.gui.ToggleChatMainGui;
 import net.minecraft.client.resources.I18n;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -61,6 +70,14 @@ public class SettingsTab extends AbstractTab {
                 }
             }
         }
+
+        apply(new LinkComponent(this, Collections.emptyList(), "Sidebar Mod", new GuiScreenSettings(Hyperium.INSTANCE.getInternalAddons().getSidebarAddon())), true, Category.MODS, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "Keystrokes Config GUI", new GuiScreenKeystrokes(Hyperium.INSTANCE.getModIntegration().getKeystrokesMod())), true, Category.KEYSTROKES, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "Togglechat", new ToggleChatMainGui(Hyperium.INSTANCE.getModIntegration().getToggleChat(), 0)), true, Category.MODS, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "Keybinds", new GuiKeybinds()), false, Category.GENERAL, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "Bossbar Customizer", new GuiBossbarSetting(Hyperium.INSTANCE.getInternalAddons().getBossbarAddon())), true, Category.MODS, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "Custom Crosshair", new GuiCustomCrosshairEditCrosshair(Hyperium.INSTANCE.getInternalAddons().getCustomCrosshairAddon())), true, Category.INTEGRATIONS, items);
+        apply(new LinkComponent(this, Collections.emptyList(), "ChromaHUD", new GeneralConfigGui(Hyperium.INSTANCE.getModIntegration().getChromaHUD())), true, Category.CHROMAHUD, items);
 
         for (RGBFieldSet rgbFieldSet : gui.getRgbFields()) {
             apply(new RGBComponent(this, rgbFieldSet), rgbFieldSet.isMods(), rgbFieldSet.getCategory(), items);

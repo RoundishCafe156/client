@@ -5,6 +5,7 @@ import cc.hyperium.gui.hyperium.HyperiumMainGui;
 import cc.hyperium.gui.keybinds.GuiKeybinds;
 import cc.hyperium.installer.utils.http.HttpEntity;
 import cc.hyperium.installer.utils.http.HttpResponse;
+import cc.hyperium.installer.utils.http.impl.client.HttpClients;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import cc.hyperium.mods.sk1ercommon.ResolutionUtil;
 import cc.hyperium.utils.JsonHolder;
@@ -161,19 +162,23 @@ public class GuiHyperiumScreenIngameMenu extends GuiHyperiumScreen {
         Multithreading.runAsync(() -> {
             HttpResponse response = null;
             try {
-                response = BackendHandler.httpclient.execute(
+                response = HttpClients.createDefault().execute(
                         BackendHandler.generate("https://backend.rdil.rocks/getOnline")
                 );
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println(response);
             HttpEntity entity = response.getEntity();
+            System.out.println(entity);
 
             if (entity != null) {
                 try (InputStream instream = entity.getContent()) {
+                    System.out.println(instream);
                     StringWriter writer = new StringWriter();
                     IOUtils.copy(instream, writer, "UTF-8");
                     data = new JsonHolder(new JsonParser().parse(writer.toString()).getAsJsonObject());
+                    System.out.println(writer.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
