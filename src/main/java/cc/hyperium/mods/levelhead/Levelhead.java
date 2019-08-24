@@ -170,7 +170,7 @@ public class Levelhead extends AbstractMod {
         updates++;
         levelCache.put(uuid, null);
         Multithreading.runAsync(() -> {
-            String raw = Sk1erMod.getInstance().rawWithAgent(
+            String raw = new Sk1erMod().rawWithAgent(
                 "https://api.sk1er.club/levelheadv5/" + trimUuid(uuid) + "/" + type
                     + "/" + trimUuid(Minecraft.getMinecraft().getSession().getProfile().getId()) +
                     "/" + VERSION);
