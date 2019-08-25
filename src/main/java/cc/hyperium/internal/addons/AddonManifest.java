@@ -23,8 +23,20 @@ public final class AddonManifest {
         return this.version;
     }
 
-    public final void setVersion( String var1) {
+    public final void setVersion(String var1) {
         this.version = var1;
+    }
+
+    public final void setMainClass(String var1) {
+        this.mainClass = var1;
+    }
+
+    public final void setMixinConfigs(List var1) {
+        this.mixinConfigs = var1;
+    }
+
+    public final void setTransformerClass(String var1) {
+        this.transformerClass = var1;
     }
 
     public final String getMainClass() {

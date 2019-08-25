@@ -6,10 +6,10 @@ import org.spongepowered.asm.mixin.Mixins;
 
 public final class MixinTranslator implements ITranslator {
     public void translate(AddonManifest manifest) {
-        List var10000 = manifest.getMixinConfigs();
-        if (var10000 != null) {
-            for (Object element$iv : var10000) {
-                String p1 = (String) element$iv;
+        List configs = manifest.getMixinConfigs();
+        if (configs != null) {
+            for (Object o : configs) {
+                String p1 = (String) o;
                 Mixins.addConfiguration(p1);
             }
         }
