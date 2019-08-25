@@ -12,8 +12,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkProvider;
-import static net.minecraft.client.Minecraft.getMinecraft;
-import static net.minecraft.client.renderer.GlStateManager.*;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class FakePlayerRendering {
     private final Renderer normalArms;
@@ -21,44 +20,44 @@ public class FakePlayerRendering {
     private final AbstractClientPlayer player;
 
     public FakePlayerRendering(GameProfile profile) {
-        RenderManager renderManager = getMinecraft().getRenderManager();
+        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
         normalArms = new Renderer(renderManager, false);
         smallArms = new Renderer(renderManager, true);
-        boolean isSessionProfile = getMinecraft().getSession().getProfile() == profile;
-        if (!isSessionProfile) profile = getMinecraft().getSessionService().fillProfileProperties(profile, true);
+        boolean isSessionProfile = Minecraft.getMinecraft().getSession().getProfile() == profile;
+        if (!isSessionProfile) profile = Minecraft.getMinecraft().getSessionService().fillProfileProperties(profile, true);
         player = new FakePlayer(profile);
     }
 
     public void renderPlayerModel(int posX, int posY, float scale, float rotation) {
-        Minecraft mc = getMinecraft();
+        Minecraft mc = Minecraft.getMinecraft();
         mc.getRenderManager().pointedEntity = player;
         mc.getRenderManager().renderEngine = mc.getTextureManager();
 
-        pushMatrix();
-        translate(posX, posY, 50.0F);
-        scale(-scale, scale, scale);
-        rotate(180.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(posX, posY, 50.0F);
+        GlStateManager.scale(-scale, scale, scale);
+        GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
 
-        color(1, 1, 1, 1);
-        enableCull();
-        enableAlpha();
-        enableDepth();
+        GlStateManager.color(1, 1, 1, 1);
+        GlStateManager.enableCull();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableDepth();
 
         RenderHelper.enableStandardItemLighting();
 
-        rotate(rotation, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
         player.rotationYawHead = player.rotationYaw + rotation;
 
-        translate(0.0F, player.getYOffset(), 0.0F);
+        GlStateManager.translate(0.0F, player.getYOffset(), 0.0F);
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 
         Renderer renderer = player.getSkinType().equals("slim") ? smallArms : normalArms;
         renderer.doRender(player, 0.0D, 0.0D, 0.0F, 0.0F, 0.625F);
 
-        disableDepth();
-        disableAlpha();
+        GlStateManager.disableDepth();
+        GlStateManager.disableAlpha();
         RenderHelper.disableStandardItemLighting();
-        popMatrix();
+        GlStateManager.popMatrix();
     }
 
     private static final class Renderer extends RenderPlayer {
@@ -124,7 +123,6 @@ public class FakePlayerRendering {
     }
 
     private static final class FakeWorldProvider extends WorldProvider {
-
         FakeWorldProvider() {}
         @Override
         public String getDimensionName() {
