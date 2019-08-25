@@ -165,6 +165,9 @@ public abstract class MixinMinecraft {
     }
 
     @Shadow
+    public abstract void shutdown();
+    
+    @Shadow
     public abstract void run();
 
     @Shadow
