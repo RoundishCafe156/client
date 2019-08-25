@@ -18,7 +18,6 @@
 package cc.hyperium.handlers.handlers.chat;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.IChatComponent;
 import java.util.regex.Matcher;
 
@@ -38,11 +37,6 @@ public class WinTrackingChatHandler extends HyperiumChatHandler {
                 }
             }
         }
-
-        // Should actually change the regex tho
-        EntityPlayerSP thePlayer = Minecraft.getMinecraft().thePlayer;
-        if (thePlayer == null)
-            return false;
         return false;
     }
 }
