@@ -7,7 +7,6 @@ import cc.hyperium.utils.SimpleAnimValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,7 +83,6 @@ public abstract class AbstractTab {
             scroll--;
         if (scroll > 0)
             scroll = 0;
-
     }
 
     public void setFilter(String filter) {
