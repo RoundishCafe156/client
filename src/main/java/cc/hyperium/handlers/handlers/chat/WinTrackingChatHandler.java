@@ -17,7 +17,6 @@
 
 package cc.hyperium.handlers.handlers.chat;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.IChatComponent;
 import java.util.regex.Matcher;
 
