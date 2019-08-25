@@ -42,7 +42,6 @@ public abstract class MixinAbstractClientPlayer extends EntityPlayer {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void AbstractPlayer(World worldIn, GameProfile playerProfile, CallbackInfo callbackInfo) {
-
         // Blank get cape call to get the show on the road
         hyperiumAbstractClientPlayer.init();
     }
