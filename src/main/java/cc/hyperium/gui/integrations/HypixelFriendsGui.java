@@ -113,8 +113,6 @@ public class HypixelFriendsGui extends HyperiumGui {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-
-
         });
 
         reg("REMOVE", new GuiButton(nextId(), ResolutionUtil.current().getScaledWidth() - 153, 23 + 21 * 2, 150, 20, "Remove (Hold down)"), guiButton -> {
@@ -147,7 +145,6 @@ public class HypixelFriendsGui extends HyperiumGui {
                 guiButton.displayString = "Remove (Hold down)";
             }
         });
-
     }
 
     @Override
@@ -330,8 +327,7 @@ public class HypixelFriendsGui extends HyperiumGui {
             public int compare(HypixelApiFriendObject o1, HypixelApiFriendObject o2) {
                 return 0;
             }
-        },
-        ;
+        };
         String name;
 
         FriendSortType(String name) {
