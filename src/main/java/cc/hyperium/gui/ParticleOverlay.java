@@ -97,13 +97,12 @@ public class ParticleOverlay {
                         double alpha = 100 + ((0.02 / 155) * v);
                         boolean flag = false;
                         if (((v1 >= guiLeft && v1 <= guiRight) || (x2 >= guiLeft && x2 <= guiRight))
-                            && ((v2 >= guiTop && v2 <= guiBottom) || (y2 >= guiTop && y2 <= guiBottom))) {
+                            && (v2 >= guiTop && v2 <= guiBottom) || (y2 >= guiTop && y2 <= guiBottom)) {
                             if (!Settings.PARTICLES_INV)
                                 continue;
                             alpha /= 4;
                             flag = true;
                         }
-
 
                         int color = Color.HSBtoRGB(h, 0.8F, 0.8F);
                         Color eee = new Color(color);
@@ -194,7 +193,6 @@ public class ParticleOverlay {
                 y = y - 1.0F;
             if (y < 0)
                 y = 1.0F - y;
-
         }
 
         private double distSqTo(Particle other) {
