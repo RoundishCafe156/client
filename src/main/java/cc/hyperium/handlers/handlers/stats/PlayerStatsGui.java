@@ -135,12 +135,6 @@ public class PlayerStatsGui extends HyperiumGui {
     }
 
     @Override
-    protected void pack() {
-        reg("VIEW_GUILD", new GuiButton(nextId(), 1, 22, "View Guild"), button -> new GuildStatsGui(player.getGuild()).show(), button -> button.visible = player.getGuild().isLoaded() && player.getGuild().isValid());
-        reg("VIEW_FRIENDS", new GuiButton(nextId(), 1, 22 + 21, "View Friends"), button -> {}, button -> { });
-    }
-
-    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (!texturesImage.isEmpty()) {
             for (AbstractHypixelStats s : texturesImage.keySet()) {
@@ -273,4 +267,6 @@ public class PlayerStatsGui extends HyperiumGui {
             GlStateManager.popMatrix();
         }
     }
+
+    @Override protected void pack(){}
 }
