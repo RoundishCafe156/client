@@ -45,7 +45,6 @@ public class NickHider {
     private File suggestedConfigurationFile = new File(Hyperium.folder, "nick_data.json");
     private HashMap<String, String> cache = new HashMap<>();
     private Set<String> usedNicks = new HashSet<>();
-    private static final Sk1erMod sk1erMod = new Sk1erMod();
     private NickHiderConfig config;
     private String override = null;
     public NickHider() {
