@@ -4,7 +4,6 @@ import cc.hyperium.gui.Icons;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Mouse;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -74,7 +73,6 @@ public class CollapsibleTabComponent extends AbstractTabComponent {
         int prevH = 0;
 
         for (AbstractTabComponent comp : tmpf == null ? children : children.stream().filter(c -> c.filter(tmpf)).collect(Collectors.toList())) {
-
             if (parent != null) right = false;
 
             comp.render(right ? x + width / 2 : x, y, parent != null ? width : width / 2, mouseX, mouseY);
@@ -171,8 +169,6 @@ public class CollapsibleTabComponent extends AbstractTabComponent {
         if (component instanceof SliderComponent) {
             return ((SliderComponent) component).getLabel();
         }
-        if (component instanceof LabelComponent)
-            return ((LabelComponent) component).getLabel();
         if (component instanceof ToggleComponent)
             return ((ToggleComponent) component).getLabel();
         if (component instanceof SelectorComponent)
