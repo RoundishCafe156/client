@@ -14,7 +14,6 @@ import java.util.List;
 
 public class AutoGG extends AbstractMod {
     private static List<String> triggers;
-    private final Metadata meta;
     private AutoGGConfig config;
     private boolean running;
 
