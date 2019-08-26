@@ -2,10 +2,8 @@ package cc.hyperium.mods.blockoverlay;
 
 import cc.hyperium.event.DrawBlockHighlightEvent;
 import cc.hyperium.event.InvokeEvent;
-
-import java.awt.Color;
-
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
@@ -15,6 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import org.lwjgl.opengl.GL11;
+import java.awt.Color;
 
 public class BlockOverlayRender {
     private BlockOverlay mod;
@@ -25,7 +24,7 @@ public class BlockOverlayRender {
 
     @InvokeEvent
     public void onRenderBlockOverlay(DrawBlockHighlightEvent event) {
-        if (BlockOverlay.mc.thePlayer == null || BlockOverlay.mc.theWorld == null || this.mod.getSettings().getOverlayMode() == BlockOverlayMode.DEFAULT) {
+        if (Minecraft.getMinecraft().thePlayer == null || Minecraft.getMinecraft().theWorld == null || this.mod.getSettings().getOverlayMode() == BlockOverlayMode.DEFAULT) {
             return;
         }
         event.setCancelled(true);
@@ -38,14 +37,14 @@ public class BlockOverlayRender {
     }
 
     private void drawOverlay(float partialTicks) {
-        if (BlockOverlay.mc.objectMouseOver == null || BlockOverlay.mc.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
+        if (Minecraft.getMinecraft().objectMouseOver == null || Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
             return;
         }
-        MovingObjectPosition position = BlockOverlay.mc.thePlayer.rayTrace(6.0, partialTicks);
+        MovingObjectPosition position = Minecraft.getMinecraft().thePlayer.rayTrace(6.0, partialTicks);
         if (position == null || position.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
             return;
         }
-        Block block = BlockOverlay.mc.thePlayer.worldObj.getBlockState(position.getBlockPos()).getBlock();
+        Block block = Minecraft.getMinecraft().thePlayer.worldObj.getBlockState(position.getBlockPos()).getBlock();
         if (block == null || block == Blocks.air || block == Blocks.barrier || block == Blocks.water || block == Blocks.flowing_water || block == Blocks.lava || block == Blocks.flowing_lava) {
             return;
         }
@@ -59,7 +58,7 @@ public class BlockOverlayRender {
         }
         GlStateManager.disableTexture2D();
         GlStateManager.depthMask(false);
-        AxisAlignedBB box = block.getSelectedBoundingBox(BlockOverlay.mc.theWorld, position.getBlockPos()).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-BlockOverlay.mc.getRenderManager().viewerPosX, -BlockOverlay.mc.getRenderManager().viewerPosY, -BlockOverlay.mc.getRenderManager().viewerPosZ);
+        AxisAlignedBB box = block.getSelectedBoundingBox(Minecraft.getMinecraft().theWorld, position.getBlockPos()).expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-Minecraft.getMinecraft().getRenderManager().viewerPosX, -Minecraft.getMinecraft().getRenderManager().viewerPosY, -Minecraft.getMinecraft().getRenderManager().viewerPosZ);
 
         if (this.mod.getSettings().getOverlayMode() == BlockOverlayMode.OUTLINE) {
             if (this.mod.getSettings().isChroma()) {
