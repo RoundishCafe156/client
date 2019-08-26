@@ -12,6 +12,10 @@ public enum BlockOverlayMode {
         this.name = name;
     }
 
+    public static BlockOverlayMode getNextMode(final BlockOverlayMode mode) {
+        return values()[(mode.ordinal() + 1) % values().length];
+    }
+
     public String getName() {
         return this.name;
     }
