@@ -31,16 +31,6 @@ public class AutoGGConfig {
         return this.delay < 0 ? 1 : this.delay > 5 ? 1 : this.delay;
     }
 
-    public void setDelay(int delay) {
-        if (delay >= 0 && this.delay <= 5) {
-            this.delay = delay;
-        }
-    }
-
-    public void flipToggle() {
-        this.toggled = !this.toggled;
-    }
-
     public boolean isToggled() {
         return this.toggled;
     }
