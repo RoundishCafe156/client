@@ -1,10 +1,8 @@
 package cc.hyperium.mods.autogg;
 
-import cc.hyperium.Hyperium;
 import cc.hyperium.event.EventBus;
 import cc.hyperium.handlers.handlers.HypixelDetector;
 import cc.hyperium.mods.AbstractMod;
-import cc.hyperium.mods.autogg.commands.GGCommand;
 import cc.hyperium.mods.autogg.config.AutoGGConfig;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import org.apache.commons.io.IOUtils;
@@ -29,13 +27,12 @@ public class AutoGG extends AbstractMod {
         this.config = new AutoGGConfig();
 
         EventBus.INSTANCE.register(new AutoGGListener(this));
-        Hyperium.INSTANCE.getHandlers().getHyperiumCommandHandler().registerCommand(new GGCommand(this));
 
         // The GetTriggers class
         Multithreading.POOL.submit(() -> {
             try {
                 final String rawTriggers = IOUtils.toString(
-                    new URL("https://raw.githubusercontent.com/HyperiumClient/Hyperium-Repo/master/files/triggers.txt"),
+                    new URL("https://raw.githubusercontent.com/hyperiumjailbreak/tools/master/autoggtriggers.txt"),
                     Charset.forName("UTF-8")
                 );
                 triggers = new ArrayList<>(Arrays.asList(rawTriggers.split("\n")));
@@ -49,7 +46,7 @@ public class AutoGG extends AbstractMod {
 
     @Override
     public Metadata getModMetadata() {
-        return new Metadata(this, "AutoGG", "2.0", "2Pi");
+        return new Metadata(this, "AutoGG", "2", "2Pi");
     }
 
     public AutoGGConfig getConfig() {
