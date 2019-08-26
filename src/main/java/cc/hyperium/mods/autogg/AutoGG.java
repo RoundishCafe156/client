@@ -7,7 +7,7 @@ import cc.hyperium.mods.autogg.config.AutoGGConfig;
 import cc.hyperium.mods.sk1ercommon.Multithreading;
 import org.apache.commons.io.IOUtils;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,7 @@ public class AutoGG extends AbstractMod {
             try {
                 final String rawTriggers = IOUtils.toString(
                     new URL("https://raw.githubusercontent.com/hyperiumjailbreak/tools/master/autoggtriggers.txt"),
-                    Charset.forName("UTF-8")
+                        StandardCharsets.UTF_8
                 );
                 triggers = new ArrayList<>(Arrays.asList(rawTriggers.split("\n")));
             } catch (Exception e) {

@@ -3,7 +3,6 @@ import cc.hyperium.Hyperium;
 import cc.hyperium.config.Category;
 import cc.hyperium.config.Settings;
 import cc.hyperium.gui.HyperiumGui;
-import cc.hyperium.gui.MaterialTextField;
 import cc.hyperium.gui.hyperium.components.AbstractTab;
 import cc.hyperium.gui.hyperium.tabs.SettingsTab;
 import cc.hyperium.handlers.handlers.SettingsHandler;
@@ -38,7 +37,6 @@ public class HyperiumMainGui extends HyperiumGui {
     private List<AbstractTab> tabs;
     private AbstractTab currentTab;
     private List<RGBFieldSet> rgbFields = new ArrayList<>();
-    private MaterialTextField searchField;
 
     private HyperiumMainGui() {
         smol = new HyperiumFontRenderer(Settings.GUI_FONT, 14.0F, 0, 1.0F);
@@ -99,10 +97,6 @@ public class HyperiumMainGui extends HyperiumGui {
     @Override
     protected void pack() {
         show = false;
-        int yg = (height / 10); // Y grid
-        int xg = (width / 11);  // X grid
-        searchField = new MaterialTextField(xg * 10 - 110, yg + (yg / 2 - 10), 100, 20,
-            I18n.format("tabs.searchbar"), font);
     }
 
     @Override
@@ -120,13 +114,11 @@ public class HyperiumMainGui extends HyperiumGui {
         }
         drawRect(xg, yg, xg * 10, yg * 2, new Color(0, 0, 0, 225).getRGB());
         drawRect(xg, yg * 2, xg * 10, yg * 9, new Color(0, 0, 0, 225 / 2).getRGB());
-        searchField.render(mouseX, mouseY);
         GlStateModifier.INSTANCE.reset();
 
         title.drawCenteredString(I18n.format(currentTab.getTitle()), this.width / 2,
             yg + (yg / 2 - 8), 0xFFFFFF);
 
-        currentTab.setFilter(searchField.getText().isEmpty() ? null : searchField.getText());
         currentTab.render(xg, yg * 2, xg * 9, yg * 7);
 
         smol.drawString(Hyperium.version, this.width - smol.getWidth(Hyperium.version) - 1,
@@ -139,7 +131,6 @@ public class HyperiumMainGui extends HyperiumGui {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        searchField.update();
     }
 
     @Override
@@ -148,13 +139,6 @@ public class HyperiumMainGui extends HyperiumGui {
         initialGuiScale = Minecraft.getMinecraft().gameSettings.guiScale;
         Minecraft.getMinecraft().gameSettings.guiScale = 2;
         super.show();
-    }
-
-    @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
-
-        searchField.onClick(mouseX, mouseY, mouseButton);
     }
 
     private void renderHyperiumBackground(ScaledResolution sr) {
@@ -201,11 +185,5 @@ public class HyperiumMainGui extends HyperiumGui {
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         currentTab.handleMouseInput();
-    }
-
-    @Override
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
-        super.keyTyped(typedChar, keyCode);
-        searchField.keyTyped(typedChar, keyCode);
     }
 }

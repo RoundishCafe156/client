@@ -92,10 +92,6 @@ public class HypixelAPI {
         return friendsForCurrentUser;
     }
 
-    public CompletableFuture<JsonHolder> getLeaderboardWithID(String ID) {
-        return CompletableFuture.supplyAsync(() -> new JsonHolder(Sk1erMod.getInstance().rawWithAgent("https://api.sk1er.club/leaderboard/" + ID)), Multithreading.POOL);
-    }
-
     public CompletableFuture<HypixelApiGuild> getGuildFromName(String name) {
         return getGuild(GuildKey.fromName(name));
     }
@@ -129,7 +125,7 @@ public class HypixelAPI {
 
     private HypixelApiGuild getApiGuild(String key) {
         GuildKey guildKey = GuildKey.fromSerialized(key);
-        return new HypixelApiGuild(new JsonHolder(Sk1erMod.getInstance().rawWithAgent(String.format(guildKey.type.getUrl(), (Object[]) guildKey.formatStrings))));
+        return new HypixelApiGuild(new JsonHolder(Sk1erMod.getInstance().rawWithAgent(String.format(guildKey.type.getUrl(), (Object) guildKey.formatStrings))));
     }
 
     enum GuildKeyType {

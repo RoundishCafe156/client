@@ -41,7 +41,6 @@ public abstract class HyperiumGui extends GuiScreen {
     protected static ResourceLocation background = new ResourceLocation("textures/material/backgrounds/1.png");
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
     private final Map<GuiButton, Consumer<GuiButton>> updates = new HashMap<>();
-    private final Map<String, GuiButton> nameMap = new HashMap<>();
     public int offset = 0;
     private HashMap<GuiBlock, Runnable> actions = new HashMap<>();
     protected double scollMultiplier = 1;
@@ -195,7 +194,6 @@ public abstract class HyperiumGui extends GuiScreen {
         this.buttonList.add(button);
         this.clicks.put(button, consumer);
         this.updates.put(button, tick);
-        this.nameMap.put(name, button);
     }
 
     protected abstract void pack();
