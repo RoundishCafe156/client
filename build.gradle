@@ -19,8 +19,8 @@ version = "2.12.0"
 
 buildscript {
     repositories {
-        maven { url "https://files.minecraftforge.net/maven" }
         maven { url "https://repo.spongepowered.org/maven" }
+        maven { url "https://hyperiumjailbreak.mycloudrepo.io/public/repositories/forge-proxy" }
         maven { url "https://hyperiumjailbreak.mycloudrepo.io/public/repositories/gradle-plugin-proxy" }
     }
     dependencies {
