@@ -4,18 +4,11 @@ import cc.hyperium.Hyperium;
 import cc.hyperium.event.EventBus;
 import cc.hyperium.mods.AbstractMod;
 import cc.hyperium.utils.ChatColor;
-import net.minecraft.client.Minecraft;
 
 public class BlockOverlay extends AbstractMod {
-    public final static Minecraft mc = Minecraft.getMinecraft();
-
-    private final Metadata meta;
     private BlockOverlaySettings settings;
 
-    public BlockOverlay() {
-        this.meta = new Metadata(this, "BlockOverlay", "1.0", "aycy & powns");
-        this.meta.setDisplayName(ChatColor.RED + "BlockOverlay");
-    }
+    public BlockOverlay() {}
 
     @Override
     public AbstractMod init() {
@@ -28,7 +21,7 @@ public class BlockOverlay extends AbstractMod {
 
     @Override
     public Metadata getModMetadata() {
-        return this.meta;
+        return new Metadata(this, "BlockOverlay", "1", "aycy & powns");
     }
 
     public BlockOverlaySettings getSettings() {
