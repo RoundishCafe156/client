@@ -101,7 +101,7 @@ public class YeetHandler {
         if (player != null) yeets.add(new Yeet(player));
     }
 
-    class Yeet {
+    static class Yeet {
         int age;
         EntityPlayer sender;
 

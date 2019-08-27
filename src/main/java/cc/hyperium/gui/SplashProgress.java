@@ -37,7 +37,7 @@ public class SplashProgress {
     private static TextureManager ctm;
     private static HyperiumFontRenderer sfr;
 
-    public static void update() {
+    private static void update() {
         if (Minecraft.getMinecraft() == null || Minecraft.getMinecraft().getLanguageManager() == null) return;
         drawSplash(Minecraft.getMinecraft().getTextureManager());
     }
@@ -56,7 +56,7 @@ public class SplashProgress {
         framebuffer.bindFramebuffer(false);
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, (double) scaledresolution.getScaledWidth(), (double) scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
         GlStateManager.translate(0.0F, 0.0F, -2000.0F);

@@ -34,7 +34,6 @@ import cc.hyperium.handlers.handlers.LocationHandler;
 import cc.hyperium.handlers.handlers.OtherConfigOptions;
 import cc.hyperium.handlers.handlers.SettingsHandler;
 import cc.hyperium.handlers.handlers.StatusHandler;
-import cc.hyperium.handlers.handlers.ValueHandler;
 import cc.hyperium.handlers.handlers.animation.DabHandler;
 import cc.hyperium.handlers.handlers.animation.FlossDanceHandler;
 import cc.hyperium.handlers.handlers.animation.TPoseHandler;
@@ -46,7 +45,6 @@ import cc.hyperium.handlers.handlers.chat.FriendRequestChatHandler;
 import cc.hyperium.handlers.handlers.chat.GeneralChatHandler;
 import cc.hyperium.handlers.handlers.chat.HyperiumChatHandler;
 import cc.hyperium.handlers.handlers.chat.PartyInviteChatHandler;
-import cc.hyperium.handlers.handlers.chat.RankedRatingChatHandler;
 import cc.hyperium.handlers.handlers.chat.WinTrackingChatHandler;
 import cc.hyperium.handlers.handlers.data.HypixelAPI;
 import cc.hyperium.handlers.handlers.hud.VanillaEnhancementsHud;
@@ -66,7 +64,6 @@ public class HyperiumHandlers {
     private HypixelDetector hypixelDetector;
     private CommandQueue commandQueue;
     private CapeHandler capeHandler;
-    private ValueHandler valueHandler;
     private List<HyperiumChatHandler> chatHandlers;
     private GeneralChatHandler generalChatHandler;
     private HypixelAPI dataHandler;
@@ -103,7 +100,6 @@ public class HyperiumHandlers {
         register(new ReachDisplay());
         register(locationHandler = new LocationHandler());
         register(new VanillaEnhancementsHud());
-        register(valueHandler = new ValueHandler());
         register(layerDeadmau5HeadHandler = new LayerDeadmau5HeadHandler());
         register(hypixelValueTracking = new HypixelValueTracking());
         register(new ResolutionUtil());
@@ -120,7 +116,6 @@ public class HyperiumHandlers {
         register(new BroadcastEvents());
         commandQueue = new CommandQueue();
         dataHandler = new HypixelAPI();
-        registerChatHandler(new RankedRatingChatHandler());
         registerChatHandler(new DMChatHandler());
         registerChatHandler(new WinTrackingChatHandler());
         registerChatHandler(new FriendRequestChatHandler());
@@ -189,10 +184,6 @@ public class HyperiumHandlers {
 
     public CommandQueue getCommandQueue() {
         return commandQueue;
-    }
-
-    public ValueHandler getValueHandler() {
-        return valueHandler;
     }
 
     public GeneralChatHandler getGeneralChatHandler() {

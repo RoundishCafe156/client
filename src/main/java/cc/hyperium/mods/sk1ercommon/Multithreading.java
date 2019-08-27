@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -55,10 +54,4 @@ public class Multithreading {
     public static void runAsync(Runnable runnable) {
         POOL.execute(runnable);
     }
-
-    public static int getTotal() {
-        ThreadPoolExecutor tpe = (ThreadPoolExecutor) Multithreading.POOL;
-        return tpe.getActiveCount();
-    }
-
 }

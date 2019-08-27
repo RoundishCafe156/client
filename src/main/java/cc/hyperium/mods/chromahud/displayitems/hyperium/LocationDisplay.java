@@ -32,7 +32,7 @@ public class LocationDisplay extends DisplayItem {
 
     @Override
     public void draw(int starX, double startY, boolean config) {
-        String string = "";
+        String string;
         if (!Settings.CHROMAHUD_SQUAREBRACE_PREFIX_OPTION) {
             string = "Location: " + Hyperium.INSTANCE.getHandlers().getLocationHandler().getLocation();
         } else {

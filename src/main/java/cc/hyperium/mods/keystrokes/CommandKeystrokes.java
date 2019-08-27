@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class CommandKeystrokes implements BaseCommand {
-
     private final KeystrokesMod mod;
 
     public CommandKeystrokes(KeystrokesMod mod) {

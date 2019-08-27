@@ -20,7 +20,6 @@ package cc.hyperium.mods.keystrokes.render;
 import cc.hyperium.mods.keystrokes.keys.impl.CustomKey;
 
 public class CustomKeyWrapper {
-
     private CustomKey key;
     private double xOffset;
     private double yOffset;

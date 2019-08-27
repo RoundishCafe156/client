@@ -57,7 +57,7 @@ public class DisplayElementConfig extends GuiScreen {
     private int lastHeight = 0;
     private boolean mouseLock;
 
-    public DisplayElementConfig(DisplayElement element, ChromaHUD mod) {
+    DisplayElementConfig(DisplayElement element, ChromaHUD mod) {
         this.mod = mod;
         this.element = element;
         regenImage();

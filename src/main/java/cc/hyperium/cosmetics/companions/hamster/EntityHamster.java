@@ -15,7 +15,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityHamster extends EntityTameable {
-    public EntityHamster(World worldIn) {
+    EntityHamster(World worldIn) {
         super(worldIn);
 
         this.setSize(0.4F, 0.2F);
@@ -66,8 +66,8 @@ public class EntityHamster extends EntityTameable {
 
                 if (this.isOnLadder()) {
                     float f6 = 0.15F;
-                    this.motionX = MathHelper.clamp_double(this.motionX, (double) (-f6), (double) f6);
-                    this.motionZ = MathHelper.clamp_double(this.motionZ, (double) (-f6), (double) f6);
+                    this.motionX = MathHelper.clamp_double(this.motionX, (-f6), f6);
+                    this.motionZ = MathHelper.clamp_double(this.motionZ, (-f6), f6);
                     this.fallDistance = 0.0F;
 
                     if (this.motionY < -0.15D) {
@@ -92,8 +92,8 @@ public class EntityHamster extends EntityTameable {
                 }
 
                 this.motionY *= 0.9800000190734863D;
-                this.motionX *= (double) f4;
-                this.motionZ *= (double) f4;
+                this.motionX *= f4;
+                this.motionZ *= f4;
             } else {
                 double d1 = this.posY;
                 this.moveFlying(strafe, forward, 0.02F);
@@ -128,9 +128,9 @@ public class EntityHamster extends EntityTameable {
 
             this.moveFlying(strafe, forward, f2);
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= (double) f1;
+            this.motionX *= f1;
             this.motionY *= 0.800000011920929D;
-            this.motionZ *= (double) f1;
+            this.motionZ *= f1;
             this.motionY -= 0.02D;
 
             if (this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + 0.6000000238418579D - this.posY + d0, this.motionZ)) {

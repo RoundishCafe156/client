@@ -36,7 +36,6 @@ import java.util.function.Consumer;
 class MoveElementGui extends GuiScreen {
     private final Map<GuiButton, Consumer<GuiButton>> clicks = new HashMap<>();
     private final Map<GuiButton, Consumer<GuiButton>> updates = new HashMap<>();
-    private final Map<String, GuiButton> nameMap = new HashMap<>();
     private final ChromaHUD mod;
     private final DisplayElement element;
     private GuiButton edit;
@@ -45,7 +44,7 @@ class MoveElementGui extends GuiScreen {
     private boolean lastD = false;
     private boolean mouseLock;
 
-    public MoveElementGui(ChromaHUD mod, DisplayElement element) {
+    MoveElementGui(ChromaHUD mod, DisplayElement element) {
         this.mod = mod;
         this.element = element;
         mouseLock = Mouse.isButtonDown(0);
@@ -98,9 +97,7 @@ class MoveElementGui extends GuiScreen {
         double x2 = element.getXloc() * resolution.getScaledWidth_double() + (cbHud ? 60 : element.getDimensions().getWidth()) - offset;
         double y1 = element.getYloc() * resolution.getScaledHeight_double();
         double y2 = element.getYloc() * resolution.getScaledHeight_double() + element.getDimensions().getHeight();
-        //Left top right bottom
 
-        //Outline
         drawHorizontalLine((int) (x1 - 5), (int) (x2 + 5), (int) y1 - 5, Color.RED.getRGB());
         drawHorizontalLine((int) (x1 - 5), (int) (x2 + 5), (int) y2 + 5, Color.RED.getRGB());
         drawVerticalLine((int) x1 - 5, (int) (y1 - 5), (int) (y2 + 5), Color.RED.getRGB());
@@ -156,6 +153,5 @@ class MoveElementGui extends GuiScreen {
         this.buttonList.add(button);
         this.clicks.put(button, consumer);
         this.updates.put(button, tick);
-        this.nameMap.put(name, button);
     }
 }

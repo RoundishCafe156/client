@@ -30,7 +30,7 @@ public class WingsCosmetic extends AbstractCosmetic {
         EventBus.INSTANCE.register(new WingsRenderer(this));
     }
 
-    public ResourceLocation getLocation() {
+    ResourceLocation getLocation() {
         return dragon;
     }
 }

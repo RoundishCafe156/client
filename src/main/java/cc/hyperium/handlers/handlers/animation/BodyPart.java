@@ -1,18 +1,18 @@
 package cc.hyperium.handlers.handlers.animation;
 
 public class BodyPart {
-    public float rotationPointX;
-    public float rotationPointY;
-    public float rotationPointZ;
+    float rotationPointX;
+    float rotationPointY;
+    float rotationPointZ;
     public float rotateAngleX;
     public float rotateAngleY;
     public float rotateAngleZ;
     public float offsetX;
     public float offsetY;
-    public float offsetZ;
+    float offsetZ;
     public boolean visible = true;
 
-    public BodyPart calc(float percent, BodyPart next) {
+    BodyPart calc(float percent, BodyPart next) {
         BodyPart bodyPart = new BodyPart();
         bodyPart.rotationPointX = interpolate(this.rotationPointX, next.rotationPointX, percent);
         bodyPart.rotationPointY = interpolate(this.rotationPointY, next.rotationPointY, percent);

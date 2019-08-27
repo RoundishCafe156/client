@@ -8,42 +8,21 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class HamsterModel extends ModelBase {
-    /**
-     * main box for the hamster head
-     */
     private ModelRenderer hamsterHeadMain;
 
-    /**
-     * The hamster body
-     */
     private ModelRenderer hamsterBody;
 
-    /**
-     * Hamster's first leg
-     */
     private ModelRenderer hamsterLeg1;
 
-    /**
-     * Hamster's second leg
-     */
     private ModelRenderer hamsterLeg2;
 
-    /**
-     * Hamster's third leg
-     */
     private ModelRenderer hamsterLeg3;
 
-    /**
-     * Hamster's fourth leg
-     */
     private ModelRenderer hamsterLeg4;
 
-    /**
-     * The hamster's mane
-     */
     private ModelRenderer hamsterMane;
 
-    public HamsterModel() {
+    HamsterModel() {
         float f = 0.0F;
 
         hamsterHeadMain = new ModelRenderer(this, 0, 0);
@@ -79,9 +58,6 @@ public class HamsterModel extends ModelBase {
         hamsterHeadMain.setTextureOffset(0, 10).addBox(-1.5F, 0.0F, -3F, 3, 3, 4, 0);
     }
 
-    /**
-     * Sets the models various rotation angles then renders the model.
-     */
     @Override
     public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
         super.render(par1Entity, par2, par3, par4, par5, par6, par7);
@@ -119,10 +95,6 @@ public class HamsterModel extends ModelBase {
         GL11.glPopMatrix();
     }
 
-    /**
-     * Used for easily adding entity-dependent animations. The second and third float params here are the same second
-     * and third as in the setRotationAngles method.
-     */
     @Override
     public void setLivingAnimations(EntityLivingBase par1EntityLiving, float par2, float par3, float par4) {
         EntityHamster entityhamster = (EntityHamster) par1EntityLiving;
@@ -160,9 +132,7 @@ public class HamsterModel extends ModelBase {
     }
 
     @Override
-    public void setRotationAngles(float par1, float par2, float par3,
-                                  float par4, float par5, float par6, Entity par7Entity) {
-
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
         super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
 
         hamsterHeadMain.rotateAngleX = par5 / (180F / (float) Math.PI);

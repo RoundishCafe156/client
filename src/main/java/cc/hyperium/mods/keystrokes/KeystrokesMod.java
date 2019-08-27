@@ -24,15 +24,10 @@ import cc.hyperium.mods.keystrokes.config.KeystrokesSettings;
 import cc.hyperium.mods.keystrokes.render.KeystrokesRenderer;
 
 public class KeystrokesMod extends AbstractMod {
-    private final Metadata metaData;
-
     private KeystrokesSettings config;
     private KeystrokesRenderer renderer;
 
-    public KeystrokesMod() {
-        Metadata data = new Metadata(this, "KeystrokesMod", "5.0.1", "Fyu");
-        this.metaData = data;
-    }
+    public KeystrokesMod() {}
 
     @Override
     public AbstractMod init() {
@@ -47,7 +42,7 @@ public class KeystrokesMod extends AbstractMod {
 
     @Override
     public Metadata getModMetadata() {
-        return this.metaData;
+        return new Metadata(this, "Keystrokes", "5.0.1", "Fyu");
     }
 
     public KeystrokesSettings getSettings() {

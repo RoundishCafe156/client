@@ -19,8 +19,6 @@ package cc.hyperium.mods.chromahud.api;
 
 import cc.hyperium.mods.chromahud.ChromaHUDApi;
 import cc.hyperium.utils.JsonHolder;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class DisplayItem extends Dimension {
     protected final JsonHolder data;
@@ -51,10 +49,6 @@ public abstract class DisplayItem extends Dimension {
     }
 
     public abstract void draw(int x, double y, boolean config);
-
-    public List<ButtonConfig> configOptions() {
-        return new ArrayList<>();
-    }
 
     public String getType() {
         return data.optString("type");

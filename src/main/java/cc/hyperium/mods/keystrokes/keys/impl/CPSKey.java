@@ -42,7 +42,6 @@ public class CPSKey extends IKey {
         EventBus.INSTANCE.register(this);
     }
 
-
     @Override
     public void renderKey(int x, int y) {
         int yOffset = this.yOffset;

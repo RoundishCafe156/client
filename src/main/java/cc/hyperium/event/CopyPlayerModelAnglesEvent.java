@@ -29,7 +29,7 @@ public abstract class CopyPlayerModelAnglesEvent extends Event {
     @NotNull
     private final IMixinModelBiped model;
 
-    public CopyPlayerModelAnglesEvent(@NotNull AbstractClientPlayer entity, @NotNull IMixinModelBiped model) {
+    CopyPlayerModelAnglesEvent(@NotNull AbstractClientPlayer entity, @NotNull IMixinModelBiped model) {
         Preconditions.checkNotNull(entity, "entity");
         Preconditions.checkNotNull(model, "model");
 

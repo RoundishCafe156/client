@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class GuiScreenEditKeys extends GuiScreen {
-
     private KeystrokesMod mod;
     private CustomKeyWrapper selected;
     private CustomKeyWrapper currentlyDragging;
@@ -61,7 +60,7 @@ public class GuiScreenEditKeys extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 1:
                 CustomKeyWrapper key = new CustomKeyWrapper(new CustomKey(mod, 30, 1), 10, 10);

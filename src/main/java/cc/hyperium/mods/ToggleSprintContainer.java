@@ -33,5 +33,4 @@ public class ToggleSprintContainer {
             ((MixinKeyBinding) Minecraft.getMinecraft().gameSettings.keyBindSprint).setPressed(true);
         }
     }
-
 }

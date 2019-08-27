@@ -13,12 +13,12 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class CosmeticHat extends AbstractCosmetic {
-    public ModelBase hatModel;
-    public ResourceLocation hatTexture;
-    public CosmeticHat(EnumPurchaseType purchaseType) {
+    private ModelBase hatModel;
+    private ResourceLocation hatTexture;
+    CosmeticHat(EnumPurchaseType purchaseType) {
         super(purchaseType);
     }
-    public CosmeticHat setModel(ModelBase givenModel, ResourceLocation givenTexture) {
+    CosmeticHat setModel(ModelBase givenModel, ResourceLocation givenTexture) {
         this.hatModel = givenModel;
         this.hatTexture = givenTexture;
         return this;

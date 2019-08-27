@@ -23,11 +23,7 @@ import cc.hyperium.mods.GeneralStatisticsTracking;
 import cc.hyperium.utils.JsonHolder;
 import cc.hyperium.config.Settings;
 
-/**
- * @author Sk1er
- */
 public class CoinsDisplay extends DisplayItem {
-
     public CoinsDisplay(JsonHolder data, int ordinal) {
         super(data, ordinal);
         this.height = 10;
@@ -35,16 +31,14 @@ public class CoinsDisplay extends DisplayItem {
 
     @Override
     public void draw(int x, double y, boolean config) {
-
-        String render = null;
+        String s;
         if (!Settings.CHROMAHUD_SQUAREBRACE_PREFIX_OPTION) {
-            render = "Daily Coins: " + GeneralStatisticsTracking.dailyCoins;
+            s = "Daily Coins: " + GeneralStatisticsTracking.dailyCoins;
         } else {
-            render = "[Daily Coins] " + GeneralStatisticsTracking.dailyCoins;
+            s = "[Daily Coins] " + GeneralStatisticsTracking.dailyCoins;
         }
 
-
-        ElementRenderer.draw(x, y, render);
-        this.width = config ? ElementRenderer.getFontRenderer().getStringWidth(render) : 0;
+        ElementRenderer.draw(x, y, s);
+        this.width = config ? ElementRenderer.getFontRenderer().getStringWidth(s) : 0;
     }
 }

@@ -39,12 +39,11 @@ public class HyperiumModIntegration {
     private final ChromaHUD chromaHUD;
     private final Autotip autotip;
     private final AutoGG autogg;
-    private final GlintColorizer gc;
+    private final cc.hyperium.mods.GlintColorizer gc;
     private final BlockOverlay blockOverlay;
     private final OldAnimations oldanimations;
     private final AutofriendMod autofriend;
     private final FortniteCompassMod fncompass;
-    private final TabToggleMod tabToggle;
     private final ItemPhysicMod itemPhysicMod;
     private final VictoryRoyale victoryRoyale;
 
@@ -58,15 +57,15 @@ public class HyperiumModIntegration {
         this.oldanimations = ((OldAnimations) new OldAnimations().init());
         NickHider nickHider = new NickHider();
         nickHider.init();
-        this.tabToggle = (TabToggleMod) new TabToggleMod().init();
+        new TabToggleMod().init();
         this.victoryRoyale = (VictoryRoyale) new VictoryRoyale().init();
-        this.autofriend = (AutofriendMod) new AutofriendMod();
-        this.fncompass = (FortniteCompassMod) new FortniteCompassMod();
-        this.itemPhysicMod = (ItemPhysicMod) new ItemPhysicMod();
-        this.gc = (GlintColorizer) new GlintColorizer();
-        this.blockOverlay = (BlockOverlay) new BlockOverlay();
-        this.keystrokesMod = (KeystrokesMod) new KeystrokesMod();
-        this.timeChanger = (TimeChanger) new TimeChanger();
+        this.autofriend = new AutofriendMod();
+        this.fncompass = new FortniteCompassMod();
+        this.itemPhysicMod = new ItemPhysicMod();
+        this.gc = new cc.hyperium.mods.GlintColorizer();
+        this.blockOverlay = new BlockOverlay();
+        this.keystrokesMod = new KeystrokesMod();
+        this.timeChanger = new TimeChanger();
         this.gc.init();
         this.keystrokesMod.init();
         this.itemPhysicMod.init();
@@ -107,7 +106,7 @@ public class HyperiumModIntegration {
         return autogg;
     }
 
-    public GlintColorizer getGlintcolorizer() {
+    public cc.hyperium.mods.GlintColorizer getGlintcolorizer() {
         return gc;
     }
 
@@ -125,10 +124,6 @@ public class HyperiumModIntegration {
 
     public FortniteCompassMod getFncompass() {
         return fncompass;
-    }
-
-    public TabToggleMod getTabToggle() {
-        return tabToggle;
     }
 
     public ItemPhysicMod getItemPhysicMod() {

@@ -29,7 +29,7 @@ public final class EventSubscriber {
     @NotNull
     private final Priority priority;
 
-    public EventSubscriber(@NotNull Object instance, @NotNull Method method, @NotNull Priority priority) {
+    EventSubscriber(@NotNull Object instance, @NotNull Method method, @NotNull Priority priority) {
         Preconditions.checkNotNull(instance, "instance cannot be null");
         Preconditions.checkNotNull(method, "method cannot be null");
         Preconditions.checkNotNull(priority, "priority cannot be null");
@@ -50,7 +50,7 @@ public final class EventSubscriber {
     }
 
     @NotNull
-    public final Priority getPriority() {
+    final Priority getPriority() {
         return this.priority;
     }
 
@@ -88,6 +88,5 @@ public final class EventSubscriber {
         } else {
             return true;
         }
-
     }
 }

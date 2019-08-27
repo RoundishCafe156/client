@@ -24,12 +24,6 @@ public class StringConfig {
     private final Consumer<DisplayItem> draw;
     private String string;
 
-    public StringConfig(String string, Consumer<DisplayItem> load, Consumer<DisplayItem> draw) {
-        this.string = string;
-        this.load = load;
-        this.draw = draw;
-    }
-
     public StringConfig(String string) {
         this.string = string;
         load = (displayItem) -> {};

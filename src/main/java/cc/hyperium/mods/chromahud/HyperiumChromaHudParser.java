@@ -26,7 +26,6 @@ import cc.hyperium.mods.chromahud.displayitems.hyperium.HypixelDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.LocationDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.MemoryDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.PlayerDisplay;
-import cc.hyperium.mods.chromahud.displayitems.hyperium.RatingDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.ReachDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.ScoreboardDisplay;
 import cc.hyperium.mods.chromahud.displayitems.hyperium.ToggleSprintStatus;
@@ -40,7 +39,6 @@ public class HyperiumChromaHudParser implements ChromaHUDParser {
     public HyperiumChromaHudParser() {
         names.put("LOCATION", "Location");
         names.put("HYPIXEL", "Hypixel");
-        names.put("RATING", "Rating");
         names.put("SCOREBOARD", "Scoreboard");
         names.put("INFO", "Hyperium Info");
         names.put("COINS", "Coin Display");
@@ -60,8 +58,6 @@ public class HyperiumChromaHudParser implements ChromaHUDParser {
                 return new LocationDisplay(item, ord);
             case "HYPIXEL":
                 return new HypixelDisplay(item, ord);
-            case "RATING":
-                return new RatingDisplay(item, ord);
             case "COINS":
                 return new CoinsDisplay(item, ord);
             case "SCOREBOARD":

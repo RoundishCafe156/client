@@ -331,6 +331,6 @@ public class KeystrokesSettings {
     }
 
     private double capDouble(double valueIn, double minValue, double maxValue) {
-        return (valueIn < minValue) ? minValue : ((valueIn > maxValue) ? maxValue : valueIn);
+        return (valueIn < minValue) ? minValue : (Math.min(valueIn, maxValue));
     }
 }

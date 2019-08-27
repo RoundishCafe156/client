@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
 public class MemoryDisplay extends DisplayItem {
-
     public MemoryDisplay(JsonHolder data, int ordinal) {
         super(data, ordinal);
     }

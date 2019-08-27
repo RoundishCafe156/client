@@ -53,7 +53,7 @@ public class EditItemsGui extends GuiScreen {
     private DisplayItem modifying;
     private int tmpId;
 
-    public EditItemsGui(DisplayElement element, ChromaHUD mod) {
+    EditItemsGui(DisplayElement element, ChromaHUD mod) {
         this.element = element;
         this.mod = mod;
     }

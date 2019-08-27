@@ -44,13 +44,9 @@ import java.io.FileWriter;
 import java.util.List;
 
 public class ChromaHUD extends AbstractMod {
-    private final Metadata meta;
     private File suggestedConfigurationFile;
 
-    public ChromaHUD() {
-        Metadata metadata = new Metadata(this, "ChromaHUD", "3.0", "Sk1er");
-        this.meta = metadata;
-    }
+    public ChromaHUD() {}
 
     public AbstractMod init() {
         suggestedConfigurationFile = new File(Hyperium.folder, "/displayconfig.json");
@@ -134,7 +130,7 @@ public class ChromaHUD extends AbstractMod {
 
     @Override
     public Metadata getModMetadata() {
-        return this.meta;
+        return new Metadata(this, "ChromaHUD", "3", "Sk1er");
     }
 
     public void setup() {

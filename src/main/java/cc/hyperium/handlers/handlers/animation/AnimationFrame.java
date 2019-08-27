@@ -44,43 +44,43 @@ public class AnimationFrame {
         return time;
     }
 
-    public BodyPart getLeftUpperArm() {
+    BodyPart getLeftUpperArm() {
         return leftUpperArm;
     }
 
-    public BodyPart getLeftLowerArm() {
+    BodyPart getLeftLowerArm() {
         return leftLowerArm;
     }
 
-    public BodyPart getRightUpperArm() {
+    BodyPart getRightUpperArm() {
         return rightUpperArm;
     }
 
-    public BodyPart getRightLowerArm() {
+    BodyPart getRightLowerArm() {
         return rightLowerArm;
     }
 
-    public BodyPart getChest() {
+    BodyPart getChest() {
         return chest;
     }
 
-    public BodyPart getHead() {
+    BodyPart getHead() {
         return head;
     }
 
-    public BodyPart getLeftUpperLeg() {
+    BodyPart getLeftUpperLeg() {
         return leftUpperLeg;
     }
 
-    public BodyPart getLeftLowerLeg() {
+    BodyPart getLeftLowerLeg() {
         return leftLowerLeg;
     }
 
-    public BodyPart getRightUpperLeg() {
+    BodyPart getRightUpperLeg() {
         return rightUpperLeg;
     }
 
-    public BodyPart getRightLowerLeg() {
+    BodyPart getRightLowerLeg() {
         return rightLowerLeg;
     }
 }
