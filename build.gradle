@@ -104,7 +104,7 @@ repositories {
         url "https://hyperiumjailbreak.mycloudrepo.io/public/repositories/jitpack-proxy"
     }
     maven {
-        name "SpongePowered
+        name "SpongePowered"
         url "https://repo.spongepowered.org/maven/"
     }
 }
