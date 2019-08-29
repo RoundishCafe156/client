@@ -29,7 +29,7 @@ public class AddonBootstrap {
     private List<ITranslator> translators = Arrays.asList(
             new MixinTranslator(),
             new TransformerTranslator()
-   );
+    );
 
     private AddonBootstrap() {
         if (!modDirectory.mkdirs() && !modDirectory.exists()) {
@@ -158,7 +158,7 @@ public class AddonBootstrap {
         this.phase = phase;
     }
 
-    ArrayList<File> getAddonResourcePacks() {
+    public ArrayList<File> getAddonResourcePacks() {
         return addonResourcePack;
     }
 }
