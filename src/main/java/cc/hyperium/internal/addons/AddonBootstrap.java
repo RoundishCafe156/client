@@ -9,16 +9,13 @@ import cc.hyperium.internal.addons.translate.ITranslator;
 import cc.hyperium.internal.addons.translate.MixinTranslator;
 import cc.hyperium.internal.addons.translate.TransformerTranslator;
 import net.minecraft.launchwrapper.Launch;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.*;
 import java.util.jar.JarFile;
 
-@SuppressWarnings("UNUSED")
 public class AddonBootstrap {
-
     private static ArrayList<File> addonResourcePack = new ArrayList<>();
     public static AddonBootstrap INSTANCE = new AddonBootstrap();
     private ArrayList<File> jars;
@@ -31,7 +28,8 @@ public class AddonBootstrap {
     private WorkspaceAddonLoader workspaceAddonLoader = new WorkspaceAddonLoader();
     private List<ITranslator> translators = Arrays.asList(
             new MixinTranslator(),
-            new TransformerTranslator());
+            new TransformerTranslator()
+   );
 
     private AddonBootstrap() {
         if (!modDirectory.mkdirs() && !modDirectory.exists()) {
@@ -44,7 +42,6 @@ public class AddonBootstrap {
         FilenameFilter filenameFilter = (dir, name) -> name.toLowerCase().endsWith(".jar");
 
         jars = (ArrayList<File>) Arrays.asList(Objects.requireNonNull(modDirectory.listFiles(filenameFilter)));
-
     }
 
     public void init() {
@@ -74,12 +71,9 @@ public class AddonBootstrap {
         File[] pendings = pendingDirectory.exists() ? pendingDirectory.listFiles() : new File[0];
 
         try {
-            if (pendingDirectory.exists()) {
-
-                if (pendings != null) {
-                    for (File pending : pendings) {
-                        pendingManifests.add((new AddonManifestParser(new JarFile(pending))).getAddonManifest());
-                    }
+            if (pendingDirectory.exists() && pendings != null) {
+                for (File pending : pendings) {
+                    pendingManifests.add((new AddonManifestParser(new JarFile(pending))).getAddonManifest());
                 }
             }
         } catch (Exception e) {
@@ -99,7 +93,6 @@ public class AddonBootstrap {
                     addons.add(addon);
                 }
             } catch (Exception e) {
-                Hyperium.LOGGER.error("Could not load {}!", jar.getName());
                 e.printStackTrace();
             }
         }
@@ -124,7 +117,6 @@ public class AddonBootstrap {
     public Phase getPhase() {
         return phase;
     }
-
 
     public ArrayList<AddonManifest> getAddonManifests() {
         return addonManifests;
