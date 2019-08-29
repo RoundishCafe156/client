@@ -157,4 +157,8 @@ public class AddonBootstrap {
     public void setPhase(Phase phase) {
         this.phase = phase;
     }
+
+    ArrayList<File> getAddonResourcePacks() {
+        return addonResourcePack;
+    }
 }
