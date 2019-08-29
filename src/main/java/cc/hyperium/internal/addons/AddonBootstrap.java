@@ -158,7 +158,7 @@ public class AddonBootstrap {
         this.phase = phase;
     }
 
-    public ArrayList<File> getAddonResourcePacks() {
+    public static ArrayList<File> getAddonResourcePacks() {
         return addonResourcePack;
     }
 }
