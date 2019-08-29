@@ -1,6 +1,6 @@
 package cc.hyperium.internal.addons;
 
-public enum  Phase {
+public enum Phase {
     NOT_STARTED,
     PREINIT,
     INIT,
