@@ -1,6 +1,5 @@
 package cc.hyperium.internal.addons;
 
-import cc.hyperium.Hyperium;
 import cc.hyperium.internal.addons.misc.AddonManifestParser;
 import cc.hyperium.internal.addons.strategy.AddonLoaderStrategy;
 import cc.hyperium.internal.addons.strategy.DefaultAddonLoader;
